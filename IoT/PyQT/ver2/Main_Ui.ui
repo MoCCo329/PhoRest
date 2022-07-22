@@ -71,7 +71,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>170</y>
+        <y>160</y>
         <width>801</width>
         <height>20</height>
        </rect>
@@ -362,6 +362,11 @@
         <height>71</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+background-color: rgb(58, 134, 255);
+border-radius: 5px;</string>
+      </property>
       <property name="text">
        <string>뒤로</string>
       </property>
@@ -373,28 +378,36 @@
        <rect>
         <x>20</x>
         <y>10</y>
-        <width>681</width>
+        <width>691</width>
         <height>461</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <property name="leftMargin">
-        <number>15</number>
+        <number>45</number>
        </property>
        <property name="topMargin">
-        <number>15</number>
+        <number>18</number>
        </property>
        <property name="rightMargin">
-        <number>15</number>
+        <number>43</number>
        </property>
        <property name="bottomMargin">
-        <number>15</number>
+        <number>18</number>
        </property>
-       <property name="spacing">
+       <property name="horizontalSpacing">
+        <number>70</number>
+       </property>
+       <property name="verticalSpacing">
         <number>25</number>
        </property>
        <item row="1" column="0">
         <widget class="QLabel" name="Photo3">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
          <property name="text">
           <string>이미지 3</string>
          </property>
@@ -405,6 +418,11 @@
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="Photo1">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
          <property name="text">
           <string>이미지 1</string>
          </property>
@@ -415,6 +433,11 @@
        </item>
        <item row="0" column="1">
         <widget class="QLabel" name="Photo2">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
          <property name="text">
           <string>이미지 2</string>
          </property>
@@ -425,6 +448,11 @@
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="Photo4">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
          <property name="text">
           <string>이미지 4</string>
          </property>
@@ -451,19 +479,273 @@
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>691</width>
+        <height>461</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px solid black;
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="ChooseFramePage">
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>340</x>
-        <y>150</y>
-        <width>141</width>
-        <height>51</height>
+        <x>50</x>
+        <y>50</y>
+        <width>471</width>
+        <height>71</height>
        </rect>
       </property>
       <property name="text">
-       <string>프레임 선택 페이지</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;사용할 프레임을 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>110</y>
+        <width>491</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;기본 프레임 외의 프레임을 사용하고 싶다면 고유 프레임 번호를 입력하세요 &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>160</y>
+        <width>801</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QStackedWidget" name="BottomFrameStack">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>190</y>
+        <width>621</width>
+        <height>271</height>
+       </rect>
+      </property>
+      <widget class="QWidget" name="page">
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>20</y>
+          <width>481</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radious : 5%;
+background-color : rgb(255, 255, 0);
+</string>
+        </property>
+        <property name="text">
+         <string>기본 프레임 (2개씩 2~3장?)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Frame_Next_Btn">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>200</y>
+          <width>51</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	background: #00AE68;
+	color: #FFF;
+	border-radius: 5px;
+}
+QPushButton:hover{
+	background: #181818;
+	color: #FFF;
+	border-radius: 5px;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Frame_Prev_Btn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>200</y>
+          <width>51</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	background: #00AE68;
+	color: #FFF;
+	border-radius: 5px;
+}
+QPushButton:hover{
+	background: #181818;
+	color: #FFF;
+	border-radius: 5px;
+}
+</string>
+        </property>
+        <property name="text">
+         <string>&lt;</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_2"/>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>200</y>
+        <width>101</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>QR코드</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="indent">
+       <number>0</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="PrintBtn">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>380</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background: #00AE68;
+	color: #FFF;
+	border-radius: 5px;
+}
+QPushButton:hover{
+	background: #181818;
+	color: #FFF;
+	border-radius: 5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Print</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ApplyBtn">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>100</y>
+        <width>61</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background: #00AE68;
+	color: #FFF;
+	border-radius: 5px;
+}
+QPushButton:hover{
+	background: #181818;
+	color: #FFF;
+	border-radius: 5px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>적용</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>60</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>30</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt; 고유프레임 번호를 입력해주세요 &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="PrintingPage">
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>150</y>
+        <width>691</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄중 디자인 어케 꾸미징&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄중일땐 위에 프레임 사진 계속 띄워놓을예정&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄 끝나면 인쇄완료 창 띄우고&lt;br/&gt;아무곳이나 클릭시 처음 화면으로 돌아가기&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="DonePrinting">
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>130</y>
+        <width>691</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄 완료&lt;br/&gt;&lt;br/&gt;아무곳이나 클릭시 되돌아가고&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;1분간 냅둬도 초기화면으로 돌아가게 구현해야징&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -484,7 +766,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="LogoPage">
      <widget class="QLabel" name="LogoImg">
@@ -508,7 +790,7 @@
      </widget>
     </widget>
     <widget class="QWidget" name="RecommandPosePage">
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="PoseImg">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -516,6 +798,11 @@
         <width>571</width>
         <height>431</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
       </property>
       <property name="text">
        <string>포즈 이미지</string>
@@ -561,6 +848,11 @@
         <height>401</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px solid black;
+}</string>
+      </property>
       <property name="text">
        <string>카메라 화면 띄워줄 공간</string>
       </property>
@@ -584,7 +876,7 @@
        </font>
       </property>
       <property name="text">
-       <string>15</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;15&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -595,14 +887,48 @@
      <widget class="QLabel" name="Top_Big_Photo">
       <property name="geometry">
        <rect>
-        <x>110</x>
+        <x>100</x>
         <y>20</y>
         <width>581</width>
         <height>431</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px solid black;
+}</string>
+      </property>
       <property name="text">
        <string>이미지 크게 보여줄 공간</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QLabel" name="PhotoPlusFrame">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>20</y>
+        <width>581</width>
+        <height>430</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 1px solid black;
+}</string>
+      </property>
+      <property name="text">
+       <string>프레임 적용 이미지를 띄워줄 예정</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </widget>
@@ -631,7 +957,7 @@
    <sender>NextBtn</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>NextButton()</slot>
+   <slot>NextBottomButton_to_2()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>749</x>
@@ -803,10 +1129,58 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>NextBtn_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>NextBottomButton_to_4()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>750</x>
+     <y>911</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>838</x>
+     <y>896</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PrintBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Printing()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>745</x>
+     <y>878</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>865</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ApplyBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Applying()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>669</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>851</x>
+     <y>591</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>RecommandPose()</slot>
-  <slot>NextButton()</slot>
+  <slot>NextBottomButton_to_2()</slot>
   <slot>Press_Btn1()</slot>
   <slot>Press_Btn2()</slot>
   <slot>Press_Btn3()</slot>
@@ -818,5 +1192,8 @@
   <slot>Press_ShotBtn()</slot>
   <slot>Press_Back()</slot>
   <slot>Press_PreparedBtn()</slot>
+  <slot>NextBottomButton_to_4()</slot>
+  <slot>Press_Printing()</slot>
+  <slot>Press_Applying()</slot>
  </slots>
 </ui>
