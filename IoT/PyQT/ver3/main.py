@@ -69,13 +69,13 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         # 이미지 클릭시 크게 띄워줄것임
         if (self.stack.currentIndex() == 3 and self.TopStack.currentIndex()==3 and self.Shot_Click_Flag):
             # 이미지1
-            if(e.x()>=33 and e.x()<=347 and e.y()>=514 and e.y()<=717):
+            if(e.x()>=67 and e.x()<=544 and e.y()>=752 and e.y()<=1062):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
-            elif(e.x()>=372 and e.x()<=684 and e.y()>=514 and e.y()<=717):
+            elif(e.x()>=615 and e.x()<=1091 and e.y()>=752 and e.y()<=1062):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo2.jpg')")
-            elif (e.x() >= 34 and e.x() <= 347 and e.y() >= 742 and e.y() <= 945):
+            elif (e.x() >= 67 and e.x() <= 544 and e.y() >= 1112 and e.y() <= 1422):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo3.jpg')")
-            elif (e.x() >= 372 and e.x() <= 684 and e.y() >= 742 and e.y() <= 945):
+            elif (e.x() >= 615 and e.x() <= 1091 and e.y() >= 1112 and e.y() <= 1422):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo4.jpg')")
 
 
@@ -147,13 +147,17 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         # 카메라에서 시간초마다 사진을 찍게 하려면 별도 스레드에서 구현
         self.ShotPhoto_thread = threading.Thread(target=self.ShotPhoto)
+        self.RunCamera_thread = threading.Thread(target=self.Run_Camera)
         self.ShotPhoto_thread.start()
+        self.RunCamera_thread.start()
 
     def Run_Camera(self):
         global CurrentPhotoCnt, cap
-        cap = cv2.VideoCapture(-1)
+        cap = cv2.VideoCapture(1)
+        print("작동중?")
         width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
         height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        print("width: {} height: {}".format(width,height))
         self.Label_Camera.resize(width, height)
 
         while self.CurrentPhotoCnt < 4:
@@ -179,6 +183,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                 self.Label_Timer.setText(str(i))
                 time.sleep(1)
             self.Label_Timer.setText("0")
+            self.kimchi(num)
 
             # 사진을 찍는 신호 보냄
             # 그러면 다른 스레드에서 신호가 오면 사진을 찍고 flag 다시 원래대로 돌려놓음
@@ -247,12 +252,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.initImgs()
 
 
-
-
-
-
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = MainWindow()
@@ -260,3 +259,4 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     except:
         print("Exiting")
+        cap.release()
