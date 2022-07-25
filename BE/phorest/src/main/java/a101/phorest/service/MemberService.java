@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    EntityManager em;
 
     @Transactional
     public String join(Member member){
@@ -29,6 +31,12 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
+
+//    @Transactional
+//    void update(Member member) { //itemParam: 파리미터로 넘어온 준영속 상태의 엔티티
+//        Member member = em.find(member.class, memberRepository.getId()); //같은 엔티티를 조회한
+//                findItem.setPrice(itemParam.getPrice()); //데이터를 수정한다.
+//    }
 
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
