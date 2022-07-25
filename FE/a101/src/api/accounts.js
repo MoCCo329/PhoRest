@@ -2,6 +2,7 @@ import api from './api'
 
 const END_POINT = 'accounts'
 
+
 const accounts = {
   login (data) {
     return api({

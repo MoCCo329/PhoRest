@@ -1,20 +1,22 @@
 import './App.css'
-import React, { useState } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 // pages
 import Download from './pages/Download'
 import Main from './pages/Main'
 import NotFount404 from './pages/NotFound404'
+import Mypage from './pages/Mypage'
 
 
 function App() {
 
   return (
     <Routes>
-      <Route exact path="/" component={ Main } />
-      <Route exact path="/Download" component={ Download } />
-      <Route exact path="/NotFound" component={ NotFount404 } />
+      <Route exact path="/" element={<Main/>} />
+      <Route exact path="/Download" element={<Download/>} />
+      <Route exact path="/Mypage" element={<Mypage/>} />
+      <Route exact path="/NotFound" element={<NotFount404/>} />
     </Routes>
   );
 }
