@@ -5,8 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MyPhotos from './MyPhotos';
-// import MyCalendar from './MyCalendar';
-// import { Calender } from './Calender';
+import ScrollCalendar from '../ScrollCalendar/ScrollCalendar';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -64,7 +63,7 @@ export default function ActivityTabs() {
       </TabPanel>
       <TabPanel value={value} index={1}>
         내 활동 내역 달력으로 보기
-        {/* <Calender/> */}
+        <ScrollCalendar/>
       </TabPanel>
       <TabPanel value={value} index={2}>
         즐겨찾기 목록
