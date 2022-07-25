@@ -2,6 +2,7 @@ package a101.phorest.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +16,11 @@ public class Member {
     @Column(name="member_id")
     private Long id;
 
+    @UniqueElements
     private String username;
+
+    @UniqueElements
+    private String nickname;
 
     private String password; // pw ????!?!
 

@@ -1,17 +1,25 @@
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/phorest
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://i7a101.p.ssafy.io:3306/admin
+    username: admin
+    password: ubuntuadmin0725
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#    url: jdbc:h2:tcp://localhost/~/phorest
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+
 
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
-        #        show_sql: true
+        show_sql: true
+        ddl-auto : none
         format_sql: true
 
 logging:

@@ -23,6 +23,7 @@ public class MemberController {
 
         Member member = new Member();
         member.setUsername(form.getUsername());
+        member.setNickname(form.getNickname());
         member.setPhone(form.getPhone());
 
         try{
@@ -37,4 +38,12 @@ public class MemberController {
 
         return true; // 첫번째 페이지로 넘어감
     }
+//
+//    @PostMapping("members/login")
+//    @ResponseBody
+//    public Boolean login(@Valid MemberForm form, BindingResult result){
+//        Member member = new Member();
+//
+//        if(form.getUsername() )
+//    }
 }
