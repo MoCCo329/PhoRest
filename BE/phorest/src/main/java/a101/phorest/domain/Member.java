@@ -19,21 +19,18 @@ public class Member {
 
     private String password; // pw ????!?!
 
-    private String nickname;
-
     private String phone;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "mypage_id") // mypage - member 일대일. 주인은 member?
-    private Mypage mypages;
+    @OneToMany(mappedBy = "member")// Member - mypage 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. mypage가 주인장.
+    private List<Mypage> mypages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)//Member - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. 멤버가 주인장.
+    @OneToMany(mappedBy = "member")//Member - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. comment가 주인장.
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)//Member - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. 멤버가 주인장.
+    @OneToMany(mappedBy = "member")//Member - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. like가 주인장.
     private List<Like> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)//Member - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. 멤버가 주인장.
+    @OneToMany(mappedBy = "member")//Member - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. bookmark가 주인장.
     private List<Bookmark> bookmarks = new ArrayList<>();
 
 
