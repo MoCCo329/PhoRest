@@ -20,7 +20,8 @@ public class Mypage {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)//하나의 마이페이지에 여러개의 게시글이 있을 수 있다. 일대다. 주인은 게시글. mappedby 사용하기
-    private List<Post> posts = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)//하나의 마이페이지에 여러개의 게시글이 있을 수 있다. 일대다. 주인은 게시글.
+    @JoinColumn(name = "post_id")
+    private Post post;
 
 }
