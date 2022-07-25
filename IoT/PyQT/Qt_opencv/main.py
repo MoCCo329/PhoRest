@@ -10,6 +10,8 @@ import threading
 import cv2
 from picamera import PiCamera
 
+stop_event = threading.Event()
+
 class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -128,6 +130,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     
     def Run_Camera(self):
         global CurrentPhotoCnt, cap
+        
         cap = cv2.VideoCapture(-1)
         width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
         height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -136,6 +139,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             ret, img = cap.read()
             if ret:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                img = cv2.flip(img, 1)
                 h, w, c = img.shape
                 qImg = QImage(img.data, w, h, w*c, QImage.Format_RGB888)
                 Videopixmap = QPixmap.fromImage(qImg)
@@ -147,7 +151,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     #----------------------------4번째 촬영 페이지---------------------------------
     def ShotPhoto(self):
-        global RunCamera_thread
         # 타이머 작동
         self.StartTime = 15
         print("점검1")
@@ -156,8 +159,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                 self.Label_Timer.setText(str(i))
                 time.sleep(1)
             self.Label_Timer.setText("0")
-            self.RunCamera_thread.stop()
-            time.sleep(0.5)
             self.kimchi(num)
 
             # 사진을 찍는 신호 보냄
@@ -167,7 +168,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             # self.CurrentPhotoCnt 가 3이면 찍고, 0으로 돌려놓음
             # 사진이 저장되는 시간을 확보하기 위해서 3초간의 sleep을 둠
             time.sleep(3)
-            self.RunCamera_thread.start()
 
             pixmap = QPixmap("./photoDir/photo{}.jpg".format(num))
             pixmap = pixmap.scaledToHeight(200)
@@ -182,11 +182,10 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         print("점검2")
 
     def kimchi(self,num):
-        #global cap
-        #img = cap.read()
+        global cap
+        ret, img = cap.read()
         #img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        #cv2.imwrite('./photoDir/photo{}.jpg'.format(num),img, params=[cv2.IMWRITE_JPEG_QUALITY,100])
-        system('raspistill -o ./photoDir/photo{}.jpg')
+        cv2.imwrite('./photoDir/photo{}.jpg'.format(num), img)
 
     def Press_Back(self):
         self.stack.setCurrentIndex(self.stack.currentIndex()-1)
