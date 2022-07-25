@@ -1,0 +1,1331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1293</width>
+    <height>1455</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stack">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>720</y>
+      <width>1280</width>
+      <height>720</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color : #FFF7E7</string>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="InitPage">
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>415</x>
+        <y>330</y>
+        <width>451</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color : #C25642</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;터치하여 PhoRest를 시작해 보세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ChoosePeoplePage">
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>60</y>
+        <width>471</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;촬영할 인원수를 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>160</y>
+        <width>1281</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>80</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;설정된 인원수 : &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="NowPeople">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>80</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;N명&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="RecommandBtn">
+      <property name="geometry">
+       <rect>
+        <x>850</x>
+        <y>40</y>
+        <width>231</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>AcadEref</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+      </property>
+      <property name="text">
+       <string>추천 포즈</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="NextBtn">
+      <property name="geometry">
+       <rect>
+        <x>1140</x>
+        <y>40</y>
+        <width>101</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+      </property>
+      <property name="text">
+       <string>&gt;</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>1261</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>50</number>
+       </property>
+       <property name="topMargin">
+        <number>50</number>
+       </property>
+       <property name="rightMargin">
+        <number>50</number>
+       </property>
+       <property name="bottomMargin">
+        <number>50</number>
+       </property>
+       <property name="spacing">
+        <number>100</number>
+       </property>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="Btn3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>3명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="Btn5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>5명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="Btn1">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::DefaultContextMenu</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>1명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="Btn6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>6명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="Btn2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>2명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="Btn4">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>4명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="Btn7">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>7명</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="Btn8">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>AcadEref</family>
+           <pointsize>20</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+         </property>
+         <property name="text">
+          <string>8명</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ShotPage">
+     <widget class="QPushButton" name="Btn_Already">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>230</y>
+        <width>471</width>
+        <height>311</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>AcadEref</family>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: #FF8200;
+    background-color: #FFE650		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FFC81E;
+	border-radius: 20px;
+}</string>
+      </property>
+      <property name="text">
+       <string>촬영 시작</string>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Btn_Back_2">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>40</y>
+        <width>81</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+      </property>
+      <property name="text">
+       <string>뒤로</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="PhotoPage">
+     <widget class="QWidget" name="gridLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>1111</width>
+        <height>681</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <property name="leftMargin">
+        <number>45</number>
+       </property>
+       <property name="topMargin">
+        <number>18</number>
+       </property>
+       <property name="rightMargin">
+        <number>43</number>
+       </property>
+       <property name="bottomMargin">
+        <number>18</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>70</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>25</number>
+       </property>
+       <item row="1" column="0">
+        <widget class="QLabel" name="Photo3">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
+         <property name="text">
+          <string>이미지 3</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="Photo1">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
+         <property name="text">
+          <string>이미지 1</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="Photo2">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
+         <property name="text">
+          <string>이미지 2</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="Photo4">
+         <property name="styleSheet">
+          <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+         </property>
+         <property name="text">
+          <string>이미지 4</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="NextBtn_3">
+      <property name="geometry">
+       <rect>
+        <x>1160</x>
+        <y>600</y>
+        <width>91</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+      </property>
+      <property name="text">
+       <string>&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>1111</width>
+        <height>681</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px solid black;
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>label_2</zorder>
+     <zorder>gridLayoutWidget_3</zorder>
+     <zorder>NextBtn_3</zorder>
+    </widget>
+    <widget class="QWidget" name="ChooseFramePage">
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>50</y>
+        <width>471</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt; font-weight:600;&quot;&gt;사용할 프레임을 선택해주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>110</y>
+        <width>491</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;기본 프레임 외의 프레임을 사용하고 싶다면 고유 프레임 번호를 입력하세요 &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>160</y>
+        <width>1281</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QStackedWidget" name="BottomFrameStack">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>190</y>
+        <width>1001</width>
+        <height>521</height>
+       </rect>
+      </property>
+      <widget class="QWidget" name="page">
+       <widget class="QLabel" name="label_7">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>20</y>
+          <width>801</width>
+          <height>481</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radious : 5%;
+background-color : rgb(255, 255, 0);
+</string>
+        </property>
+        <property name="text">
+         <string>기본 프레임 (2개씩 2~3장?)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Frame_Next_Btn">
+        <property name="geometry">
+         <rect>
+          <x>930</x>
+          <y>430</y>
+          <width>51</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+        </property>
+        <property name="text">
+         <string>&gt;</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Frame_Prev_Btn">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>430</y>
+          <width>51</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+        </property>
+        <property name="text">
+         <string>&lt;</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_2"/>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>1050</x>
+        <y>270</y>
+        <width>191</width>
+        <height>201</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>QR코드</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="indent">
+       <number>0</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="PrintBtn">
+      <property name="geometry">
+       <rect>
+        <x>1070</x>
+        <y>610</y>
+        <width>181</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Print</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ApplyBtn">
+      <property name="geometry">
+       <rect>
+        <x>1150</x>
+        <y>70</y>
+        <width>101</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	color: white;
+    background-color: #FFB937		;
+    padding: 12px;
+    border-radius: 4px;
+    border-bottom: 4px solid #FF8200;
+	border-radius: 20px;
+}</string>
+      </property>
+      <property name="text">
+       <string>적용</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>940</x>
+        <y>90</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>70</y>
+        <width>291</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>AcadEref</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;고유프레임 번호를 입력해주세요 &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="PrintingPage">
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>270</y>
+        <width>691</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄중 디자인 어케 꾸미징&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄중일땐 위에 프레임 사진 계속 띄워놓을예정&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄 끝나면 인쇄완료 창 띄우고&lt;br/&gt;아무곳이나 클릭시 처음 화면으로 돌아가기&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="DonePrinting">
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>250</y>
+        <width>691</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;인쇄 완료&lt;br/&gt;&lt;br/&gt;아무곳이나 클릭시 되돌아가고&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;1분간 냅둬도 초기화면으로 돌아가게 구현해야징&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QStackedWidget" name="TopStack">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1280</width>
+      <height>720</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color : #FFF7E7</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="LogoPage">
+     <widget class="QLabel" name="LogoImg">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>260</y>
+        <width>200</width>
+        <height>200</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image:url('./logo.png')</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="RecommandPosePage">
+     <widget class="QLabel" name="PoseImg">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>20</y>
+        <width>1041</width>
+        <height>651</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px double #ABF760;
+}</string>
+      </property>
+      <property name="text">
+       <string>포즈 이미지</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="LeftBtn">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>600</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>왼쪽</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="RightBtn">
+      <property name="geometry">
+       <rect>
+        <x>1170</x>
+        <y>600</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>오른쪽</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ShotPage_Top">
+     <widget class="QLabel" name="Label_Camera">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>40</y>
+        <width>1061</width>
+        <height>661</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px solid black;
+}</string>
+      </property>
+      <property name="text">
+       <string>카메라 화면 띄워줄 공간</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Label_Timer">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>91</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>AcadEref</family>
+        <pointsize>36</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;15&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="CheckPhoto">
+     <widget class="QLabel" name="Top_Big_Photo">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>20</y>
+        <width>1151</width>
+        <height>681</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 3px solid black;
+}</string>
+      </property>
+      <property name="text">
+       <string>이미지 크게 보여줄 공간</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QLabel" name="PhotoPlusFrame">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>1201</width>
+        <height>671</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	border : 1px solid black;
+}</string>
+      </property>
+      <property name="text">
+       <string>프레임 적용 이미지를 띄워줄 예정</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>RecommandBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>RecommandPose()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>662</x>
+     <y>540</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>837</x>
+     <y>69</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NextBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>NextBottomButton_to_2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>749</x>
+     <y>540</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>120</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn1</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>161</x>
+     <y>680</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>860</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>380</x>
+     <y>680</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>834</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn3()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>575</x>
+     <y>680</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>861</x>
+     <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn4()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>770</x>
+     <y>680</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>892</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn5</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn5()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>162</x>
+     <y>811</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>871</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn6</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn6()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>380</x>
+     <y>811</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>877</x>
+     <y>353</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn7</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn7()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>575</x>
+     <y>811</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>873</x>
+     <y>396</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn8</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Btn8()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>770</x>
+     <y>811</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>861</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_Already</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_PreparedBtn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>474</x>
+     <y>650</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_Back_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Back()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>558</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>551</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NextBtn_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>NextBottomButton_to_4()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>750</x>
+     <y>911</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>838</x>
+     <y>896</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>PrintBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Printing()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>745</x>
+     <y>878</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>841</x>
+     <y>865</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ApplyBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_Applying()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>669</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>851</x>
+     <y>591</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>RecommandPose()</slot>
+  <slot>NextBottomButton_to_2()</slot>
+  <slot>Press_Btn1()</slot>
+  <slot>Press_Btn2()</slot>
+  <slot>Press_Btn3()</slot>
+  <slot>Press_Btn4()</slot>
+  <slot>Press_Btn5()</slot>
+  <slot>Press_Btn6()</slot>
+  <slot>Press_Btn7()</slot>
+  <slot>Press_Btn8()</slot>
+  <slot>Press_ShotBtn()</slot>
+  <slot>Press_Back()</slot>
+  <slot>Press_PreparedBtn()</slot>
+  <slot>NextBottomButton_to_4()</slot>
+  <slot>Press_Printing()</slot>
+  <slot>Press_Applying()</slot>
+ </slots>
+</ui>
