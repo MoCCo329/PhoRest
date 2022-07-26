@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Main_Ui.ui'
+# Form implementation generated from reading ui file 'Main_UI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -549,7 +549,7 @@ class Ui_MainWindow(object):
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
         self.PhotoPlusFrame = QtWidgets.QLabel(self.page_3)
-        self.PhotoPlusFrame.setGeometry(QtCore.QRect(240, 30, 800, 600))
+        self.PhotoPlusFrame.setGeometry(QtCore.QRect(200, 30, 900, 600))
         self.PhotoPlusFrame.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         self.PhotoPlusFrame.setStyleSheet("QLabel{\n"
 "    border : 3px solid black;\n"
