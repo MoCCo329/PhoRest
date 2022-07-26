@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/")
+@RequestMapping("api")
 public class MemberController {
 
     @Autowired
