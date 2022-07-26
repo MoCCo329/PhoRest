@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
 public interface LikeRepository extends JpaRepository<Like, Long> {
     Optional<Like> findByMemberAndRecipe(Member member, Post Post);
 }
