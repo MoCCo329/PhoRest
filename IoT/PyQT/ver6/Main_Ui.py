@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1341, 1384)
+        MainWindow.resize(1294, 1384)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.stack = QtWidgets.QStackedWidget(self.centralwidget)
@@ -357,51 +357,13 @@ class Ui_MainWindow(object):
         self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
-        self.BottomFrameStack = QtWidgets.QStackedWidget(self.ChooseFramePage)
-        self.BottomFrameStack.setGeometry(QtCore.QRect(30, 190, 1001, 521))
-        self.BottomFrameStack.setObjectName("BottomFrameStack")
-        self.page = QtWidgets.QWidget()
-        self.page.setObjectName("page")
-        self.label_7 = QtWidgets.QLabel(self.page)
-        self.label_7.setGeometry(QtCore.QRect(100, 20, 801, 481))
-        self.label_7.setStyleSheet("border-radious : 5%;\n"
-"background-color : rgb(255, 255, 0);\n"
-"")
-        self.label_7.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_7.setObjectName("label_7")
-        self.Frame_Next_Btn = QtWidgets.QPushButton(self.page)
-        self.Frame_Next_Btn.setGeometry(QtCore.QRect(930, 430, 51, 61))
-        self.Frame_Next_Btn.setStyleSheet("QPushButton{\n"
-"    color: white;\n"
-"    background-color: #FFB937        ;\n"
-"    padding: 12px;\n"
-"    border-radius: 4px;\n"
-"    border-bottom: 4px solid #FF8200;\n"
-"    border-radius: 20px;\n"
-"}")
-        self.Frame_Next_Btn.setObjectName("Frame_Next_Btn")
-        self.Frame_Prev_Btn = QtWidgets.QPushButton(self.page)
-        self.Frame_Prev_Btn.setGeometry(QtCore.QRect(20, 430, 51, 61))
-        self.Frame_Prev_Btn.setStyleSheet("QPushButton{\n"
-"    color: white;\n"
-"    background-color: #FFB937        ;\n"
-"    padding: 12px;\n"
-"    border-radius: 4px;\n"
-"    border-bottom: 4px solid #FF8200;\n"
-"    border-radius: 20px;\n"
-"}")
-        self.Frame_Prev_Btn.setObjectName("Frame_Prev_Btn")
-        self.BottomFrameStack.addWidget(self.page)
-        self.page_2 = QtWidgets.QWidget()
-        self.page_2.setObjectName("page_2")
-        self.BottomFrameStack.addWidget(self.page_2)
         self.label_8 = QtWidgets.QLabel(self.ChooseFramePage)
-        self.label_8.setGeometry(QtCore.QRect(1050, 270, 191, 201))
+        self.label_8.setGeometry(QtCore.QRect(980, 260, 191, 201))
         self.label_8.setAlignment(QtCore.Qt.AlignCenter)
         self.label_8.setIndent(0)
         self.label_8.setObjectName("label_8")
         self.PrintBtn = QtWidgets.QPushButton(self.ChooseFramePage)
-        self.PrintBtn.setGeometry(QtCore.QRect(1070, 610, 181, 71))
+        self.PrintBtn.setGeometry(QtCore.QRect(970, 520, 211, 161))
         self.PrintBtn.setStyleSheet("QPushButton{\n"
 "    color: white;\n"
 "    background-color: #FFB937        ;\n"
@@ -413,7 +375,7 @@ class Ui_MainWindow(object):
 "")
         self.PrintBtn.setObjectName("PrintBtn")
         self.ApplyBtn = QtWidgets.QPushButton(self.ChooseFramePage)
-        self.ApplyBtn.setGeometry(QtCore.QRect(1150, 70, 101, 61))
+        self.ApplyBtn.setGeometry(QtCore.QRect(1150, 40, 101, 91))
         self.ApplyBtn.setStyleSheet("QPushButton{\n"
 "    color: white;\n"
 "    background-color: #FFB937        ;\n"
@@ -424,15 +386,61 @@ class Ui_MainWindow(object):
 "}")
         self.ApplyBtn.setObjectName("ApplyBtn")
         self.lineEdit = QtWidgets.QLineEdit(self.ChooseFramePage)
-        self.lineEdit.setGeometry(QtCore.QRect(940, 90, 171, 31))
+        self.lineEdit.setGeometry(QtCore.QRect(910, 60, 201, 51))
         self.lineEdit.setObjectName("lineEdit")
         self.label_9 = QtWidgets.QLabel(self.ChooseFramePage)
-        self.label_9.setGeometry(QtCore.QRect(720, 70, 201, 71))
+        self.label_9.setGeometry(QtCore.QRect(700, 50, 201, 71))
         font = QtGui.QFont()
         font.setFamily("AcadEref")
         font.setPointSize(14)
         self.label_9.setFont(font)
         self.label_9.setObjectName("label_9")
+        self.Basic_Frame_1 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_1.setGeometry(QtCore.QRect(50, 260, 300, 80))
+        self.Basic_Frame_1.setStyleSheet("background-color : #FFFFFF")
+        self.Basic_Frame_1.setText("")
+        self.Basic_Frame_1.setObjectName("Basic_Frame_1")
+        self.label_7 = QtWidgets.QLabel(self.ChooseFramePage)
+        self.label_7.setGeometry(QtCore.QRect(220, 190, 381, 41))
+        self.label_7.setObjectName("label_7")
+        self.Basic_Frame_2 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_2.setGeometry(QtCore.QRect(50, 370, 300, 80))
+        self.Basic_Frame_2.setStyleSheet("background-color : #D2D2FF")
+        self.Basic_Frame_2.setText("")
+        self.Basic_Frame_2.setObjectName("Basic_Frame_2")
+        self.Basic_Frame_3 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_3.setGeometry(QtCore.QRect(50, 480, 300, 80))
+        self.Basic_Frame_3.setStyleSheet("background-color : #32F1FF    ")
+        self.Basic_Frame_3.setText("")
+        self.Basic_Frame_3.setObjectName("Basic_Frame_3")
+        self.Basic_Frame_4 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_4.setGeometry(QtCore.QRect(50, 590, 300, 80))
+        self.Basic_Frame_4.setStyleSheet("background-color : #FFD4DF    ")
+        self.Basic_Frame_4.setText("")
+        self.Basic_Frame_4.setObjectName("Basic_Frame_4")
+        self.Basic_Frame_5 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_5.setGeometry(QtCore.QRect(460, 260, 300, 80))
+        self.Basic_Frame_5.setStyleSheet("background-color : #FAFAA0    ")
+        self.Basic_Frame_5.setText("")
+        self.Basic_Frame_5.setObjectName("Basic_Frame_5")
+        self.Basic_Frame_6 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_6.setGeometry(QtCore.QRect(460, 370, 300, 80))
+        self.Basic_Frame_6.setStyleSheet("background-color :#957745    ")
+        self.Basic_Frame_6.setText("")
+        self.Basic_Frame_6.setObjectName("Basic_Frame_6")
+        self.Basic_Frame_7 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_7.setGeometry(QtCore.QRect(460, 490, 300, 80))
+        self.Basic_Frame_7.setStyleSheet("background-color : #8c8c8c")
+        self.Basic_Frame_7.setText("")
+        self.Basic_Frame_7.setObjectName("Basic_Frame_7")
+        self.Basic_Frame_8 = QtWidgets.QPushButton(self.ChooseFramePage)
+        self.Basic_Frame_8.setGeometry(QtCore.QRect(460, 600, 300, 80))
+        self.Basic_Frame_8.setStyleSheet("background-color : #94EB3E")
+        self.Basic_Frame_8.setText("")
+        self.Basic_Frame_8.setObjectName("Basic_Frame_8")
+        self.label_12 = QtWidgets.QLabel(self.ChooseFramePage)
+        self.label_12.setGeometry(QtCore.QRect(870, 190, 401, 41))
+        self.label_12.setObjectName("label_12")
         self.stack.addWidget(self.ChooseFramePage)
         self.PrintingPage = QtWidgets.QWidget()
         self.PrintingPage.setObjectName("PrintingPage")
@@ -552,8 +560,8 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stack.setCurrentIndex(1)
-        self.TopStack.setCurrentIndex(1)
+        self.stack.setCurrentIndex(4)
+        self.TopStack.setCurrentIndex(4)
         self.RecommandBtn.clicked.connect(MainWindow.RecommandPose) # type: ignore
         self.NextBtn.clicked.connect(MainWindow.NextBottomButton_to_2) # type: ignore
         self.Btn1.clicked.connect(MainWindow.Press_Btn1) # type: ignore
@@ -570,6 +578,14 @@ class Ui_MainWindow(object):
         self.PrintBtn.clicked.connect(MainWindow.Press_Printing) # type: ignore
         self.ApplyBtn.clicked.connect(MainWindow.Press_Applying) # type: ignore
         self.Btn_close.clicked.connect(MainWindow.Press_CloseBtn) # type: ignore
+        self.Basic_Frame_1.clicked.connect(MainWindow.Press_BasicFrame1) # type: ignore
+        self.Basic_Frame_2.clicked.connect(MainWindow.Press_BasicFrame2) # type: ignore
+        self.Basic_Frame_3.clicked.connect(MainWindow.Press_BasicFrame3) # type: ignore
+        self.Basic_Frame_4.clicked.connect(MainWindow.Press_BasicFrame4) # type: ignore
+        self.Basic_Frame_5.clicked.connect(MainWindow.Press_BasicFrame5) # type: ignore
+        self.Basic_Frame_6.clicked.connect(MainWindow.Press_BasicFrame6) # type: ignore
+        self.Basic_Frame_7.clicked.connect(MainWindow.Press_BasicFrame7) # type: ignore
+        self.Basic_Frame_8.clicked.connect(MainWindow.Press_BasicFrame8) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -598,13 +614,12 @@ class Ui_MainWindow(object):
         self.NextBtn_3.setText(_translate("MainWindow", ">"))
         self.label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:20pt; font-weight:600;\">사용할 프레임을 선택해주세요</span></p></body></html>"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:8pt; font-weight:600;\">기본 프레임 외의 프레임을 사용하고 싶다면 고유 프레임 번호를 입력하세요 </span></p></body></html>"))
-        self.label_7.setText(_translate("MainWindow", "기본 프레임 (2개씩 2~3장?)"))
-        self.Frame_Next_Btn.setText(_translate("MainWindow", ">"))
-        self.Frame_Prev_Btn.setText(_translate("MainWindow", "<"))
         self.label_8.setText(_translate("MainWindow", "QR코드"))
         self.PrintBtn.setText(_translate("MainWindow", "Print"))
         self.ApplyBtn.setText(_translate("MainWindow", "적용"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:11pt; font-weight:600;\">고유프레임 번호 :</span></p></body></html>"))
+        self.label_7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">기본 프레임을 클릭하여 선택하세요.</span></p></body></html>"))
+        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">QR코드로 인기있는 프레임을 살펴보세요</span></p></body></html>"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">이 화면 건너 뛰네;;</p></body></html>"))
         self.label_11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">인쇄 중입니다...</span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\"><br/></span></p><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">인쇄가 완료된 후 아무 곳이나 클릭하여 초기 화면으로 돌아가세요<br/></span></p></body></html>"))
         self.PoseImg.setText(_translate("MainWindow", "포즈 이미지"))

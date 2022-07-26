@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1341</width>
+    <width>1294</width>
     <height>1384</height>
    </rect>
   </property>
@@ -33,7 +33,7 @@
      <string notr="true">background-color : #FFF7E7</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="InitPage">
      <widget class="QLabel" name="label">
@@ -678,91 +678,11 @@
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QStackedWidget" name="BottomFrameStack">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>190</y>
-        <width>1001</width>
-        <height>521</height>
-       </rect>
-      </property>
-      <widget class="QWidget" name="page">
-       <widget class="QLabel" name="label_7">
-        <property name="geometry">
-         <rect>
-          <x>100</x>
-          <y>20</y>
-          <width>801</width>
-          <height>481</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-radious : 5%;
-background-color : rgb(255, 255, 0);
-</string>
-        </property>
-        <property name="text">
-         <string>기본 프레임 (2개씩 2~3장?)</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="Frame_Next_Btn">
-        <property name="geometry">
-         <rect>
-          <x>930</x>
-          <y>430</y>
-          <width>51</width>
-          <height>61</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-	color: white;
-    background-color: #FFB937		;
-    padding: 12px;
-    border-radius: 4px;
-    border-bottom: 4px solid #FF8200;
-	border-radius: 20px;
-}</string>
-        </property>
-        <property name="text">
-         <string>&gt;</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="Frame_Prev_Btn">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>430</y>
-          <width>51</width>
-          <height>61</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{
-	color: white;
-    background-color: #FFB937		;
-    padding: 12px;
-    border-radius: 4px;
-    border-bottom: 4px solid #FF8200;
-	border-radius: 20px;
-}</string>
-        </property>
-        <property name="text">
-         <string>&lt;</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="page_2"/>
-     </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>1050</x>
-        <y>270</y>
+        <x>980</x>
+        <y>260</y>
         <width>191</width>
         <height>201</height>
        </rect>
@@ -780,10 +700,10 @@ background-color : rgb(255, 255, 0);
      <widget class="QPushButton" name="PrintBtn">
       <property name="geometry">
        <rect>
-        <x>1070</x>
-        <y>610</y>
-        <width>181</width>
-        <height>71</height>
+        <x>970</x>
+        <y>520</y>
+        <width>211</width>
+        <height>161</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -805,9 +725,9 @@ background-color : rgb(255, 255, 0);
       <property name="geometry">
        <rect>
         <x>1150</x>
-        <y>70</y>
+        <y>40</y>
         <width>101</width>
-        <height>61</height>
+        <height>91</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -827,18 +747,18 @@ background-color : rgb(255, 255, 0);
      <widget class="QLineEdit" name="lineEdit">
       <property name="geometry">
        <rect>
-        <x>940</x>
-        <y>90</y>
-        <width>171</width>
-        <height>31</height>
+        <x>910</x>
+        <y>60</y>
+        <width>201</width>
+        <height>51</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>70</y>
+        <x>700</x>
+        <y>50</y>
         <width>201</width>
         <height>71</height>
        </rect>
@@ -851,6 +771,160 @@ background-color : rgb(255, 255, 0);
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;고유프레임 번호 :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_1">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>260</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #FFFFFF</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>190</y>
+        <width>381</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;기본 프레임을 클릭하여 선택하세요.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_2">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>370</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #D2D2FF</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_3">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>480</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #32F1FF	</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_4">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>590</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #FFD4DF	</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_5">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>260</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #FAFAA0	</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_6">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>370</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color :#957745	</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_7">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>490</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #8c8c8c</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Basic_Frame_8">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>600</y>
+        <width>300</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color : #94EB3E</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>190</y>
+        <width>401</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;QR코드로 인기있는 프레임을 살펴보세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -904,7 +978,7 @@ background-color : rgb(255, 255, 0);
      <string notr="true">background-color : #FFF7E7</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="LogoPage">
      <widget class="QLabel" name="LogoImg">
@@ -1387,6 +1461,134 @@ background-color : rgb(255, 255, 0);
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Basic_Frame_1</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>295</x>
+     <y>985</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>1406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>237</x>
+     <y>1060</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>1388</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame3()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>158</x>
+     <y>1178</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>192</x>
+     <y>1385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame4()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>87</x>
+     <y>1275</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>105</x>
+     <y>1389</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_5</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame5()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>689</x>
+     <y>977</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>640</x>
+     <y>1393</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_6</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame6()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>641</x>
+     <y>1080</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>661</x>
+     <y>1385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_7</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame7()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>563</x>
+     <y>1202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>555</x>
+     <y>1383</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Basic_Frame_8</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>Press_BasicFrame8()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>1294</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>571</x>
+     <y>1382</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>RecommandPose()</slot>
@@ -1406,5 +1608,13 @@ background-color : rgb(255, 255, 0);
   <slot>Press_Printing()</slot>
   <slot>Press_Applying()</slot>
   <slot>Press_CloseBtn()</slot>
+  <slot>Press_BasicFrame1()</slot>
+  <slot>Press_BasicFrame2()</slot>
+  <slot>Press_BasicFrame3()</slot>
+  <slot>Press_BasicFrame4()</slot>
+  <slot>Press_BasicFrame5()</slot>
+  <slot>Press_BasicFrame6()</slot>
+  <slot>Press_BasicFrame7()</slot>
+  <slot>Press_BasicFrame8()</slot>
  </slots>
 </ui>

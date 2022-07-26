@@ -23,7 +23,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.recommand_pose_flag = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
-        self.stack.setCurrentIndex(0)
+        self.stack.setCurrentIndex(4)
         self.TopStack.setCurrentIndex(0)
 
         #마우스 클릭 이벤트 설정
@@ -35,6 +35,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         # 촬영화면에서 클릭 방지를 위해 flag변수 하나 채용
         self.Shot_Click_Flag = 0
+
+        # frame color id 초기화
+        self.Frame_Color_Id = ""
 
         self.show()
 
@@ -905,6 +908,31 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # 프레임까지 적용하여 화면에 띄워주는 버튼
     def Press_Applying(self):
         print("Apply")
+
+    # 프레임 컬러 선택 버튼
+    def Press_BasicFrame1(self):
+        self.Frame_Color_Id = "#FFFFFF"
+
+    def Press_BasicFrame2(self):
+        self.Frame_Color_Id = "#D2D2FF"
+
+    def Press_BasicFrame3(self):
+        self.Frame_Color_Id = "#32F1FF"
+
+    def Press_BasicFrame4(self):
+        self.Frame_Color_Id = "#FFD4DF"
+
+    def Press_BasicFrame5(self):
+        self.Frame_Color_Id = "#FAFAA0"
+
+    def Press_BasicFrame6(self):
+        self.Frame_Color_Id = "#957745"
+
+    def Press_BasicFrame7(self):
+        self.Frame_Color_Id = "#8c8c8c"
+
+    def Press_BasicFrame8(self):
+        self.Frame_Color_Id = "#94EB3E"
 
     # 프린트 버튼
     def Press_Printing(self):
