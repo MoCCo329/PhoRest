@@ -1,6 +1,6 @@
 import api from './api'
 
-const END_POINT = 'accounts'
+const END_POINT = 'members'
 
 
 const accounts = {
@@ -21,7 +21,7 @@ const accounts = {
     return api({
       method: 'post',
       url: `${END_POINT}/signup/`,
-      data: data
+      body : data
     })
   },
   currentUser() {
@@ -30,12 +30,6 @@ const accounts = {
       url: `${END_POINT}/user/`,
     })
   },
-  // profile(username) {
-  //   return api({
-  //     method: 'get',
-  //     url: `${END_POINT}/profile/${username}/`,
-  //   })
-  // }
 }
 
 export default accounts

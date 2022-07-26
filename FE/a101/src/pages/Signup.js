@@ -28,14 +28,6 @@ export default function Main() {
             phone : phone,
         }
         members.signup(credentials)
-        .then((result) => {
-          const token = result.data.key
-          localStorage.setItem('token', token)
-          members.currentuser()
-          .then((result) => {
-
-          })  // 아예 이 로직들도 api 폴더로 뺄까?
-        })
     }
 
     return (

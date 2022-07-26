@@ -7,6 +7,7 @@ import Download from './pages/Download'
 import Main from './pages/Main'
 import NotFount404 from './pages/NotFound404'
 import Mypage from './pages/Mypage'
+import Signup from './pages/Signup'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route exact path="/" element={<Main/>} />
       <Route exact path="/Download" element={<Download/>} />
       <Route exact path="/Mypage" element={<Mypage/>} />
+      <Route exact path="/Signup" element={<Signup/>} />
       <Route exact path="/NotFound" element={<NotFount404/>} />
     </Routes>
   );
