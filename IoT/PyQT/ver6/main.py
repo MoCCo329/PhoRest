@@ -7,8 +7,10 @@ import Main_Ui
 import time
 import threading
 import cv2
-from PIL import Image
 import os
+from PIL import Image, ImageDraw, ImageFont
+import datetime as dt
+import qrcode
 
 stop_event = threading.Event()
 
@@ -23,7 +25,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.recommand_pose_flag = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
-        self.stack.setCurrentIndex(4)
+        self.stack.setCurrentIndex(0)
         self.TopStack.setCurrentIndex(0)
 
         #마우스 클릭 이벤트 설정
@@ -37,7 +39,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Shot_Click_Flag = 0
 
         # frame color id 초기화
-        self.Frame_Color_Id = ""
+        self.Frame_Color_Id = "#FFFFFF"
 
         self.show()
 
@@ -797,7 +799,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     def Run_Camera(self):
         global CurrentPhotoCnt, cap
-        cap = cv2.VideoCapture(1)
+        cap = cv2.VideoCapture(-1)
         print("작동중?")
         width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
         height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -821,9 +823,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     #----------------------------4번째 촬영 페이지---------------------------------
     def ShotPhoto(self):
         # 타이머 작동
-        self.StartTime = 15
+        self.StartTime = 5
         for num in range(1,5):
-            for i in range(15,0,-1):
+            for i in range(self.StartTime,0,-1):
                 self.Label_Timer.setText(str(i))
                 time.sleep(1)
             self.Label_Timer.setText("0")
@@ -835,7 +837,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             # 이때 파일경로 마지막 파일명은 "photo{}".format(self.CurrentPhotoCnt+1)"
             # self.CurrentPhotoCnt 가 3이면 찍고, 0으로 돌려놓음
             # 사진이 저장되는 시간을 확보하기 위해서 3초간의 sleep을 둠
-            time.sleep(3)
+            #time.sleep(1)
 
             pixmap = QPixmap("./photoDir/photo{}".format(num))
             pixmap = pixmap.scaledToHeight(300)
@@ -856,13 +858,13 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(3)
         
         self.make_image()
+        time.sleep(1)
         
     def make_image(self):
         img1 = Image.open("./photoDir/photo1.jpg")
         img2 = Image.open("./photoDir/photo2.jpg")
         img3 = Image.open("./photoDir/photo3.jpg")
         img4 = Image.open("./photoDir/photo4.jpg")
-        #qr = Image.open("./QRCodeImg.jpg")
 
         img_size = (600,425)
 
@@ -870,16 +872,54 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         img2 = img2.resize(img_size)
         img3 = img3.resize(img_size)
         img4 = img4.resize(img_size)
-        #qr = qr.resize((130,130))
 
-        new_img = Image.new("RGB", (1500, 1000), (255,192,203))
+        new_img = Image.new("RGB", (1500, 1000), (0,0,0))
         new_img.paste(img1, (50,50))
         new_img.paste(img2, (img_size[0] + 100, 50))
         new_img.paste(img3, (50, img_size[1] + 100))
         new_img.paste(img4, (img_size[0] + 100, img_size[1] + 100))
-        #new_img.paste(qr, ((img_size[0]*2) + 100 + 10, 1000 - 50 - 130))
+        
+        #make QR code
+        qr = qrcode.QRCode(
+            version = 1,
+            error_correction = qrcode.constants.ERROR_CORRECT_H,
+            box_size = 2,
+            border = 1
+            )
 
-        new_img.save("./photoDir/merged_img.jpg","JPEG")
+        url = 'http://i7a101.p.ssafy.io/api/frame/'
+        qr.add_data(url)
+        qr.make()
+        qrimg = qr.make_image(fill_color='black', back_color='white')
+        qrimg.save('./photoDir/QRCodeImg.jpg')
+
+        QRcode = Image.open("./photoDir/QRCodeImg.jpg")
+        QRcode = qrimg.resize((130,130))
+        new_img.paste(QRcode, ((img_size[0]*2) + 100 + 10, 1000 - 50 - 130))
+
+        #watermark
+        waterFont = ImageFont.truetype('./703.ttf', 60)
+        mark_width, mark_height = waterFont.getsize('PhoRest')
+        watermark = Image.new('RGBA', (mark_width, mark_height), (0, 0, 0, 0))
+        waterdraw = ImageDraw.Draw(watermark)
+        waterdraw.text((0,0), 'PhoRest', fill='black', font=waterFont, align='center')
+        watermark = watermark.rotate(90,expand=1)
+
+        new_img.paste(watermark, ((img_size[0]*2) + 100 + 10, 1000 - 50 - 130 - 20 - mark_width), watermark)
+
+        #datestr
+        time = dt.datetime.now()
+        datestr = time.strftime('%Y/%m/%d')
+        dateFont = ImageFont.truetype('./703.ttf', 30)
+        date_width, date_height = dateFont.getsize(datestr)
+        datemark = Image.new('RGBA', (date_width, date_height), (0, 0, 0, 0))
+        datedraw = ImageDraw.Draw(datemark)
+        datedraw.text((0,0), datestr, fill='black', font=dateFont, align='center')
+        datemark = datemark.rotate(90,expand=1)
+
+        new_img.paste(datemark, ((img_size[0]*2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width), datemark)
+
+        new_img.save("./photoDir/merged_img.png","PNG")
 
     def kimchi(self,num):
         global cap
@@ -912,27 +952,47 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # 프레임 컬러 선택 버튼
     def Press_BasicFrame1(self):
         self.Frame_Color_Id = "#FFFFFF"
+        FrameImg = Image.open('./Frame/Frame_1.jpg')
+        img = Image.open('./photoDir/merged_img.png')
+        FrameImg.paste(img, (0,0))
+        qImg = QImage(FrameImg.data, 900, 600, QImage.Format_RGB888)
+        pixmap = QPixmap.fromImage(qImg)
+        self.PhotoPlusFrame.setPixmap(pixmap)
 
     def Press_BasicFrame2(self):
         self.Frame_Color_Id = "#D2D2FF"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_2.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     def Press_BasicFrame3(self):
         self.Frame_Color_Id = "#32F1FF"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_3.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     def Press_BasicFrame4(self):
         self.Frame_Color_Id = "#FFD4DF"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_4.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     def Press_BasicFrame5(self):
         self.Frame_Color_Id = "#FAFAA0"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_5.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     def Press_BasicFrame6(self):
         self.Frame_Color_Id = "#957745"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_6.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     def Press_BasicFrame7(self):
         self.Frame_Color_Id = "#8c8c8c"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_7.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     def Press_BasicFrame8(self):
         self.Frame_Color_Id = "#94EB3E"
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_8.jpg')")
+        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
 
     # 프린트 버튼
     def Press_Printing(self):
