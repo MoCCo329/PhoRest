@@ -43,7 +43,7 @@ public class MemberController {
 
         return true;
     }
-
+// jenkins test
     @PostMapping("member/login")
     @ResponseBody
     public String login(@RequestBody @Valid MemberForm form) {
