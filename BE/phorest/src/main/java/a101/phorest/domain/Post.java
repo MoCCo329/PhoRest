@@ -22,6 +22,8 @@ public class Post {
 
     private String content;
 
+    private int likeCount;
+
     //게시글 - 프레임 : 일 대 일, 게시글이 주인
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "frame_id")
@@ -42,4 +44,19 @@ public class Post {
 
     @OneToMany(mappedBy = "post")//Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. bookmark가 주인장.
     private List<Bookmark> bookmarks = new ArrayList<>();
+
+
+    //==비즈니스 로직==//
+    /** likeCount 증가 */
+    public void addLike(){
+        this.likeCount += 1;
+    }
+    /** likeCount 감소 */
+    public void removeLike(){
+        int restStock = this.likeCount - 1;
+        if(restStock < 0) {
+            restStock = 0;
+        }
+    }
+
 }
