@@ -1,3 +1,4 @@
+/*
 package a101.phorest.controller;
 
 import a101.phorest.config.JwtTokenProvider;
@@ -66,7 +67,9 @@ public class MemberController {
         return "unexpected error";
     }
 
-    /* 메인페이지 로그아웃 */
+    */
+/* 메인페이지 로그아웃 *//*
+
     @GetMapping("member/logout")
     @ResponseBody
     public String logout(HttpServletRequest request){
@@ -93,3 +96,4 @@ public class MemberController {
         return "0";
     }
 }
+*/

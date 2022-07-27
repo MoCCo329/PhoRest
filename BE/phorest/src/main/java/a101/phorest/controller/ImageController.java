@@ -30,7 +30,7 @@ public class ImageController {
     //test
     @PostMapping("upload")
     @ResponseBody
-    public String updateUserImage(@RequestBody MultipartFile multipartFile) {
+    public String updateUserImage(@RequestParam("images") MultipartFile multipartFile) {
         return "success";
     }
 
