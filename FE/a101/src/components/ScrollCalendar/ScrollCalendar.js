@@ -41,7 +41,7 @@ for (let i = 0; i < 12; i++) {
   months.push(calMonth(i))
 }
 
-console.log(months)
+// console.log(months)
 
 export default function ScrollCalendar() {
   return (
@@ -54,8 +54,8 @@ export default function ScrollCalendar() {
 function Months() {
   return (
     <div>
-      {months.map(m =>
-        <div className="container-row">
+      {months.map(m =>(
+        <div className="container-row" key={m.month}>
           <div className="month">
             {m.month + 1}월
           </div>
@@ -70,13 +70,13 @@ function Months() {
           </div>
           <div className="container">
             {
-              m.dates.map(day =>
-                <div className="date">{day === " " ?  " ":day.getDate()}</div>
+              m.dates.map((day, index) =>
+                <div key={index} className="date">{day === " " ?  " ":day.getDate()}</div>
               )
             }
           </div>
         </div>
-      )
+      ))
       }
     </div>
   );

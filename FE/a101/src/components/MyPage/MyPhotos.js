@@ -6,6 +6,7 @@ export default function MyPhotos() {
     <div className='container-gallery'>
       {itemData.map((item) => (
           <img className='image'
+            key={item.title}
             src={item.img}
             alt={item.title}
             loading="lazy"
