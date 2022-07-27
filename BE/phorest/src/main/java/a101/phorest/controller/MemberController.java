@@ -30,6 +30,7 @@ public class MemberController {
     public Boolean create(@RequestBody @Valid MemberForm form, BindingResult result){ //BindingResult : 오류 발생시 오류가 result에 담겨서 아래가 실행됨.
 
         Member member = new Member();
+        member.setPassword(form.getPassword());
         member.setUsername(form.getUsername());
         member.setNickname(form.getNickname());
         member.setPhone(form.getPhone());
@@ -64,12 +65,12 @@ public class MemberController {
             //출처: https://llshl.tistory.com/28 [하루에 딱 한 개만!!!:티스토리]
         }
         else if(!member.isPresent()){
-            return "1";
+            return "no such id";
         }
         else if(member.get().getPassword() != password) {
-            return "2";
+            return "wrong password";
         }
-        return "3";
+        return "unexpected error";
     }
 
     /* 메인페이지 로그아웃 */
