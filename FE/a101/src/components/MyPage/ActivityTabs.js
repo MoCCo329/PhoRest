@@ -6,13 +6,17 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import MyPhotos from './MyPhotos';
 import ScrollCalendar from '../ScrollCalendar/ScrollCalendar';
+import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
+import FilterFramesOutlinedIcon from '@mui/icons-material/FilterFramesOutlined';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel" 
+      role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
@@ -48,30 +52,32 @@ export default function ActivityTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="게시글 목록" {...a11yProps(0)} />
-          <Tab label="달력 보기" {...a11yProps(1)} />
-          <Tab label="즐겨찾기 목록" {...a11yProps(2)} />
-          <Tab label="내 프레임 목록" {...a11yProps(3)} />
-        </Tabs>
+    <div style={{display: 'flex',  justifyContent:'center'}}>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label={<WindowOutlinedIcon />} {...a11yProps(0)} />
+            <Tab label={<CalendarTodayOutlinedIcon />} {...a11yProps(1)} />
+            <Tab label={<StarBorderPurple500OutlinedIcon />} {...a11yProps(2)} />
+            <Tab label={<FilterFramesOutlinedIcon />} {...a11yProps(3)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          내가 지금까지 올린 게시글
+          <MyPhotos />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <ScrollCalendar />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          즐겨찾기 목록
+          <MyPhotos />
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          내가 만든 프레임 목록
+          <MyPhotos />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        내가 지금까지 올린 게시글   
-        <MyPhotos/>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ScrollCalendar/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        즐겨찾기 목록
-        <MyPhotos/>
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        내가 만든 프레임 목록
-        <MyPhotos/>
-      </TabPanel>
-    </Box>
+    </div>
   );
 }
