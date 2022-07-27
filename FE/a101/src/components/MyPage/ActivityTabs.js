@@ -62,7 +62,6 @@ export default function ActivityTabs() {
         <MyPhotos/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        내 활동 내역 달력으로 보기
         <ScrollCalendar/>
       </TabPanel>
       <TabPanel value={value} index={2}>

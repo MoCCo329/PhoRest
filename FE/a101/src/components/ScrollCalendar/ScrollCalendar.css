@@ -1,0 +1,44 @@
+.container-row {
+    display: grid;
+    width: 100%;
+    gap: 15px;
+    place-content: space-between center;
+}
+.container {
+    display: grid;
+    width: 100%;
+    place-content: space-between center;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 
+}
+
+.month {
+    /* font-weight: bolder; */
+    font-family: 'LeferiPoint-BlackA';
+    padding: 5px;
+    justify-self: center;
+}
+.days {
+    font-family: 'LeferiPoint-BlackA';
+    box-shadow: 10px;
+    justify-self: center;
+}
+.date {
+    font-family: 'LeferiPoint-WhiteObliqueA';
+    box-shadow: 10px;
+    justify-self: center;
+}
+
+@font-face {
+    font-family: 'LeferiPoint-WhiteObliqueA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LeferiPoint-BlackA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

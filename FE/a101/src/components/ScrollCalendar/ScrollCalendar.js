@@ -1,26 +1,39 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
+import './ScrollCalendar.css'
 
 
 const Item = styled(Paper)(({ theme, props }) => ({
-  backgroundImage: `url(${props.img})`,
-  // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.title,
   padding: theme.spacing(1),
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
+// 오늘 연월일 구하기
 const today = new Date();
 const year = today.getFullYear();
-const month = today.getMonth() + 1;
-const day = ("0" + today.getDate()).slice(-2);
-var dateString = year + "-" + month + "-" + day;
+const month = today.getMonth();
+// 달의 시작일 구하기
+const firstDate = new Date(year, month, 1)
+const firstDateofWeek = firstDate.getDay()
+// 달의 시작 주차의 일요일 날짜
+const firstDateofMonth = new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() - firstDateofWeek)
+// 달의 마지막 일 
+const lastDate = new Date(year, month + 1, 0)
+const lastDateofWeek = lastDate.getDay()
+// 달의 마지막 주차의 토요일 날짜
+const lastDateofMonth = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + (6 - lastDateofWeek))
+console.log(lastDateofMonth)
 
-console.log(dateString);
+let monthlyDays = []
+let day = firstDateofMonth
+while (day <= lastDateofMonth) {
+  monthlyDays.push(day)
+  day = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1)
+  console.log(day)
+}
 
 export default function ScrollCalendar() {
   return (
@@ -31,171 +44,28 @@ export default function ScrollCalendar() {
 }
 
 function Months() {
-  const imgRoute =  '../../assets/full.jpg';
-
+  const color = 'primary'
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container direction="row" rowSpacing={1}>
-        <Grid item xs={12}>
-          <Item img={imgRoute}>{month}월</Item>
-        </Grid>
-        <Grid item xs>
-          <Days />
-        </Grid>
-      </Grid>
-    </Box>
+    <div className="container-row">
+      <div className="month">
+        7월
+      </div>
+      <div className="container">
+        <div className="days">일</div>
+        <div className="days">월</div>
+        <div className="days">화</div>
+        <div className="days">수</div>
+        <div className="days">목</div>
+        <div className="days">금</div>
+        <div className="days">토</div>
+      </div>
+      <div className="container">
+        {
+          monthlyDays.map(day =>
+            <div className="date">{day.getDate()}</div>
+          )
+        }
+      </div>
+    </div>
   );
 }
-
-function Days() {
-  // const date = ['월', '화', '수', '목', '금', '토', '일']
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={1}>
-        <Grid item xs>
-          <Item>일</Item>
-        </Grid>
-        <Grid item xs>
-          <Item>월</Item>
-        </Grid>
-        <Grid item xs>
-          <Item>화</Item>
-        </Grid>
-        <Grid item xs>
-          <Item>수</Item>
-        </Grid>
-        <Grid item xs>
-          <Item>목</Item>
-        </Grid>
-        <Grid item xs>
-          <Item>금</Item>
-        </Grid>
-        <Grid item xs>
-          <Item>토</Item>
-        </Grid>
-      </Grid>
-    </Box>
-  );
-}
-
-// import React, { useState } from 'react';
-// import { Icon } from '@iconify/react';
-// import { format, addMonths, subMonths } from 'date-fns';
-// import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
-// import { isSameMonth, isSameDay, addDays, parse } from 'date-fns';
-
-// const RenderHeader = ({ currentMonth, prevMonth, nextMonth }) => {
-//     return (
-//         <div className="header row">
-//             <div className="col col-start">
-//                 <span className="text">
-//                     <span className="text month">
-//                         {format(currentMonth, 'M')}월
-//                     </span>
-//                     {format(currentMonth, 'yyyy')}
-//                 </span>
-//             </div>
-//             <div className="col col-end">
-//                 <Icon icon="bi:arrow-left-circle-fill" onClick={prevMonth} />
-//                 <Icon icon="bi:arrow-right-circle-fill" onClick={nextMonth} />
-//             </div>
-//         </div>
-//     );
-// };
-
-// const RenderDays = () => {
-//     const days = [];
-//     const date = ['Sun', 'Mon', 'Thu', 'Wed', 'Thrs', 'Fri', 'Sat'];
-
-//     for (let i = 0; i < 7; i++) {
-//         days.push(
-//             <div className="col" key={i}>
-//                 {date[i]}
-//             </div>,
-//         );
-//     }
-
-//     return <div className="days row">{days}</div>;
-// };
-
-// const RenderCells = ({ currentMonth, selectedDate, onDateClick }) => {
-//     const monthStart = startOfMonth(currentMonth);
-//     const monthEnd = endOfMonth(monthStart);
-//     const startDate = startOfWeek(monthStart);
-//     const endDate = endOfWeek(monthEnd);
-
-//     const rows = [];
-//     let days = [];
-//     let day = startDate;
-//     let formattedDate = '';
-
-//     while (day <= endDate) {
-//         for (let i = 0; i < 7; i++) {
-//             formattedDate = format(day, 'd');
-//             const cloneDay = day;
-//             days.push(
-//                 <div
-//                     className={`col cell ${
-//                         !isSameMonth(day, monthStart)
-//                             ? 'disabled'
-//                             : isSameDay(day, selectedDate)
-//                             ? 'selected'
-//                             : format(currentMonth, 'M') !== format(day, 'M')
-//                             ? 'not-valid'
-//                             : 'valid'
-//                     }`}
-//                     key={day}
-//                     onClick={() => onDateClick(parse(cloneDay))}
-//                 >
-//                     <span
-//                         className={
-//                             format(currentMonth, 'M') !== format(day, 'M')
-//                                 ? 'text not-valid'
-//                                 : ''
-//                         }
-//                     >
-//                         {formattedDate}
-//                     </span>
-//                 </div>,
-//             );
-//             day = addDays(day, 1);
-//         }
-//         rows.push(
-//             <div className="row" key={day}>
-//                 {days}
-//             </div>,
-//         );
-//         days = [];
-//     }
-//     return <div className="body">{rows}</div>;
-// };
-
-// export default function ScrollCalendar() {
-//     const [currentMonth, setCurrentMonth] = useState(new Date());
-//     const [selectedDate, setSelectedDate] = useState(new Date());
-
-//     const prevMonth = () => {
-//         setCurrentMonth(subMonths(currentMonth, 1));
-//     };
-//     const nextMonth = () => {
-//         setCurrentMonth(addMonths(currentMonth, 1));
-//     };
-//     const onDateClick = (day) => {
-//         setSelectedDate(day);
-//     };
-//     return (
-//         <div className="calendar">
-//             <RenderHeader
-//                 currentMonth={currentMonth}
-//                 prevMonth={prevMonth}
-//                 nextMonth={nextMonth}
-//             />
-//             <RenderDays />
-//             <RenderCells
-//                 currentMonth={currentMonth}
-//                 selectedDate={selectedDate}
-//                 onDateClick={onDateClick}
-//             />
-//         </div>
-//     );
-// };
