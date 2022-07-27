@@ -1,6 +1,6 @@
-.container {
+.container-gallery {
     display: grid;
-    width: 70%;
+    width: 100%;
     place-content: space-between center;
     gap: 10px;
     grid-template-columns: 1fr 1fr 1fr;
