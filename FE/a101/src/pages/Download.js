@@ -1,15 +1,20 @@
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+
 import CommunityScroll from '../components/Community/CommunityScroll'
 
 
 export default function Main() {
     let [numOfPeople, setNumOfPeople] = useState(2)
+    const { postId } = useParams()
+
 
     return (
         <div>
             <div className="download">
                 <div className="download-img">
                     {/* <img /> */}
+                    {postId} 사진
                 </div>
                 <div className="download-links">
                     <div>
