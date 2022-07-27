@@ -2,6 +2,7 @@ package a101.phorest.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.File;
@@ -21,8 +22,6 @@ public class PhotoGroup {
     private String photoGroupPath;
 
     private String thumbNailPath;
-
-    private File photoGroupImage;
 
     @ManyToOne
     @JoinColumn(name = "frame_id")

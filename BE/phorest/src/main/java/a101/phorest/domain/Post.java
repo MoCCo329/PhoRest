@@ -15,7 +15,6 @@ public class Post {
     @GeneratedValue
     @Column(name = "post_id")
     private Long id;
-
     private String category; // photogroup, frame
 
     private LocalDateTime time; // time zz

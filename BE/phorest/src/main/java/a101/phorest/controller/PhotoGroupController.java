@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -24,19 +25,19 @@ public class PhotoGroupController {
 
     private final PostService postService;
 
-    @PostMapping("photogroup/upload")
-    @ResponseBody
-    public Long upload(File image){
-        PhotoGroup photoGroup = new PhotoGroup();
-        photoGroup.setPhotoGroupImage(image);
-        photoGroup.setId(photoGroupService.join(photoGroup));
-
-        Post post = new Post();
-        post.setCategory("photogroup");
-        post.setContent(null);
-        return(postService.join(post));
-
-
-
-    }
+//    @PostMapping("photogroup/upload")
+//    @ResponseBody
+//    public Long upload(MultipartFile image){
+//        PhotoGroup photoGroup = new PhotoGroup();
+//        photoGroup.setPhotoGroupImage(image);
+//        photoGroup.setId(photoGroupService.join(photoGroup));
+//
+//        Post post = new Post();
+//        post.setCategory("photogroup");
+//        post.setContent(null);
+//        return(postService.join(post));
+//
+//
+//
+//    }
 }

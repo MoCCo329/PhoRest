@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const HOST = '서버주소'
+const HOST = 'http://i7a101.p.ssafy.io/api/'
 
 export const api = axios.create({
   baseURL : HOST,
@@ -20,3 +20,4 @@ api.interceptors.request.use(
   }
 )
 
+export default api

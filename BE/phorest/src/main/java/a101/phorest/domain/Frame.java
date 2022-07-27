@@ -2,6 +2,7 @@ package a101.phorest.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -19,8 +20,6 @@ public class Frame {
     private String thumbNailPath;
 
     private String framePath;
-
-    private File frameImage;
 
     @OneToOne(mappedBy = "frame", fetch = FetchType.LAZY)
     private Post post;

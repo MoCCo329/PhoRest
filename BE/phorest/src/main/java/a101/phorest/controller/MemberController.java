@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/")
+@RequestMapping("api")
 public class MemberController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class MemberController {
 
         return true;
     }
-
+// jenkins test
     @PostMapping("member/login")
     @ResponseBody
     public String login(@RequestBody @Valid MemberForm form) {
