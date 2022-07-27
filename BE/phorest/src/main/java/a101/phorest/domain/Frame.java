@@ -4,6 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -16,9 +20,11 @@ public class Frame {
 
     private String framePath;
 
+    private File frameImage;
+
     @OneToOne(mappedBy = "frame", fetch = FetchType.LAZY)
     private Post post;
 
-    @OneToOne(mappedBy = "frame", fetch = FetchType.LAZY)
-    private PhotoGroup photoGroup;
+    @OneToMany(mappedBy = "frame")
+    private List<PhotoGroup> photoGroups = new ArrayList<>();
 }

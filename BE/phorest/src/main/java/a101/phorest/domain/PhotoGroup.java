@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Entity
 @Getter
@@ -21,7 +22,9 @@ public class PhotoGroup {
 
     private String thumbNailPath;
 
-    @OneToOne
+    private File photoGroupImage;
+
+    @ManyToOne
     @JoinColumn(name = "frame_id")
     private Frame frame;
 

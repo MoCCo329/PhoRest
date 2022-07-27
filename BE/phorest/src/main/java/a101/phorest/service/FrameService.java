@@ -23,7 +23,7 @@ public class FrameService {
         return frame.getId();
     }
 
-//    public Post findOne(Long frameId){
-//        return frameRepository.findOne(frameId);
-//    }
+    public Frame findOne(Long frameId){
+        return frameRepository.findOne(frameId);
+    }
 }

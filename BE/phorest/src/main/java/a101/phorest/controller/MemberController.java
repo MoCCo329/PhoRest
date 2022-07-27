@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -64,20 +66,16 @@ public class MemberController {
         return "3";
     }
 
-    /**logout은 백에서 할 일 없음*/
-//    @PostMapping("member/logout")
-//    @ResponseBody
     /* 메인페이지 로그아웃 */
-//    @GetMapping("member/logout")
-//    @ResponseBody
-//    public String logout(HttpServletRequest request) throws Exception{
-//
-//        logger.info("logoutMainGET메서드 진입");
-//        HttpSession session = request.getSession();
-//        session.invalidate();
-//        return "redirect:/main";
-//
-//    }
+    @GetMapping("member/logout")
+    @ResponseBody
+    public String logout(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
+
+    }
 
     @PutMapping("member/edit")
     @ResponseBody
