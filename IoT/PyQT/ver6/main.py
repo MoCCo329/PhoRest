@@ -14,6 +14,7 @@ import qrcode
 
 stop_event = threading.Event()
 
+
 class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -21,14 +22,14 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         self.initImgs()
 
-        #recommand_pose_flag 초기화 0 : 안켜진상태 1 : 켜진상태
+        # recommand_pose_flag 초기화 0 : 안켜진상태 1 : 켜진상태
         self.recommand_pose_flag = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
         self.stack.setCurrentIndex(0)
         self.TopStack.setCurrentIndex(0)
 
-        #마우스 클릭 이벤트 설정
+        # 마우스 클릭 이벤트 설정
         self.setMouseTracking(True)
 
         # 촬영버튼에 사용할 타이머기능 세팅
@@ -40,6 +41,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         # frame color id 초기화
         self.Frame_Color_Id = "#FFFFFF"
+
+        self.ShotPhoto_thread = threading.Thread(target=self.ShotPhoto)
+        self.RunCamera_thread = threading.Thread(target=self.Run_Camera)
 
         self.show()
 
@@ -57,7 +61,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def mousePressEvent(self, e):
         # 마우스 좌표 파악
         print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
-        if(self.stack.currentIndex() == 0):
+        if (self.stack.currentIndex() == 0):
             self.stack.setCurrentIndex(1)
             self.Btn1.setCheckable(True)
             self.Btn2.setCheckable(True)
@@ -77,28 +81,26 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             self.Btn8.setAutoExclusive(True)
             self.ChooseBtnNum = 0
         # 이미지 클릭시 크게 띄워줄것임
-        if (self.stack.currentIndex() == 3 and self.TopStack.currentIndex()==3 and self.Shot_Click_Flag):
+        if (self.stack.currentIndex() == 3 and self.TopStack.currentIndex() == 3 and self.Shot_Click_Flag):
             # 이미지1
-            if(e.x()>=67 and e.x()<=544 and e.y()>=752 and e.y()<=1062):
+            if (e.x() >= 67 and e.x() <= 544 and e.y() >= 752 and e.y() <= 1062):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
-            elif(e.x()>=615 and e.x()<=1091 and e.y()>=752 and e.y()<=1062):
+            elif (e.x() >= 615 and e.x() <= 1091 and e.y() >= 752 and e.y() <= 1062):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo2.jpg')")
             elif (e.x() >= 67 and e.x() <= 544 and e.y() >= 1112 and e.y() <= 1422):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo3.jpg')")
             elif (e.x() >= 615 and e.x() <= 1091 and e.y() >= 1112 and e.y() <= 1422):
                 self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo4.jpg')")
 
-
         # 마지막 인쇄 완료 페이지
-        if(self.stack.currentIndex()==6):
-
+        if (self.stack.currentIndex() == 6):
             self.stack.setCurrentIndex(0)
             self.TopStack.setCurrentIndex(0)
 
-    #---------------------- 2. 인원 선택 칸 -----------------------
+    # ---------------------- 2. 인원 선택 칸 -----------------------
     # 두번째 화면에서는 각 버튼마다 이벤트 존재
     def RecommandPose(self):
-        if(self.recommand_pose_flag == 1):
+        if (self.recommand_pose_flag == 1):
             self.recommand_pose_flag = 0
             self.TopStack.setCurrentIndex(0)
         else:
@@ -109,15 +111,16 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             self.TopStack.setCurrentIndex(1)
 
     def NextBottomButton_to_2(self):
-        if(self.ChooseBtnNum != 0):
+        if (self.ChooseBtnNum != 0):
             self.stack.setCurrentIndex(2)
 
     def Press_Btn1(self):
-        if(self.recommand_pose_flag == 0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow","<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">1명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
+            self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">1명</span></p></body></html>"))
+            self.NowPeople_2.setText(_translate("MainWindow",
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">1명</span></p></body></html>"))
             if self.ChooseBtnNum == 2:
                 self.Btn2.setStyleSheet("QPushButton{"
                                         "color: #FF8200;"
@@ -194,12 +197,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn2(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">2명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">2명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">2명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -277,12 +280,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn3(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">3명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">3명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">3명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -360,12 +363,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn4(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">4명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">4명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">4명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -443,12 +446,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn5(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">5명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">5명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">5명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -526,12 +529,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn6(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">6명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">6명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">6명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -609,12 +612,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn7(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">7명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">7명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">7명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -692,12 +695,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                                     "}")
 
     def Press_Btn8(self):
-        if(self.recommand_pose_flag==0):
+        if (self.recommand_pose_flag == 0):
             _translate = QtCore.QCoreApplication.translate
             self.NowPeople.setText(_translate("MainWindow",
                                               "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">8명</span></p></body></html>"))
             self.NowPeople_2.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">8명</span></p></body></html>"))
+                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">8명</span></p></body></html>"))
 
             if self.ChooseBtnNum == 1:
                 self.Btn1.setStyleSheet("QPushButton{"
@@ -781,10 +784,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # -------------------------- 3번째 촬영버튼 페이지 ------------------------------
     # 15초간의 타이머 작동
     def Press_PreparedBtn(self):
-        global CurrentPhotoCnt, RunCamera_thread
-        self.CurrentPhotoCnt=0
+        self.CurrentPhotoCnt = 0
 
-        #먼저 촬영페이지의 넥스트 버튼 클릭 방지를 위해 Disable 처리
+        # 먼저 촬영페이지의 넥스트 버튼 클릭 방지를 위해 Disable 처리
         self.NextBtn_3.setDisabled(True)
         self.NextBtn_3.hide()
 
@@ -792,22 +794,19 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(2)
 
         # 카메라에서 시간초마다 사진을 찍게 하려면 별도 스레드에서 구현
-        self.ShotPhoto_thread = threading.Thread(target=self.ShotPhoto)
-        self.RunCamera_thread = threading.Thread(target=self.Run_Camera)
         self.ShotPhoto_thread.start()
-        self.RunCamera_thread.start()
 
     def Run_Camera(self):
-        global CurrentPhotoCnt, cap
-        cap = cv2.VideoCapture(-1)
-        print("작동중?")
-        width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-        height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-        print("width: {} height: {}".format(width,height))
-        self.Label_Camera.resize(width, height)
+        self.cap = cv2.VideoCapture(-1)
+        # print("작동중?")
+        # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 900)
+        # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
+        # print("width: {} height: {}".format(width,height))
+        self.Label_Camera.resize(900, 600)
 
         while self.CurrentPhotoCnt < 4:
-            ret, img = cap.read()
+            stop_event.wait()
+            ret, img = self.cap.read()
             if ret:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 img = cv2.flip(img, 1)
@@ -818,18 +817,21 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             else:
                 print("cannot read camera")
                 break
-        cap.release()
+        self.cap.release()
 
-    #----------------------------4번째 촬영 페이지---------------------------------
+    # ----------------------------4번째 촬영 페이지---------------------------------
     def ShotPhoto(self):
+        self.RunCamera_thread.start()
+        stop_event.set()
         # 타이머 작동
         self.StartTime = 5
-        for num in range(1,5):
-            for i in range(self.StartTime,0,-1):
+        for num in range(1, 5):
+            for i in range(self.StartTime, 0, -1):
                 self.Label_Timer.setText(str(i))
                 time.sleep(1)
             self.Label_Timer.setText("0")
             self.kimchi(num)
+            self.CurrentPhotoCnt += 1
 
             # 사진을 찍는 신호 보냄
             # 그러면 다른 스레드에서 신호가 오면 사진을 찍고 flag 다시 원래대로 돌려놓음
@@ -837,55 +839,57 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             # 이때 파일경로 마지막 파일명은 "photo{}".format(self.CurrentPhotoCnt+1)"
             # self.CurrentPhotoCnt 가 3이면 찍고, 0으로 돌려놓음
             # 사진이 저장되는 시간을 확보하기 위해서 3초간의 sleep을 둠
-            #time.sleep(1)
+            # time.sleep(1)
 
             pixmap = QPixmap("./photoDir/photo{}".format(num))
             pixmap = pixmap.scaledToHeight(300)
-            if(num==1):
+            if (num == 1):
                 self.Photo1.setPixmap(pixmap)
-            elif(num==2):
+            elif (num == 2):
                 self.Photo2.setPixmap(pixmap)
-            elif(num==3):
+            elif (num == 3):
                 self.Photo3.setPixmap(pixmap)
-            elif(num==4):
+            elif (num == 4):
                 self.Photo4.setPixmap(pixmap)
 
-        #다 찍었으면 TopPage 다음페이지로, 넥스트 버튼 나타나게
+            stop_event.set()
+
+        # 다 찍었으면 TopPage 다음페이지로, 넥스트 버튼 나타나게
         self.Shot_Click_Flag = 1
         self.NextBtn_3.setEnabled(True)
         self.NextBtn_3.setVisible(True)
         self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
         self.TopStack.setCurrentIndex(3)
-        
+
         self.make_image()
         time.sleep(1)
-        
+
     def make_image(self):
         img1 = Image.open("./photoDir/photo1.jpg")
         img2 = Image.open("./photoDir/photo2.jpg")
         img3 = Image.open("./photoDir/photo3.jpg")
         img4 = Image.open("./photoDir/photo4.jpg")
 
-        img_size = (600,425)
+        img_size = (600, 425)
 
         img1 = img1.resize(img_size)
         img2 = img2.resize(img_size)
         img3 = img3.resize(img_size)
         img4 = img4.resize(img_size)
 
-        new_img = Image.new("RGB", (1500, 1000), (0,0,0))
-        new_img.paste(img1, (50,50))
+        new_img = Image.new("RGB", (1500, 1000), (0, 0, 0))
+        new_img.paste(img1, (50, 50))
         new_img.paste(img2, (img_size[0] + 100, 50))
         new_img.paste(img3, (50, img_size[1] + 100))
         new_img.paste(img4, (img_size[0] + 100, img_size[1] + 100))
-        
-        #make QR code
+
+        # make QR code
         qr = qrcode.QRCode(
-            version = 1,
-            error_correction = qrcode.constants.ERROR_CORRECT_H,
-            box_size = 2,
-            border = 1
-            )
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_H,
+            box_size=2,
+            border=1
+        )
 
         url = 'http://i7a101.p.ssafy.io/api/frame/'
         qr.add_data(url)
@@ -894,54 +898,55 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         qrimg.save('./photoDir/QRCodeImg.jpg')
 
         QRcode = Image.open("./photoDir/QRCodeImg.jpg")
-        QRcode = qrimg.resize((130,130))
-        new_img.paste(QRcode, ((img_size[0]*2) + 100 + 10, 1000 - 50 - 130))
+        QRcode = qrimg.resize((130, 130))
+        new_img.paste(QRcode, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130))
 
-        #watermark
+        # watermark
         waterFont = ImageFont.truetype('./703.ttf', 60)
         mark_width, mark_height = waterFont.getsize('PhoRest')
         watermark = Image.new('RGBA', (mark_width, mark_height), (0, 0, 0, 0))
         waterdraw = ImageDraw.Draw(watermark)
-        waterdraw.text((0,0), 'PhoRest', fill='black', font=waterFont, align='center')
-        watermark = watermark.rotate(90,expand=1)
+        waterdraw.text((0, 0), 'PhoRest', fill='black', font=waterFont, align='center')
+        watermark = watermark.rotate(90, expand=1)
 
-        new_img.paste(watermark, ((img_size[0]*2) + 100 + 10, 1000 - 50 - 130 - 20 - mark_width), watermark)
+        new_img.paste(watermark, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130 - 20 - mark_width), watermark)
 
-        #datestr
+        # datestr
         time = dt.datetime.now()
         datestr = time.strftime('%Y/%m/%d')
         dateFont = ImageFont.truetype('./703.ttf', 30)
         date_width, date_height = dateFont.getsize(datestr)
         datemark = Image.new('RGBA', (date_width, date_height), (0, 0, 0, 0))
         datedraw = ImageDraw.Draw(datemark)
-        datedraw.text((0,0), datestr, fill='black', font=dateFont, align='center')
-        datemark = datemark.rotate(90,expand=1)
+        datedraw.text((0, 0), datestr, fill='black', font=dateFont, align='center')
+        datemark = datemark.rotate(90, expand=1)
 
-        new_img.paste(datemark, ((img_size[0]*2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width), datemark)
+        new_img.paste(datemark, ((img_size[0] * 2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width),
+                      datemark)
 
-        new_img.save("./photoDir/merged_img.png","PNG")
+        new_img.save("./photoDir/merged_img.png", "PNG")
 
-    def kimchi(self,num):
-        global cap
+    def kimchi(self, num):
         self.TopStack.setStyleSheet("background-color : white")
-        ret, img = cap.read()
+        ret, img = self.cap.read()
         img = cv2.flip(img, 1)
+        cv2.imwrite('./photoDir/photo{}.jpg'.format(num), img)
+
+        stop_event.clear()
+
         time.sleep(0.5)
         self.TopStack.setStyleSheet("background-color : #FFF7E7")
         time.sleep(0.5)
         self.stack.setStyleSheet("background-color : #FFF7E7")
         time.sleep(0.5)
-        cv2.imwrite('./photoDir/photo{}.jpg'.format(num), img)
         time.sleep(1)
 
     def NextBottomButton_to_4(self):
         self.stack.setCurrentIndex(4)
         self.TopStack.setCurrentIndex(4)
 
-
     def Press_Back(self):
-        self.stack.setCurrentIndex(self.stack.currentIndex()-1)
-
+        self.stack.setCurrentIndex(self.stack.currentIndex() - 1)
 
     # -------------------------- 5번째 프레임 선택 페이지 ------------------------------
 
@@ -954,9 +959,10 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Frame_Color_Id = "#FFFFFF"
         FrameImg = Image.open('./Frame/Frame_1.jpg')
         img = Image.open('./photoDir/merged_img.png')
-        FrameImg.paste(img, (0,0))
-        qImg = QImage(FrameImg.data, 900, 600, QImage.Format_RGB888)
-        pixmap = QPixmap.fromImage(qImg)
+        FrameImg.paste(img, (0, 0))
+        FrameImg.resize((900,600))
+        FrameImg.save('./FramePulsImg.jpg', 'JPEG')
+        pixmap = QPixmap('./FramePulsImg.jpg')
         self.PhotoPlusFrame.setPixmap(pixmap)
 
     def Press_BasicFrame2(self):
@@ -1018,4 +1024,3 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
     except:
         print("Exiting")
-        cap.release()
