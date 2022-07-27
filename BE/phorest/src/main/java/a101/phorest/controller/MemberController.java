@@ -1,5 +1,6 @@
 package a101.phorest.controller;
 
+import a101.phorest.config.JwtTokenProvider;
 import a101.phorest.domain.Member;
 import a101.phorest.repository.MemberRepository;
 import a101.phorest.service.MemberService;
@@ -43,6 +44,7 @@ public class MemberController {
             return false;
         }
 
+
         return true;
     }
 // jenkins test
@@ -55,7 +57,11 @@ public class MemberController {
         String password = form.getPassword();
         Optional<Member> member = memberRepository.findByUsername(username);
         if(member.isPresent() && member.get().getPassword() == password){
-            return "0";
+            //성공
+            //generate token
+            JwtTokenProvider jwtTokenProvider = null;
+            return  jwtTokenProvider.createToken(member.get().getId());
+            //출처: https://llshl.tistory.com/28 [하루에 딱 한 개만!!!:티스토리]
         }
         else if(!member.isPresent()){
             return "1";

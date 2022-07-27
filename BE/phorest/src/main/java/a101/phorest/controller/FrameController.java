@@ -26,24 +26,24 @@ public class FrameController {
     @Autowired
     private final FrameRepository frameRepository;
 
-    //Frame 생성
-    @PostMapping("frame/new")
-    @ResponseBody
-    public Long create(File image){
-        // 이미지 받음
-        Frame frame = new Frame();
-        frame.setFrameImage(image);
-        //frame.setThumbNailPath();
-        return frame.getId();
-    }
+//    //Frame 생성
+//    @PostMapping("frame/new")
+//    @ResponseBody
+//    public Long create(File image){
+//        // 이미지 받음
+//        Frame frame = new Frame();
+//        frame.setFrameImage(image);
+//        //frame.setThumbNailPath();
+//        return frame.getId();
+//    }
 
     //Frame 삭제
 
-    //frame 사진 보내주기
-    @PostMapping("frame/id")
-    @ResponseBody
-    public File getImage(@RequestBody @Valid Long id){
-        Frame frame = frameService.findOne(id);
-        return frame.getFrameImage();
-    }
+//    //frame 사진 보내주기
+//    @PostMapping("frame/id")
+//    @ResponseBody
+//    public File getImage(@RequestBody @Valid Long id){
+//        Frame frame = frameService.findOne(id);
+//        return frame.getFrameImage();
+//    }
 }
