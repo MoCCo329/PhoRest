@@ -28,7 +28,7 @@ public class ImageController {
     public String updateUserImage(@RequestBody MultipartFile multipartFile) {
         return "success";
     }
-    @PostMapping("photogroup/upload")
+    @PostMapping("upload/photogroup")
     @ResponseBody
     public Long photoGroupUpload(@RequestBody String path){
         Long id = photoGroupService.join(path);
@@ -41,7 +41,7 @@ public class ImageController {
 
     }
 
-    @PostMapping("frame/upload")
+    @PostMapping("upload/frame")
     @ResponseBody
     public Long frameUpload(@RequestBody String path, String content){
         Long id = frameService.join(path);
