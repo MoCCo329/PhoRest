@@ -1,5 +1,9 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import members from './../api/members'
+import { setToken, setAuthError } from '../store/member'
 
 export default function Main() {
     let [nickname, setNickname] = useState('')
@@ -7,6 +11,9 @@ export default function Main() {
     let [password, setPassword] = useState('')
     let [phone, setPhone] = useState('')
     let [passwordValidity, setPasswordValidity] = useState('')
+
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
 
     const passwordTest = (value) => {
         if (value === '') {
@@ -27,7 +34,19 @@ export default function Main() {
             password : password,
             phone : phone,
         }
+
         members.signup(credentials)
+        .then((result) => {
+            // const token = result.data.key
+            // dispatch(setToken(token))
+            // localStorage.setItem("token", token)
+            // members.currentUser()
+            // navigate(-1)
+          })
+          .catch((error) => {
+            dispatch(setAuthError(error.response))
+            console.error(error.response.data)
+          })
     }
 
     return (
@@ -45,6 +64,7 @@ export default function Main() {
               <input onChange={(e)=>{setPhone(e.target.value)}} type="number" id="phoneNumber" required placeholder="PhoneNumber" /><br/>
               <button type="submit">Sign up</button>
             </form>
+            {/* AUTH_ERROR 있으면 보여주기 */}
         </div>
     )
 }
