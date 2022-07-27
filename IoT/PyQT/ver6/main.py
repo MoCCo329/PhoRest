@@ -26,8 +26,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.recommand_pose_flag = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
-        self.stack.setCurrentIndex(0)
-        self.TopStack.setCurrentIndex(0)
+        self.stack.setCurrentIndex(4)
+        self.TopStack.setCurrentIndex(4)
 
         # 마우스 클릭 이벤트 설정
         self.setMouseTracking(True)
@@ -797,7 +797,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.ShotPhoto_thread.start()
 
     def Run_Camera(self):
-        self.cap = cv2.VideoCapture(-1)
+        self.cap = cv2.VideoCapture(0)
         # print("작동중?")
         # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 900)
         # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
@@ -877,7 +877,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         img3 = img3.resize(img_size)
         img4 = img4.resize(img_size)
 
-        new_img = Image.new("RGB", (1500, 1000), (0, 0, 0))
+        new_img = Image.new("RGBA", (1500, 1000), (0, 0, 0, 0))
         new_img.paste(img1, (50, 50))
         new_img.paste(img2, (img_size[0] + 100, 50))
         new_img.paste(img3, (50, img_size[1] + 100))
@@ -901,7 +901,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         QRcode = qrimg.resize((130, 130))
         new_img.paste(QRcode, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130))
 
-        # watermark
+        '''# watermark
         waterFont = ImageFont.truetype('./703.ttf', 60)
         mark_width, mark_height = waterFont.getsize('PhoRest')
         watermark = Image.new('RGBA', (mark_width, mark_height), (0, 0, 0, 0))
@@ -922,7 +922,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         datemark = datemark.rotate(90, expand=1)
 
         new_img.paste(datemark, ((img_size[0] * 2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width),
-                      datemark)
+                      datemark)'''
 
         new_img.save("./photoDir/merged_img.png", "PNG")
 
@@ -954,51 +954,47 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def Press_Applying(self):
         print("Apply")
 
+    def make_Frame_Img(self, num):
+        FrameImg = Image.open('./Frame/Frame_{}.jpg'.format(num))
+        img = Image.open('./photoDir/merged_img.png')
+        FrameImg.paste(img, (0, 0), img)
+        FrameImg = FrameImg.resize((900, 600))
+        FrameImg.save('./FramePulsImg.png', 'PNG')
+        pixmap = QPixmap('./FramePulsImg.png')
+        self.PhotoPlusFrame.setPixmap(pixmap)
+
     # 프레임 컬러 선택 버튼
     def Press_BasicFrame1(self):
         self.Frame_Color_Id = "#FFFFFF"
-        FrameImg = Image.open('./Frame/Frame_1.jpg')
-        img = Image.open('./photoDir/merged_img.png')
-        FrameImg.paste(img, (0, 0))
-        FrameImg.resize((900,600))
-        FrameImg.save('./FramePulsImg.jpg', 'JPEG')
-        pixmap = QPixmap('./FramePulsImg.jpg')
-        self.PhotoPlusFrame.setPixmap(pixmap)
+        self.make_Frame_Img(1)
 
     def Press_BasicFrame2(self):
         self.Frame_Color_Id = "#D2D2FF"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_2.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(2)
 
     def Press_BasicFrame3(self):
         self.Frame_Color_Id = "#32F1FF"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_3.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(3)
 
     def Press_BasicFrame4(self):
         self.Frame_Color_Id = "#FFD4DF"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_4.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(4)
 
     def Press_BasicFrame5(self):
         self.Frame_Color_Id = "#FAFAA0"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_5.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(5)
 
     def Press_BasicFrame6(self):
         self.Frame_Color_Id = "#957745"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_6.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(6)
 
     def Press_BasicFrame7(self):
         self.Frame_Color_Id = "#8c8c8c"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_7.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(7)
 
     def Press_BasicFrame8(self):
         self.Frame_Color_Id = "#94EB3E"
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./Frame/Frame_8.jpg')")
-        self.PhotoPlusFrame.setStyleSheet("border-image:url('./photoDir/merged_img.png')")
+        self.make_Frame_Img(8)
 
     # 프린트 버튼
     def Press_Printing(self):
