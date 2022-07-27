@@ -1,15 +1,5 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
 import './ScrollCalendar.css'
-
-
-const Item = styled(Paper)(({ theme, props }) => ({
-  ...theme.typography.title,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 // 먼저 올해의 년도를 구한다.
 // 그리고 12월을 구해서 각각에 대해서 days 를 저장한다.
@@ -32,7 +22,12 @@ function calMonth(month) {
   let monthlyDays = []
   let day = firstDateofMonth
   while (day <= lastDateofMonth) {
-    monthlyDays.push(day)
+    if (day.getMonth() === month) {
+      monthlyDays.push(day)
+    }
+    else {
+      monthlyDays.push(" ")
+    }
     day = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1)
   }
   let json = {
@@ -77,7 +72,7 @@ function Months() {
           <div className="container">
             {
               m.dates.map(day =>
-                <div className="date">{day.getDate()}</div>
+                <div className="date">{day == " " ?  " ":day.getDate()}</div>
               )
             }
           </div>
