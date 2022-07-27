@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional(readOnly = true) // 기본은 false
 @RequiredArgsConstructor
@@ -20,6 +22,8 @@ public class PostService {
     @Transactional
     public Long join(Post post){
         //validateDuplicateMember(post);
+        post.setTime(LocalDateTime.now());
+        post.setLikeCount(0);
         postRepository.save(post);
         return post.getId();
     }

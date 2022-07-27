@@ -17,13 +17,14 @@ public class FrameService {
 
 
     @Transactional
-    public Long join(Frame frame){
-        //validateDuplicateMember(post);
+    public Long join(String path){
+        Frame frame = new Frame();
+        frame.setFramePath(path);
         frameRepository.save(frame);
         return frame.getId();
     }
 
-//    public Post findOne(Long frameId){
-//        return frameRepository.findOne(frameId);
-//    }
+    public Frame findOne(Long frameId){
+        return frameRepository.findOne(frameId);
+    }
 }

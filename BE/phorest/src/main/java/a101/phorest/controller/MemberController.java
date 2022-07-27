@@ -1,5 +1,6 @@
 package a101.phorest.controller;
 
+import a101.phorest.config.JwtTokenProvider;
 import a101.phorest.domain.Member;
 import a101.phorest.repository.MemberRepository;
 import a101.phorest.service.MemberService;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -24,24 +27,19 @@ public class MemberController {
 
     @PostMapping("member/signup")
     @ResponseBody
-    public Boolean create(@RequestBody @Valid MemberForm form, BindingResult result){ //BindingResult : 오류 발생시 오류가 result에 담겨서 아래가 실행됨.
+    public String create(@RequestBody @Valid MemberForm form, BindingResult result){ //BindingResult : 오류 발생시 오류가 result에 담겨서 아래가 실행됨.
 
         Member member = new Member();
+        member.setPassword(form.getPassword());
         member.setUsername(form.getUsername());
         member.setNickname(form.getNickname());
         member.setPhone(form.getPhone());
 
         try{
-            memberService.join(member);
+            return memberService.join(member);
         }catch(IllegalStateException e){
-            return false;
+            return "cannot join";
         }
-
-        if(result.hasErrors()){
-            return false;
-        }
-
-        return true;
     }
 // jenkins test
     @PostMapping("member/login")
@@ -53,31 +51,31 @@ public class MemberController {
         String password = form.getPassword();
         Optional<Member> member = memberRepository.findByUsername(username);
         if(member.isPresent() && member.get().getPassword() == password){
-            return "0";
+            //성공
+            //generate token
+            JwtTokenProvider jwtTokenProvider = null;
+            return  jwtTokenProvider.createToken(member.get().getId());
+            //출처: https://llshl.tistory.com/28 [하루에 딱 한 개만!!!:티스토리]
         }
         else if(!member.isPresent()){
-            return "1";
+            return "no such id";
         }
         else if(member.get().getPassword() != password) {
-            return "2";
+            return "wrong password";
         }
-        return "3";
+        return "unexpected error";
     }
 
-    /**logout은 백에서 할 일 없음*/
-//    @PostMapping("member/logout")
-//    @ResponseBody
     /* 메인페이지 로그아웃 */
-//    @GetMapping("member/logout")
-//    @ResponseBody
-//    public String logout(HttpServletRequest request) throws Exception{
-//
-//        logger.info("logoutMainGET메서드 진입");
-//        HttpSession session = request.getSession();
-//        session.invalidate();
-//        return "redirect:/main";
-//
-//    }
+    @GetMapping("member/logout")
+    @ResponseBody
+    public String logout(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
+
+    }
 
     @PutMapping("member/edit")
     @ResponseBody

@@ -15,8 +15,7 @@ public class Post {
     @GeneratedValue
     @Column(name = "post_id")
     private Long id;
-    
-    private String category;
+    private String category; // photogroup, frame
 
     private LocalDateTime time; // time zz
 
@@ -55,7 +54,7 @@ public class Post {
     public void removeLike(){
         int restStock = this.likeCount - 1;
         if(restStock < 0) {
-            restStock = 0;
+            this.likeCount = 0;
         }
     }
 

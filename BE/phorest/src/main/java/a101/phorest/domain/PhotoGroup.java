@@ -2,8 +2,10 @@ package a101.phorest.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Entity
 @Getter
@@ -21,7 +23,7 @@ public class PhotoGroup {
 
     private String thumbNailPath;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "frame_id")
     private Frame frame;
 
