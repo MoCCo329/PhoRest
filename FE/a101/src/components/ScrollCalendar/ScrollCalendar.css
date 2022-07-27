@@ -2,6 +2,7 @@
     display: grid;
     width: 100%;
     gap: 15px;
+    padding: 10px;
     place-content: space-between center;
 }
 .container {
@@ -15,7 +16,6 @@
 .month {
     /* font-weight: bolder; */
     font-family: 'LeferiPoint-BlackA';
-    padding: 5px;
     justify-self: center;
 }
 .days {
