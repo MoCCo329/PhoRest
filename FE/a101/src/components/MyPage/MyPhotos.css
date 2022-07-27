@@ -1,0 +1,13 @@
+.container {
+    display: grid;
+    width: 70%;
+    place-content: space-between center;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

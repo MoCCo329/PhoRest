@@ -1,21 +1,17 @@
 import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import './MyPhotos.css'
 
 export default function MyPhotos() {
   return (
-    <ImageList sx={{ width: 350, height: 500 }} cols={3} rowHeight={100}>
+    <div className='container'>
       {itemData.map((item) => (
-        <ImageListItem key={item.title}>
-          <img
-            src={`${item.img}?fit=crop&auto=format`}
-            srcSet={`${item.img}?fit=crop&auto=format&dpr=2 2x`}
+          <img className='image'
+            src={item.img}
             alt={item.title}
             loading="lazy"
           />
-        </ImageListItem>
       ))}
-    </ImageList>
+    </div>
   );
 }
 

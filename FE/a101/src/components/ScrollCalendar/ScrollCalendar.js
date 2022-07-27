@@ -52,7 +52,6 @@ export default function ScrollCalendar() {
 }
 
 function Months() {
-  const color = 'primary'
   return (
     <div>
       {months.map(m =>
@@ -72,7 +71,7 @@ function Months() {
           <div className="container">
             {
               m.dates.map(day =>
-                <div className="date">{day == " " ?  " ":day.getDate()}</div>
+                <div className="date">{day === " " ?  " ":day.getDate()}</div>
               )
             }
           </div>
