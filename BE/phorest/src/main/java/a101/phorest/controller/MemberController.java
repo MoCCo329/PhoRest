@@ -27,7 +27,7 @@ public class MemberController {
 
     @PostMapping("member/signup")
     @ResponseBody
-    public Boolean create(@RequestBody @Valid MemberForm form, BindingResult result){ //BindingResult : 오류 발생시 오류가 result에 담겨서 아래가 실행됨.
+    public String create(@RequestBody @Valid MemberForm form, BindingResult result){ //BindingResult : 오류 발생시 오류가 result에 담겨서 아래가 실행됨.
 
         Member member = new Member();
         member.setPassword(form.getPassword());
@@ -36,17 +36,10 @@ public class MemberController {
         member.setPhone(form.getPhone());
 
         try{
-            memberService.join(member);
+            return memberService.join(member);
         }catch(IllegalStateException e){
-            return false;
+            return "cannot join";
         }
-
-        if(result.hasErrors()){
-            return false;
-        }
-
-
-        return true;
     }
 // jenkins test
     @PostMapping("member/login")
