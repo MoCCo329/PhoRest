@@ -10,7 +10,7 @@ import java.io.File;
 @Entity
 @Getter
 @Setter
-public class PhotoGroup {
+public class PhotoGroup implements Images{
 
     @Id
     @GeneratedValue
@@ -23,9 +23,6 @@ public class PhotoGroup {
 
     private String thumbNailPath;
 
-    @ManyToOne
-    @JoinColumn(name = "frame_id")
-    private Frame frame;
 
 
 }

@@ -23,18 +23,18 @@ public class PostController {
     private final PostRepository postRepository;
 
     //post 새로 만들기 + postid 보내주기
-    @PostMapping("post/new")
-    @ResponseBody
-    public Long create(String category,String content){
-        Post post = new Post();
-
-        post.setCategory(category);
-        post.setTime(LocalDateTime.now());
-        post.setContent(content);
-        post.setLikeCount(0);
-
-        post.setId(postService.join(post));
-
-        return post.getId();
-    }
+//    @PostMapping("post/new")
+//    @ResponseBody
+//    public Long create(String category,String content){
+//        Post post = new Post();
+//
+//        post.setCategory(category);
+//        post.setTime(LocalDateTime.now());
+//        post.setContent(content);
+//        post.setLikeCount(0);
+//
+//        post.setId(postService.join(post));
+//
+//        return post.getId();
+//    }
 }

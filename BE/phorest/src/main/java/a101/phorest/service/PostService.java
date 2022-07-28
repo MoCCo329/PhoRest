@@ -1,15 +1,15 @@
 package a101.phorest.service;
 
-import a101.phorest.domain.Member;
-import a101.phorest.domain.Post;
-import a101.phorest.repository.MemberRepository;
+import a101.phorest.domain.*;
 import a101.phorest.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true) // 기본은 false
@@ -20,18 +20,55 @@ public class PostService {
 
 
     @Transactional
-    public Long join(Post post){
+    public Long join(Images images, String category, String content){
         //validateDuplicateMember(post);
+        Post post = new Post();
         post.setTime(LocalDateTime.now());
         post.setLikeCount(0);
+        post.setCategory(category);
+        post.setContent(content);
+        if(category == "photogroup")
+            post.setPhotoGroup((PhotoGroup) images);
+        else if(category == "frame")
+            post.setFrame((Frame) images);
         postRepository.save(post);
         return post.getId();
     }
 
     public Post findOne(Long postId){
-        return postRepository.findOne(postId);
+        return postRepository.findById(postId).get();
     }
 
+    public List<PostDto> findByLikeCount(String category, Long limit, Long offset) {
+        List<PostDto> postDtos = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
+        if(category == "photogroup")
+        {
+            posts = postRepository.findByLikeCount("photogroup", limit, offset);
+
+        }
+        else if(category == "frame")
+        {
+            posts = postRepository.findByLikeCount("frame", limit, offset);
+        }
+        for(int i = 0; i < posts.size(); i++) {
+            PostDto postDto = new PostDto();
+            Post post = posts.get(i);
+            postDto.setId(post.getId());
+            postDto.setCategory(category);
+            if(category == "photogroup"){
+                postDto.setUrl(post.getPhotoGroup().getPhotoGroupPath());
+            }
+            else if(category == "frame"){
+                postDto.setUrl(post.getFrame().getFramePath());
+            }
+            postDto.setContent(post.getContent());
+            postDto.setLikeCount(post.getLikeCount());
+            postDtos.add(postDto);
+        }
+        return postDtos;
+
+    }
     /** 게시물 리스트 페이징 **/
     private static final int PAGE_POST_COUNT = 20;
 
