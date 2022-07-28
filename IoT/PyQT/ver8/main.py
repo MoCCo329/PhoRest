@@ -29,8 +29,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.ChooseBtnNum = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
-        self.stack.setCurrentIndex(4)
-        self.TopStack.setCurrentIndex(4)
+        self.stack.setCurrentIndex(0)
+        self.TopStack.setCurrentIndex(0)
 
         # 마우스 클릭 이벤트 설정
         self.setMouseTracking(True)
@@ -47,12 +47,19 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         # frame color id 초기화
         self.Frame_Color_Id = "#FFFFFF"
+        
+        self.CurrentPhotoCnt = 0
 
         self.ShotPhoto_thread = threading.Thread(target=self.ShotPhoto)
         self.ShotPhoto_thread.setDaemon(True)
         self.RunCamera_thread = threading.Thread(target=self.Run_Camera)
         self.RunCamera_thread.setDaemon(True)
         self.lock = threading.Lock()
+        
+        # 카메라에서 시간초마다 사진을 찍게 하려면 별도 스레드에서 구현
+        self.ShotPhoto_thread.start()
+        self.RunCamera_thread.start()
+        #stop_event.clear()
 
         self.show()
 
@@ -65,11 +72,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         self.Top_Big_Photo.clear()
         self.Label_Camera.clear()
+        self.PhotoPlusFrame.clear()
 
     # 첫번째 화면에서는 어느 화면이던 클릭하면 두번째 화면으로 넘어간다
     def mousePressEvent(self, e):
         # 마우스 좌표 파악
-        print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
+        #print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
         if (self.stack.currentIndex() == 0):
             self.stack.setCurrentIndex(1)
             self.Btn1.setCheckable(True)
@@ -798,84 +806,78 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # 15초간의 타이머 작동
     def Press_PreparedBtn(self):
         self.CurrentPhotoCnt = 0
-
+        
         # 먼저 촬영페이지의 넥스트 버튼 클릭 방지를 위해 Disable 처리
         self.NextBtn_3.setDisabled(True)
         self.NextBtn_3.hide()
 
         self.stack.setCurrentIndex(3)
         self.TopStack.setCurrentIndex(2)
-
-        # 카메라에서 시간초마다 사진을 찍게 하려면 별도 스레드에서 구현
-        self.ShotPhoto_thread.start()
-        self.RunCamera_thread.start()
+        
+        stop_event.set()
 
     def Run_Camera(self):
-        self.cap = cv2.VideoCapture(0)
-        # print("작동중?")
-        # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 900)
-        # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 600)
-        # print("width: {} height: {}".format(width,height))
-        self.Label_Camera.resize(900, 600)
+        while True:
+            self.cap = cv2.VideoCapture(-1)
+            # print("작동중?")
+            #self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            #self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+            # print("width: {} height: {}".format(width,height))
+            self.Label_Camera.resize(900, 600)
 
-        while self.CurrentPhotoCnt < 4:
-            stop_event.wait()
-            ret, img = self.cap.read()
-            if ret:
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                img = cv2.flip(img, 1)
-                h, w, c = img.shape
-                qImg = QImage(img.data, w, h, w * c, QImage.Format_RGB888)
-                Videopixmap = QPixmap.fromImage(qImg)
-                self.Label_Camera.setPixmap(Videopixmap)
-            else:
-                print("cannot read camera")
-                break
-        self.cap.release()
+            while self.CurrentPhotoCnt < 4:
+                stop_event.wait()
+                ret, img = self.cap.read()
+                if ret:
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                    img = cv2.flip(img, 1)
+                    resize_img = cv2.resize(img, (900,600), interpolation=cv2.INTER_CUBIC)
+                    h, w, c = resize_img.shape
+                    qImg = QImage(resize_img.data, w, h, w * c, QImage.Format_RGB888)
+                    Videopixmap = QPixmap.fromImage(qImg)
+                    self.Label_Camera.setPixmap(Videopixmap)
+                else:
+                    print("cannot read camera")
+                    break
+            self.cap.release()
 
     # ----------------------------4번째 촬영 페이지---------------------------------
     def ShotPhoto(self):
-        stop_event.set()
-        # 타이머 작동
-        self.StartTime = 5
-        for num in range(1, 5):
-            for i in range(self.StartTime, 0, -1):
-                self.Label_Timer.setText(str(i))
-                time.sleep(1)
-            self.Label_Timer.setText("0")
-            self.kimchi(num)
-            self.CurrentPhotoCnt += 1
+        while True:
+            stop_event.wait()
+            # 타이머 작동
+            self.StartTime = 5
+            for num in range(1, 5):
+                for i in range(self.StartTime, 0, -1):
+                    self.Label_Timer.setText(str(i))
+                    time.sleep(1)
+                self.Label_Timer.setText("0")
+                self.kimchi(num)
+                self.CurrentPhotoCnt += 1
 
-            # 사진을 찍는 신호 보냄
-            # 그러면 다른 스레드에서 신호가 오면 사진을 찍고 flag 다시 원래대로 돌려놓음
-            # 사진을 찍을 때 애니메이션 기능을 넣어서 사용자가 사진이 찍힌건지 확인 가능해야한다.
-            # 이때 파일경로 마지막 파일명은 "photo{}".format(self.CurrentPhotoCnt+1)"
-            # self.CurrentPhotoCnt 가 3이면 찍고, 0으로 돌려놓음
-            # 사진이 저장되는 시간을 확보하기 위해서 3초간의 sleep을 둠
-            # time.sleep(1)
+                pixmap = QPixmap("./photoDir/photo{}".format(num))
+                pixmap = pixmap.scaledToHeight(300)
+                if (num == 1):
+                    self.Photo1.setPixmap(pixmap)
+                elif (num == 2):
+                    self.Photo2.setPixmap(pixmap)
+                elif (num == 3):
+                    self.Photo3.setPixmap(pixmap)
+                elif (num == 4):
+                    self.Photo4.setPixmap(pixmap)
 
-            pixmap = QPixmap("./photoDir/photo{}".format(num))
-            pixmap = pixmap.scaledToHeight(300)
-            if (num == 1):
-                self.Photo1.setPixmap(pixmap)
-            elif (num == 2):
-                self.Photo2.setPixmap(pixmap)
-            elif (num == 3):
-                self.Photo3.setPixmap(pixmap)
-            elif (num == 4):
-                self.Photo4.setPixmap(pixmap)
+                stop_event.set()
 
-            stop_event.set()
+            # 다 찍었으면 TopPage 다음페이지로, 넥스트 버튼 나타나게
+            self.Shot_Click_Flag = 1
+            self.NextBtn_3.setEnabled(True)
+            self.NextBtn_3.setVisible(True)
+            self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
+            self.TopStack.setCurrentIndex(3)
 
-        # 다 찍었으면 TopPage 다음페이지로, 넥스트 버튼 나타나게
-        self.Shot_Click_Flag = 1
-        self.NextBtn_3.setEnabled(True)
-        self.NextBtn_3.setVisible(True)
-        self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
-        self.TopStack.setCurrentIndex(3)
-
-        self.make_image()
-        time.sleep(1)
+            self.make_image()
+            stop_event.clear()
+            time.sleep(1)
 
     def make_image(self):
         img1 = Image.open("./photoDir/photo1.jpg")
@@ -914,7 +916,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         QRcode = qrimg.resize((130, 130))
         new_img.paste(QRcode, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130))
 
-        '''# watermark
+        # watermark
         waterFont = ImageFont.truetype('./703.ttf', 60)
         mark_width, mark_height = waterFont.getsize('PhoRest')
         watermark = Image.new('RGBA', (mark_width, mark_height), (0, 0, 0, 0))
@@ -935,7 +937,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         datemark = datemark.rotate(90, expand=1)
 
         new_img.paste(datemark, ((img_size[0] * 2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width),
-                      datemark)'''
+                      datemark)
 
         new_img.save("./photoDir/merged_img.png", "PNG")
 
@@ -968,6 +970,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     # 프레임까지 적용하여 화면에 띄워주는 버튼
     def Press_Applying(self):
+        pass
+        '''
         # 먼저 입력한 Frame_id를 서버에 보냄
         self.frame_id = self.Frame_Id.text()
         data = {
@@ -1009,8 +1013,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         FrameImg.save('./FramePulsImg.png', 'PNG')
         pixmap = QPixmap('./FramePulsImg.png')
         self.PhotoPlusFrame.setPixmap(pixmap)
-
-
+        '''
 
     def make_Frame_Img(self, num):
         FrameImg = Image.open('./Frame/Frame_{}.jpg'.format(num))
@@ -1062,12 +1065,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         # -------------------------- 6번째 인쇄중 출력 페이지 ------------------------------
 
         # 인쇄 하는 코드 넣기
-
+        #os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
 
 
 
         # 인쇄가 끝나면 업로드 코드 넣기
-
+        '''
         img = open('./FramePulsImg.png','rb')
         files = {
             'image': img
@@ -1078,10 +1081,10 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         }
         print(self.ChooseBtnNum)
         res = requests.post("http://i7a101.p.ssafy.io/api/upload/photogroup", files=files, data=data)
+        '''
         print("성공")
         self.Final_Flag = 1
         self.initImgs()
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
