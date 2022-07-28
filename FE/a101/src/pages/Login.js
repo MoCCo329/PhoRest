@@ -1,12 +1,19 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { setToken, setAuthError } from '../store/member'
 import members from './../api/members'
+
 
 export default function Main() {
     let [id, setId] = useState('')
     let [password, setPassword] = useState('')
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
 
-    const onSubmit = (e) => {
-        e.preventDefault()
+    const onSubmit = (event) => {
+        event.preventDefault()
         const credentials = {
             username : id,
             password : password,
@@ -14,13 +21,15 @@ export default function Main() {
 
         members.login(credentials)
         .then((result) => {
-          const token = result.data.key
-          // redux에 저장
-          localStorage.setItem("token", token)
-          // redirect
+            const token = result.data.key
+            dispatch(setToken(token))
+            localStorage.setItem('token', token)
+            members.currentUser()
+            navigate(-1)
         })
-        .catch((err) => {
-          console.error(err.response.data)
+        .catch((error) => {
+          dispatch(setAuthError(error.response))
+          console.error(error.response.data)
         })
     }
 
@@ -34,6 +43,7 @@ export default function Main() {
               <button type="submit">Sign up</button>
             </form>
             {/* 기억하기 버튼 => local에 저장할지 말지 */}
+            {/* AUTH_ERROR redux에 있으면 보여주기 */}
         </div>
     )
 }
