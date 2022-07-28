@@ -1,11 +1,10 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import CommunityScroll from '../components/Community/CommunityScroll'
+import CommunityCarousel from '../components/Community/CommunityCarousel'
 
 
 export default function Main() {
-    let [numOfPeople, setNumOfPeople] = useState(2)
     const { postId } = useParams()
 
 
@@ -32,14 +31,11 @@ export default function Main() {
             </div>
             <div className="download-community">
                 <div>
-                    <div>
-                        <p>네컷 게시판</p>
-                        {/* 인원수 선택창*/}
-                    </div>
-                    <CommunityScroll communityType="pic" numOfPeople={numOfPeople}/>
+                    <CommunityCarousel communityType="frame" />
                 </div>
+                <div style={{height: '100px', position: 'absolute'}}></div>
                 <div>
-                    <CommunityScroll communityType="frame" />
+                    <CommunityCarousel communityType="Pic" />
                 </div>
             </div>
         </div>

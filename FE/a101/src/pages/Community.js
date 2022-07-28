@@ -27,7 +27,8 @@ export default function Community(props) {
 
     return (
         <div>
-            <p className="community-title">{ communityType === 'frame' ? '프레임' : '사진'} { postId } 게시판</p>
+            {/* <p className="community-title">{ communityType === 'frame' ? '프레임' : '사진'} { postId } 게시판</p> */}
+            {postId} 게시판 detail
             <div className="community">
                 <div className="community-header">
                     <Profile user={props.writer}/>
