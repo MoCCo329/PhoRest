@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Calendar from './../components/Calendar/Calender'
 import CommunityScroll from '../components/Community/CommunityScroll'
+import Layout from '../components/Layout/Layout'
 
 
 export default function Main() {
@@ -8,7 +9,7 @@ export default function Main() {
     let [numOfPeople, setNumOfPeople] = useState(2)
 
     return (
-        <div>
+        <Layout>
             <div className="main-calendar">
                 <Calendar />
             </div>
@@ -23,6 +24,6 @@ export default function Main() {
                     <CommunityScroll communityType="frame" />
                 </div>
             </div>
-        </div>
+        </Layout>
     )
 }
