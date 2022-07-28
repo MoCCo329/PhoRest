@@ -1,5 +1,5 @@
 import Calendar from './../components/Calendar/Calender'
-import CommunityScroll from '../components/Community/CommunityScroll'
+import CommunityCarousel from '../components/Community/CommunityCarousel'
 import Layout from '../components/Layout/Layout'
 
 
