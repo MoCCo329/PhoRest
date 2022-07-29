@@ -19,8 +19,8 @@ public class Like {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //==비즈니스 로직==//
     /** likeCount 증가 */

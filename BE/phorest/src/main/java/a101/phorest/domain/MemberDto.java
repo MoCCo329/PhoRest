@@ -1,14 +1,13 @@
-package a101.phorest.controller;
+package a101.phorest.domain;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-
+import javax.persistence.Column;
 @Getter @Setter
-public class MemberForm {
+public class MemberDto {
+    private Long id;
 
-    @NotEmpty(message = "회원이름은 필수입니다.")
     private String username;
 
     private String nickname;

@@ -6,6 +6,8 @@ spring:
     username: admin
     password: fN0uC7TNNY?kr&gV]
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+
   servlet:
     multipart:
       max-file-size: 10MB
@@ -13,6 +15,7 @@ spring:
       location: /home/ubuntu/imagefiles
 
   jpa:
+    defer-datasource-initialization: true
     open-in-view: false
     hibernate:
       ddl-auto: create
@@ -32,6 +35,7 @@ server:
 
 jwt:
   header: Authorization
-  secret:
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
 
 
