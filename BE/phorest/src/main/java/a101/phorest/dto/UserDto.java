@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,8 @@ public class UserDto {
    @Enumerated(EnumType.STRING)
    private Role role;
 
+   private String phone;
+
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
@@ -48,4 +51,5 @@ public class UserDto {
               .role(user.getRole())
               .build();
    }
+
 }

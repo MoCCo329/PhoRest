@@ -1,6 +1,5 @@
 package a101.phorest.service;
 
-//import java.util.Collections;
 
 import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
@@ -10,10 +9,7 @@ import a101.phorest.dto.UserDto;
 import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.UserRepository;
-//import a101.phorest.util.SecurityUtil;
-//import org.springframework.http.HttpHeaders;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -22,22 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import java.util.Optional;
+
 @Service
+@Transactional(readOnly = true) // 기본은 false
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder,
-                       TokenProvider tokenProvider,
-                       AuthenticationManagerBuilder authenticationManagerBuilder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.tokenProvider = tokenProvider;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-    }
 
     @Transactional
     public UserDto signup(UserDto userDto) {
@@ -53,6 +44,7 @@ public class UserService {
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .nickname(userDto.getNickname())
+                .phone(userDto.getPhone())
                 .role(Role.USER) // user로 가입
                 .activated(true)
                 .build();
@@ -92,6 +84,15 @@ public class UserService {
         }
     }
 
+    public Optional<UserDto> findDtoUsernameOne(String username){
+        User user = userRepository.findByUsername(username);
+        UserDto userDto = new UserDto();
+        userDto.setUsername(user.getUsername());
+        userDto.setNickname(user.getNickname());
+        userDto.setPassword(user.getPassword());
+        userDto.setPhone(user.getPhone());
+        return Optional.of(userDto);
+    }
 
 //
 //    @Transactional(readOnly = true)

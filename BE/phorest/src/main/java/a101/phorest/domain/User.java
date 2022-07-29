@@ -35,6 +35,8 @@ public class User {
    @Column(name = "role")
    private Role role;
 
+   private String phone;
+
 //   @ManyToMany
 //   @JoinTable(
 //      name = "user_authority",

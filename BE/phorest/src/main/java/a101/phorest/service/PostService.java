@@ -1,12 +1,15 @@
 package a101.phorest.service;
 
-import a101.phorest.domain.Post;
+import a101.phorest.domain.*;
 import a101.phorest.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true) // 기본은 false
@@ -17,18 +20,54 @@ public class PostService {
 
 
     @Transactional
-    public Long join(Post post){
+    public Long join(Images images, String category, String content){
         //validateDuplicateMember(post);
+        Post post = new Post();
         post.setTime(LocalDateTime.now());
         post.setLikeCount(0);
+        post.setCategory(category);
+        post.setContent(content);
+        if("photogroup".equals(category))
+            post.setPhotoGroup((PhotoGroup) images);
+        else if("frame".equals(category))
+            post.setFrame((Frame) images);
         postRepository.save(post);
         return post.getId();
     }
 
-    public Post findOne(Long postId){
-        return postRepository.findOne(postId);
+    public Optional<PostDto> findDtoOne(Long postId){
+        Optional <Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return Optional.empty();
+        PostDto postDto = new PostDto(post.get());
+        return Optional.of(postDto);
+
     }
 
+    public Optional<Post> findOne(Long postId){
+        return postRepository.findById(postId);
+    }
+
+    public List<PostDto> findByLikeCount(String category, Long limit, Long offset, Long humancount) {
+        List<PostDto> postDtos = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
+        if(category.equals("photogroup"))
+        {
+            posts.addAll(postRepository.findPhotogroupByLikeCount("photogroup", limit, offset, humancount));
+
+        }
+        else if(category.equals("frame"))
+        {
+            posts.addAll(postRepository.findFrameByLikeCount("frame", limit, offset));
+        }
+        System.out.println(posts.size());
+        for(int i = 0; i < posts.size(); i++) {
+            PostDto postDto = new PostDto(posts.get(i));
+            postDtos.add(postDto);
+        }
+        return postDtos;
+
+    }
     /** 게시물 리스트 페이징 **/
     private static final int PAGE_POST_COUNT = 20;
 
