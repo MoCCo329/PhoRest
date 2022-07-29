@@ -1,19 +1,11 @@
-import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import Comments from './Comments'
 import CommentsEdit from './CommentsEdit'
 
 export default function CommentsList() {
-    const dummyComments = [
-        {username: 'test1', content: 'testestesttes', commentId: 1, date: new Date()},
-        {username: 'test2', content: 'testestesttes', commentId: 2, date: new Date()},
-        {username: 'test3', content: 'testestesttes', commentId: 3, date: new Date()},
-        {username: 'test4', content: 'testestesttes', commentId: 4, date: new Date()},
-        {username: 'test5', content: 'testestesttes', commentId: 5, date: new Date()},
-    ]
-
-    let [editCommentId, setEditCommentId] = useState(1)
-
+    let editCommentId = useSelector(state => state.editCommentId)
+    let dummyComments = useSelector(state => state.comments)
 
     // 댓글 리스트를 map으로 표시
     // currentUser와 댓글 username이 같으면 편집 아이콘 표시
@@ -24,9 +16,9 @@ export default function CommentsList() {
         <div>
             { dummyComments.map((comment, idx) => {
                 if (editCommentId === comment.commentId) {
-                    return <CommentsEdit comment={comment} key={idx}/>
+                    return <CommentsEdit comment={comment} idx={idx} key={idx}/>
                 }
-                return <Comments comment={comment} setEditCommentId={setEditCommentId} key={idx}/>
+                return <Comments comment={comment} idx={idx} key={idx}/>
             })}
         </div>
     )

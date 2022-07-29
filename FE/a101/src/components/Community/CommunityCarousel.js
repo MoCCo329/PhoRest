@@ -20,7 +20,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 1,
       postId: 1,
-      content: 'testtest1',
+      content: 'content of 1',
       url: p1,
       peopleNum: 1
     },
@@ -29,7 +29,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 2,
       postId: 2,
-      content: 'testtest2',
+      content: 'content of 2',
       url: p2,
       peopleNum: 1
     },
@@ -38,7 +38,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 3,
       postId: 3,
-      content: 'testtest3',
+      content: 'content of 3',
       url: p3,
       peopleNum: 1
     },
@@ -47,7 +47,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 1,
       postId: 1,
-      content: 'testtest1',
+      content: 'content of 1',
       url: p1,
       peopleNum: 1
     },
@@ -56,7 +56,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 3,
       postId: 3,
-      content: 'testtest3',
+      content: 'content of 3',
       url: p3,
       peopleNum: 1
     },
@@ -65,7 +65,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 4,
       postId: 4,
-      content: 'testtest4',
+      content: 'content of 4',
       url: p4,
       peopleNum: 2
     },
@@ -74,7 +74,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 5,
       postId: 5,
-      content: 'testtest5',
+      content: 'content of 5',
       url: p5,
       peopleNum: 2
     },
@@ -83,7 +83,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 3,
       postId: 3,
-      content: 'testtest3',
+      content: 'content of 3',
       url: p3,
       peopleNum: 2
     },
@@ -92,7 +92,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 4,
       postId: 4,
-      content: 'testtest4',
+      content: 'content of 4',
       url: p4,
       peopleNum: 2
     },
@@ -101,7 +101,7 @@ export default function CommunityCarousel(props) {
       date: new Date(),
       frameId: 5,
       postId: 5,
-      content: 'testtest5',
+      content: 'content of 5',
       url: p5,
       peopleNum: 2
     },
@@ -137,8 +137,8 @@ export default function CommunityCarousel(props) {
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}
+            // onSwiper={(swiper) => console.log(swiper)}
+            // onSlideChange={() => console.log('slide change')}
           >
             {dummyContents.map((content, idx) =>
               (communityType==='frame' || content.peopleNum===peopleNum) ?

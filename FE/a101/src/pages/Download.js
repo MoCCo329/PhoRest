@@ -31,11 +31,10 @@ export default function Main() {
             </div>
             <div className="download-community">
                 <div>
-                    <CommunityCarousel communityType="frame" />
+                    <CommunityCarousel communityType="pic" />
                 </div>
-                <div style={{height: '100px', position: 'absolute'}}></div>
                 <div>
-                    <CommunityCarousel communityType="Pic" />
+                    <CommunityCarousel communityType="frame" />
                 </div>
             </div>
         </div>

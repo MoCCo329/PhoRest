@@ -4,7 +4,7 @@ import './App.css'
 import { React, useEffect } from 'react'
 import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { setToken, setCurrentUser } from './store/member'
+// import { setToken, setCurrentUser } from './store/member'
 
 // pages
 import Main from './pages/Main'

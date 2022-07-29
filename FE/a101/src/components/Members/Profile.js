@@ -1,7 +1,7 @@
 export default function Profile() {
     return (
         <div>
-            Profile
+           작성자 : test2
         </div>
     )
   }
