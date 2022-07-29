@@ -1,12 +1,10 @@
 package a101.phorest.service;
 
-import a101.phorest.domain.Member;
 import a101.phorest.domain.PhotoGroup;
 import a101.phorest.repository.PhotoGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 

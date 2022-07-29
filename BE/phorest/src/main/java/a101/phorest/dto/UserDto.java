@@ -1,9 +1,12 @@
 package a101.phorest.dto;
 
+import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -29,7 +32,12 @@ public class UserDto {
    @Size(min = 3, max = 50)
    private String nickname;
 
-   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
+   @Enumerated(EnumType.STRING)
+   private Role role;
+
+   //private String token;
+
+//   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
 
    public static UserDto from(User user) {
       if(user == null) return null;
@@ -37,9 +45,7 @@ public class UserDto {
       return UserDto.builder()
               .username(user.getUsername())
               .nickname(user.getNickname())
-              .authorityDtoSet(user.getAuthorities().stream()
-                      .map(authority -> a101.phorest.dto.AuthorityDto.builder().authorityName(authority.getAuthorityName()).build())
-                      .collect(Collectors.toSet()))
+              .role(user.getRole())
               .build();
    }
 }

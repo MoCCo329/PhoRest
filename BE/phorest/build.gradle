@@ -40,6 +40,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	implementation group: 'com.auth0', name: 'java-jwt', version: '3.19.1'
+
 }
 
 tasks.named('test') {

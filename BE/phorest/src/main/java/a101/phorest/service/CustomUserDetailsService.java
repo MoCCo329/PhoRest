@@ -23,21 +23,28 @@ public class CustomUserDetailsService implements UserDetailsService {
 
    @Override
    @Transactional
-   public UserDetails loadUserByUsername(final String username) {
-      return userRepository.findOneWithAuthoritiesByUsername(username)
-         .map(user -> createUser(username, user))
-         .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
+   public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException{
+//      return userRepository.findByUsername(username)
+//         .map(user -> createUser(username, user))
+//         .orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
+      User user = userRepository.findByUsername(username);
+      if(user==null){
+         throw new UsernameNotFoundException(username);
+         }
+      return (UserDetails) user;
+
    }
 
-   private org.springframework.security.core.userdetails.User createUser(String username, User user) {
-      if (!user.isActivated()) {
-         throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
-      }
-      List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
-              .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
-              .collect(Collectors.toList());
-      return new org.springframework.security.core.userdetails.User(user.getUsername(),
-              user.getPassword(),
-              grantedAuthorities);
-   }
+//   private org.springframework.security.core.userdetails.User createUser(String username, User user) {
+//      if (!user.isActivated()) {
+//         throw new RuntimeException(username + " -> 활성화되어 있지 않습니다.");
+//      }
+//      List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
+//              .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
+//              .collect(Collectors.toList());
+//      return new org.springframework.security.core.userdetails.User(user.getUsername(),
+//              user.getPassword(),
+////              grantedAuthorities);
+//              user.getRole());
+//   }
 }

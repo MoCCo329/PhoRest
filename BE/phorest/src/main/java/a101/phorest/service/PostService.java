@@ -1,11 +1,8 @@
 package a101.phorest.service;
 
-import a101.phorest.domain.Member;
 import a101.phorest.domain.Post;
-import a101.phorest.repository.MemberRepository;
 import a101.phorest.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

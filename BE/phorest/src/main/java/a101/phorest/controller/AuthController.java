@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+//import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -30,12 +31,24 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto){
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
 
+
+//        Authentication authentication;
+//        //Optional<Authentication> authentication = Optional.ofNullable(authenticationManagerBuilder.getObject().authenticate(authenticationToken));
+//        try{
+
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+
+//        }
+//        catch(NullPointerException e){
+//            return null;
+//        }
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);
