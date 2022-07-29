@@ -1,0 +1,1 @@
+// pic, frame 게시판 정보를 위한 API

@@ -1,0 +1,10 @@
+.layout {
+    padding-top: 60px;
+    left: 0;
+    right: 0;
+    clear: both;
+}
+
+main {
+    min-height: 100%;
+}

@@ -1,0 +1,36 @@
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 55px;
+  background-color: #ffc036;
+}
+
+.contents {
+  display: flex;
+  height: 45px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-header {
+  flex: 1;
+}
+.logo-header {
+  flex: 5;
+  display: flex;
+  justify-content: center;
+}
+.end-header {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.contents img {
+  /* position: absolute; */
+  text-align: center;
+  height: 45px;
+  display: block;
+}
