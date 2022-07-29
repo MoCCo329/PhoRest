@@ -1,7 +1,6 @@
-/*
 package a101.phorest.controller;
 
-import a101.phorest.config.JwtTokenProvider;
+//import a101.phorest.config.JwtTokenProvider;
 import a101.phorest.domain.Member;
 import a101.phorest.repository.MemberRepository;
 import a101.phorest.service.MemberService;
@@ -42,33 +41,32 @@ public class MemberController {
             return "cannot join";
         }
     }
-// jenkins test
-    @PostMapping("member/login")
-    @ResponseBody
-    public String login(@RequestBody @Valid MemberForm form) {
-        //log.info("id : {} , pw : {}", inputEmail, inputPassword);
-
-        String username = form.getUsername();
-        String password = form.getPassword();
-        Optional<Member> member = memberRepository.findByUsername(username);
-        if(member.isPresent() && member.get().getPassword() == password){
-            //성공
-            //generate token
-            JwtTokenProvider jwtTokenProvider = null;
-            return  jwtTokenProvider.createToken(member.get().getId());
-            //출처: https://llshl.tistory.com/28 [하루에 딱 한 개만!!!:티스토리]
-        }
-        else if(!member.isPresent()){
-            return "no such id";
-        }
-        else if(member.get().getPassword() != password) {
-            return "wrong password";
-        }
-        return "unexpected error";
-    }
-
-    */
-/* 메인페이지 로그아웃 *//*
+//// jenkins test
+//    @PostMapping("member/login")
+//    @ResponseBody
+//    public String login(@RequestBody @Valid MemberForm form) {
+//        //log.info("id : {} , pw : {}", inputEmail, inputPassword);
+//
+//        String username = form.getUsername();
+//        String password = form.getPassword();
+//        Optional<Member> member = memberRepository.findByUsername(username);
+//        if(member.isPresent() && member.get().getPassword() == password){
+//            //성공
+//            //generate token
+//            JwtTokenProvider jwtTokenProvider = null;
+//            return  jwtTokenProvider.createToken(member.get().getId());
+//            //출처: https://llshl.tistory.com/28 [하루에 딱 한 개만!!!:티스토리]
+//        }
+//        else if(!member.isPresent()){
+//            return "no such id";
+//        }
+//        else if(member.get().getPassword() != password) {
+//            return "wrong password";
+//        }
+//        return "unexpected error";
+//    }
+//
+// 메인페이지 로그아웃
 
     @GetMapping("member/logout")
     @ResponseBody
@@ -88,7 +86,7 @@ public class MemberController {
         String password = form.getPassword();
         String phone = form.getPhone();
         //닉네임은 일단 못바꾸게함 => 바꿀수 있게 할라면 또 중복검사 해야됨,, 나중에 만들쟈
-        
+
         Optional<Member> member = memberRepository.findByUsername(username);
         member.get().setPassword(password);
         member.get().setPhone(phone);
@@ -96,4 +94,3 @@ public class MemberController {
         return "0";
     }
 }
-*/

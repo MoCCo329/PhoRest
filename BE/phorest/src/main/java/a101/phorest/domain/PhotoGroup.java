@@ -14,7 +14,7 @@ public class PhotoGroup implements Images{
 
     @Id
     @GeneratedValue
-    @Column(name="photogroup_id")
+    @Column(name="photo_group_id")
     private Long id;
 
     private Long humanCount;
@@ -23,6 +23,7 @@ public class PhotoGroup implements Images{
 
     private String thumbNailPath;
 
-
+    @OneToOne(mappedBy = "photoGroup", fetch = FetchType.LAZY)
+    private Post post;
 
 }

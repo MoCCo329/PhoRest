@@ -27,43 +27,42 @@ public class PostService {
         post.setLikeCount(0);
         post.setCategory(category);
         post.setContent(content);
-        if(category == "photogroup")
+        if("photogroup".equals(category))
             post.setPhotoGroup((PhotoGroup) images);
-        else if(category == "frame")
+        else if("frame".equals(category))
             post.setFrame((Frame) images);
         postRepository.save(post);
         return post.getId();
     }
 
-    public Post findOne(Long postId){
-        return postRepository.findById(postId).get();
+    public Optional<PostDto> findDtoOne(Long postId){
+        Optional <Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return Optional.empty();
+        PostDto postDto = new PostDto(post.get());
+        return Optional.of(postDto);
+
     }
 
-    public List<PostDto> findByLikeCount(String category, Long limit, Long offset) {
+    public Optional<Post> findOne(Long postId){
+        return postRepository.findById(postId);
+    }
+
+    public List<PostDto> findByLikeCount(String category, Long limit, Long offset, Long humancount) {
         List<PostDto> postDtos = new ArrayList<>();
         List<Post> posts = new ArrayList<>();
-        if(category == "photogroup")
+        if(category.equals("photogroup"))
         {
-            posts = postRepository.findByLikeCount("photogroup", limit, offset);
+            posts.addAll(postRepository.findPhotogroupByLikeCount("photogroup", limit, offset, humancount));
 
         }
-        else if(category == "frame")
+        else if(category.equals("frame"))
         {
-            posts = postRepository.findByLikeCount("frame", limit, offset);
+            posts.addAll(postRepository.findFrameByLikeCount("frame", limit, offset));
         }
+        System.out.println(posts.size());
         for(int i = 0; i < posts.size(); i++) {
-            PostDto postDto = new PostDto();
-            Post post = posts.get(i);
-            postDto.setId(post.getId());
-            postDto.setCategory(category);
-            if(category == "photogroup"){
-                postDto.setUrl(post.getPhotoGroup().getPhotoGroupPath());
-            }
-            else if(category == "frame"){
-                postDto.setUrl(post.getFrame().getFramePath());
-            }
-            postDto.setContent(post.getContent());
-            postDto.setLikeCount(post.getLikeCount());
+            PostDto postDto = new PostDto(posts.get(i));
             postDtos.add(postDto);
         }
         return postDtos;

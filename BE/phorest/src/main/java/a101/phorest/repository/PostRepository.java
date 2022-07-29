@@ -71,6 +71,9 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     public Optional<Post> findById(Long id);
-    @Query(nativeQuery = true, value = "select * from post p where p.category like :category order by p.like_count, p.time desc LIMIT :limit offset :offset")
-    public List<Post> findByLikeCount(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset);
+    @Query(nativeQuery = true, value = "select distinct * from post p natural join photo_group q where q.human_count = :humancount and p.category like :category order by p.like_count, p.time desc LIMIT :limit offset :offset")
+    public List<Post> findPhotogroupByLikeCount(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset, @Param("humancount") Long humancount);
+
+    @Query(nativeQuery = true, value = "select distinct * from post p where p.category like :category order by p.like_count, p.time desc LIMIT :limit offset :offset")
+    public List<Post> findFrameByLikeCount(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset);
 }

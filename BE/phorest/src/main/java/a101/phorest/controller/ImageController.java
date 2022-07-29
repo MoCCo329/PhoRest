@@ -63,34 +63,34 @@ public class ImageController {
 
     @GetMapping("download/frame")
     @ResponseBody
-    public String frameDownload(@RequestParam("frame_id") String frame_id)
+    public String frameDownload(@RequestParam("frame_id") Long frame_id)
     {
-        Long id = Long.parseLong(frame_id);
-        Frame frame = frameService.findOne(id);
+        Frame frame = frameService.findOne(frame_id);
         return frame.getFramePath();
     }
 
-    @GetMapping("download/frame")
+    @GetMapping("download/photogroup")
     @ResponseBody
-    public String PhotoGroupDownload(@RequestParam("photogroup_id") String photogroup_id)
+    public String PhotoGroupDownload(@RequestParam("photogroup_id") Long photogroup_id)
     {
-        Long id = Long.parseLong(photogroup_id);
-        PhotoGroup photoGroup = photoGroupService.findOne(id);
+        PhotoGroup photoGroup = photoGroupService.findOne(photogroup_id);
         return photoGroup.getPhotoGroupPath();
     }
 
 
-    @GetMapping("download/photogroup/like")
+    @GetMapping ("download/photogroup/like")
     @ResponseBody
-    public List<PostDto> photoGroupLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
+    public List<PostDto> photoGroupLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("human_count") Long humancount)
     {
-        return postService.findByLikeCount("photogroup" ,limit, offset);
+        return postService.findByLikeCount("photogroup" ,limit, offset, humancount);
     }
 
     @GetMapping("download/frame/like")
     @ResponseBody
     public List<PostDto> frameLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
     {
-        return postService.findByLikeCount("frame" ,limit, offset);
+        return postService.findByLikeCount("frame" ,limit, offset, 0L);
     }
+
+
 }

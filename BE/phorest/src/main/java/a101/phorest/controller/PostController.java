@@ -1,40 +1,44 @@
 package a101.phorest.controller;
 
-import a101.phorest.domain.Post;
+import a101.phorest.domain.*;
 import a101.phorest.repository.PostRepository;
+import a101.phorest.service.MemberService;
+import a101.phorest.service.MyPageService;
 import a101.phorest.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/")
 public class PostController {
 
-    @Autowired
     private final PostService postService;
-    @Autowired
-    private final PostRepository postRepository;
+    private final MemberService memberService;
 
-    //post 새로 만들기 + postid 보내주기
-//    @PostMapping("post/new")
-//    @ResponseBody
-//    public Long create(String category,String content){
-//        Post post = new Post();
-//
-//        post.setCategory(category);
-//        post.setTime(LocalDateTime.now());
-//        post.setContent(content);
-//        post.setLikeCount(0);
-//
-//        post.setId(postService.join(post));
-//
-//        return post.getId();
-//    }
+    private final MyPageService myPageService;
+    @GetMapping("download/{post_id}")
+    @ResponseBody
+    public String SendPostPicture(@PathVariable("post_id") Long id){
+        Optional<PostDto> postDto = postService.findDtoOne(id);
+        if(postDto.isEmpty())
+            return "";
+        return postDto.get().getUrl();
+    }
+
+    @GetMapping("download/{post_id}/add")
+    @ResponseBody
+    public boolean addPost(@PathVariable("post_id") Long post_id, @RequestParam("username") String username){
+        Optional<MemberDto> member = memberService.findDtoUsernameOne(username);
+        Optional<PostDto> post = postService.findDtoOne(post_id);
+        if(member.isEmpty() || post.isEmpty())
+            return false;
+        myPageService.join(member.get(), post.get());
+        return true;
+    }
 }
