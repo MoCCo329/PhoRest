@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +24,7 @@ public class PostDto {
             this.url = post.getFrame().getFramePath();
         this.content = post.getContent();
         this.likeCount = post.getLikeCount();
+        this.time = post.getTime();
     }
 
     private Long id;
@@ -34,4 +37,6 @@ public class PostDto {
 
     private Long human_count;
     private int likeCount;
+
+    private LocalDateTime time;
 }
