@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 import members from './../api/members'
-import { setToken, setAuthError } from '../store/member'
+import { setAuthError } from '../store/modules/member'
 
 export default function Main() {
     let [nickname, setNickname] = useState('')
@@ -13,7 +13,9 @@ export default function Main() {
     let [passwordValidity, setPasswordValidity] = useState('')
 
     let dispatch = useDispatch()
-    let navigate = useNavigate()
+    // let navigate = useNavigate()
+
+    // useEffect로 가능? cleanup func로 기존 경고문고 지우기도
 
     const passwordTest = (value) => {
         if (value === '') {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { editComment, deleteComment, setEditCommentId } from '../../store/community'
+import { editComment, deleteComment, setEditCommentId } from '../../store/modules/community'
 
 export default function CommentsEdit(props) {
     const [content, setContent] = useState(props.comment.content)

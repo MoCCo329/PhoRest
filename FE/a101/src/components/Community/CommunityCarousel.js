@@ -1,116 +1,20 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-import p1 from './../../assets/1.png'
-import p2 from './../../assets/2.png'
-import p3 from './../../assets/3.png'
-import p4 from './../../assets/4.png'
-import p5 from './../../assets/5.png'
-
 export default function CommunityCarousel(props) {
 
-  const dummyContents = [
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 1,
-      postId: 1,
-      content: 'content of 1',
-      url: p1,
-      peopleNum: 1
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 2,
-      postId: 2,
-      content: 'content of 2',
-      url: p2,
-      peopleNum: 1
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 3,
-      postId: 3,
-      content: 'content of 3',
-      url: p3,
-      peopleNum: 1
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 1,
-      postId: 1,
-      content: 'content of 1',
-      url: p1,
-      peopleNum: 1
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 3,
-      postId: 3,
-      content: 'content of 3',
-      url: p3,
-      peopleNum: 1
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 4,
-      postId: 4,
-      content: 'content of 4',
-      url: p4,
-      peopleNum: 2
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 5,
-      postId: 5,
-      content: 'content of 5',
-      url: p5,
-      peopleNum: 2
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 3,
-      postId: 3,
-      content: 'content of 3',
-      url: p3,
-      peopleNum: 2
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 4,
-      postId: 4,
-      content: 'content of 4',
-      url: p4,
-      peopleNum: 2
-    },
-    {
-      category: 'frame',
-      date: new Date(),
-      frameId: 5,
-      postId: 5,
-      content: 'content of 5',
-      url: p5,
-      peopleNum: 2
-    },
-  ]
+
   const { communityType } = props
+  const dummyContents = props.contents
   const [peopleNum, setPeopleNum] = useState(1)
   const navigate = useNavigate()
   const move = (postId) => {
-    console.log(1111)
     navigate(`/community/${postId}`)
   }
 
