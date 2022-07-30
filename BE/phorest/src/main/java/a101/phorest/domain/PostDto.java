@@ -14,7 +14,10 @@ public class PostDto {
         this.id = post.getId();
         this.category = post.getCategory();
         if("photogroup".equals(this.category))
+        {
             this.url = post.getPhotoGroup().getPhotoGroupPath();
+            this.human_count = post.getPhotoGroup().getHumanCount();
+        }
         else if("frame".equals(this.category))
             this.url = post.getFrame().getFramePath();
         this.content = post.getContent();
@@ -29,5 +32,6 @@ public class PostDto {
 
     private String content;
 
+    private Long human_count;
     private int likeCount;
 }
