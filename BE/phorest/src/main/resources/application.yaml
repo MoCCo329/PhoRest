@@ -12,7 +12,7 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-      location: /home/ubuntu/imagefiles
+      location: /var/lib/jenkins/workspace/imagefiles
 
   jpa:
     defer-datasource-initialization: true
