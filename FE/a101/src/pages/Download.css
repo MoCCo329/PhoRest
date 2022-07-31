@@ -1,4 +1,11 @@
+.download-img {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
 .download-img img {
+  min-width: 50vw;
   max-width: 100vw;
 }
 
