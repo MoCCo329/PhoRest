@@ -25,4 +25,5 @@
 
 .download-links-item p {
   margin: 0;
+  pointer-events: none;
 }

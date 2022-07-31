@@ -17,3 +17,9 @@
   text-align: center;
   margin: 1px;
 }
+
+.community-carousel-slider-img {
+  width: 30vw;
+  min-height: 10vh;
+  max-height: 17vh;
+}
