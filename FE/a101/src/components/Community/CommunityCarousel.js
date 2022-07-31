@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+
+import './CommunityCarousel.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -19,15 +21,15 @@ export default function CommunityCarousel(props) {
   }
 
   return (
-      <div>
+      <div className="community-carousel">
         <div className="community-carousel-header">
-          <p>{communityType} 게시판</p>
+          <h3>{communityType} 게시판</h3>
           {
             communityType==='pic' ?
-            <div className="communityScroll-select">
+            <div className="community-carousel-select">
               {[1, 2, 3, 4, 5, 6].map((num, idx) =>
                 (
-                  <div onClick={() => setPeopleNum(num)} style={{backgroundColor: num===peopleNum ? 'blue' : ''}} key={idx}>{num}명</div>
+                  <div className="community-carousel-select-btn" onClick={() => setPeopleNum(num)} style={{backgroundColor: num===peopleNum ? '#ffc036' : ''}} key={idx}>{num}명</div>
                 )
               )}
             </div> : null

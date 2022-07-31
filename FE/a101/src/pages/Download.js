@@ -1,8 +1,13 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import CommunityCarousel from '../components/Community/CommunityCarousel'
+import './Download.css'
+import CommunityCarousel from './../components/Community/CommunityCarousel'
+import Layout from '../components/Layout/Layout'
+
+import { fetchPic } from '../store/modules/community'
+import download from './../api/download'
 
 
 export default function Main() {
@@ -11,11 +16,32 @@ export default function Main() {
     const framePopular = useSelector(state => state.framePopular)
     // const frameRecent = useSelector(state => state.frameRecent)
 
+    const dispatch = useDispatch()
     const { postId } = useParams()
-    useEffect(() => {
-      // return // dispatch pic.actions실행해서 content변경
-    })
     let content = useSelector(state => state.pic)
+
+    if (!!!content.url) {
+        download.pic(postId)
+        .then(result => result.data)
+        .then(result => {
+            const copy = {
+                category: String(result.category==='photogroup' ? 'pic' : 'frame'),
+                postId: result.id,
+                url: result.url,
+                peopleNum: result.human_count,
+                date: result.time,
+                content: result.content
+            }
+            dispatch(fetchPic(copy))
+        })
+    }
+
+    const reset = () => {
+        dispatch(fetchPic({}))
+    }
+    useEffect(() => {
+        return reset()
+    }, [])
     
     const imageDownload = () => {
         fetch(content.url)
@@ -49,37 +75,32 @@ export default function Main() {
     }
 
     return (
-        <div>
-            <div className="download">
+        <Layout>
+            <main>
                 <div className="download-img">
-                    <img src={content.url} alt={content.content} />
-                    {postId} 사진
+                    <img src={content.url} alt={content.content} /><br />
                 </div>
-                <hr />
                 <div className="download-links">
-                    <div onClick={() => imageDownload()}>
+                    <div className="download-links-item download-picture" onClick={() => imageDownload()}>
                         <box-icon type='solid' name='camera'></box-icon>
-                        사진 다운로드
+                        <p>사진 다운로드</p>
                     </div>
-                    <div onClick={() => videoDownload()}>
+                    <div className="download-links-item download-video" onClick={() => videoDownload()}>
                         <box-icon type='solid' name='camera-movie'></box-icon>
-                        동영상 다운로드
+                        <p>동영상 다운로드</p>
                     </div>
-                    {/* <div>
-                        AR 보기
-                    </div> */}
-                </div>
-            </div>
-            <hr />
-            <div className="download-community">
-                <div>
-                    <CommunityCarousel communityType="pic" contents={picPopular}/>
                 </div>
                 <hr />
-                <div>
-                    <CommunityCarousel communityType="frame" contents={framePopular}/>
+                <div className="download-community">
+                    <div>
+                        <CommunityCarousel communityType="pic" contents={picPopular}/>
+                    </div>
+                    <hr />
+                    <div>
+                        <CommunityCarousel communityType="frame" contents={framePopular}/>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </main>
+        </Layout>
     )
 }

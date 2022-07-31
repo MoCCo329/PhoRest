@@ -14,19 +14,21 @@ export default function Main() {
 
     return (
         <Layout>
-            <div className="main-calendar">
-                <Calendar />
-            </div>
-            <hr />
-            <div className="main-community">
-                <div>
-                    <CommunityCarousel communityType="pic" contents={picPopular}/>
+            <main>
+                <div className="main-calendar">
+                    <Calendar />
                 </div>
                 <hr />
-                <div>
-                    <CommunityCarousel communityType="frame" contents={framePopular}/>
+                <div className="main-community">
+                    <div>
+                        <CommunityCarousel communityType="pic" contents={picPopular}/>
+                    </div>
+                    <hr />
+                    <div>
+                        <CommunityCarousel communityType="frame" contents={framePopular}/>
+                    </div>
                 </div>
-            </div>
+            </main>
         </Layout>
     )
 }

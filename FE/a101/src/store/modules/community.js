@@ -6,6 +6,9 @@ import p3 from './../../assets/3.png'
 import p4 from './../../assets/4.png'
 import p5 from './../../assets/5.png'
 
+// functions
+// import download from './../../api/download'
+
 
 export let picPopular = createSlice({
   name: 'picPopular',
@@ -186,18 +189,18 @@ export let pic = createSlice({
   initialState: {
     category: 'frame',
     date: '서울시 여러분',
-    frameId: 1,
     postId: 1,
     content: 'content of 1',
-    url: p1,
+    url: null,
     peopleNum: 1
   },
   reducers: {
-    // api로 불러오기
+    fetchPic (state, action) {
+      return action.payload
+    }
   }
 })
-// export let {  } = pic.actions
-
+export let { fetchPic } = pic.actions
 
 export let comments = createSlice({
   name: 'comments',
