@@ -35,7 +35,8 @@ server:
 
 jwt:
   header: Authorization
-  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  secret: aGVlc3VuLWlzLXRoZS1iZXN0LWdvcmdlb3VzLXBlcmZlY3Qtd29uZGVyZnVsLWZhbnRhc3RpYy1jcmVhdGl2ZS1jaGFybWluZy13b21hbi1pbi10aGUtd29ybGQtZm9yLXN1cmU=
+  # 변환함
   token-validity-in-seconds: 86400
 
 

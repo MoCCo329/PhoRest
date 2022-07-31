@@ -35,6 +35,7 @@ public class User {
    @Column(name = "role")
    private Role role;
 
+   @Column(name = "phone", length = 50, unique = true)
    private String phone;
 
 //   @ManyToMany

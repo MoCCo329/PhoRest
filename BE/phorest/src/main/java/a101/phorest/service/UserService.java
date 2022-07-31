@@ -66,14 +66,14 @@ public class UserService {
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(username, password);
 
-            //여기서 오류가 나요. authentication이 null이 될 수도 있대요. 그런데 그럴 순 없 어요
-            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+//            //여기서 오류가 나요. authentication이 null이 될 수도 있대요. 그런데 그럴 순 없 어요
+//            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+//
+//
+//
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            String jwt = tokenProvider.createToken(authentication);
+            String jwt = tokenProvider.createToken(authenticationToken);
 
 //            HttpHeaders httpHeaders = new HttpHeaders();
 //            httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
