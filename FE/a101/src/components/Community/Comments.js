@@ -5,13 +5,13 @@ export default function Comments(props) {
     // const changeEditCommentId = () => {
     //     return props.setEditCommentId(props.comment.commentId)
     // }
-    const username = 'test2'
+    const username = '초록물고기'
     let dispatch = useDispatch()
 
     return (
         <div>
-            댓글 작성자 : {props.comment.username} | 
-            댓글 내용 : {props.comment.content} | 
+            작성자 : {props.comment.username} | 
+            내용 : {props.comment.content} | 
             {
                 username===props.comment.username ?
                 (<>

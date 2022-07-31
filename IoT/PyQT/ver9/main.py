@@ -944,47 +944,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         new_img.paste(img3, (50, img_size[1] + 100))
         new_img.paste(img4, (img_size[0] + 100, img_size[1] + 100))
 
-        # make QR code
-        qr = qrcode.QRCode(
-            version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_H,
-            box_size=2,
-            border=1
-        )
-
-        url = 'http://i7a101.p.ssafy.io/api/frame/'
-        qr.add_data(url)
-        qr.make()
-        qrimg = qr.make_image(fill_color='black', back_color='white')
-        qrimg.save('./photoDir/QRCodeImg.jpg')
-
-        QRcode = Image.open("./photoDir/QRCodeImg.jpg")
-        QRcode = qrimg.resize((130, 130))
-        new_img.paste(QRcode, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130))
-
-        # watermark
-        waterFont = ImageFont.truetype('./703.ttf', 60)
-        mark_width, mark_height = waterFont.getsize('PhoRest')
-        watermark = Image.new('RGBA', (mark_width, mark_height), (0, 0, 0, 0))
-        waterdraw = ImageDraw.Draw(watermark)
-        waterdraw.text((0, 0), 'PhoRest', fill='black', font=waterFont, align='center')
-        watermark = watermark.rotate(90, expand=1)
-
-        new_img.paste(watermark, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130 - 20 - mark_width), watermark)
-
-        # datestr
-        time = dt.datetime.now()
-        datestr = time.strftime('%Y/%m/%d')
-        dateFont = ImageFont.truetype('./703.ttf', 30)
-        date_width, date_height = dateFont.getsize(datestr)
-        datemark = Image.new('RGBA', (date_width, date_height), (0, 0, 0, 0))
-        datedraw = ImageDraw.Draw(datemark)
-        datedraw.text((0, 0), datestr, fill='black', font=dateFont, align='center')
-        datemark = datemark.rotate(90, expand=1)
-
-        new_img.paste(datemark, ((img_size[0] * 2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width),
-                      datemark)
-
         new_img.save("./photoDir/merged_img.png", "PNG")
 
     def kimchi(self, num):
@@ -1012,62 +971,76 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def Press_Back(self):
         self.stack.setCurrentIndex(self.stack.currentIndex() - 1)
 
-    # -------------------------- 5번째 프레임 선택 페이지 ------------------------------
+    # -------------------------- 5번째 프레임 선택 페이지 ------------------------------ 
 
     # 프레임까지 적용하여 화면에 띄워주는 버튼
     def Press_Applying(self):
-        pass
-        '''
         # 먼저 입력한 Frame_id를 서버에 보냄
         self.frame_id = self.Frame_Id.text()
-        data = {
+        params = {
             'frame_id': self.frame_id
         }
 
         # 서버에 post 요청
-        #res = requests.post("http://i7a101.p.ssafy.io/api/download", data=data)
+        res = requests.get("https://i7a101.p.ssafy.io/api/download/frame", params=params)
         #print(res)
         # 리턴으로 res에 이미지 url을 담아서 보내줌
         #print(res.text)
 
         # 다운받을 이미지 url (res에서 받아오는 이미지 주소)
         # 일단 임시 url로 테스트
-        url = "https://dispatch.cdnser.be/cms-content/uploads/2020/04/09/a26f4b7b-9769-49dd-aed3-b7067fbc5a8c.jpg"
-        #url = res.text
-        os.system("curl " + url + " > ./Frame/test.jpg")
+        #url = "https://dispatch.cdnser.be/cms-content/uploads/2020/04/09/a26f4b7b-9769-49dd-aed3-b7067fbc5a8c.jpg"
+        url = res.text
+        os.system("curl " + url + " > ./Frame/Frame_9.jpg")
         time.sleep(0.5)
 
         # 프레임이미지 리자이즈
-        frame_img = Image.open('./Frame/test.jpg')
-        frame_img = frame_img.resize((900,600))
-        frame_img.save('./Frame/test.jpg')
-
-        merged_img = Image.open('./photoDir/merged_img.png')
-        merged_img = merged_img.resize((900,600))
-        merged_img.save('./photoDir/new_merged_img.png')
-
-        print ("됐나?")
-
-        # 다운을 위한 시간 0.1s 추기
-
-
-        # 받아온 사진을 사진과 합친다.
-        FrameImg = Image.open('./Frame/test.jpg')
-        img = Image.open('./photoDir/new_merged_img.png')
-        FrameImg.paste(img, (0, 0), img)
-        FrameImg = FrameImg.resize((900, 600))
-        FrameImg.save('./FramePulsImg.png', 'PNG')
-        pixmap = QPixmap('./FramePulsImg.png')
-        self.PhotoPlusFrame.setPixmap(pixmap)
-        '''
+        frame_img = Image.open('./Frame/Frame_9.jpg')
+        frame_img = frame_img.resize((1500,1000))
+        frame_img.save('./Frame/Frame_9.jpg')
+        
+        self.make_Frame_Img(9)
 
     def make_Frame_Img(self, num):
-        FrameImg = Image.open('./Frame/Frame_{}.jpg'.format(num))
+        FrameImgColor = cv2.imread('./Frame/Frame_{}.jpg'.format(num))
+        b = int(FrameImgColor[10][1490][0])
+        g = int(FrameImgColor[10][1490][1])
+        r = int(FrameImgColor[10][1490][2])
+        maxColor = int(max(FrameImgColor[10][1490]))
+        minColor = int(min(FrameImgColor[10][1490]))
+        sumColor = maxColor + minColor
+        # sumColor = 255
+        newColor = (sumColor - r, sumColor - g, sumColor - b)
+
+        # watermark
+        waterFont = ImageFont.truetype('./703.ttf', 60)
+        mark_width, mark_height = waterFont.getsize('PhoRest')
+        watermark = Image.new('RGBA', (mark_width, mark_height), (0, 0, 0, 0))
+        waterdraw = ImageDraw.Draw(watermark)
+        waterdraw.text((0, 0), 'PhoRest', fill=newColor, font=waterFont, align='center')
+        watermark = watermark.rotate(90, expand=1)
+
+        # datestr
+        time = dt.datetime.now()
+        datestr = time.strftime('%Y/%m/%d')
+        dateFont = ImageFont.truetype('./703.ttf', 30)
+        date_width, date_height = dateFont.getsize(datestr)
+        datemark = Image.new('RGBA', (date_width, date_height), (0, 0, 0, 0))
+        datedraw = ImageDraw.Draw(datemark)
+        datedraw.text((0, 0), datestr, fill=newColor, font=dateFont, align='center')
+        datemark = datemark.rotate(90, expand=1)
+
+        self.FrameImg = Image.open('./Frame/Frame_{}.jpg'.format(num))
         img = Image.open('./photoDir/merged_img.png')
-        FrameImg.paste(img, (0, 0), img)
-        FrameImg = FrameImg.resize((900, 600))
-        FrameImg.save('./FramePulsImg.png', 'PNG')
-        pixmap = QPixmap('./FramePulsImg.png')
+        img_size = (600, 425)
+        self.FrameImg.paste(img, (0, 0), img)
+        self.FrameImg.paste(watermark, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130 - 20 - mark_width), watermark)
+        self.FrameImg.paste(datemark,
+                            ((img_size[0] * 2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width),
+                            datemark)
+        ShowImg = self.FrameImg.resize((900, 600))
+        ShowImg.save('./ShowImg.jpg', 'JPEG')
+        pixmap = QPixmap('./ShowImg.jpg')
         self.PhotoPlusFrame.setPixmap(pixmap)
 
     # 프레임 컬러 선택 버튼
@@ -1105,19 +1078,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     # 프린트 버튼
     def Press_Printing(self):
-        print("print")
+        self.FrameImg.save('./FramePlusImg.png', 'PNG')
         self.stack.setCurrentIndex(6)
-        print("print")
         # -------------------------- 6번째 인쇄중 출력 페이지 ------------------------------
 
-        # 인쇄 하는 코드 넣기
-        #os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
-
-
-
         # 인쇄가 끝나면 업로드 코드 넣기
-        '''
-        img = open('./FramePulsImg.png','rb')
+        img = open('./FramePlusImg.png','rb')
         files = {
             'image': img
         }
@@ -1126,9 +1092,36 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             'human_count' : self.ChooseBtnNum
         }
         print(self.ChooseBtnNum)
-        res = requests.post("http://i7a101.p.ssafy.io/api/upload/photogroup", files=files, data=data)
-        '''
-        print("성공")
+        res = requests.post("https://i7a101.p.ssafy.io/api/upload/photogroup", files=files, data=data)
+        
+        post_id = res.text  
+        
+        # make QR code
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_H,
+            box_size=1,
+            border=1
+        )
+
+        url = 'https://i7a101.p.ssafy.io/download/' + post_id
+        qr.add_data(url)
+        qr.make()
+        qrimg = qr.make_image(fill_color='black', back_color='white')
+        qrimg.save('./photoDir/QRCodeImg.jpg')
+
+        QRcode = Image.open("./photoDir/QRCodeImg.jpg")
+        QRcode = qrimg.resize((130, 130))
+        
+        img_size = (600, 425)
+        printImg = Image.open('./FramePlusImg.png')
+        printImg.paste(QRcode, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130))
+        printImg.save('./FramePlusImg.png', 'PNG')
+        
+        # 인쇄 하는 코드 넣기
+        #os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
+        print(post_id)
+        
         self.Final_Flag = 1
         self.initImgs()
 

@@ -21,7 +21,7 @@ export default function Main() {
                 <hr />
                 <div className="main-community">
                     <div>
-                        <CommunityCarousel communityType="pic" contents={picPopular}/>
+                        <CommunityCarousel communityType="photogroup" contents={picPopular}/>
                     </div>
                     <hr />
                     <div>

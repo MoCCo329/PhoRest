@@ -9,7 +9,7 @@ export default function CommentsNew(props) {
     const clickAddComment = () => {
         dispatch(setEditCommentId(0))
         const comment = {
-            username: 'test2',
+            username: '초록물고기',
             content: content,
             commentId : commentsLen,
             date: '서울시 여러분'

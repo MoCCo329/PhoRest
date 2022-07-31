@@ -14,7 +14,7 @@ export default function CommunityCarousel(props) {
 
   const { communityType } = props
   const dummyContents = props.contents
-  const [peopleNum, setPeopleNum] = useState(1)
+  const [humanCount, setHumanCount] = useState(1)
   const navigate = useNavigate()
   const move = (postId) => {
     navigate(`/community/${postId}`)
@@ -25,11 +25,11 @@ export default function CommunityCarousel(props) {
         <div className="community-carousel-header">
           <h3>{communityType} 게시판</h3>
           {
-            communityType==='pic' ?
+            communityType==="photogroup" ?
             <div className="community-carousel-select">
               {[1, 2, 3, 4, 5, 6].map((num, idx) =>
                 (
-                  <div className="community-carousel-select-btn" onClick={() => setPeopleNum(num)} style={{backgroundColor: num===peopleNum ? '#ffc036' : ''}} key={idx}>{num}명</div>
+                  <div className="community-carousel-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
                 )
               )}
             </div> : null
@@ -47,10 +47,11 @@ export default function CommunityCarousel(props) {
             // onSlideChange={() => console.log('slide change')}
           >
             {dummyContents.map((content, idx) =>
-              (communityType==='frame' || content.peopleNum===peopleNum) ?
+              (communityType==='frame' || content.humanCount===humanCount) ?
               <SwiperSlide key={idx}>
                 <img onClick={() => move(content.postId)}
-                  className="d-block w-100"
+                  className="community-carousel-slider-img"
+                  
                   src={content.url}
                   alt={content.postId}
                 />
@@ -58,7 +59,6 @@ export default function CommunityCarousel(props) {
             )}
           </Swiper>
         </div>
-        {communityType==='pic' ? '더미파일이 몇개없어서 지금은 1,2명만 확인가능' : null}
       </div>
   )
 }

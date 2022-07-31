@@ -1,7 +1,13 @@
+import { useNavigate } from 'react-router-dom'
+
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+
 export default function Profile() {
+    const navigate = useNavigate()
+
     return (
-        <div>
-           작성자 : test2
+        <div onClick={() => {navigate('/mypage')}}>
+           <AccountCircleTwoToneIcon className="header-profile" />
         </div>
     )
   }
