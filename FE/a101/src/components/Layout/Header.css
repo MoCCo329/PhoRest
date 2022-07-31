@@ -1,0 +1,26 @@
+header {
+  position: static;
+  background-color: #ffc036;
+}
+
+.contents {
+  width: 100vw;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo-box {
+  margin-left: 46vw;
+}
+
+.header-logo {
+  max-height: 4vh;
+  max-width: 4vh;
+}
+
+.header-profile {
+  margin-top: 1vw;
+  margin-right: 4vw;
+}
