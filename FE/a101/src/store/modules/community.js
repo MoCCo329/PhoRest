@@ -1,5 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import p12 from './../../assets/1/12.jpg'
+import p14 from './../../assets/1/14.jpg'
+import p16 from './../../assets/1/16.jpg'
+import p18 from './../../assets/1/18.jpg'
+import p20 from './../../assets/1/20.jpg'
+import p22 from './../../assets/2/22.png'
+import p24 from './../../assets/2/24.png'
+import p26 from './../../assets/2/26.png'
+import p28 from './../../assets/2/28.png'
+import p30 from './../../assets/3/30.png'
+import p32 from './../../assets/3/32.png'
+import p34 from './../../assets/3/34.png'
+import p36 from './../../assets/3/36.png'
+
+import f2 from './../../assets/frame/2.jpg'
+import f4 from './../../assets/frame/4.jpg'
+import f6 from './../../assets/frame/6.jpg'
+import f8 from './../../assets/frame/8.png'
+import f10 from './../../assets/frame/10.png'
+
 
 export let picPopular = createSlice({
   name: 'picPopular',
@@ -7,7 +27,7 @@ export let picPopular = createSlice({
     {
       postId: 12,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/5/12.jpg',
+      url: p12,
       content: '',
       humanCount: 1,
       time: '2022-07-31T12:29:02.227009',
@@ -15,7 +35,7 @@ export let picPopular = createSlice({
     {
       postId: 14,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/6/14.jpg',
+      url: p14,
       content: '',
       humanCount: 1,
       time: '2022-07-31T12:29:06.878601',
@@ -23,7 +43,7 @@ export let picPopular = createSlice({
     {
       postId: 16,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/7/16.jpg',
+      url: p16,
       content: '',
       humanCount: 1,
       time: '2022-07-31T12:29:11.079983',
@@ -31,7 +51,7 @@ export let picPopular = createSlice({
     {
       postId: 18,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/8/18.jpg',
+      url: p18,
       content: '',
       humanCount: 1,
       time: '2022-07-31T12:29:16.603088',
@@ -39,7 +59,7 @@ export let picPopular = createSlice({
     {
       postId: 20,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/9/20.jpg',
+      url: p20,
       content: '',
       humanCount: 1,
       time: '2022-07-31T12:29:26.204346',
@@ -47,7 +67,7 @@ export let picPopular = createSlice({
     {
       postId: 22,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/10/22.png',
+      url: p22,
       content: '',
       humanCount: 2,
       time: '2022-07-31T12:30:02.244543',
@@ -55,7 +75,7 @@ export let picPopular = createSlice({
     {
       postId: 24,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/11/24.png',
+      url: p24,
       content: '',
       humanCount: 2,
       time: '2022-07-31T12:30:05.59279',
@@ -63,7 +83,7 @@ export let picPopular = createSlice({
     {
       postId: 26,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/12/26.png',
+      url: p26,
       content: '',
       humanCount: 2,
       time: '2022-07-31T12:30:08.559857',
@@ -71,7 +91,7 @@ export let picPopular = createSlice({
     {
       postId: 28,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/13/28.png',
+      url: p28,
       content: '',
       humanCount: 2,
       time: '2022-07-31T12:30:13.358787',
@@ -79,7 +99,7 @@ export let picPopular = createSlice({
     {
       postId: 30,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/14/30.png',
+      url: p30,
       content: '',
       humanCount: 3,
       time: '2022-07-31T12:30:55.511447',
@@ -87,7 +107,7 @@ export let picPopular = createSlice({
     {
       postId: 32,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/15/32.png',
+      url: p32,
       content: '',
       humanCount: 3,
       time: '2022-07-31T12:31:00.460327',
@@ -95,7 +115,7 @@ export let picPopular = createSlice({
     {
       postId: 34,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/16/34.png',
+      url: p34,
       content: '',
       humanCount: 3,
       time: '2022-07-31T12:31:04.068346',
@@ -103,7 +123,7 @@ export let picPopular = createSlice({
     {
       postId: 36,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/17/36.png',
+      url: p36,
       content: '',
       humanCount: 3,
       time: '2022-07-31T12:31:07.770683',
@@ -111,7 +131,7 @@ export let picPopular = createSlice({
     {
       postId: 38,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/18/38.png',
+      url: p36,
       content: '',
       humanCount: 4,
       time: '2022-07-31T12:31:59.27684',
@@ -119,7 +139,7 @@ export let picPopular = createSlice({
     {
       postId: 40,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/19/40.png',
+      url: p36,
       content: '',
       humanCount: 4,
       time: '2022-07-31T12:32:04.138827',
@@ -127,7 +147,7 @@ export let picPopular = createSlice({
     {
       postId: 42,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/20/42.png',
+      url: p36,
       content: '',
       humanCount: 4,
       time: '2022-07-31T12:32:07.267156',
@@ -135,7 +155,7 @@ export let picPopular = createSlice({
     {
       postId: 44,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/21/44.png',
+      url: p36,
       content: '',
       humanCount: 4,
       time: '2022-07-31T12:31:07.770683',
@@ -143,7 +163,7 @@ export let picPopular = createSlice({
     {
       postId: 46,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/22/46.png',
+      url: p36,
       content: '',
       humanCount: 5,
       time: '2022-07-31T12:31:07.770683',
@@ -151,7 +171,7 @@ export let picPopular = createSlice({
     {
       postId: 48,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/23/48.png',
+      url: p36,
       content: '',
       humanCount: 5,
       time: '2022-07-31T12:31:07.770683',
@@ -159,7 +179,7 @@ export let picPopular = createSlice({
     {
       postId: 50,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/24/50.png',
+      url: p36,
       content: '',
       humanCount: 5,
       time: '2022-07-31T12:31:07.770683',
@@ -167,7 +187,7 @@ export let picPopular = createSlice({
     {
       postId: 52,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/25/52.png',
+      url: p36,
       content: '',
       humanCount: 5,
       time: '2022-07-31T12:31:07.770683',
@@ -175,7 +195,7 @@ export let picPopular = createSlice({
     {
       postId: 54,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/26/54.png',
+      url: p36,
       content: '',
       humanCount: 6,
       time: '2022-07-31T12:31:07.770683',
@@ -183,7 +203,7 @@ export let picPopular = createSlice({
     {
       postId: 56,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/27/56.png',
+      url: p36,
       content: '',
       humanCount: 6,
       time: '2022-07-31T12:31:07.770683',
@@ -191,7 +211,7 @@ export let picPopular = createSlice({
     {
       postId: 58,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/28/58.png',
+      url: p36,
       content: '',
       humanCount: 6,
       time: '2022-07-31T12:31:07.770683',
@@ -199,7 +219,7 @@ export let picPopular = createSlice({
     {
       postId: 60,
       category: 'photogroup',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/29/60.png',
+      url: p36,
       content: '',
       humanCount: 6,
       time: '2022-07-31T12:31:07.770683',
@@ -228,7 +248,7 @@ export let framePopular = createSlice({
     {
       postId: 2,
       category: 'frame',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/frame/0/1.jpg',
+      url: f2,
       content: '감각있는 땡땡이 무늬',
       humanCount: NaN,
       time: '2022-07-31T12:24:59.696299',
@@ -236,7 +256,7 @@ export let framePopular = createSlice({
     {
       postId: 4,
       category: 'frame',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/frame/1/2.jpg',
+      url: f4,
       content: '알록달록 알',
       humanCount: NaN,
       time: '2022-07-31T12:25:23.620317',
@@ -244,7 +264,7 @@ export let framePopular = createSlice({
     {
       postId: 6,
       category: 'frame',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/frame/2/3.jpg',
+      url: f6,
       content: '파란하늘에 핀 붉은 꽃',
       humanCount: NaN,
       time: '2022-07-31T12:26:03.642121',
@@ -252,7 +272,7 @@ export let framePopular = createSlice({
     {
       postId: 8,
       category: 'frame',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/frame/3/4.png',
+      url: f8,
       content: '파란 배경에 이파리',
       humanCount: NaN,
       time: '2022-07-31T12:27:23.413719',
@@ -260,7 +280,7 @@ export let framePopular = createSlice({
     {
       postId: 10,
       category: 'frame',
-      url: 'https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/frame/4/5.png',
+      url: f10,
       content: '아기자기한 소품들',
       humanCount: NaN,
       time: '2022-07-31T12:27:42.704231',
