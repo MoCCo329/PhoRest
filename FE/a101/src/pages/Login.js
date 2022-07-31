@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { setToken, setAuthError } from '../store/member'
+import { setToken, setAuthError } from '../store/modules/member'
 import members from './../api/members'
 
 

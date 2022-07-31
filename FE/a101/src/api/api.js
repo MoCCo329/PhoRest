@@ -1,9 +1,10 @@
 import axios from 'axios'
 
-const HOST = 'http://i7a101.p.ssafy.io/api/'
+const HOST = 'https://i7a101.p.ssafy.io/api/'
 
+axios.defaults.withCredentials = true
 export const api = axios.create({
-  baseURL : HOST,
+  baseURL: HOST
 })
 
 api.interceptors.request.use(

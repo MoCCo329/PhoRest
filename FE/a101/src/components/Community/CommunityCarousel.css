@@ -1,0 +1,19 @@
+.community-carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 4px;
+}
+
+.community-carousel-select {
+  display: flex;
+  justify-content: space-between;
+}
+
+.community-carousel-select-btn{
+  border: 1px solid black;
+  border-radius: 5px;
+  max-height: 4vh;
+  text-align: center;
+  margin: 1px;
+}

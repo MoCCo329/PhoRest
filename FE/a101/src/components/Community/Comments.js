@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { deleteComment, setEditCommentId } from '../../store/community'
+import { deleteComment, setEditCommentId } from '../../store/modules/community'
 
 export default function Comments(props) {
     // const changeEditCommentId = () => {

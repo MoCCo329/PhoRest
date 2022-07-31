@@ -1,0 +1,28 @@
+.download-img {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
+.download-img img {
+  min-width: 50vw;
+  max-width: 100vw;
+}
+
+.download-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.download-links-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.download-links-item p {
+  margin: 0;
+}

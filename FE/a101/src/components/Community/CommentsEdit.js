@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { editComment, deleteComment, setEditCommentId } from '../../store/community'
+import { editComment, deleteComment, setEditCommentId } from '../../store/modules/community'
 
 export default function CommentsEdit(props) {
     const [content, setContent] = useState(props.comment.content)
@@ -11,6 +11,7 @@ export default function CommentsEdit(props) {
             const confirmResult = window.confirm('댓글 내용이 없습니다. 댓글을 삭제하시겠습니까?')
             if (confirmResult) {
                 dispatch(deleteComment(props.idx))
+                return dispatch(setEditCommentId(0))
             }
         }
         const comment = {
