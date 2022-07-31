@@ -14,7 +14,7 @@ public class PhotoGroup implements Images{
 
     @Id
     @GeneratedValue
-    @Column(name="photo_group_id")
+    @Column(name="photogroup_id")
     private Long id;
 
     private Long humanCount;

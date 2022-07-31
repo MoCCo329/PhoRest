@@ -29,7 +29,7 @@ public class Post {
     private Frame frame;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "photo_group_id")
+    @JoinColumn(name = "photogroup_id")
     private PhotoGroup photoGroup;
 
     @OneToMany(mappedBy = "post")// Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. mypage가 주인장.

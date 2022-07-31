@@ -24,11 +24,11 @@ public class PostController {
     private final MyPageService myPageService;
     @GetMapping("download/{post_id}")
     @ResponseBody
-    public String SendPostPicture(@PathVariable("post_id") Long id){
+    public PostDto SendPost(@PathVariable("post_id") Long id){
         Optional<PostDto> postDto = postService.findDtoOne(id);
         if(postDto.isEmpty())
-            return "";
-        return postDto.get().getUrl();
+            return new PostDto();
+        return postDto.get();
     }
 
     @GetMapping("download/{post_id}/add")
