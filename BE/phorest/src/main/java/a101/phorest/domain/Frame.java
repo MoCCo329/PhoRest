@@ -13,7 +13,7 @@ import java.util.List;
 @Getter @Setter
 @Entity
 public class Frame implements Images{
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "frame_id")
     private Long id;
 

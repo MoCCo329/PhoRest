@@ -12,7 +12,7 @@ import java.util.List;
 @Getter @Setter
 public class Post {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
     private String category; // photogroup, frame

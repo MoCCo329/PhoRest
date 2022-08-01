@@ -24,8 +24,6 @@ import java.util.List;
 @RequestMapping("api")
 public class ImageController {
 
-
-
     private final PhotoGroupService photoGroupService;
 
     private final FrameService frameService;
@@ -47,6 +45,7 @@ public class ImageController {
         Long photogroup_id = photoGroupService.join(uploadUrl, humancount);
         return postService.join(photoGroupService.findOne(photogroup_id), "photogroup", "none");
     }
+
 
     @PostMapping("upload/frame")
     @ResponseBody

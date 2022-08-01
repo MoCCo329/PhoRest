@@ -13,7 +13,7 @@ import java.io.File;
 public class PhotoGroup implements Images{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="photogroup_id")
     private Long id;
 
