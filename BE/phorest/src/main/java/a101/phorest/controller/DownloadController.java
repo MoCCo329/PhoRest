@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/")
-public class PostController {
+public class DownloadController {
 
     @Autowired
     private final PostService postService;
