@@ -45,7 +45,7 @@ export default function Main() {
     }, [])
     
     const imageDownload = () => {
-        fetch(content.url, {mode: 'no-cors'})
+        fetch(content.url + '?timestamp=2')
         .then((image) => {
             return image.blob();
         })
@@ -60,7 +60,8 @@ export default function Main() {
         })
     }
     const videoDownload = () => {
-        fetch(content.url, {mode: 'no-cors'})
+        console.log(content.url)
+        fetch(content.url + '?timestamp=2')
         .then((image) => {
             return image.blob();
         })
