@@ -47,24 +47,26 @@ public class PostRepository {
 
 }
 */
+
+
 package a101.phorest.repository;
 import a101.phorest.domain.Post;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+
     Optional<Post> findById(Long id);
     @Query(nativeQuery = true, value = "select distinct * from post p natural join photo_group q where q.human_count = :humancount and p.category like :category order by p.like_count, p.time desc LIMIT :limit offset :offset")
     List<Post> findPhotogroupByLikeCount(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset, @Param("humancount") Long humancount);
+
 
     @Query(nativeQuery = true, value = "select distinct * from post p where p.category like :category order by p.like_count, p.time desc LIMIT :limit offset :offset")
     List<Post> findFrameByLikeCount(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset);

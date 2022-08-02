@@ -6,10 +6,11 @@ import a101.phorest.domain.Frame;
 import a101.phorest.domain.PhotoGroup;
 import a101.phorest.domain.Post;
 import a101.phorest.domain.PostDto;
-import a101.phorest.service.FrameService;
-import a101.phorest.service.PhotoGroupService;
-import a101.phorest.service.PostService;
+import a101.phorest.dto.UserDto;
+import a101.phorest.repository.PostRepository;
+import a101.phorest.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +35,9 @@ public class ImageController {
 
     private final S3Uploader s3Uploader;
 
+    private final UserService userService;
+
+    private final MyPageService myPageService;
 
     @PostMapping("upload/photogroup")
     @ResponseBody
@@ -91,5 +97,40 @@ public class ImageController {
         return postService.findByLikeCount("frame" ,limit, offset, 0L);
     }
 
+    @GetMapping("download/{post_id}")
+    @ResponseBody
+    public PostDto SendPost(@PathVariable("post_id") Long id){
+        Optional<PostDto> postDto = postService.findDtoOne(id);
+        if(postDto.isEmpty())
+            return new PostDto();
+        return postDto.get();
+    }
+
+    @GetMapping("download/{post_id}/add")
+    @ResponseBody
+    public boolean addPost(@PathVariable("post_id") Long post_id, @RequestParam("username") String username){
+        Optional<UserDto> user = userService.findDtoUsernameOne(username);
+        Optional<PostDto> post = postService.findDtoOne(post_id);
+        if(user.isEmpty() || post.isEmpty())
+            return false;
+        myPageService.join(user.get(), post.get());
+        return true;
+    }
+
+//    //post 새로 만들기 + postid 보내주기
+//    @PostMapping("post/new")
+//    @ResponseBody
+//    public Long create(String category,String content){
+//        Post post = new Post();
+//
+//        post.setCategory(category);
+//        post.setTime(LocalDateTime.now());
+//        post.setContent(content);
+//        post.setLikeCount(0);
+//
+//        post.setId(postService.join(post));
+//
+//        return post.getId();
+//    }
 
 }
