@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1290</width>
-    <height>1373</height>
+    <width>1296</width>
+    <height>1389</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="styleSheet">
-       <string notr="true">color : #C25642</string>
+       <string notr="true">color : #000000</string>
       </property>
       <property name="text">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;터치하여 PhoRest를 시작해 보세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -71,7 +71,7 @@
       <property name="geometry">
        <rect>
         <x>220</x>
-        <y>40</y>
+        <y>20</y>
         <width>840</width>
         <height>100</height>
        </rect>
@@ -109,9 +109,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 20%;
 }</string>
       </property>
       <property name="text">
@@ -122,9 +121,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>160</y>
+        <y>170</y>
         <width>1261</width>
-        <height>531</height>
+        <height>521</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -157,7 +156,7 @@
          <property name="font">
           <font>
            <family>Leferi Base Type Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>36</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -167,9 +166,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 50%;
 }</string>
          </property>
          <property name="text">
@@ -191,7 +189,7 @@
          <property name="font">
           <font>
            <family>Leferi Base Type Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>36</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -204,9 +202,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 50%;
 }</string>
          </property>
          <property name="text">
@@ -225,7 +222,7 @@
          <property name="font">
           <font>
            <family>Leferi Base Type Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>36</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -235,9 +232,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 50%;
 }</string>
          </property>
          <property name="text">
@@ -256,7 +252,7 @@
          <property name="font">
           <font>
            <family>Leferi Base Type Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>36</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -266,9 +262,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 50%;
 }</string>
          </property>
          <property name="text">
@@ -287,7 +282,7 @@
          <property name="font">
           <font>
            <family>Leferi Base Type Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>36</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -297,9 +292,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 50%;
 }</string>
          </property>
          <property name="text">
@@ -318,7 +312,7 @@
          <property name="font">
           <font>
            <family>Leferi Base Type Bold</family>
-           <pointsize>20</pointsize>
+           <pointsize>36</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -328,9 +322,8 @@
 	color: black;
     background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
     border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
+	border-radius: 50%;
 }</string>
          </property>
          <property name="text">
@@ -340,35 +333,25 @@
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="PreviousBtn">
+     <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>40</y>
-        <width>160</width>
-        <height>100</height>
+        <x>220</x>
+        <y>110</y>
+        <width>831</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <family>Leferi Base Type Bold</family>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
+        <family>Leferi Point Type Special</family>
+        <pointsize>16</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-	color: black;
-    background-color: #F8F8F8		;
-    padding: 12px;
-    border-radius: 4px;
-    border-bottom: 4px solid #c8c8c8;
-	border-radius: 20px;
-}</string>
-      </property>
       <property name="text">
-       <string>이전</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;버튼을 클릭하면 위쪽 화면에 추천 포즈가 나타납니다&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -489,7 +472,7 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel{
-	border : 3px double #ABF760;
+	border : 3px double #000000;
 }</string>
          </property>
          <property name="text">
@@ -512,7 +495,7 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel{
-	border : 3px double #ABF760;
+	border : 3px double #000000;
 }</string>
          </property>
          <property name="text">
@@ -535,7 +518,7 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel{
-	border : 3px double #ABF760;
+	border : 3px double #000000;
 }</string>
          </property>
          <property name="text">
@@ -558,7 +541,7 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QLabel{
-	border : 3px double #ABF760;
+	border : 3px double #000000;
 }</string>
          </property>
          <property name="text">
@@ -725,10 +708,10 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">color : #c8c8c8</string>
+       <string notr="true"/>
       </property>
       <property name="text">
-       <string>고유프레임</string>
+       <string/>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -867,9 +850,9 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>940</x>
-        <y>190</y>
-        <width>250</width>
+        <x>859</x>
+        <y>160</y>
+        <width>391</width>
         <height>61</height>
        </rect>
       </property>
@@ -888,7 +871,7 @@
       <property name="geometry">
        <rect>
         <x>940</x>
-        <y>290</y>
+        <y>240</y>
         <width>250</width>
         <height>250</height>
        </rect>
@@ -898,6 +881,26 @@
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>849</x>
+        <y>500</y>
+        <width>401</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Leferi Point Type Special</family>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;프레임 번호를 입력 후 적용 버튼을 눌러주세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -921,7 +924,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>400</y>
+        <y>350</y>
         <width>1280</width>
         <height>180</height>
        </rect>
@@ -934,16 +937,16 @@
        </font>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:48pt;&quot;&gt;당신의 추억을 가져가세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt;&quot;&gt;당신의 추억을 가져가세요&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="LogoImg_2">
       <property name="geometry">
        <rect>
-        <x>490</x>
-        <y>110</y>
-        <width>300</width>
-        <height>300</height>
+        <x>540</x>
+        <y>160</y>
+        <width>200</width>
+        <height>200</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -977,7 +980,7 @@
      <string notr="true">background-color : #FFF7E7</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="LogoPage">
      <widget class="QLabel" name="LogoImg">
@@ -1020,12 +1023,11 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-	color: white;
-    background-color: #FFB937		;
+	color: black;
+    background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
-    border-bottom: 4px solid #FF8200;
-	border-radius: 20px;
+    border-bottom: 4px solid #c8c8c8;
+	border-radius: 20%;
 }</string>
       </property>
       <property name="text">
@@ -1051,68 +1053,15 @@
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton{
-	color: white;
-    background-color: #FFB937		;
+	color: black;
+    background-color: #F8F8F8		;
     padding: 12px;
-    border-radius: 4px;
-    border-bottom: 4px solid #FF8200;
-	border-radius: 20px;
+    border-bottom: 4px solid #c8c8c8;
+	border-radius: 20%;
 }</string>
       </property>
       <property name="text">
        <string>&gt;</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Btn_close">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>560</y>
-        <width>131</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Leferi Base Type Bold</family>
-        <pointsize>14</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-	color: white;
-    background-color: #FFB937		;
-    padding: 12px;
-    border-radius: 4px;
-    border-bottom: 4px solid #FF8200;
-	border-radius: 20px;
-}</string>
-      </property>
-      <property name="text">
-       <string>닫기</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="NowPeople_2">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>40</y>
-        <width>121</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Leferi Base Type Bold</family>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;N명&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QStackedWidget" name="PoseStack">
@@ -1416,8 +1365,8 @@
    <slot>Press_Btn4()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1220</x>
-     <y>890</y>
+     <x>379</x>
+     <y>1186</y>
     </hint>
     <hint type="destinationlabel">
      <x>892</x>
@@ -1432,8 +1381,8 @@
    <slot>Press_Btn5()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>212</x>
-     <y>1146</y>
+     <x>682</x>
+     <y>1330</y>
     </hint>
     <hint type="destinationlabel">
      <x>871</x>
@@ -1448,8 +1397,8 @@
    <slot>Press_Btn6()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>590</x>
-     <y>1146</y>
+     <x>1220</x>
+     <y>1330</y>
     </hint>
     <hint type="destinationlabel">
      <x>877</x>
@@ -1538,22 +1487,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>Btn_close</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>Press_CloseBtn()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>120</x>
-     <y>589</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1315</x>
-     <y>554</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>Basic_Frame_1</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -1565,7 +1498,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>518</x>
-     <y>1406</y>
+     <y>1388</y>
     </hint>
    </hints>
   </connection>
@@ -1613,7 +1546,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>105</x>
-     <y>1389</y>
+     <y>1388</y>
     </hint>
    </hints>
   </connection>
@@ -1629,7 +1562,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>640</x>
-     <y>1393</y>
+     <y>1388</y>
     </hint>
    </hints>
   </connection>
@@ -1731,7 +1664,7 @@
   <slot>NextBottomButton_to_4()</slot>
   <slot>Press_Printing()</slot>
   <slot>Press_Applying()</slot>
-  <slot>Press_CloseBtn()</slot>
+  <slot>Press_PrevBtn()</slot>
   <slot>Press_BasicFrame1()</slot>
   <slot>Press_BasicFrame2()</slot>
   <slot>Press_BasicFrame3()</slot>

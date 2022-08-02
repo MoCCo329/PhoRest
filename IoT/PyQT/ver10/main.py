@@ -24,9 +24,13 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         self.initImgs()
 
-        # recommand_pose_flag 초기화 0 : 안켜진상태 1 : 켜진상태
-        self.recommand_pose_flag = 0
-
+        # self.offset (몇번째 포즈를 받아올 것인지)
+        self.offset_1 = 0
+        self.offset_2 = 0
+        self.offset_3 = 0
+        self.offset_4 = 0
+        self.offset_5 = 0
+        self.offset_6 = 0
         self.ChooseBtnNum = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
@@ -65,6 +69,14 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.show()
 
     def initImgs(self):
+        self.offset_1 = 0
+        self.offset_2 = 0
+        self.offset_3 = 0
+        self.offset_4 = 0
+        self.offset_5 = 0
+        self.offset_6 = 0
+        self.ChooseBtnNum = 0
+
         # 이전에 이미지 라벨별로 저장했던 것들 초기화 해줘야함
         self.Photo1.clear()
         self.Photo2.clear()
@@ -122,43 +134,51 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # ---------------------- 2. 인원 선택 칸 -----------------------
     # 두번째 화면에서는 각 버튼마다 이벤트 존재
     def RecommandPose(self):
-        if (self.recommand_pose_flag == 1):
-            self.recommand_pose_flag = 0
-            self.TopStack.setCurrentIndex(0)
-        else:
-            if(self.ChooseBtnNum != 0):
-                self.recommand_pose_flag = 1
-                self.NowPeople.setText(self.NowPeople.text())
+        self.recommand_pose_flag = 1
 
-                # 이미지 받아와서 띄워놓는 코드 작성
-                # 이미지를 배열 형태 (json 형식) 으로 받아온다.
+        # 이미지 받아와서 띄워놓는 코드 작성
+        # 이미지를 배열 형태 (json 형식) 으로 받아온다.
 
-                limit = 2
+        limit = 5
 
-                params = {
-                    'limit' : limit,
-                    'offset' : 0,
-                    'human_count': self.ChooseBtnNum
-                }
-                print(self.ChooseBtnNum)
-                #res = requests.post("https://i7a101.p.ssafy.io/api/download/photogroup/like", params=params)
-                #print(res)
-                #print(res.text)
-                '''
-                test = {'url':'http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg','url':'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E'}
+        if self.ChooseBtnNum == 1:
+            offset = self.offset_1
+        elif self.ChooseBtnNum == 2:
+            offset = self.offset_2
+        elif self.ChooseBtnNum == 3:
+            offset = self.offset_3
+        elif self.ChooseBtnNum == 4:
+            offset = self.offset_4
+        elif self.ChooseBtnNum == 5:
+            offset = self.offset_5
+        elif self.ChooseBtnNum == 6:
+            offset = self.offset_6
 
-                # 배열로 받아오면 이를 띄워줘야한다.
-                pixmap = QPixmap(test[0]['url'])
-                pixmap = pixmap.scaledToHeight(600)
-                self.PoseImg_1.setPixmap(pixmap)
 
-                pixmap = QPixmap(test[1]['url'])
-                pixmap = pixmap.scaledToHeight(600)
-                self.PoseImg_2.setPixmap(pixmap)
-                '''
-                self.PoseStack.setCurrentIndex(0)
-                self.TopStack.setCurrentIndex(1)
+        params = {
+            'limit' : limit,
+            'offset' : offset,
+            'human_count': self.ChooseBtnNum
+        }
+        #res = requests.post("https://i7a101.p.ssafy.io/api/download/photogroup/like", params=params)
+        #print(res)
+        #print(res.text)
+        '''
+        test = {'url':'http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg','url':'https://t1.daumcdn.net/cfile/tistory/24283C3858F778CA2E'}
 
+        # 배열로 받아오면 이를 띄워줘야한다.
+        pixmap = QPixmap(test[0]['url'])
+        pixmap = pixmap.scaledToHeight(600)
+        self.PoseImg_1.setPixmap(pixmap)
+
+        pixmap = QPixmap(test[1]['url'])
+        pixmap = pixmap.scaledToHeight(600)
+        self.PoseImg_2.setPixmap(pixmap)
+        '''
+
+    # 좌우 버튼 누를때마다 백엔드에 계속 신호 보내줘야 한다.
+    # 양 끝 일때 %5 == 0 이거나 %5 == 4이면 신호 보내주는 걸로 바꿔보자 그게 좀더 빠를듯
+    # offset_n += 5의 형태
     def Press_RightBtn(self):
         nowIdx = self.PoseStack.currentIndex()
         nextIdx = nowIdx+1
@@ -166,6 +186,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             nextIdx = 0
         self.PoseStack.setCurrentIndex(nextIdx)
 
+    # 양 끝 일때 %5 == 0 이거나 %5 == 4이면 신호 보내주는 걸로 바꿔보자 그게 좀더 빠를듯
+    # offset_n -= 5의 형태
     def Press_LeftBtn(self):
         nowIdx = self.PoseStack.currentIndex()
         nextIdx = nowIdx - 1
@@ -178,397 +200,323 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             self.stack.setCurrentIndex(2)
 
     def Press_Btn1(self):
-        if (self.recommand_pose_flag == 0):
-            _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">1명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
-                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">1명</span></p></body></html>"))
-            if self.ChooseBtnNum == 2:
-                self.Btn2.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 3:
-                self.Btn3.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 4:
-                self.Btn4.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 5:
-                self.Btn5.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 6:
-                self.Btn6.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-
-            self.ChooseBtnNum = 1
-
-            self.Btn1.setStyleSheet("QPushButton{"
-                                    "color: white;"
-                                    "background-color: #FFB937		;"
+        if self.ChooseBtnNum == 2:
+            self.Btn2.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
                                     "padding: 12px;"
-                                    "border-radius: 4px;"
-                                    "border-bottom: 4px solid #FF8200;"
-                                    "border-radius: 20px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
                                     "}")
+        elif self.ChooseBtnNum == 3:
+            self.Btn3.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 4:
+            self.Btn4.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 5:
+            self.Btn5.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 6:
+            self.Btn6.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+
+        self.ChooseBtnNum = 1
+
+        self.Btn1.setStyleSheet("QPushButton{"
+                                "color: #000000;"
+                                "background-color: #FFE650;"
+                                "padding: 12px;"
+                                "border-bottom: 4px solid #FFC81E;"
+                                "border-radius: 50%;"
+                                "}")
+
+        # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
+        self.RecommandPose();
+        self.PoseStack.setCurrentIndex(0)
+        self.TopStack.setCurrentIndex(1)
 
     def Press_Btn2(self):
-        if (self.recommand_pose_flag == 0):
-            _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">2명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
-                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">2명</span></p></body></html>"))
-
-            if self.ChooseBtnNum == 1:
-                self.Btn1.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 3:
-                self.Btn3.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 4:
-                self.Btn4.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 5:
-                self.Btn5.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 6:
-                self.Btn6.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-
-            self.ChooseBtnNum = 2
-
-            self.Btn2.setStyleSheet("QPushButton{"
-                                    "color: white;"
-                                    "background-color: #FFB937		;"
+        if self.ChooseBtnNum == 1:
+            self.Btn1.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
                                     "padding: 12px;"
-                                    "border-radius: 4px;"
-                                    "border-bottom: 4px solid #FF8200;"
-                                    "border-radius: 20px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
                                     "}")
+        elif self.ChooseBtnNum == 3:
+            self.Btn3.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 4:
+            self.Btn4.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 5:
+            self.Btn5.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 6:
+            self.Btn6.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+
+        self.ChooseBtnNum = 2
+
+        self.Btn2.setStyleSheet("QPushButton{"
+                                "color: #000000;"
+                                "background-color: #FFE650;"
+                                "padding: 12px;"
+                                "border-bottom: 4px solid #FFC81E;"
+                                "border-radius: 50%;"
+                                "}")
 
     def Press_Btn3(self):
-        if (self.recommand_pose_flag == 0):
-            _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">3명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
-                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">3명</span></p></body></html>"))
-
-            if self.ChooseBtnNum == 1:
-                self.Btn1.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 2:
-                self.Btn2.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 4:
-                self.Btn4.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 5:
-                self.Btn5.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 6:
-                self.Btn6.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-
-            self.ChooseBtnNum = 3
-
-            self.Btn3.setStyleSheet("QPushButton{"
-                                    "color: white;"
-                                    "background-color: #FFB937		;"
+        if self.ChooseBtnNum == 2:
+            self.Btn2.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
                                     "padding: 12px;"
-                                    "border-radius: 4px;"
-                                    "border-bottom: 4px solid #FF8200;"
-                                    "border-radius: 20px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
                                     "}")
+        elif self.ChooseBtnNum == 1:
+            self.Btn1.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 4:
+            self.Btn4.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 5:
+            self.Btn5.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 6:
+            self.Btn6.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+
+        self.ChooseBtnNum = 3
+
+        self.Btn3.setStyleSheet("QPushButton{"
+                                "color: #000000;"
+                                "background-color: #FFE650;"
+                                "padding: 12px;"
+                                "border-bottom: 4px solid #FFC81E;"
+                                "border-radius: 50%;"
+                                "}")
 
     def Press_Btn4(self):
-        if (self.recommand_pose_flag == 0):
-            _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">4명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
-                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">4명</span></p></body></html>"))
-
-            if self.ChooseBtnNum == 1:
-                self.Btn1.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 3:
-                self.Btn3.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 2:
-                self.Btn2.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 5:
-                self.Btn5.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 6:
-                self.Btn6.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-
-            self.ChooseBtnNum = 4
-
-            self.Btn4.setStyleSheet("QPushButton{"
-                                    "color: white;"
-                                    "background-color: #FFB937		;"
+        if self.ChooseBtnNum == 2:
+            self.Btn2.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
                                     "padding: 12px;"
-                                    "border-radius: 4px;"
-                                    "border-bottom: 4px solid #FF8200;"
-                                    "border-radius: 20px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
                                     "}")
+        elif self.ChooseBtnNum == 3:
+            self.Btn3.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 1:
+            self.Btn1.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 5:
+            self.Btn5.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 6:
+            self.Btn6.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+
+        self.ChooseBtnNum = 4
+
+        self.Btn4.setStyleSheet("QPushButton{"
+                                "color: #000000;"
+                                "background-color: #FFE650;"
+                                "padding: 12px;"
+                                "border-bottom: 4px solid #FFC81E;"
+                                "border-radius: 50%;"
+                                "}")
 
     def Press_Btn5(self):
-        if (self.recommand_pose_flag == 0):
-            _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">5명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
-                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">5명</span></p></body></html>"))
-
-            if self.ChooseBtnNum == 1:
-                self.Btn1.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 3:
-                self.Btn3.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 4:
-                self.Btn4.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 2:
-                self.Btn2.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 6:
-                self.Btn6.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-
-            self.ChooseBtnNum = 5
-
-            self.Btn5.setStyleSheet("QPushButton{"
-                                    "color: white;"
-                                    "background-color: #FFB937		;"
+        if self.ChooseBtnNum == 2:
+            self.Btn2.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
                                     "padding: 12px;"
-                                    "border-radius: 4px;"
-                                    "border-bottom: 4px solid #FF8200;"
-                                    "border-radius: 20px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
                                     "}")
+        elif self.ChooseBtnNum == 3:
+            self.Btn3.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 4:
+            self.Btn4.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 1:
+            self.Btn1.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 6:
+            self.Btn6.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+
+        self.ChooseBtnNum = 5
+
+        self.Btn5.setStyleSheet("QPushButton{"
+                                "color: #000000;"
+                                "background-color: #FFE650;"
+                                "padding: 12px;"
+                                "border-bottom: 4px solid #FFC81E;"
+                                "border-radius: 50%;"
+                                "}")
 
     def Press_Btn6(self):
-        if (self.recommand_pose_flag == 0):
-            _translate = QtCore.QCoreApplication.translate
-            self.NowPeople.setText(_translate("MainWindow",
-                                              "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">6명</span></p></body></html>"))
-            self.NowPeople_2.setText(_translate("MainWindow",
-                                                "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">6명</span></p></body></html>"))
-
-            if self.ChooseBtnNum == 1:
-                self.Btn1.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 3:
-                self.Btn3.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 4:
-                self.Btn4.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 5:
-                self.Btn5.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-            elif self.ChooseBtnNum == 2:
-                self.Btn2.setStyleSheet("QPushButton{"
-                                        "color: #FF8200;"
-                                        "background-color: #FFE650		;"
-                                        "padding: 12px;"
-                                        "border-radius: 4px;"
-                                        "border-bottom: 4px solid #FFC81E;"
-                                        "border-radius: 20px;"
-                                        "}")
-
-            self.ChooseBtnNum = 6
-
-            self.Btn6.setStyleSheet("QPushButton{"
-                                    "color: white;"
-                                    "background-color: #FFB937		;"
+        if self.ChooseBtnNum == 2:
+            self.Btn2.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
                                     "padding: 12px;"
-                                    "border-radius: 4px;"
-                                    "border-bottom: 4px solid #FF8200;"
-                                    "border-radius: 20px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 3:
+            self.Btn3.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 4:
+            self.Btn4.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 5:
+            self.Btn5.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
+                                    "}")
+        elif self.ChooseBtnNum == 1:
+            self.Btn1.setStyleSheet("QPushButton{"
+                                    "color: #000000;"
+                                    "background-color: #F8F8F8;"
+                                    "padding: 12px;"
+                                    "border-bottom: 4px solid #c8c8c8;"
+                                    "border-radius: 50%;"
                                     "}")
 
-    def Press_CloseBtn(self):
-        self.recommand_pose_flag = 0
-        self.TopStack.setCurrentIndex(0)
+        self.ChooseBtnNum = 6
+
+        self.Btn6.setStyleSheet("QPushButton{"
+                                "color: #000000;"
+                                "background-color: #FFE650;"
+                                "padding: 12px;"
+                                "border-bottom: 4px solid #FFC81E;"
+                                "border-radius: 50%;"
+                                "}")
+
+
 
     # -------------------------- 3번째 촬영버튼 페이지 ------------------------------
     # 15초간의 타이머 작동
@@ -828,6 +776,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # 프린트 버튼
     def Press_Printing(self):
         print("print")
+        self.TopStack.setCurrentIndex(0)
         self.stack.setCurrentIndex(6)
         print("print")
         # -------------------------- 6번째 인쇄중 출력 페이지 ------------------------------

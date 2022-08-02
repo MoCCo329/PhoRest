@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1290, 1373)
+        MainWindow.resize(1296, 1389)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.stack = QtWidgets.QStackedWidget(self.centralwidget)
@@ -36,14 +36,14 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.label.setFont(font)
         self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label.setStyleSheet("color : #C25642")
+        self.label.setStyleSheet("color : #000000")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.stack.addWidget(self.InitPage)
         self.ChoosePeoplePage = QtWidgets.QWidget()
         self.ChoosePeoplePage.setObjectName("ChoosePeoplePage")
         self.label_3 = QtWidgets.QLabel(self.ChoosePeoplePage)
-        self.label_3.setGeometry(QtCore.QRect(220, 40, 840, 100))
+        self.label_3.setGeometry(QtCore.QRect(220, 20, 840, 100))
         font = QtGui.QFont()
         font.setFamily("Leferi Point Type Special")
         font.setBold(False)
@@ -62,13 +62,12 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 20%;\n"
 "}")
         self.NextBtn.setObjectName("NextBtn")
         self.gridLayoutWidget = QtWidgets.QWidget(self.ChoosePeoplePage)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 160, 1261, 531))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 170, 1261, 521))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setContentsMargins(50, 20, 50, 20)
@@ -83,7 +82,7 @@ class Ui_MainWindow(object):
         self.Btn3.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
+        font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
         self.Btn3.setFont(font)
@@ -91,9 +90,8 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 50%;\n"
 "}")
         self.Btn3.setObjectName("Btn3")
         self.gridLayout.addWidget(self.Btn3, 0, 2, 1, 1)
@@ -106,7 +104,7 @@ class Ui_MainWindow(object):
         self.Btn1.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
+        font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
         self.Btn1.setFont(font)
@@ -115,9 +113,8 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 50%;\n"
 "}")
         self.Btn1.setObjectName("Btn1")
         self.gridLayout.addWidget(self.Btn1, 0, 0, 1, 1)
@@ -129,7 +126,7 @@ class Ui_MainWindow(object):
         self.Btn2.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
+        font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
         self.Btn2.setFont(font)
@@ -137,9 +134,8 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 50%;\n"
 "}")
         self.Btn2.setObjectName("Btn2")
         self.gridLayout.addWidget(self.Btn2, 0, 1, 1, 1)
@@ -151,7 +147,7 @@ class Ui_MainWindow(object):
         self.Btn6.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
+        font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
         self.Btn6.setFont(font)
@@ -159,9 +155,8 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 50%;\n"
 "}")
         self.Btn6.setObjectName("Btn6")
         self.gridLayout.addWidget(self.Btn6, 1, 2, 1, 1)
@@ -173,7 +168,7 @@ class Ui_MainWindow(object):
         self.Btn5.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
+        font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
         self.Btn5.setFont(font)
@@ -181,9 +176,8 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 50%;\n"
 "}")
         self.Btn5.setObjectName("Btn5")
         self.gridLayout.addWidget(self.Btn5, 1, 1, 1, 1)
@@ -195,7 +189,7 @@ class Ui_MainWindow(object):
         self.Btn4.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
+        font.setPointSize(36)
         font.setBold(True)
         font.setWeight(75)
         self.Btn4.setFont(font)
@@ -203,29 +197,20 @@ class Ui_MainWindow(object):
 "    color: black;\n"
 "    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
 "    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
+"    border-radius: 50%;\n"
 "}")
         self.Btn4.setObjectName("Btn4")
         self.gridLayout.addWidget(self.Btn4, 1, 0, 1, 1)
-        self.PreviousBtn = QtWidgets.QPushButton(self.ChoosePeoplePage)
-        self.PreviousBtn.setGeometry(QtCore.QRect(40, 40, 160, 100))
+        self.label_7 = QtWidgets.QLabel(self.ChoosePeoplePage)
+        self.label_7.setGeometry(QtCore.QRect(220, 110, 831, 41))
         font = QtGui.QFont()
-        font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
-        font.setBold(True)
-        font.setWeight(75)
-        self.PreviousBtn.setFont(font)
-        self.PreviousBtn.setStyleSheet("QPushButton{\n"
-"    color: black;\n"
-"    background-color: #F8F8F8        ;\n"
-"    padding: 12px;\n"
-"    border-radius: 4px;\n"
-"    border-bottom: 4px solid #c8c8c8;\n"
-"    border-radius: 20px;\n"
-"}")
-        self.PreviousBtn.setObjectName("PreviousBtn")
+        font.setFamily("Leferi Point Type Special")
+        font.setPointSize(16)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
         self.stack.addWidget(self.ChoosePeoplePage)
         self.ShotPage = QtWidgets.QWidget()
         self.ShotPage.setObjectName("ShotPage")
@@ -286,7 +271,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.Photo3.setFont(font)
         self.Photo3.setStyleSheet("QLabel{\n"
-"    border : 3px double #ABF760;\n"
+"    border : 3px double #000000;\n"
 "}")
         self.Photo3.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo3.setObjectName("Photo3")
@@ -299,7 +284,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.Photo1.setFont(font)
         self.Photo1.setStyleSheet("QLabel{\n"
-"    border : 3px double #ABF760;\n"
+"    border : 3px double #000000;\n"
 "}")
         self.Photo1.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo1.setObjectName("Photo1")
@@ -312,7 +297,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.Photo2.setFont(font)
         self.Photo2.setStyleSheet("QLabel{\n"
-"    border : 3px double #ABF760;\n"
+"    border : 3px double #000000;\n"
 "}")
         self.Photo2.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo2.setObjectName("Photo2")
@@ -325,7 +310,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.Photo4.setFont(font)
         self.Photo4.setStyleSheet("QLabel{\n"
-"    border : 3px double #ABF760;\n"
+"    border : 3px double #000000;\n"
 "}")
         self.Photo4.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo4.setObjectName("Photo4")
@@ -410,7 +395,8 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.Frame_Id.setFont(font)
-        self.Frame_Id.setStyleSheet("color : #c8c8c8")
+        self.Frame_Id.setStyleSheet("")
+        self.Frame_Id.setText("")
         self.Frame_Id.setAlignment(QtCore.Qt.AlignCenter)
         self.Frame_Id.setObjectName("Frame_Id")
         self.Basic_Frame_1 = QtWidgets.QPushButton(self.ChooseFramePage)
@@ -456,7 +442,7 @@ class Ui_MainWindow(object):
         self.Basic_Frame_8.setText("")
         self.Basic_Frame_8.setObjectName("Basic_Frame_8")
         self.label_6 = QtWidgets.QLabel(self.ChooseFramePage)
-        self.label_6.setGeometry(QtCore.QRect(940, 190, 250, 61))
+        self.label_6.setGeometry(QtCore.QRect(859, 160, 391, 61))
         font = QtGui.QFont()
         font.setFamily("Leferi Point Type Special")
         font.setBold(False)
@@ -464,10 +450,18 @@ class Ui_MainWindow(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.label_4 = QtWidgets.QLabel(self.ChooseFramePage)
-        self.label_4.setGeometry(QtCore.QRect(940, 290, 250, 250))
+        self.label_4.setGeometry(QtCore.QRect(940, 240, 250, 250))
         self.label_4.setStyleSheet("border-image:url(\'./QR_Dummy.png\')")
         self.label_4.setText("")
         self.label_4.setObjectName("label_4")
+        self.label_8 = QtWidgets.QLabel(self.ChooseFramePage)
+        self.label_8.setGeometry(QtCore.QRect(849, 500, 401, 61))
+        font = QtGui.QFont()
+        font.setFamily("Leferi Point Type Special")
+        font.setBold(False)
+        font.setWeight(50)
+        self.label_8.setFont(font)
+        self.label_8.setObjectName("label_8")
         self.stack.addWidget(self.ChooseFramePage)
         self.PrintingPage = QtWidgets.QWidget()
         self.PrintingPage.setObjectName("PrintingPage")
@@ -478,7 +472,7 @@ class Ui_MainWindow(object):
         self.DonePrinting = QtWidgets.QWidget()
         self.DonePrinting.setObjectName("DonePrinting")
         self.label_11 = QtWidgets.QLabel(self.DonePrinting)
-        self.label_11.setGeometry(QtCore.QRect(0, 400, 1280, 180))
+        self.label_11.setGeometry(QtCore.QRect(0, 350, 1280, 180))
         font = QtGui.QFont()
         font.setFamily("Leferi Base Type Bold")
         font.setBold(True)
@@ -486,7 +480,7 @@ class Ui_MainWindow(object):
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
         self.LogoImg_2 = QtWidgets.QLabel(self.DonePrinting)
-        self.LogoImg_2.setGeometry(QtCore.QRect(490, 110, 300, 300))
+        self.LogoImg_2.setGeometry(QtCore.QRect(540, 160, 200, 200))
         self.LogoImg_2.setStyleSheet("border-image:url(\'./logo.png\')")
         self.LogoImg_2.setText("")
         self.LogoImg_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -521,12 +515,11 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.LeftBtn.setFont(font)
         self.LeftBtn.setStyleSheet("QPushButton{\n"
-"    color: white;\n"
-"    background-color: #FFB937        ;\n"
+"    color: black;\n"
+"    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
-"    border-bottom: 4px solid #FF8200;\n"
-"    border-radius: 20px;\n"
+"    border-bottom: 4px solid #c8c8c8;\n"
+"    border-radius: 20%;\n"
 "}")
         self.LeftBtn.setObjectName("LeftBtn")
         self.RightBtn = QtWidgets.QPushButton(self.RecommandPosePage)
@@ -538,40 +531,13 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.RightBtn.setFont(font)
         self.RightBtn.setStyleSheet("QPushButton{\n"
-"    color: white;\n"
-"    background-color: #FFB937        ;\n"
+"    color: black;\n"
+"    background-color: #F8F8F8        ;\n"
 "    padding: 12px;\n"
-"    border-radius: 4px;\n"
-"    border-bottom: 4px solid #FF8200;\n"
-"    border-radius: 20px;\n"
+"    border-bottom: 4px solid #c8c8c8;\n"
+"    border-radius: 20%;\n"
 "}")
         self.RightBtn.setObjectName("RightBtn")
-        self.Btn_close = QtWidgets.QPushButton(self.RecommandPosePage)
-        self.Btn_close.setGeometry(QtCore.QRect(60, 560, 131, 71))
-        font = QtGui.QFont()
-        font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.Btn_close.setFont(font)
-        self.Btn_close.setStyleSheet("QPushButton{\n"
-"    color: white;\n"
-"    background-color: #FFB937        ;\n"
-"    padding: 12px;\n"
-"    border-radius: 4px;\n"
-"    border-bottom: 4px solid #FF8200;\n"
-"    border-radius: 20px;\n"
-"}")
-        self.Btn_close.setObjectName("Btn_close")
-        self.NowPeople_2 = QtWidgets.QLabel(self.RecommandPosePage)
-        self.NowPeople_2.setGeometry(QtCore.QRect(70, 40, 121, 81))
-        font = QtGui.QFont()
-        font.setFamily("Leferi Base Type Bold")
-        font.setPointSize(20)
-        font.setBold(True)
-        font.setWeight(75)
-        self.NowPeople_2.setFont(font)
-        self.NowPeople_2.setObjectName("NowPeople_2")
         self.PoseStack = QtWidgets.QStackedWidget(self.RecommandPosePage)
         self.PoseStack.setGeometry(QtCore.QRect(200, 10, 880, 640))
         self.PoseStack.setObjectName("PoseStack")
@@ -671,7 +637,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stack.setCurrentIndex(6)
-        self.TopStack.setCurrentIndex(0)
+        self.TopStack.setCurrentIndex(1)
         self.PoseStack.setCurrentIndex(0)
         self.NextBtn.clicked.connect(MainWindow.NextBottomButton_to_2) # type: ignore
         self.Btn1.clicked.connect(MainWindow.Press_Btn1) # type: ignore
@@ -685,7 +651,6 @@ class Ui_MainWindow(object):
         self.NextBtn_3.clicked.connect(MainWindow.NextBottomButton_to_4) # type: ignore
         self.PrintBtn.clicked.connect(MainWindow.Press_Printing) # type: ignore
         self.ApplyBtn.clicked.connect(MainWindow.Press_Applying) # type: ignore
-        self.Btn_close.clicked.connect(MainWindow.Press_CloseBtn) # type: ignore
         self.Basic_Frame_1.clicked.connect(MainWindow.Press_BasicFrame1) # type: ignore
         self.Basic_Frame_2.clicked.connect(MainWindow.Press_BasicFrame2) # type: ignore
         self.Basic_Frame_3.clicked.connect(MainWindow.Press_BasicFrame3) # type: ignore
@@ -710,7 +675,7 @@ class Ui_MainWindow(object):
         self.Btn6.setText(_translate("MainWindow", "6명"))
         self.Btn5.setText(_translate("MainWindow", "5명"))
         self.Btn4.setText(_translate("MainWindow", "4명"))
-        self.PreviousBtn.setText(_translate("MainWindow", "이전"))
+        self.label_7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt;\">버튼을 클릭하면 위쪽 화면에 추천 포즈가 나타납니다</span></p></body></html>"))
         self.Btn_Already.setText(_translate("MainWindow", "촬영 시작"))
         self.Btn_Back_2.setText(_translate("MainWindow", "뒤로"))
         self.Photo3.setText(_translate("MainWindow", "3"))
@@ -721,14 +686,12 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:26pt;\">사용할 프레임을 선택해주세요</span></p></body></html>"))
         self.PrintBtn.setText(_translate("MainWindow", "다음"))
         self.ApplyBtn.setText(_translate("MainWindow", "적용"))
-        self.Frame_Id.setText(_translate("MainWindow", "고유프레임"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">더 많은 프레임 적용하기</span></p></body></html>"))
+        self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:8pt;\">프레임 번호를 입력 후 적용 버튼을 눌러주세요</span></p></body></html>"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">이 화면 건너 뛰네;;</p></body></html>"))
-        self.label_11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:48pt;\">당신의 추억을 가져가세요</span></p></body></html>"))
+        self.label_11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:28pt;\">당신의 추억을 가져가세요</span></p></body></html>"))
         self.LeftBtn.setText(_translate("MainWindow", "<"))
         self.RightBtn.setText(_translate("MainWindow", ">"))
-        self.Btn_close.setText(_translate("MainWindow", "닫기"))
-        self.NowPeople_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:11pt; font-weight:600;\">N명</span></p></body></html>"))
         self.PoseImg_1.setText(_translate("MainWindow", "포즈 이미지 1"))
         self.PoseImg_2.setText(_translate("MainWindow", "포즈 이미지 2"))
         self.PoseImg_3.setText(_translate("MainWindow", "포즈 이미지 3"))
