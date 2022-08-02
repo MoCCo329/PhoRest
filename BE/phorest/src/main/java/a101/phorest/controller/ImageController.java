@@ -41,14 +41,14 @@ public class ImageController {
 
     @PostMapping("upload/photogroup")
     @ResponseBody
-    public Long photoGroupUpload(@RequestPart("image") MultipartFile multipartFile, @RequestParam("human_count") Long humancount){
+    public Long photoGroupUpload(@RequestPart("image") MultipartFile multipartFile, @RequestParam("humanCount") Long humanCount){
         String uploadUrl;
         try {
             uploadUrl = s3Uploader.uploadFiles(multipartFile, "photogroup");
         } catch (Exception e) {
             return -1L;
         }
-        Long photogroup_id = photoGroupService.join(uploadUrl, humancount);
+        Long photogroup_id = photoGroupService.join(uploadUrl, humanCount);
         return postService.join(photoGroupService.findOne(photogroup_id), "photogroup", "none");
     }
 
@@ -68,26 +68,26 @@ public class ImageController {
 
     @GetMapping("download/frame")
     @ResponseBody
-    public String frameDownload(@RequestParam("frame_id") Long frame_id)
+    public String frameDownload(@RequestParam("frameId") Long frameId)
     {
-        Frame frame = frameService.findOne(frame_id);
+        Frame frame = frameService.findOne(frameId);
         return frame.getFramePath();
     }
 
     @GetMapping("download/photogroup")
     @ResponseBody
-    public String PhotoGroupDownload(@RequestParam("photogroup_id") Long photogroup_id)
+    public String photoGroupDownload(@RequestParam("photogroupId") Long photogroupId)
     {
-        PhotoGroup photoGroup = photoGroupService.findOne(photogroup_id);
+        PhotoGroup photoGroup = photoGroupService.findOne(photogroupId);
         return photoGroup.getPhotoGroupPath();
     }
 
 
     @GetMapping ("download/photogroup/like")
     @ResponseBody
-    public List<PostDto> photoGroupLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("human_count") Long humancount)
+    public List<PostDto> photoGroupLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("humanCount") Long humanCount)
     {
-        return postService.findByLikeCount("photogroup" ,limit, offset, humancount);
+        return postService.findByLikeCount("photogroup" ,limit, offset, humanCount);
     }
 
     @GetMapping("download/frame/like")
@@ -99,7 +99,7 @@ public class ImageController {
 
     @GetMapping("download/{post_id}")
     @ResponseBody
-    public PostDto SendPost(@PathVariable("post_id") Long id){
+    public PostDto sendPost(@PathVariable("post_id") Long id){
         Optional<PostDto> postDto = postService.findDtoOne(id);
         if(postDto.isEmpty())
             return new PostDto();

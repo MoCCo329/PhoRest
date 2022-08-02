@@ -56,12 +56,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // JWT token 만들어주기
         String jwtToken = JWT.create()
-                .withSubject(jwtProperties.getSUBJECT())
-                .withExpiresAt(new Date(System.currentTimeMillis() + jwtProperties.getEXPIRE_TIME()))
+                .withSubject(jwtProperties.getSubject())
+                .withExpiresAt(new Date(System.currentTimeMillis() + jwtProperties.getExpireTime()))
                 .withClaim("id", principalDetails.getUser().getUsedId())
                 .withClaim("account", principalDetails.getUser().getUsername())
-                .sign(Algorithm.HMAC512(jwtProperties.getHASH_KEY()));
+                .sign(Algorithm.HMAC512(jwtProperties.getHashKey()));
 
-        response.addHeader("Authorization", jwtProperties.getTOKEN_PREFIX() + jwtToken);
+        response.addHeader("Authorization", jwtProperties.getToken_prefix() + jwtToken);
     }
 }

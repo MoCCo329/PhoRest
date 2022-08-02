@@ -11,11 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface FrameRepository extends JpaRepository<Frame, Long> {
-
-
-
-
-
     /**frame 삭제
     public void deleteById (Long id){
         em.createQuery("delete from Frame f where f.id = :id")

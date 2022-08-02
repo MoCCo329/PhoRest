@@ -31,15 +31,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String jwtHeader = request.getHeader("Authorization");
 
-        if (jwtHeader == null || !jwtHeader.startsWith(jwtProperties.getTOKEN_PREFIX())) {
+        if (jwtHeader == null || !jwtHeader.startsWith(jwtProperties.getToken_prefix())) {
             chain.doFilter(request, response);
             return;
         }
 
         String jwtToken = request.getHeader("Authorization")
-                .replace(jwtProperties.getTOKEN_PREFIX(), "");
+                .replace(jwtProperties.getToken_prefix(), "");
 
-        String account = JWT.require(Algorithm.HMAC512(jwtProperties.getHASH_KEY())).build()
+        String account = JWT.require(Algorithm.HMAC512(jwtProperties.getHashKey())).build()
                 .verify(jwtToken)
                 .getClaim("account")
                 .asString();
