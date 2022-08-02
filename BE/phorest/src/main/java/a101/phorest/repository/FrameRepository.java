@@ -1,12 +1,10 @@
 package a101.phorest.repository;
 
 import a101.phorest.domain.Frame;
-import a101.phorest.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor

@@ -12,8 +12,8 @@ import java.util.List;
 
 @Getter @Setter
 @Entity
-public class Frame {
-    @Id @GeneratedValue
+public class Frame implements Images{
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "frame_id")
     private Long id;
 
@@ -24,6 +24,4 @@ public class Frame {
     @OneToOne(mappedBy = "frame", fetch = FetchType.LAZY)
     private Post post;
 
-    @OneToMany(mappedBy = "frame")
-    private List<PhotoGroup> photoGroups = new ArrayList<>();
 }

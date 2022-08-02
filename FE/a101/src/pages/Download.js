@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Download.css'
-import CommunityCarousel from './../components/Community/CommunityCarousel'
 import Layout from '../components/Layout/Layout'
+import CommunityCarousel from './../components/Community/CommunityCarousel'
 
+// functions
 import { fetchPic } from '../store/modules/community'
 import download from './../api/download'
 
@@ -25,12 +26,12 @@ export default function Main() {
         .then(result => result.data)
         .then(result => {
             const copy = {
-                category: String(result.category==='photogroup' ? 'pic' : 'frame'),
                 postId: result.id,
+                category: result.category,
                 url: result.url,
-                peopleNum: result.human_count,
-                date: result.time,
-                content: result.content
+                content: result.content,
+                humanCount: result.human_count,
+                time: result.time,
             }
             dispatch(fetchPic(copy))
         })
@@ -44,7 +45,7 @@ export default function Main() {
     }, [])
     
     const imageDownload = () => {
-        fetch(content.url)
+        fetch(content.url + '?timestamp=2')
         .then((image) => {
             return image.blob();
         })
@@ -52,14 +53,15 @@ export default function Main() {
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement("a")
             a.href = url
-            a.download = `PhoRest_${content.date}.png`
+            a.download = `PhoRest_${content.time.slice(0, 10)}.png`
             a.click()
             a.remove()
             window.URL.revokeObjectURL(url)
         })
     }
     const videoDownload = () => {
-        fetch(content.url)
+        console.log(content.url)
+        fetch(content.url + '?timestamp=2')
         .then((image) => {
             return image.blob();
         })
@@ -67,7 +69,7 @@ export default function Main() {
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement("a")
             a.href = url
-            a.download = `PhoRest_${content.date}.gif`
+            a.download = `PhoRest_${content.time.slice(0, 10)}.gif`
             a.click()
             a.remove()
             window.URL.revokeObjectURL(url)
@@ -93,7 +95,7 @@ export default function Main() {
                 <hr />
                 <div className="download-community">
                     <div>
-                        <CommunityCarousel communityType="pic" contents={picPopular}/>
+                        <CommunityCarousel communityType="photogroup" contents={picPopular}/>
                     </div>
                     <hr />
                     <div>

@@ -10,10 +10,10 @@ import java.io.File;
 @Entity
 @Getter
 @Setter
-public class PhotoGroup {
+public class PhotoGroup implements Images{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="photogroup_id")
     private Long id;
 
@@ -23,9 +23,7 @@ public class PhotoGroup {
 
     private String thumbNailPath;
 
-    @ManyToOne
-    @JoinColumn(name = "frame_id")
-    private Frame frame;
-
+    @OneToOne(mappedBy = "photoGroup", fetch = FetchType.LAZY)
+    private Post post;
 
 }
