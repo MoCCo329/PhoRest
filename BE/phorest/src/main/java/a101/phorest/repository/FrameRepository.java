@@ -1,20 +1,20 @@
 package a101.phorest.repository;
 
 import a101.phorest.domain.Frame;
+import a101.phorest.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
-public class FrameRepository {
+public interface FrameRepository extends JpaRepository<Frame, Long> {
 
-    private final EntityManager em;
 
-    public void save(Frame frame){
-        em.persist(frame);
-    }
+
+
 
     /**frame 삭제
     public void deleteById (Long id){
@@ -24,7 +24,5 @@ public class FrameRepository {
     }
      */
 
-    public Frame findOne(Long id){
-        return em.find(Frame.class,id);
-    }
+    Optional<Frame> findById(Long id);
 }

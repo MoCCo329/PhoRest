@@ -2,22 +2,17 @@ package a101.phorest.service;
 
 import a101.phorest.domain.User;
 import a101.phorest.repository.UserRepository;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component("userDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+public class customUserDetailsService implements UserDetailsService {
    private final UserRepository userRepository;
 
-   public CustomUserDetailsService(UserRepository userRepository) {
+   public customUserDetailsService(UserRepository userRepository) {
       this.userRepository = userRepository;
    }
 

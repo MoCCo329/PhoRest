@@ -5,7 +5,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import a101.phorest.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwt;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +14,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -58,11 +56,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // JWT token 만들어주기
         String jwtToken = JWT.create()
-                .withSubject(jwtProperties.getSubject())
-                .withExpiresAt(new Date(System.currentTimeMillis() + jwtProperties.getExpireTime()))
+                .withSubject(jwtProperties.getSUBJECT())
+                .withExpiresAt(new Date(System.currentTimeMillis() + jwtProperties.getEXPIRE_TIME()))
                 .withClaim("id", principalDetails.getUser().getUsedId())
                 .withClaim("account", principalDetails.getUser().getUsername())
-                .sign(Algorithm.HMAC512(jwtProperties.getHashKey()));
+                .sign(Algorithm.HMAC512(jwtProperties.getHASH_KEY()));
 
         response.addHeader("Authorization", jwtProperties.getTOKEN_PREFIX() + jwtToken);
     }

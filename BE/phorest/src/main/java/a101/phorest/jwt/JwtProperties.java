@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class JwtProperties {
-    private final String subject = "atk";
-    private final int expireTime = 1000 * 60 * 30;
-    private final String hashKey = "atk_secret";
+    private final String SUBJECT = "atk";
+    private final int EXPIRE_TIME = 1000 * 60 * 30;
+    private final String HASH_KEY = "atk_secret";
 
     private final String TOKEN_PREFIX = "Bearer ";
 }

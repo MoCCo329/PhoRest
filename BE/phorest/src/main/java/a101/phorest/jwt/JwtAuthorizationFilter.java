@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String jwtToken = request.getHeader("Authorization")
                 .replace(jwtProperties.getTOKEN_PREFIX(), "");
 
-        String account = JWT.require(Algorithm.HMAC512(jwtProperties.getHashKey())).build()
+        String account = JWT.require(Algorithm.HMAC512(jwtProperties.getHASH_KEY())).build()
                 .verify(jwtToken)
                 .getClaim("account")
                 .asString();

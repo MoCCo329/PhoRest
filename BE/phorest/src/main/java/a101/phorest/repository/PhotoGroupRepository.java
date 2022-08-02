@@ -32,6 +32,6 @@ import java.util.Optional;
 @Repository
 public interface PhotoGroupRepository extends JpaRepository<PhotoGroup, Long> {
 
-    public Optional<PhotoGroup> findById(Long id);
+    Optional<PhotoGroup> findById(Long id);
 }
 
