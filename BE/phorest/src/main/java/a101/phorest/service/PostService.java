@@ -1,6 +1,7 @@
 package a101.phorest.service;
 
 import a101.phorest.domain.*;
+import a101.phorest.dto.PostDto;
 import a101.phorest.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

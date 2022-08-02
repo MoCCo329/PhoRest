@@ -1,5 +1,6 @@
-package a101.phorest.domain;
+package a101.phorest.dto;
 
+import a101.phorest.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

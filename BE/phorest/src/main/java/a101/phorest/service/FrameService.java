@@ -25,6 +25,6 @@ public class FrameService {
     }
 
     public Frame findOne(Long frameId){
-        return frameRepository.findOne(frameId);
+        return frameRepository.findById(frameId).get();
     }
 }

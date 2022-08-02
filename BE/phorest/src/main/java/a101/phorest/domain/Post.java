@@ -33,7 +33,7 @@ public class Post {
     private PhotoGroup photoGroup;
 
     @OneToMany(mappedBy = "post")// Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. mypage가 주인장.
-    private List<Mypage> mypages = new ArrayList<>();
+    private List<MyPage> mypages = new ArrayList<>();
 
     @OneToMany(mappedBy = "post")//Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. comment가 주인장.
     private List<Comment> comments = new ArrayList<>();
