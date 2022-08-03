@@ -21,6 +21,8 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    private static int file_num = 0;
+
     public String uploadFiles(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
                 .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
@@ -28,9 +30,10 @@ public class S3Uploader {
     }
 
     public String upload(File uploadFile, String filePath) {
-        String fileName = filePath + uploadFile.getName();   // S3에 저장된 파일 이름
+        String fileName = filePath + "/" +  file_num + "/" + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
         removeNewFile(uploadFile);
+        file_num++;
         return uploadImageUrl;
     }
 

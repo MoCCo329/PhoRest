@@ -18,8 +18,8 @@ public class Comment {
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)//여러개의 댓글에 하나의 회원이 있다. 다대일. 주인은 commet.
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String commentContent;
 
