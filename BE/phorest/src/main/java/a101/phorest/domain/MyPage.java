@@ -22,6 +22,6 @@ public class MyPage {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    private Boolean isShared;
+    private Boolean isShared; // 공개 여부
 
 }
