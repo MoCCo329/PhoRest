@@ -17,6 +17,7 @@ import json
 
 stop_event = threading.Event()
 
+
 class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -63,11 +64,11 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.RunCamera_thread = threading.Thread(target=self.Run_Camera)
         self.RunCamera_thread.setDaemon(True)
         self.lock = threading.Lock()
-        
+
         # 카메라에서 시간초마다 사진을 찍게 하려면 별도 스레드에서 구현
         self.ShotPhoto_thread.start()
         self.RunCamera_thread.start()
-        #stop_event.clear()
+        # stop_event.clear()
 
         self.show()
 
@@ -97,11 +98,10 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Label_Camera.clear()
         self.PhotoPlusFrame.clear()
 
-
     # 첫번째 화면에서는 어느 화면이던 클릭하면 두번째 화면으로 넘어간다
     def mousePressEvent(self, e):
         # 마우스 좌표 파악
-        #print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
+        # print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
         if (self.stack.currentIndex() == 0):
             self.stack.setCurrentIndex(1)
             self.Btn1.setCheckable(True)
@@ -158,10 +158,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         elif self.ChooseBtnNum == 6:
             offset = self.offset_6
 
-
         params = {
-            'limit' : limit,
-            'offset' : offset,
+            'limit': limit,
+            'offset': offset,
             'humanCount': self.ChooseBtnNum
         }
         res = requests.post("https://i7a101.p.ssafy.io/api/community/photogroup/like", params=params)
@@ -183,7 +182,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Pose_img.setPixmap(pixmap)
 
         print("성공")
-
 
     # 좌우 버튼 누를때마다 백엔드에 계속 신호 보내줘야 한다.
     def Press_RightBtn(self):
@@ -583,20 +581,18 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.RecommandPose()
         self.TopStack.setCurrentIndex(1)
 
-
-
     # -------------------------- 3번째 촬영버튼 페이지 ------------------------------
     # 15초간의 타이머 작동
     def Press_PreparedBtn(self):
         self.CurrentPhotoCnt = 0
-        
+
         # 먼저 촬영페이지의 넥스트 버튼 클릭 방지를 위해 Disable 처리
         self.NextBtn_3.setDisabled(True)
         self.NextBtn_3.hide()
 
         self.stack.setCurrentIndex(3)
         self.TopStack.setCurrentIndex(2)
-        
+
         stop_event.set()
 
     def Run_Camera(self):
@@ -617,7 +613,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             # height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
             fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-            writer = cv2.VideoWriter('./video_{}.mp4'.format(self.CurrentPhotoCnt + 1), fourcc, fps, (600, 425))
+            writer = cv2.VideoWriter('./video/video_{}.mp4'.format(self.CurrentPhotoCnt + 1), fourcc, fps, (600, 425))
 
             while stop_event.is_set():
                 # stop_event.wait()
@@ -633,6 +629,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
                     if self.startRecording:
                         video_img = cv2.resize(img, (600, 425), interpolation=cv2.INTER_CUBIC)
+                        video_img = cv2.cvtColor(video_img, cv2.COLOR_BGR2RGB)
                         writer.write(video_img)
 
                         # fsp 계산
@@ -748,9 +745,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         # 서버에 post 요청
         res = requests.get("https://i7a101.p.ssafy.io/api/download/frame", params=params)
-        #print(res)
+        # print(res)
         # 리턴으로 res에 이미지 url을 담아서 보내줌
-        #print(res.text)
+        # print(res.text)
 
         # 다운받을 이미지 url (res에서 받아오는 이미지 주소)
         url = res.text
@@ -763,7 +760,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         frame_img.save('./Frame/Frame_9.png')
 
         self.make_Frame_Img(9)
-
 
     def make_Frame_Img(self, num):
         FrameImgColor = cv2.imread('./Frame/Frame_{}.png'.format(num))
@@ -836,14 +832,17 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def Press_BasicFrame8(self):
         self.Frame_Color_Id = "#94EB3E"
         self.make_Frame_Img(8)
-
     # 프린트 버튼
+    # 프린트 누르고
+    # 1번째로는 사진 보내고
+    # url / upload / video
+    # 2번째 보낼 때 post로 data를 postid까지 보낸다
     def Press_Printing(self):
         self.FrameImg.save('./FramePlusImg.png', 'PNG')
         self.stack.setCurrentIndex(6)
         # -------------------------- 6번째 인쇄중 출력 페이지 ------------------------------
 
-        # 인쇄가 끝나면 업로드 코드 넣기
+        # 인쇄가 끝나면 업로드 코드 넣기 (사진 먼저)
         img = open('./FramePlusImg.png', 'rb')
         files = {
             'image': img
@@ -878,6 +877,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         printImg = Image.open('./FramePlusImg.png')
         printImg.paste(QRcode, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130))
         printImg.save('./FramePlusImg.png', 'PNG')
+
+        # 동영상 업로드 코드
 
         # 인쇄 하는 코드 넣기
         os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
