@@ -53,7 +53,11 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         # frame color id 초기화
         self.Frame_Color_Id = "#FFFFFF"
         
+        #포토 카운터 초기화
         self.CurrentPhotoCnt = 0
+
+        #레코딩 플레그
+        self.startRecording = False
 
         self.ShotPhoto_thread = threading.Thread(target=self.ShotPhoto)
         self.ShotPhoto_thread.setDaemon(True)
@@ -597,16 +601,27 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         stop_event.set()
 
     def Run_Camera(self):
+        self.Label_Camera.resize(900, 600)
         while True:
-            self.cap = cv2.VideoCapture(0)
-            # print("작동중?")
-            #self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-            #self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-            # print("width: {} height: {}".format(width,height))
-            self.Label_Camera.resize(900, 600)
+            stop_event.wait()
+            self.cap = cv2.VideoCapture(-1)
 
-            while self.CurrentPhotoCnt < 4:
-                stop_event.wait()
+            fps = self.cap.get(cv2.CAP_PROP_FPS)
+
+            if fps == 0.0:
+                fps = 30.0
+
+            time_per_frame_video = 1/fps
+            last_time = time.perf_counter()
+
+            #width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+            #height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            writer = cv2.VideoWriter('./video_{}.mp4'.format(self.CurrentPhotoCnt+1), fourcc, fps, (600,425))
+
+            while stop_event.is_set():
+                #stop_event.wait()
                 ret, img = self.cap.read()
                 if ret:
                     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -616,22 +631,37 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                     qImg = QImage(resize_img.data, w, h, w * c, QImage.Format_RGB888)
                     Videopixmap = QPixmap.fromImage(qImg)
                     self.Label_Camera.setPixmap(Videopixmap)
+
+                    if self.startRecording:
+                        video_img = cv2.resize(img, (600,425), interpolation=cv2.INTER_CUBIC)
+                        writer.write(video_img)
+
+                        # fsp 계산
+                        time_per_frame = time.perf_counter() - last_time
+                        time_sleep_frame = max(0, time_per_frame_video - time_per_frame)
+                        time.sleep(time_sleep_frame)
+
+                        last_time = time.perf_counter()
                 else:
                     print("cannot read camera")
                     break
             self.cap.release()
+            writer.release()
 
     # ----------------------------4번째 촬영 페이지---------------------------------
     def ShotPhoto(self):
         while True:
             stop_event.wait()
             # 타이머 작동
-            self.StartTime = 5
+            self.StartTime = 8
             for num in range(1, 5):
                 for i in range(self.StartTime, 0, -1):
                     self.Label_Timer.setText(str(i))
+                    if i == 5:
+                        self.startRecording = True
                     time.sleep(1)
                 self.Label_Timer.setText("0")
+                self.startRecording = False
                 self.kimchi(num)
                 self.CurrentPhotoCnt += 1
 
@@ -655,8 +685,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
             self.TopStack.setCurrentIndex(3)
 
-            self.make_image()
             stop_event.clear()
+            self.make_image()
             time.sleep(1)
 
     def make_image(self):
@@ -688,6 +718,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         cv2.imwrite('./photoDir/photo{}.jpg'.format(num), img)
 
         stop_event.clear()
+
+        #os.system('aplay sound.wav')
 
         time.sleep(0.5)
         self.TopStack.setStyleSheet("background-color : #FFF7E7")
@@ -739,9 +771,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         b = int(FrameImgColor[10][1490][0])
         g = int(FrameImgColor[10][1490][1])
         r = int(FrameImgColor[10][1490][2])
-        maxColor = int(max(FrameImgColor[10][1490]))
-        minColor = int(min(FrameImgColor[10][1490]))
-        #sumColor = maxColor + minColor
         sumColor = 255
         newColor = (sumColor - r, sumColor - g, sumColor - b)
 
