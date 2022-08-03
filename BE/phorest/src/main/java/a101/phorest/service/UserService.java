@@ -35,6 +35,12 @@ public class UserService {
         if (userRepository.findByUsername(userDto.getUsername()) != null){
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
+        if (userRepository.findByNickname(userDto.getNickname()) != null){
+            throw new DuplicateMemberException("이미 사용 중인 닉네임 입니다.");
+        }
+        if (userRepository.findByPhone(userDto.getPhone()) != null){
+            throw new DuplicateMemberException("핸드폰 번호가 이미 있습니다.");
+        }
 
 //        Authority authority = Authority.builder()
 //                .authorityName("ROLE_USER")

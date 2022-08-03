@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 public class UserController {
     private final UserService userService;
 //    private final TokenProvider tokenProvider;
@@ -57,12 +57,12 @@ public class UserController {
         response.sendRedirect("/api/user");
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/member/signup")
     public ResponseEntity<UserDto> signup(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
-    @PostMapping("/login")
+    @PostMapping("/member/login")
     public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto){
 
         return ResponseEntity.ok(userService.login(loginDto));

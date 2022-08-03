@@ -28,7 +28,6 @@ public class ImageController {
 
     private final S3Uploader s3Uploader;
 
-    private final TokenProvider tokenProvider;
 
     @PostMapping("upload/photogroup")
     @ResponseBody

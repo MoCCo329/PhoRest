@@ -19,7 +19,6 @@ public class CorsConfig {
       config.addAllowedMethod("*"); // 모든 Method(post, get, put, delete) 에 응답을 허용
 
       source.registerCorsConfiguration("/api/**", config);
-      source.registerCorsConfiguration("/download/**", config);
       return new CorsFilter(source);
    }
 
