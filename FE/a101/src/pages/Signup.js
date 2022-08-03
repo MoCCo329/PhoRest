@@ -1,21 +1,24 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import members from './../api/members'
+import member from '../api/member'
 import { setAuthError } from '../store/modules/member'
 
 export default function Main() {
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
+
     let [nickname, setNickname] = useState('')
     let [id, setId] = useState('')
     let [password, setPassword] = useState('')
     let [phone, setPhone] = useState('')
     let [passwordValidity, setPasswordValidity] = useState('')
+    let authError = useSelector(state => state.authError)
 
-    let dispatch = useDispatch()
-    // let navigate = useNavigate()
-
-    // useEffect로 가능? cleanup func로 기존 경고문고 지우기도
+    useEffect(() => {
+        return () => {dispatch(setAuthError(''))}
+    }, [])
 
     const passwordTest = (value) => {
         if (value === '') {
@@ -29,31 +32,31 @@ export default function Main() {
 
     const onSubmit = (e) => {
         e.preventDefault()
-
-        const credentials = {
-            username : id,
-            nickname : nickname,
-            password : password,
-            phone : phone,
+        dispatch(setAuthError(''))
+        if (passwordValidity==="Passwords match") {
+            const credentials = {
+                username : id,
+                nickname : nickname,
+                password : password,
+                phone : String(phone)
+            }
+            member.signup(credentials)
+            .then((result) => {
+                console.log('성공', result)
+                navigate(-2)
+            })
+            .catch((error) => {
+                dispatch(setAuthError(error.response.data.message))
+                console.error(error.response)
+            })
+        } else {
+            alert('비밀번호가 일치하지 않습니다')
         }
-
-        members.signup(credentials)
-        .then((result) => {
-            // const token = result.data.key
-            // dispatch(setToken(token))
-            // localStorage.setItem("token", token)
-            // members.currentUser()
-            // navigate(-1)
-          })
-          .catch((error) => {
-            dispatch(setAuthError(error.response))
-            console.error(error.response.data)
-          })
     }
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={(e) => {onSubmit(e)}}>
               <label htmlFor="username">ID : </label>
               <input onChange={(e)=>{setId(e.target.value)}} type="text" id="username" required placeholder="ID" /><br/>
               <label htmlFor="password">Password : </label>
@@ -66,7 +69,7 @@ export default function Main() {
               <input onChange={(e)=>{setPhone(e.target.value)}} type="number" id="phoneNumber" required placeholder="PhoneNumber" /><br/>
               <button type="submit">Sign up</button>
             </form>
-            {/* AUTH_ERROR 있으면 보여주기 */}
+            { authError ? <p>{authError}</p> : ''}
         </div>
     )
 }

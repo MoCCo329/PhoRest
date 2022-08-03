@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './Community.css'
 import Layout from '../components/Layout/Layout'
-import Profile from '../components/Members/Profile.js'
+import Profile from '../components/Member/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import CommentsNew from './../components/Community/CommentsNew'
 

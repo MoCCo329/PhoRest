@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 
 export let token = createSlice({
@@ -6,38 +6,30 @@ export let token = createSlice({
   initialState: '',
   reducers: {
     setToken (state, value) {
-      return value
+      return value.payload
     }
   }
 })
-export let setToken = token.actions
+export let { setToken } = token.actions
 
 export let currentUser = createSlice({
   name: 'currentUser',
   initialState: '',
   reducers: {
     setCurrentUser (state, value) {
-      return value
+      return value.payload
     }
   }
 })
-export let setCurrentUser = currentUser.actions
+export let { setCurrentUser } = currentUser.actions
 
 export let authError = createSlice({
   name: 'authError',
   initialState: '',
   reducers: {
     setAuthError (state, value) {
-      return value
+      return value.payload
     }
   }
 })
-export let setAuthError = authError.actions
-
-export default configureStore({
-  reducer: {
-    token: token.reducer,
-    currentUser: currentUser.reducer,
-    authError: authError.reducer,
-  }
-})
+export let { setAuthError } = authError.actions
