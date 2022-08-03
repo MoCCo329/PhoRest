@@ -49,11 +49,14 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         # 프린팅이 완료됐는지를 판별하는 Flag
         self.Final_Flag = 0
 
-
         # frame color id 초기화
         self.Frame_Color_Id = "#FFFFFF"
-        
+
+        # 포토 카운터 초기화
         self.CurrentPhotoCnt = 0
+
+        # 레코딩 플레그
+        self.startRecording = False
 
         self.ShotPhoto_thread = threading.Thread(target=self.ShotPhoto)
         self.ShotPhoto_thread.setDaemon(True)
@@ -649,10 +652,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         while True:
             stop_event.wait()
             # 타이머 작동
-            self.StartTime = 5
+            self.StartTime = 8
             for num in range(1, 5):
                 for i in range(self.StartTime, 0, -1):
                     self.Label_Timer.setText(str(i))
+                    if i == 5:
+                        self.startRecording = True
                     time.sleep(1)
                 self.Label_Timer.setText("0")
                 self.startRecording = False
@@ -679,8 +684,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             self.Top_Big_Photo.setStyleSheet("border-image:url('./photoDir/photo1.jpg')")
             self.TopStack.setCurrentIndex(3)
 
-            self.make_image()
             stop_event.clear()
+            self.make_image()
             time.sleep(1)
 
     def make_image(self):
@@ -712,6 +717,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         cv2.imwrite('./photoDir/photo{}.jpg'.format(num), img)
 
         stop_event.clear()
+        # 찰칵 소리 출력
+        # os.system('aplay sound.wav')
 
         time.sleep(0.5)
         self.TopStack.setStyleSheet("background-color : #FFF7E7")
@@ -763,9 +770,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         b = int(FrameImgColor[10][1490][0])
         g = int(FrameImgColor[10][1490][1])
         r = int(FrameImgColor[10][1490][2])
-        maxColor = int(max(FrameImgColor[10][1490]))
-        minColor = int(min(FrameImgColor[10][1490]))
-        #sumColor = maxColor + minColor
         sumColor = 255
         newColor = (sumColor - r, sumColor - g, sumColor - b)
 
