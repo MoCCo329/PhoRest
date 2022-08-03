@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class UserDto {
 
+
+
    @NotNull
    @Size(min = 3, max = 50)
    private String username;

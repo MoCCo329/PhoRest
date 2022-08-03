@@ -38,6 +38,8 @@ public class User {
    @Column(name = "phone", length = 50, unique = true)
    private String phone;
 
+   private String profileUrl;
+
 //   @ManyToMany
 //   @JoinTable(
 //      name = "user_authority",

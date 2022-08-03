@@ -1,7 +1,10 @@
 package a101.phorest.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,7 +13,11 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Post {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -22,6 +29,8 @@ public class Post {
     private String content;
 
     private int likeCount;
+
+    private Boolean isShared;
 
     //게시글 - 프레임 : 일 대 일, 게시글이 주인
     @OneToOne(fetch = FetchType.LAZY)
@@ -43,6 +52,8 @@ public class Post {
 
     @OneToMany(mappedBy = "post")//Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. bookmark가 주인장.
     private List<Bookmark> bookmarks = new ArrayList<>();
+
+
 
 
     //==비즈니스 로직==//

@@ -23,20 +23,21 @@ public class MyPageController {
     public final TokenProvider tokenProvider;
 
     @ResponseBody
-    @GetMapping("mypage/{userId}")
-    public List<PostDto> findByUserId(@PathVariable("userId") Long userId, @RequestHeader("Authorization") String token)
+    @GetMapping("mypage/{username}")
+    public List<PostDto> findByUserId(@PathVariable("username") String searchUsername, @RequestHeader("Authorization") String token)
     {
-        if(tokenProvider.validateToken(token))
+        if(!tokenProvider.validateToken(token))
             return new ArrayList<>();
-        return myPageService.findByUserId(userId);
+        String loginUsername = (String)tokenProvider.getTokenBody(token).get("sub");
+        return myPageService.findByUserId(searchUsername, loginUsername);
     }
 
     @PostMapping("mypage/{postId}/add")
     @ResponseBody
     public boolean addPost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
-        if(tokenProvider.validateToken(token))
+        if(!tokenProvider.validateToken(token))
             return false;
-        String username = (String)tokenProvider.getTokenBody(token).get("username");
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
         myPageService.join(postId, username);
         return true;
     }

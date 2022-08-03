@@ -71,5 +71,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(nativeQuery = true, value = "select distinct * from post p where p.category like :category order by p.like_count, p.time desc LIMIT :limit offset :offset")
     List<Post> findFrameByLikeCount(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset);
 
+    @Query(nativeQuery = true, value = "select * " +
+            "from (post p join my_page q on p.post_id = q.post_id) join user r on q.user_id = r.user_id " +
+            "where r.username like :username")
+    List<Post> findByUserId(@Param("username") String username);
+
+    @Query(nativeQuery = true, value = "select * " +
+            "(from my_page p join post q on p.post_id = q.post_id) join user r on p.user_id = r.user_id " +
+            "where r.username = :username and q.is_shared = true")
+    List<Post> findByUserIdShared(@Param("username") String username);
 
 }
