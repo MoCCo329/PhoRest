@@ -12,12 +12,12 @@ header {
 }
 
 .header-logo-box {
-  margin-left: 46vw;
+  margin-left: 48vw;
 }
 
 .header-logo {
-  max-height: 4vh;
-  max-width: 4vh;
+  height: 4vh;
+  width: 4vh;
 }
 
 header nav {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import "./Header.css"
 import logo from './../../assets/logo.png'
 
-import Profile from './../Members/Profile'
+import Profile from '../Member/Profile'
 
 // 로고, 로그인 혹은 로그아웃 등
 // 아래로 스크롤시 위로 사라지도록
