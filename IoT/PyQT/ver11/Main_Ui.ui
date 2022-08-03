@@ -17,8 +17,8 @@
    <widget class="QStackedWidget" name="stack">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>680</y>
+      <x>0</x>
+      <y>660</y>
       <width>1280</width>
       <height>720</height>
      </rect>
@@ -33,7 +33,7 @@
      <string notr="true">background-color : #FFF7E7</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="InitPage">
      <widget class="QLabel" name="label">
@@ -443,22 +443,22 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <property name="leftMargin">
-        <number>85</number>
+        <number>100</number>
        </property>
        <property name="topMargin">
-        <number>25</number>
+        <number>30</number>
        </property>
        <property name="rightMargin">
-        <number>85</number>
+        <number>100</number>
        </property>
        <property name="bottomMargin">
-        <number>25</number>
+        <number>30</number>
        </property>
        <property name="horizontalSpacing">
-        <number>142</number>
+        <number>180</number>
        </property>
        <property name="verticalSpacing">
-        <number>32</number>
+        <number>35</number>
        </property>
        <item row="1" column="0">
         <widget class="QLabel" name="Photo3">

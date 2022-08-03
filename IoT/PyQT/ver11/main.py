@@ -34,8 +34,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.ChooseBtnNum = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
-        self.stack.setCurrentIndex(4)
-        self.TopStack.setCurrentIndex(4)
+        self.stack.setCurrentIndex(0)
+        self.TopStack.setCurrentIndex(0)
 
         # 마우스 클릭 이벤트 설정
         self.setMouseTracking(True)
@@ -83,11 +83,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Photo3.clear()
         self.Photo4.clear()
 
+        self.Photo1.setText("1")
+        self.Photo2.setText("2")
+        self.Photo3.setText("3")
+        self.Photo4.setText("4")
+
         self.Pose_img.clear()
-        #self.PoseImg_2.clear()
-        #self.PoseImg_3.clear()
-        #self.PoseImg_4.clear()
-        #self.PoseImg_5.clear()
 
         self.Top_Big_Photo.clear()
         self.Label_Camera.clear()
@@ -182,8 +183,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
 
     # 좌우 버튼 누를때마다 백엔드에 계속 신호 보내줘야 한다.
-    # 양 끝 일때 %5 == 0 이거나 %5 == 4이면 신호 보내주는 걸로 바꿔보자 그게 좀더 빠를듯
-    # offset_n += 5의 형태
     def Press_RightBtn(self):
         if self.ChooseBtnNum == 1:
             self.offset_1 += 1
@@ -212,8 +211,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         self.RecommandPose()
 
-    # 양 끝 일때 %5 == 0 이거나 %5 == 4이면 신호 보내주는 걸로 바꿔보자 그게 좀더 빠를듯
-    # offset_n -= 5의 형태
     def Press_LeftBtn(self):
         if self.ChooseBtnNum == 1:
             self.offset_1 -= 1
@@ -715,26 +712,24 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         # 먼저 입력한 Frame_id를 서버에 보냄
         self.frame_id = self.Frame_Id.text()
         params = {
-            'frame_id': self.frame_id
+            'frameId': self.frame_id
         }
 
         # 서버에 post 요청
         res = requests.get("https://i7a101.p.ssafy.io/api/download/frame", params=params)
-        # print(res)
+        #print(res)
         # 리턴으로 res에 이미지 url을 담아서 보내줌
-        # print(res.text)
+        #print(res.text)
 
         # 다운받을 이미지 url (res에서 받아오는 이미지 주소)
-        # 일단 임시 url로 테스트
-        # url = "https://dispatch.cdnser.be/cms-content/uploads/2020/04/09/a26f4b7b-9769-49dd-aed3-b7067fbc5a8c.jpg"
         url = res.text
-        os.system("curl " + url + " > ./Frame/Frame_9.jpg")
+        os.system("curl " + url + " > ./Frame/Frame_9.png")
         time.sleep(0.5)
 
-        # 프레임이미지 리자이즈
-        frame_img = Image.open('./Frame/Frame_9.jpg')
+        # 프레임이미지 리사이즈
+        frame_img = Image.open('./Frame/Frame_9.png')
         frame_img = frame_img.resize((1500, 1000))
-        frame_img.save('./Frame/Frame_9.jpg')
+        frame_img.save('./Frame/Frame_9.png')
 
         self.make_Frame_Img(9)
 
@@ -746,8 +741,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         r = int(FrameImgColor[10][1490][2])
         maxColor = int(max(FrameImgColor[10][1490]))
         minColor = int(min(FrameImgColor[10][1490]))
-        sumColor = maxColor + minColor
-        # sumColor = 255
+        #sumColor = maxColor + minColor
+        sumColor = 255
         newColor = (sumColor - r, sumColor - g, sumColor - b)
 
         # watermark
@@ -773,10 +768,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         img_size = (600, 425)
         self.FrameImg.paste(img, (0, 0), img)
 
-        self.FrameImg.paste(watermark, ((img_size[0] * 2) + 100 + 10, 1000 - 50 - 130 - 20 - mark_width), watermark)
-        self.FrameImg.paste(datemark,
-                            ((img_size[0] * 2) + 100 + 10 + mark_height + 10, 1000 - 50 - 130 - 20 - date_width),
-                            datemark)
+        self.FrameImg.paste(watermark, ((img_size[0] * 2) + 100 + 20, 50), watermark)
+        self.FrameImg.paste(datemark, ((img_size[0] * 2) + 100 + 20 + mark_height + 10, 50), datemark)
+
         ShowImg = self.FrameImg.resize((900, 600))
         ShowImg.save('./ShowImg.png', 'PNG')
         pixmap = QPixmap('./ShowImg.png')

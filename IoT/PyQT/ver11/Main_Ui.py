@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.stack = QtWidgets.QStackedWidget(self.centralwidget)
-        self.stack.setGeometry(QtCore.QRect(10, 680, 1280, 720))
+        self.stack.setGeometry(QtCore.QRect(0, 660, 1280, 720))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -270,9 +270,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.Photo3.setFont(font)
-        self.Photo3.setStyleSheet("QLabel{\n"
-"    border : 3px double #000000;\n"
-"}")
+        self.Photo3.setStyleSheet("")
         self.Photo3.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo3.setObjectName("Photo3")
         self.gridLayout_3.addWidget(self.Photo3, 1, 0, 1, 1)
@@ -283,9 +281,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.Photo1.setFont(font)
-        self.Photo1.setStyleSheet("QLabel{\n"
-"    border : 3px double #000000;\n"
-"}")
+        self.Photo1.setStyleSheet("")
         self.Photo1.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo1.setObjectName("Photo1")
         self.gridLayout_3.addWidget(self.Photo1, 0, 0, 1, 1)
@@ -296,9 +292,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.Photo2.setFont(font)
-        self.Photo2.setStyleSheet("QLabel{\n"
-"    border : 3px double #000000;\n"
-"}")
+        self.Photo2.setStyleSheet("")
         self.Photo2.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo2.setObjectName("Photo2")
         self.gridLayout_3.addWidget(self.Photo2, 0, 1, 1, 1)
@@ -309,9 +303,7 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.Photo4.setFont(font)
-        self.Photo4.setStyleSheet("QLabel{\n"
-"    border : 3px double #000000;\n"
-"}")
+        self.Photo4.setStyleSheet("")
         self.Photo4.setAlignment(QtCore.Qt.AlignCenter)
         self.Photo4.setObjectName("Photo4")
         self.gridLayout_3.addWidget(self.Photo4, 1, 1, 1, 1)
@@ -587,7 +579,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stack.setCurrentIndex(4)
+        self.stack.setCurrentIndex(3)
         self.TopStack.setCurrentIndex(1)
         self.NextBtn.clicked.connect(MainWindow.NextBottomButton_to_2) # type: ignore
         self.Btn1.clicked.connect(MainWindow.Press_Btn1) # type: ignore
