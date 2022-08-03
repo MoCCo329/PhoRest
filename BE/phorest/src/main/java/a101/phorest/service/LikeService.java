@@ -25,15 +25,26 @@ public class LikeService {
     private final PostRepository postRepository;
     private final LikeRepository likeRepository;
 
+
     @Transactional
-    public Long join(Long likeId, String username)
+    public Long join(Long postId, String username)
     {
         Like like = new Like();
         User user = userRepository.findByUsername(username);
-        Post post = postRepository.findById(likeId).get();
+        Post post = postRepository.findById(postId).get();
         like.setUser(user);
         like.setPost(post);
         likeRepository.save(like);
+        like.Like();
         return like.getId();
+    }
+
+    @Transactional
+    public Long delete(Like like)
+    {
+        like.Unlike();
+        Long id = like.getId();
+        likeRepository.delete(like);
+        return id;
     }
 }
