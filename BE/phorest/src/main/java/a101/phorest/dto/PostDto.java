@@ -40,4 +40,8 @@ public class PostDto {
     private int likeCount;
 
     private LocalDateTime time;
+
+    private Boolean isLike;
+
+    private Boolean isBookmark;
 }

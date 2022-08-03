@@ -5,6 +5,7 @@ import a101.phorest.S3Uploader;
 import a101.phorest.domain.Frame;
 import a101.phorest.domain.PhotoGroup;
 import a101.phorest.dto.PostDto;
+import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,7 @@ public class ImageController {
 
     private final S3Uploader s3Uploader;
 
-    private final UserService userService;
-
-    private final MyPageService myPageService;
+    private final TokenProvider tokenProvider;
 
     @PostMapping("upload/photogroup")
     @ResponseBody
@@ -75,35 +74,18 @@ public class ImageController {
     }
 
 
-    @GetMapping ("download/photogroup/like")
-    @ResponseBody
-    public List<PostDto> photoGroupLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("humanCount") Long humanCount)
-    {
-        return postService.findByLikeCount("photogroup" ,limit, offset, humanCount);
-    }
-
-    @GetMapping("download/frame/like")
-    @ResponseBody
-    public List<PostDto> frameLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
-    {
-        return postService.findByLikeCount("frame" ,limit, offset, 0L);
-    }
 
     @GetMapping("download/{postId}")
     @ResponseBody
     public PostDto sendPost(@PathVariable("postId") Long id){
-        Optional<PostDto> postDto = postService.findDtoOne(id);
+
+        Optional<PostDto> postDto = postService.findDtoOne(id, "");
         if(postDto.isEmpty())
             return new PostDto();
         return postDto.get();
     }
 
-    @GetMapping("download/{postId}/add")
-    @ResponseBody
-    public boolean addPost(@PathVariable("postId") Long postId, @RequestParam("username") String username){
-        myPageService.join(postId, username);
-        return true;
-    }
+
 
 //    //post 새로 만들기 + postid 보내주기
 //    @PostMapping("post/new")

@@ -2,14 +2,16 @@ package a101.phorest.controller;
 
 import a101.phorest.domain.Post;
 import a101.phorest.dto.PostDto;
+import a101.phorest.jwt.JwtFilter;
+import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.MyPageService;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,10 +20,24 @@ import java.util.List;
 public class MyPageController {
     private final MyPageService myPageService;
 
+    public final TokenProvider tokenProvider;
+
     @ResponseBody
     @GetMapping("mypage/{userId}")
-    public List<PostDto> findByUserId(@PathVariable("userId") Long userId)
+    public List<PostDto> findByUserId(@PathVariable("userId") Long userId, @RequestHeader("Authorization") String token)
     {
+        if(tokenProvider.validateToken(token))
+            return new ArrayList<>();
         return myPageService.findByUserId(userId);
+    }
+
+    @PostMapping("mypage/{postId}/add")
+    @ResponseBody
+    public boolean addPost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
+        if(tokenProvider.validateToken(token))
+            return false;
+        String username = (String)tokenProvider.getTokenBody(token).get("username");
+        myPageService.join(postId, username);
+        return true;
     }
 }

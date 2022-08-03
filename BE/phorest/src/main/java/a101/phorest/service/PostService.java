@@ -2,6 +2,7 @@ package a101.phorest.service;
 
 import a101.phorest.domain.*;
 import a101.phorest.dto.PostDto;
+import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    public final TokenProvider tokenProvider;
 
     @Transactional
     public Long join(Images images, String category, String content){
@@ -36,11 +38,15 @@ public class PostService {
         return post.getId();
     }
 
-    public Optional<PostDto> findDtoOne(Long postId){
+    public Optional<PostDto> findDtoOne(Long postId, String username){
         Optional <Post> post = postRepository.findById(postId);
         if(post.isEmpty())
             return Optional.empty();
         PostDto postDto = new PostDto(post.get());
+        if(!username.isEmpty())
+        {
+
+        }
         return Optional.of(postDto);
 
     }

@@ -2,19 +2,19 @@ package a101.phorest.controller;
 
 import a101.phorest.domain.PhotoGroup;
 import a101.phorest.domain.Post;
+import a101.phorest.dto.PostDto;
 import a101.phorest.service.PhotoGroupService;
 import a101.phorest.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,4 +40,6 @@ public class PhotoGroupController {
 //
 //
 //    }
+
+
 }
