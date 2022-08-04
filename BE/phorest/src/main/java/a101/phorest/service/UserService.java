@@ -72,22 +72,16 @@ public class UserService {
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(username, password);
 
-//            //여기서 오류가 나요. authentication이 null이 될 수도 있대요. 그런데 그럴 순 없 어요
-//            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-//
-//
-//
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-
             String jwt = tokenProvider.createToken(authenticationToken);
-
-//            HttpHeaders httpHeaders = new HttpHeaders();
-//            httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-
-           // return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
 
             return new TokenDto(jwt);
         }
+    }
+
+    @Transactional
+    public void logout(String username){
+        User user = userRepository.findByUsername(username);
+        user.setActivated(false);
     }
 
     public Optional<UserDto> findDtoUsernameOne(String username){

@@ -7,8 +7,10 @@ import a101.phorest.dto.TokenDto;
 import a101.phorest.dto.UserDto;
 import a101.phorest.jwt.JwtFilter;
 import a101.phorest.jwt.TokenProvider;
+import a101.phorest.repository.LikeRepository;
 import a101.phorest.service.UserService;
 import antlr.Token;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,23 +31,15 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-//    private final TokenProvider tokenProvider;
-//    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService
-                          //,TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder
-    ) {
-        this.userService = userService;
-//        this.tokenProvider = tokenProvider;
-//        this.authenticationManagerBuilder = authenticationManagerBuilder;
+    public final TokenProvider tokenProvider;
 
-    }
 
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
@@ -68,33 +62,14 @@ public class UserController {
         return ResponseEntity.ok(userService.login(loginDto));
 
     }
+    @PostMapping("/member/logout")
+    public Boolean logout(@RequestHeader("Authorization") String token){
+        if(!tokenProvider.validateToken(token))
+            //return "InvalidToken";
+            return false;
 
-//    @PostMapping("/login")
-//    public UserDto login(@RequestBody Map<String, String> form) throws IllegalAccessException {
-//        String username = form.get("username");
-//        String password = form.get("password");
-////        System.out.println(username);
-////        System.out.println(password);
-//
-//        UserDto userDto = userService.getUserWithAuthorities(username);
-//
-//        if(!passwordEncoder.matches( password ,userDto.getPassword())){
-//            throw new IllegalAccessException("Wrong Password");
-//        }
-//
-//        userDto.setPassword("");
-//        return userDto;
-//    }
-//
-//    @GetMapping("/user")
-//    //@PreAuthorize("hasAnyRole('USER','ADMIN')")
-//    public ResponseEntity<UserDto> getMyUserInfo(HttpServletRequest request) {
-//        return ResponseEntity.ok(userService.getMyUserWithAuthorities());
-//    }
-//
-//    @GetMapping("/user/{username}")
-//    //@PreAuthorize("hasAnyRole('ADMIN')")
-//    public ResponseEntity<UserDto> getUserInfo(@PathVariable String username) {
-//        return ResponseEntity.ok(userService.getUserWithAuthorities(username));
-//    }
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        userService.logout(username);
+        return true;
+    }
 }
