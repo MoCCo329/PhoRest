@@ -20,18 +20,21 @@ public class BookmarkController {
 
     @PostMapping("community/{postId}/bookmark")
     @ResponseBody
-    public String addLike(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
+    public int addLike(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
         if(!tokenProvider.validateToken(token))
-            return "InvalidToken";
+            //return "InvalidToken";
+            return 2;
 
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
         if(bookmarkRepository.findByPostIdAndUsername(postId,username).isEmpty()) {
-            return "add bookmark: " + bookmarkService.join(postId,username);
+            //return "add bookmark: " + bookmarkService.join(postId,username);
+            return 1;
         }
         else{
             //return "delete: " + likeService.remove(likeRepository.findByPostIdAndUsername(postId,username).get());
-            return "remove bookmark: " + bookmarkService.remove(postId,username);
+            //return "remove bookmark: " + bookmarkService.remove(postId,username);
+            return 0;
         }
     }
 }

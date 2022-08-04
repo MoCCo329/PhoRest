@@ -7,6 +7,7 @@ import a101.phorest.repository.LikeRepository;
 import a101.phorest.service.LikeService;
 import a101.phorest.service.MyPageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,18 +25,21 @@ public class LikeController {
 
     @PostMapping("community/{postId}/like")
     @ResponseBody
-    public String addLike(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
+    public int addLike(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
         if(!tokenProvider.validateToken(token))
-            return "InvalidToken";
+            //return "InvalidToken";
+            return 2;
 
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
         if(likeRepository.findByPostIdAndUsername(postId,username).isEmpty()) {
-            return "like: " + likeService.join(postId,username);
+            //return "like: " + likeService.join(postId,username);
+            return 1;
         }
         else{
             //return "delete: " + likeService.remove(likeRepository.findByPostIdAndUsername(postId,username).get());
-            return "unlike: " + likeService.remove(postId,username);
+            //return "unlike: " + likeService.remove(postId,username);
+            return 0;
         }
     }
 }
