@@ -56,5 +56,20 @@ public class Post {
     @OneToMany(mappedBy = "post")//Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. bookmark가 주인장.
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    //==비즈니스 로직==//
+    /** likeCount 증가 */
+    public void addLike(){
+        //this.likeCount += 1;
+        setLikeCount(getLikeCount() + 1);
+    }
+    /** likeCount 감소 */
+    public void removeLike(){
+//        this.likeCount -=1;
+//        if(this.likeCount < 0) this.likeCount = 0;
+//        setLikeCount(this.likeCount);
+
+        setLikeCount(getLikeCount() + 1);
+    }
+
 
 }

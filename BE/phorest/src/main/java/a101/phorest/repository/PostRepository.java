@@ -87,4 +87,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "where r.username = :username and q.is_shared = true")
     List<Post> findByUserIdShared(@Param("username") String username);
 
+
 }

@@ -25,4 +25,14 @@ public class Like {
     @JoinColumn(name = "user_id")
     private User user;
 
+    //==비즈니스 로직==//
+    /** likeCount 증가 */
+    public void Like(){
+        getPost().addLike();
+    }
+    /** likeCount 감소 */
+    public void Unlike(){
+        getPost().removeLike();
+    }
+
 }
