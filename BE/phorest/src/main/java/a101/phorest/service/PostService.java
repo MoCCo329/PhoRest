@@ -95,7 +95,7 @@ public class PostService {
             List<UserDto> userDtos = new ArrayList<>();
             for(int j = 0; j < users.size(); j++)
             {
-                UserDto userDto = UserDto.from(users.get(i));
+                UserDto userDto = UserDto.from(users.get(j));
                 userDtos.add(userDto);
             }
             PostDto postDto = new PostDto(posts.get(i), userDtos);
