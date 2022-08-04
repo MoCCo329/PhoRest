@@ -12,13 +12,10 @@ import a101.phorest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Service
@@ -92,7 +89,7 @@ public class UserService {
         userDto.setNickname(user.getNickname());
         userDto.setPassword(user.getPassword());
         userDto.setPhone(user.getPhone());
-        userDto.setProfileUrl(user.getProfileUrl());
+        userDto.setProfileURL(user.getProfileUrl());
         return Optional.of(userDto);
     }
 
@@ -109,7 +106,7 @@ public class UserService {
             return 4L;
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setNickname(userDto.getNickname());
-        user.setProfileUrl(userDto.getProfileUrl());
+        user.setProfileUrl(userDto.getProfileURL());
         user.setPhone(userDto.getPhone());
         return 0L;
 

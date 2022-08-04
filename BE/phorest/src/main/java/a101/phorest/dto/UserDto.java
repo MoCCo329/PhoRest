@@ -2,9 +2,7 @@ package a101.phorest.dto;
 
 import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
-import antlr.Token;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -12,10 +10,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -51,7 +45,7 @@ public class UserDto {
    @Size(min = 3, max = 50)
    private String phone;
 
-   private String profileUrl;
+   private String profileURL;
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
@@ -64,7 +58,7 @@ public class UserDto {
               .nickname(user.getNickname())
               .role(user.getRole())
               .phone(user.getPhone())
-              .profileUrl(user.getProfileUrl())
+              .profileURL(user.getProfileUrl())
               .build();
 
       return userDto;

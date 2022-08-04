@@ -88,6 +88,8 @@ public class ImageController {
     public String frameDownload(@RequestParam("frameId") Long frameId)
     {
         Frame frame = frameService.findOne(frameId);
+        if(frame == null)
+            return "";
         return frame.getFramePath();
     }
 
@@ -96,6 +98,8 @@ public class ImageController {
     public String photoGroupDownload(@RequestParam("photogroupId") Long photogroupId)
     {
         PhotoGroup photoGroup = photoGroupService.findOne(photogroupId);
+        if(photoGroup == null)
+            return "";
         return photoGroup.getPhotoGroupPath();
     }
 

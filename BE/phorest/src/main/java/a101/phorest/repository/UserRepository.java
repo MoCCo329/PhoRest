@@ -18,7 +18,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
    User findByNickname(String nickname);
    User findByPhone(String phone);
 
-   @Query(nativeQuery = true, value = "select * from user u join my_page m on u.user_id = m.user_id where m.post_id = :postId")
+   @Query(nativeQuery = true, value = "select distinct * " +
+           "from user u join my_page m on u.user_id = m.user_id " +
+           "where m.post_id = :postId")
    List<User> findPostMyPageUsers(@Param("postId") Long postId);
 
    @Query(nativeQuery = true, value = "select distinct *" +

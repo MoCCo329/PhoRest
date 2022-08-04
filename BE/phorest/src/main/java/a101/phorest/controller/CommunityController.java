@@ -1,4 +1,5 @@
 package a101.phorest.controller;
+import a101.phorest.dto.OffsetDTO;
 import a101.phorest.dto.PostDto;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.PostService;
@@ -19,30 +20,30 @@ public class CommunityController {
 
     @PostMapping("photogroup/like")
     @ResponseBody
-    public List<PostDto> photoGroupLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("humanCount") Long humanCount)
+    public List<PostDto> photoGroupLikeDownload(@RequestBody OffsetDTO offsetDto)
     {
-        return postService.findByLikeCount("photogroup" ,limit, offset, humanCount);
+        return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount());
     }
 
     @PostMapping("photogroup/recent")
     @ResponseBody
-    public List<PostDto> photoGroupRecentDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("humanCount") Long humanCount)
+    public List<PostDto> photoGroupRecentDownload(@RequestBody OffsetDTO offsetDto)
     {
-        return postService.findByRecent("photogroup" ,limit, offset, humanCount);
+        return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount());
     }
 
     @PostMapping("frame/like")
     @ResponseBody
-    public List<PostDto> frameLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
+    public List<PostDto> frameLikeDownload(@RequestBody OffsetDTO offsetDto)
     {
-        return postService.findByLikeCount("frame" ,limit, offset, 0L);
+        return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L);
     }
 
     @PostMapping("frame/recent")
     @ResponseBody
-    public List<PostDto> FrameRecentDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
+    public List<PostDto> FrameRecentDownload(@RequestBody OffsetDTO offsetDto)
     {
-        return postService.findByRecent("frame" ,limit, offset, 0L);
+        return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L);
     }
 
     @GetMapping("{postId}")
