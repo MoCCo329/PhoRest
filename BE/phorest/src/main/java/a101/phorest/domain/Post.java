@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import net.bytebuddy.asm.Advice;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,6 +29,8 @@ public class Post {
 
     private String content;
 
+    //@Basic(fetch=FetchType.LAZY)
+    //@Formula("(select count(*) from postlike l where l.post_id = id)")
     private int likeCount;
 
     private Boolean isShared;
@@ -53,20 +56,5 @@ public class Post {
     @OneToMany(mappedBy = "post")//Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. bookmark가 주인장.
     private List<Bookmark> bookmarks = new ArrayList<>();
 
-
-
-
-    //==비즈니스 로직==//
-    /** likeCount 증가 */
-    public void addLike(){
-        this.likeCount += 1;
-    }
-    /** likeCount 감소 */
-    public void removeLike(){
-        int restStock = this.likeCount - 1;
-        if(restStock < 0) {
-            this.likeCount = 0;
-        }
-    }
 
 }

@@ -35,16 +35,16 @@ public class LikeService {
         like.setUser(user);
         like.setPost(post);
         likeRepository.save(like);
-        like.Like();
+        //like.Like();
         return like.getId();
     }
 
     @Transactional
-    public Long delete(Like like)
+    public Long remove(Like like)
     {
-        like.Unlike();
+        //ike.Unlike();
         Long id = like.getId();
-        likeRepository.delete(like);
+        likeRepository.deleteById(id);
         return id;
     }
 }

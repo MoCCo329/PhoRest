@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
-    @Query(nativeQuery = true, value ="select * " +
+    @Query(nativeQuery = true, value ="select distinct * " +
             "from postlike pl join user r on pl.user_id = r.user_id " +
             "where pl.post_id = :postId " +
             "and r.username = :username")
