@@ -33,12 +33,12 @@ public class LikeController {
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
         if(likeRepository.findByPostIdAndUsername(postId,username).isEmpty()) {
-            //return "like: " + likeService.join(postId,username);
+            likeService.join(postId,username);
             return 1;
         }
         else{
             //return "delete: " + likeService.remove(likeRepository.findByPostIdAndUsername(postId,username).get());
-            //return "unlike: " + likeService.remove(postId,username);
+            likeService.remove(postId,username);
             return 0;
         }
     }
