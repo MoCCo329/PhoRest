@@ -14,9 +14,9 @@ import qrcode
 import requests
 import urllib.request
 import json
+from moviepy.editor import *
 
 stop_event = threading.Event()
-
 
 class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def __init__(self):
@@ -628,7 +628,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
                     self.Label_Camera.setPixmap(Videopixmap)
 
                     if self.startRecording:
-                        video_img = cv2.resize(img, (600, 425), interpolation=cv2.INTER_CUBIC)
+                        video_img = cv2.resize(img, (360, 255), interpolation=cv2.INTER_CUBIC)
                         video_img = cv2.cvtColor(video_img, cv2.COLOR_BGR2RGB)
                         writer.write(video_img)
 
@@ -759,7 +759,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         frame_img = frame_img.resize((1500, 1000))
         frame_img.save('./Frame/Frame_9.png')
 
-        self.make_Frame_Img(9)
+        self.FrameNum = 9
+
+        self.make_Frame_Img(self.FrameNum)
         self.Frame_Id.clear()
 
     def Erase_LineEdit(self):
@@ -806,36 +808,67 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     # 프레임 컬러 선택 버튼
     def Press_BasicFrame1(self):
-        self.Frame_Color_Id = "#FFFFFF"
-        self.make_Frame_Img(1)
+        self.FrameNum = 1
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame2(self):
-        self.Frame_Color_Id = "#DEFF99"
-        self.make_Frame_Img(2)
+        self.FrameNum = 2
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame3(self):
-        self.Frame_Color_Id = "#BDD0FF"
-        self.make_Frame_Img(3)
+        self.FrameNum = 3
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame4(self):
-        self.Frame_Color_Id = "#B871FF"
-        self.make_Frame_Img(4)
+        self.FrameNum = 4
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame5(self):
-        self.Frame_Color_Id = "#FFFFFF"
-        self.make_Frame_Img(5)
+        self.FrameNum = 5
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame6(self):
-        self.Frame_Color_Id = "#84FFF8"
-        self.make_Frame_Img(6)
+        self.FrameNum = 6
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame7(self):
-        self.Frame_Color_Id = "#84FFF8"
-        self.make_Frame_Img(7)
+        self.FrameNum = 7
+        self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame8(self):
-        self.Frame_Color_Id = "#94EB3E"
-        self.make_Frame_Img(8)
+        self.FrameNum = 8
+        self.make_Frame_Img(self.FrameNum)
+    
+    def make_VideoFile(self):
+        back = cv2.imread('./Frame/Frame_{}.png'.format(self.FrameNum))
+        back = cv2.resize(back, (900,600))
+
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        writer = cv2.VideoWriter('./video/back.mp4', fourcc, 1, (900,600))
+
+        for i in range(4):
+            writer.write(back)
+
+        writer.release()
+
+        background = VideoFileClip('./video/back.mp4')
+        clip1 = VideoFileClip('./video/video_1.mp4')
+        clip2 = VideoFileClip('./video/video_2.mp4')
+        clip3 = VideoFileClip('./video/video_3.mp4')
+        clip4 = VideoFileClip('./video/video_4.mp4')
+
+        video_size = (360, 255)
+
+        mergedVideo = CompositeVideoClip([
+            background,
+            clip1.set_position((30,30)),
+            clip2.set_position((video_size[0] + 60, 30)),
+            clip3.set_position((30, video_size[1] + 60)),
+            clip4.set_position((video_size[0] + 60, video_size[1] + 60))
+        ])
+
+        mergedVideo.write_videofile('./video/mergedVideo.mp4')
+
     # 프린트 버튼
     # 프린트 누르고
     # 1번째로는 사진 보내고
@@ -858,9 +891,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         print(self.ChooseBtnNum)
         res = requests.post("https://i7a101.p.ssafy.io/api/upload/photogroup", files=files, data=data)
 
-        print(res.text)
         post_id = res.text
-
         # QR코드 작성
         qr = qrcode.QRCode(
             version=1,
@@ -886,10 +917,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         # 인쇄 하는 코드 넣기
         #os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
-        print(post_id)
+
+        # 동영상 만들기
+        self.make_VideoFile()
 
         # 동영상 업로드 코드
-        Vid = open('./video/video_1.mp4','rb')
+        Vid = open('./video/mergedVideo.mp4','rb')
         files_video = {
             'video':Vid
         }
@@ -900,6 +933,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         res_video = requests.post("https://i7a101.p.ssafy.io/api/upload/video", files=files_video, data=data_video)
         print(res_video)
+
         self.Final_Flag = 1
         self.initImgs()
 
