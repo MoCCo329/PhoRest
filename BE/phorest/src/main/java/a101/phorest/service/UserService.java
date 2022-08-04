@@ -92,6 +92,7 @@ public class UserService {
         userDto.setNickname(user.getNickname());
         userDto.setPassword(user.getPassword());
         userDto.setPhone(user.getPhone());
+        userDto.setProfileUrl(user.getProfileUrl());
         return Optional.of(userDto);
     }
 
