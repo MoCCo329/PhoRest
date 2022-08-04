@@ -4,6 +4,7 @@ package a101.phorest.controller;
 import a101.phorest.S3Uploader;
 import a101.phorest.domain.Frame;
 import a101.phorest.domain.PhotoGroup;
+import a101.phorest.domain.Post;
 import a101.phorest.dto.PostDto;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.*;
@@ -56,7 +57,21 @@ public class ImageController {
         return(postService.join(frameService.findOne(frame_id), "frame", content));
     }
 
-    @GetMapping("download/frame")
+    @PostMapping("upload/video")
+    @ResponseBody
+    public Boolean videoUpload(@RequestPart("video") MultipartFile multipartFile, @RequestParam("postId") Long postId){
+        String uploadUrl;
+        try {
+            uploadUrl = s3Uploader.uploadFiles(multipartFile, "photogroup");
+        } catch (Exception e) {
+            return false;
+        }
+        Long photoGroup_id = postService.findOne(postId).get().getPhotoGroup().getId();
+        photoGroupService.updateVideoUrl(photoGroup_id, uploadUrl);
+        return true;
+    }
+
+    @PostMapping("download/frame")
     @ResponseBody
     public String frameDownload(@RequestParam("frameId") Long frameId)
     {
@@ -64,7 +79,7 @@ public class ImageController {
         return frame.getFramePath();
     }
 
-    @GetMapping("download/photogroup")
+    @PostMapping("download/photogroup")
     @ResponseBody
     public String photoGroupDownload(@RequestParam("photogroupId") Long photogroupId)
     {
@@ -73,6 +88,13 @@ public class ImageController {
     }
 
 
+    @PostMapping("download/video")
+    @ResponseBody
+    public String videoDownload(@RequestParam("postId") Long postId)
+    {
+        Long photogroupId = postService.findOne(postId).get().getPhotoGroup().getId();
+        return photoGroupService.findOne(photogroupId).getVideoPath();
+    }
 
     @GetMapping("download/{postId}")
     @ResponseBody
@@ -83,6 +105,7 @@ public class ImageController {
             return new PostDto();
         return postDto.get();
     }
+
 
 
 

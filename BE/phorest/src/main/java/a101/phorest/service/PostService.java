@@ -2,6 +2,7 @@ package a101.phorest.service;
 
 import a101.phorest.domain.*;
 import a101.phorest.dto.PostDto;
+import a101.phorest.dto.UserDto;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.PostRepository;
 import a101.phorest.repository.UserRepository;
@@ -44,13 +45,21 @@ public class PostService {
     public Optional<PostDto> findDtoOne(Long postId, String username){
         Optional <Post> post = postRepository.findById(postId);
         List<User> users = userRepository.findPostMyPageUsers(postId);
+        List<UserDto> userDtos = new ArrayList<>();
+        for(int i = 0; i < users.size(); i++)
+        {
+            UserDto userDto = UserDto.from(users.get(i));
+            userDtos.add(userDto);
+        }
         if(post.isEmpty())
             return Optional.empty();
-        PostDto postDto = new PostDto(post.get(), users);
-        if(!username.isEmpty())
+        PostDto postDto = new PostDto(post.get(), userDtos);
+ /*       if(!username.isEmpty())
         {
-
-        }
+            User user = userRepository.findByUsername(username);
+            postDto.setIsLike();
+            postDto.setIsBookmark();
+        }*/
         return Optional.of(postDto);
 
     }
@@ -73,7 +82,14 @@ public class PostService {
         }
         System.out.println(posts.size());
         for(int i = 0; i < posts.size(); i++) {
-            PostDto postDto = new PostDto(posts.get(i), new ArrayList<User>());
+            List<User> users = userRepository.findByPostId(posts.get(i).getId());
+            List<UserDto> userDtos = new ArrayList<>();
+            for(int j = 0; j < users.size(); j++)
+            {
+                UserDto userDto = UserDto.from(users.get(i));
+                userDtos.add(userDto);
+            }
+            PostDto postDto = new PostDto(posts.get(i), userDtos);
             postDtos.add(postDto);
         }
         return postDtos;

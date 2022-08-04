@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PostDto {
 
-    public PostDto (Post post, List<User> users){
+    public PostDto (Post post, List<UserDto> users){
         this.id = post.getId();
         this.category = post.getCategory();
         if("photogroup".equals(this.category))
@@ -57,5 +57,5 @@ public class PostDto {
 
     private Boolean isBookmark;
 
-    private List<User> users;
+    private List<UserDto> users;
 }

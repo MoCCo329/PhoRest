@@ -14,7 +14,7 @@ public class MyPage {
     @Column(name = "mypage_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)//마이페이지와 회원은 일대일 관계, 회원이 주인.
+    @ManyToOne(fetch = FetchType.LAZY)//마이페이지와 회원은 다대일 관계, 마이페이지가 주인.
     @JoinColumn(name = "user_id")
     private User user;
 
