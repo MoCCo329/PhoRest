@@ -40,9 +40,9 @@ public class CommunityController {
             postDto = postService.findDtoOne(postId, "");
             return postDto.orElseGet(PostDto::new);
         }
-        if(tokenProvider.validateToken(token))
+        if(!tokenProvider.validateToken(token))
             return new PostDto();
-        String username = (String)tokenProvider.getTokenBody(token).get("username");
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
         postDto = postService.findDtoOne(postId, username);
         return postDto.orElseGet(PostDto::new);
     }

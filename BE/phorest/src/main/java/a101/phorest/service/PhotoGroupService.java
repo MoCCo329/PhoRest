@@ -16,18 +16,22 @@ import java.util.Optional;
 public class PhotoGroupService {
 
     private final PhotoGroupRepository photoGroupRepository;
-    EntityManager em;
 
     @Transactional
     public Long join(String uploadUrl, Long humancount){
         PhotoGroup photoGroup = new PhotoGroup();
         photoGroup.setPhotoGroupPath(uploadUrl);
         photoGroup.setHumanCount(humancount);
-        photoGroup.setThumbNailPath(null);
+        photoGroup.setVideoPath(null);
         photoGroupRepository.save(photoGroup);
         return photoGroup.getId();
     }
-
+    @Transactional
+    public Long updateVideoUrl(Long photogroupId, String Url){
+        PhotoGroup photoGroup = photoGroupRepository.findById(photogroupId).get();
+        photoGroup.setVideoPath(Url);
+        return photogroupId;
+    }
 
     public PhotoGroup findOne(Long id){
         Optional<PhotoGroup> photoGroup = photoGroupRepository.findById(id);
