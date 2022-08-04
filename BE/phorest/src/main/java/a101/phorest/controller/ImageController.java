@@ -62,7 +62,7 @@ public class ImageController {
     public Boolean videoUpload(@RequestPart("video") MultipartFile multipartFile, @RequestParam("postId") Long postId){
         String uploadUrl;
         try {
-            uploadUrl = s3Uploader.uploadFiles(multipartFile, "photogroup");
+            uploadUrl = s3Uploader.uploadFiles(multipartFile, "video");
         } catch (Exception e) {
             return false;
         }

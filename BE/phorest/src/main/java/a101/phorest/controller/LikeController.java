@@ -34,7 +34,7 @@ public class LikeController {
             return "join: " + likeService.join(postId,username);
         }
         else{
-            return "delete: " + likeService.remove(likeRepository.findByPostIdAndUsername(postId,username).get());
+            return "delete: " + likeService.remove(postId, username);
         }
     }
 }
