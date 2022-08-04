@@ -63,7 +63,7 @@ public class UserService {
         if(user == null)
             throw new DuplicateMemberException("아이디가 없습니다.");
         else if(!passwordEncoder.matches(password,user.getPassword())){
-            throw new DuplicateMemberException("비밀전호가 틀렸습니다.");
+            throw new DuplicateMemberException("비밀번호가 틀렸습니다.");
         }
         else{
             user.setActivated(true);

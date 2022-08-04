@@ -1,16 +1,20 @@
 package a101.phorest.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
-    @Id @GeneratedValue
+
+    @Id
     @Column(name = "comment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)//여러개의 댓글에 하나의 post가 있다. 다대일. 주인은 comment
@@ -21,7 +25,9 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String commentContent;
+    @Column(name = "content")
+    private String content;
 
-    private LocalDateTime commentTime;
+    @Column(name = "time")
+    private LocalDateTime time;
 }
