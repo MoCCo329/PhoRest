@@ -42,7 +42,6 @@ public class LikeService {
     @Transactional
     public Long remove(Long postId, String username)
     {
-        //ike.Unlike();
         Like like = likeRepository.findByPostIdAndUsername(postId, username).get();
         likeRepository.deleteById(like.getId());
         Post post = postRepository.findById(postId).get();
