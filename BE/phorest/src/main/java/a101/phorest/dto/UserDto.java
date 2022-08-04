@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(value = {"password", "role", "phone" }, ignoreUnknown = true)
 public class UserDto {
 
 

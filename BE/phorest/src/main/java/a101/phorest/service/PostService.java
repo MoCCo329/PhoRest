@@ -4,6 +4,8 @@ import a101.phorest.domain.*;
 import a101.phorest.dto.PostDto;
 import a101.phorest.dto.UserDto;
 import a101.phorest.jwt.TokenProvider;
+import a101.phorest.repository.BookmarkRepository;
+import a101.phorest.repository.LikeRepository;
 import a101.phorest.repository.PostRepository;
 import a101.phorest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,11 @@ public class PostService {
     private final PostRepository postRepository;
 
     public final TokenProvider tokenProvider;
-
     private final UserRepository userRepository;
+
+    private final BookmarkRepository bookmarkRepository;
+
+    private final LikeRepository likeRepository;
 
     @Transactional
     public Long join(Images images, String category, String content){
@@ -54,12 +59,15 @@ public class PostService {
         if(post.isEmpty())
             return Optional.empty();
         PostDto postDto = new PostDto(post.get(), userDtos);
- /*       if(!username.isEmpty())
-        {
-            User user = userRepository.findByUsername(username);
-            postDto.setIsLike();
-            postDto.setIsBookmark();
-        }*/
+        postDto.setIsLike(false);
+        postDto.setIsBookmark(false);
+        if(!username.isEmpty()) {
+            if(likeRepository.findByPostIdAndUsername(postId, username).isPresent())
+                postDto.setIsLike(true);
+            if(bookmarkRepository.findByPostIdAndUsername(postId,username).isPresent())
+                postDto.setIsBookmark(true);
+
+        }
         return Optional.of(postDto);
 
     }

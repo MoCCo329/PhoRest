@@ -94,6 +94,26 @@ public class UserService {
         return Optional.of(userDto);
     }
 
+    @Transactional
+    public Long updateUser(UserDto userDto, String username){
+        User user = userRepository.findByUsername(username);
+        if (userRepository.findByUsername(userDto.getUsername()) != null){
+            return 2L;
+        }
+        if (userRepository.findByNickname(userDto.getNickname()) != null){
+            return 3L;
+        }
+        if (userRepository.findByPhone(userDto.getPhone()) != null){
+            return 4L;
+        }
+        user.setUsername(userDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setNickname(userDto.getNickname());
+        user.setProfileUrl(userDto.getProfileUrl());
+        user.setPhone(userDto.getPhone());
+        return 0L;
+
+    }
 //
 //    @Transactional(readOnly = true)
 //    public UserDto getUserWithAuthorities(String username) {

@@ -1,5 +1,6 @@
 package a101.phorest.jwt;
 
+import a101.phorest.repository.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -18,6 +19,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,6 +28,8 @@ public class TokenProvider implements InitializingBean {
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
+
+    private final UserRepository userRepository;
 
     private final String secret;
     private final long tokenValidityInMilliseconds;
@@ -36,9 +40,10 @@ public class TokenProvider implements InitializingBean {
     //의존성 주입
     public TokenProvider(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds, UserRepository userRepository) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -92,7 +97,11 @@ public class TokenProvider implements InitializingBean {
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); // 파라미터로 받은 토큰 파싱해보고
-            return true;
+            String username = (String)getTokenBody(token).get("sub");
+            a101.phorest.domain.User user = userRepository.findByUsername(username);
+            if(user == null)
+                return false;
+            return user.isActivated();
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             logger.info("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {

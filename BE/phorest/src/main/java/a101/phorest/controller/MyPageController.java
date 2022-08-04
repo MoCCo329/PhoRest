@@ -20,7 +20,7 @@ import java.util.List;
 public class MyPageController {
     private final MyPageService myPageService;
 
-    public final TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;
 
     @ResponseBody
     @GetMapping("mypage/{username}")
