@@ -85,8 +85,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUserId(@Param("username") String username);
 
     @Query(nativeQuery = true, value = "select * " +
-            "(from my_page p join post q on p.post_id = q.post_id) " +
-            "join user r on p.user_id = r.user_id " +
+            "from (my_page p join post q on p.post_id = q.post_id) join user r on p.user_id = r.user_id " +
             "where r.username = :username and q.is_shared = true")
     List<Post> findByUserIdShared(@Param("username") String username);
 

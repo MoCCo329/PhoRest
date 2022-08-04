@@ -101,10 +101,12 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         User user1 = userRepository.findByNickname(userDto.getNickname());
         User user2 = userRepository.findByPhone(userDto.getPhone());
-        if(user1 != null && !user1.getUsername().equals(user.getUsername()))
+        if(!passwordEncoder.matches(userDto.getBeforePassword(), user.getPassword()))
             return 2L;
-        if(user2 != null && !user2.getUsername().equals(user.getUsername()))
+        if(user1 != null && !user1.getUsername().equals(user.getUsername()))
             return 3L;
+        if(user2 != null && !user2.getUsername().equals(user.getUsername()))
+            return 4L;
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setNickname(userDto.getNickname());
         user.setProfileUrl(userDto.getProfileUrl());

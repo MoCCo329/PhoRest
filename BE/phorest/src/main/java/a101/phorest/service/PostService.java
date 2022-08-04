@@ -43,7 +43,7 @@ public class PostService {
             post.setPhotoGroup((PhotoGroup) images);
         else if("frame".equals(category))
             post.setFrame((Frame) images);
-        post.setIsShared(false);
+        post.setShared(false);
         postRepository.save(post);
         return post.getId();
     }

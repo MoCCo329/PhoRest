@@ -33,7 +33,7 @@ public class Post {
     //@Formula("(select count(*) from postlike l where l.post_id = id)")
     private int likeCount;
 
-    private Boolean isShared;
+    private boolean isShared;
 
     //게시글 - 프레임 : 일 대 일, 게시글이 주인
     @OneToOne(fetch = FetchType.LAZY)
