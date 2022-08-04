@@ -71,6 +71,18 @@ public class ImageController {
         return true;
     }
 
+    @PostMapping("upload/profileimage")
+    @ResponseBody
+    public String profileUrlUpload(@RequestPart("image") MultipartFile multipartFile){
+        String uploadUrl;
+        try {
+            uploadUrl = s3Uploader.uploadFiles(multipartFile, "profileimage");
+        } catch (Exception e) {
+            return "";
+        }
+        return uploadUrl;
+    }
+
     @PostMapping("download/frame")
     @ResponseBody
     public String frameDownload(@RequestParam("frameId") Long frameId)
