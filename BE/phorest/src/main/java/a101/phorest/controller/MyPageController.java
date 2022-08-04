@@ -24,11 +24,21 @@ public class MyPageController {
 
     @ResponseBody
     @GetMapping("mypage/{username}")
-    public List<PostDto> findByUserId(@PathVariable("username") String searchUsername, @RequestHeader("Authorization") String token)
+    public List<PostDto> findByUserId(@PathVariable("username") String searchUsername, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        if(!tokenProvider.validateToken(token))
+        String loginUsername;
+        if(token == null)
+        {
+            loginUsername = "";
+        }
+        else if(tokenProvider.validateToken(token))
+        {
+            loginUsername = (String)tokenProvider.getTokenBody(token).get("sub");
+        }
+        else
+        {
             return new ArrayList<>();
-        String loginUsername = (String)tokenProvider.getTokenBody(token).get("sub");
+        }
         return myPageService.findByUserId(searchUsername, loginUsername);
     }
 

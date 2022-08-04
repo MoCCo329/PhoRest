@@ -50,7 +50,7 @@ public class CommunityController {
     public PostDto getPost(@PathVariable("postId") Long postId, @RequestHeader(value = "Authorization", required = false) String token)
     {
         Optional<PostDto> postDto;
-        if(token.isEmpty())
+        if(token == null)
         {
             postDto = postService.findDtoOne(postId, "");
             return postDto.orElseGet(PostDto::new);

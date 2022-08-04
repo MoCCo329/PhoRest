@@ -54,7 +54,7 @@ public class ImageController {
             return -1L;
         }
         Long frame_id = frameService.join(uploadUrl);
-        return(postService.join(frameService.findOne(frame_id), "frame", content));
+        return(postService.join(frameService.findOne(frame_id).get(), "frame", content));
     }
 
     @PostMapping("upload/video")
@@ -78,7 +78,7 @@ public class ImageController {
         try {
             uploadUrl = s3Uploader.uploadFiles(multipartFile, "profileimage");
         } catch (Exception e) {
-            return "";
+            return "fail";
         }
         return uploadUrl;
     }
@@ -87,10 +87,10 @@ public class ImageController {
     @ResponseBody
     public String frameDownload(@RequestParam("frameId") Long frameId)
     {
-        Frame frame = frameService.findOne(frameId);
-        if(frame == null)
-            return "";
-        return frame.getFramePath();
+        Optional<Frame> frame = frameService.findOne(frameId);
+        if(frame.isEmpty())
+            return "fail";
+        return frame.get().getFramePath();
     }
 
     @PostMapping("download/photogroup")

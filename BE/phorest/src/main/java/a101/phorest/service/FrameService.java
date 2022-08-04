@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true) // 기본은 false
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class FrameService {
         return frame.getId();
     }
 
-    public Frame findOne(Long frameId){
-        return frameRepository.findById(frameId).get();
+    public Optional<Frame> findOne(Long frameId){
+        return frameRepository.findById(frameId);
     }
 }
