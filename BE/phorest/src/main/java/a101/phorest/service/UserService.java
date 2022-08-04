@@ -69,6 +69,7 @@ public class UserService {
             throw new DuplicateMemberException("비밀전호가 틀렸습니다.");
         }
         else{
+            user.setActivated(true);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(username, password);
 
