@@ -35,16 +35,18 @@ public class LikeService {
         like.setUser(user);
         like.setPost(post);
         likeRepository.save(like);
-        like.Like();
+        post.setLikeCount(post.getLikeCount() + 1);
         return like.getId();
     }
 
     @Transactional
-    public Long remove(Like like)
+    public Long remove(Long postId, String username)
     {
-        like.Unlike();
-        Long id = like.getId();
-        likeRepository.deleteById(id);
-        return id;
+        //ike.Unlike();
+        Like like = likeRepository.findByPostIdAndUsername(postId, username).get();
+        likeRepository.deleteById(like.getId());
+        Post post = postRepository.findById(postId).get();
+        post.setLikeCount(post.getLikeCount() - 1);
+        return like.getId();
     }
 }
