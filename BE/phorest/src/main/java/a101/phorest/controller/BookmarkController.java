@@ -28,12 +28,11 @@ public class BookmarkController {
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
         if(bookmarkRepository.findByPostIdAndUsername(postId,username).isEmpty()) {
-            //return "add bookmark: " + bookmarkService.join(postId,username);
+            bookmarkService.join(postId,username);
             return 1;
         }
         else{
-            //return "delete: " + likeService.remove(likeRepository.findByPostIdAndUsername(postId,username).get());
-            //return "remove bookmark: " + bookmarkService.remove(postId,username);
+            bookmarkService.remove(postId,username);
             return 0;
         }
     }
