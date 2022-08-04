@@ -24,11 +24,25 @@ public class CommunityController {
         return postService.findByLikeCount("photogroup" ,limit, offset, humanCount);
     }
 
+    @PostMapping("photogroup/recent")
+    @ResponseBody
+    public List<PostDto> photoGroupRecentDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset, @RequestParam("humanCount") Long humanCount)
+    {
+        return postService.findByRecent("photogroup" ,limit, offset, humanCount);
+    }
+
     @PostMapping("frame/like")
     @ResponseBody
     public List<PostDto> frameLikeDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
     {
         return postService.findByLikeCount("frame" ,limit, offset, 0L);
+    }
+
+    @PostMapping("frame/recent")
+    @ResponseBody
+    public List<PostDto> FrameRecentDownload(@RequestParam("limit") Long limit, @RequestParam("offset") Long offset)
+    {
+        return postService.findByRecent("frame" ,limit, offset, 0L);
     }
 
     @GetMapping("{postId}")

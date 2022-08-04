@@ -43,6 +43,7 @@ public class PostService {
             post.setPhotoGroup((PhotoGroup) images);
         else if("frame".equals(category))
             post.setFrame((Frame) images);
+        post.setIsShared(false);
         postRepository.save(post);
         return post.getId();
     }
@@ -102,6 +103,29 @@ public class PostService {
         }
         return postDtos;
 
+
+    }
+    public List<PostDto> findByRecent(String category, Long limit, Long offset, Long humancount) {
+        List<PostDto> postDtos = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
+        if (category.equals("photogroup")) {
+            posts.addAll(postRepository.findPhotogroupByRecent("photogroup", limit, offset, humancount));
+
+        } else if (category.equals("frame")) {
+            posts.addAll(postRepository.findFrameByRecent("frame", limit, offset));
+        }
+        System.out.println(posts.size());
+        for (int i = 0; i < posts.size(); i++) {
+            List<User> users = userRepository.findByPostId(posts.get(i).getId());
+            List<UserDto> userDtos = new ArrayList<>();
+            for (int j = 0; j < users.size(); j++) {
+                UserDto userDto = UserDto.from(users.get(i));
+                userDtos.add(userDto);
+            }
+            PostDto postDto = new PostDto(posts.get(i), userDtos);
+            postDtos.add(postDto);
+        }
+        return postDtos;
     }
     /** 게시물 리스트 페이징 **/
     private static final int PAGE_POST_COUNT = 20;
