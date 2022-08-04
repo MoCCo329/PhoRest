@@ -1,83 +1,51 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import MyPhotos from './MyPhotos';
-import ScrollCalendar from '../ScrollCalendar/ScrollCalendar';
-import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
-import FilterFramesOutlinedIcon from '@mui/icons-material/FilterFramesOutlined';
+import * as React from "react";
+import MyPhotos from "./MyPhotos";
+import MyGallery from "./MyGallery";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+import { useSelector, useDispatch } from "react-redux";
+import mypage from "../../api/mypage";
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 export default function ActivityTabs() {
-  const [value, setValue] = React.useState(0);
+  //메뉴버튼
+  const [viewMenu, setViewMenu] = React.useState(0);
+  const menus = {
+    0: <MyGallery/>,
+    1: <MyPhotos/>,
+    2: <MyPhotos/>,
+  }
+  
+  //마이페이지 데이터 가져오는 부분
+  const dispatch = useDispatch();
+  const { username } = "choi";
+  let content = useSelector((state) => state.pics_myapge);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // if (!!!content.url) {
+  //   mypage
+  //     .pic(username)
+  //     .then((result) => result.data)
+  //     .then((result) => {
+  //       const copy = {
+  //         postId: result.id,
+  //         category: result.category,
+  //         url: result.url,
+  //         content: result.content,
+  //         humanCount: result.human_count,
+  //         time: result.time,
+  //       };
+  //       dispatch(fetchPic(copy));
+  //     });
+  // }
 
   return (
-    <div style={{display: 'flex',  justifyContent:'center'}}>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label={<WindowOutlinedIcon />} {...a11yProps(0)} />
-            <Tab label={<CalendarTodayOutlinedIcon />} {...a11yProps(1)} />
-            <Tab label={<StarBorderPurple500OutlinedIcon />} {...a11yProps(2)} />
-            <Tab label={<FilterFramesOutlinedIcon />} {...a11yProps(3)} />
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          내가 지금까지 올린 게시글
-          <MyPhotos />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <ScrollCalendar />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          즐겨찾기 목록
-          <MyPhotos />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          내가 만든 프레임 목록
-          <MyPhotos />
-        </TabPanel>
-      </Box>
+    <div>
+      <button onClick={() => setViewMenu(0)}>사진보기</button>
+      <button onClick={() => setViewMenu(1)}>북마크</button>
+      <button onClick={() => setViewMenu(2)}>프레임보기</button>
+      <div>
+        {viewMenu}
+        {menus[viewMenu]}
+      </div>
     </div>
   );
 }
