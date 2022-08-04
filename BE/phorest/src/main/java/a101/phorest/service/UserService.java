@@ -98,16 +98,12 @@ public class UserService {
     @Transactional
     public Long updateUser(UserDto userDto, String username){
         User user = userRepository.findByUsername(username);
-        if (userRepository.findByUsername(userDto.getUsername()) != null){
+        User user1 = userRepository.findByNickname(userDto.getNickname());
+        User user2 = userRepository.findByPhone(userDto.getPhone());
+        if(user1 != null && !user1.getUsername().equals(user.getUsername()))
             return 2L;
-        }
-        if (userRepository.findByNickname(userDto.getNickname()) != null){
+        if(user2 != null && !user2.getUsername().equals(user.getUsername()))
             return 3L;
-        }
-        if (userRepository.findByPhone(userDto.getPhone()) != null){
-            return 4L;
-        }
-        user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setNickname(userDto.getNickname());
         user.setProfileUrl(userDto.getProfileUrl());
