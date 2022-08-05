@@ -31,25 +31,4 @@
 //                .build()
 //                .apiInfo(apiInfo());
 //    }
-//
-//    @Bean
-//    public Docket apiV2() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .useDefaultResponseMessages(false)
-//                .groupName("a101")
-//                .select()
-//                .apis(RequestHandlerSelectors.
-//                        basePackage("phorest"))
-//                .paths(PathSelectors.ant("/v2/api/**"))
-//                .build()
-//                .apiInfo(apiInfo());
-//    }
-//
-//    private ApiInfo apiInfo() {
-//        return new ApiInfoBuilder()
-//                .title(API_NAME)
-//                .version(API_VERSION)
-//                .description(API_DESCRIPTION)
-//                .build();
-//    }
 //}
