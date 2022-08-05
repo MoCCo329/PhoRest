@@ -22,20 +22,20 @@ public class UserDTO {
 
 
    @NotNull
-   @Size(min = 3, max = 50)
+   @Size(min = 3, max = 50, message = "username의 크기는 3 이상 50 이하여야합니다.")
    private String username;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    @NotNull
-   @Size(min = 3, max = 100)
+   @Size(min = 3, max = 100, message = "password의 크기는 3 이상 100 이하여야합니다.")
    private String password;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-   @Size(min = 3, max = 100)
+   @Size(min = 3, max = 100, message = "beforePassword의 크기는 3 이상 100 이하여야 합니다.")
    private String beforePassword;
 
    @NotNull
-   @Size(min = 3, max = 50)
+   @Size(min = 3, max = 50, message = "nickname의 크기는 3 이상 50 이하여야 합니다.")
    private String nickname;
 
    @JsonIgnore
@@ -43,7 +43,7 @@ public class UserDTO {
    private Role role;
 
    @NotNull
-   @Size(min = 3, max = 50)
+   @Size(min = 3, max = 50, message = "phone의 크기는 3 이상 50 이하여야 합니다.")
    private String phone;
 
    private String profileURL;
