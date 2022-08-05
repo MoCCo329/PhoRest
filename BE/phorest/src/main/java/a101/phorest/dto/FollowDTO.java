@@ -14,7 +14,7 @@ public class FollowDTO {
 
     public FollowDTO(Follow follow){
         this.id = follow.getId();
-        this.following_user_id = follow.getFollowing().getUsedId();
+        this.following_user_id = follow.getFollowing().getUserId();
     }
 
     private Long id;

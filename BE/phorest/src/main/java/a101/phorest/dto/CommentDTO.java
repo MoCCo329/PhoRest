@@ -17,7 +17,7 @@ public class CommentDTO {
     public CommentDTO(Comment comment){
         this.id = comment.getId();
         this.postId = comment.getPost().getId();
-        this.postId = comment.getUser().getUsedId();
+        this.postId = comment.getUser().getUserId();
         this.content = comment.getContent();
         this.time = comment.getTime();
     }

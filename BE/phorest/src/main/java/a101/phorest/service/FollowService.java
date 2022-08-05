@@ -23,7 +23,7 @@ public class FollowService {
     @Transactional
     public List<FollowDTO> getFollowingsof(String username){
 
-        Long userId = userRepository.findByUsername(username).getUsedId();
+        Long userId = userRepository.findByUsername(username).getUserId();
 
         List<Follow> follows = followRepository.findAllByFollower(userId);
         List<FollowDTO> followDTOS = new ArrayList<>();
