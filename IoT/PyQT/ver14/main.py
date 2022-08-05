@@ -103,6 +103,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     # 첫번째 화면에서는 어느 화면이던 클릭하면 두번째 화면으로 넘어간다
     def mousePressEvent(self, e):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         # 마우스 좌표 파악
         # print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
         if (self.stack.currentIndex() == 0):
@@ -141,6 +144,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # ---------------------- 2. 인원 선택 칸 -----------------------
     # 두번째 화면에서는 각 버튼마다 이벤트 존재
     def RecommandPose(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         self.recommand_pose_flag = 1
 
         # 이미지 받아와서 띄워놓는 코드 작성
@@ -188,6 +194,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     # 좌우 버튼 누를때마다 백엔드에 계속 신호 보내줘야 한다.
     def Press_RightBtn(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 1:
             self.offset_1 += 1
             if self.offset_1 >= 5:
@@ -216,6 +225,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.RecommandPose()
 
     def Press_LeftBtn(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 1:
             self.offset_1 -= 1
             if self.offset_1 < 0:
@@ -244,10 +256,16 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.RecommandPose()
 
     def NextBottomButton_to_2(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if (self.ChooseBtnNum != 0):
             self.stack.setCurrentIndex(2)
 
     def Press_Btn1(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 2:
             self.Btn2.setStyleSheet("QPushButton{"
                                     "color: #000000;"
@@ -305,6 +323,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn2(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 1:
             self.Btn1.setStyleSheet("QPushButton{"
                                     "color: #000000;"
@@ -361,6 +382,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn3(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 2:
             self.Btn2.setStyleSheet("QPushButton{"
                                     "color: #000000;"
@@ -417,6 +441,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn4(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 2:
             self.Btn2.setStyleSheet("QPushButton{"
                                     "color: #000000;"
@@ -473,6 +500,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn5(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 2:
             self.Btn2.setStyleSheet("QPushButton{"
                                     "color: #000000;"
@@ -529,6 +559,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn6(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         if self.ChooseBtnNum == 2:
             self.Btn2.setStyleSheet("QPushButton{"
                                     "color: #000000;"
@@ -587,6 +620,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # -------------------------- 3번째 촬영버튼 페이지 ------------------------------
     # 15초간의 타이머 작동
     def Press_PreparedBtn(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         self.CurrentPhotoCnt = 0
 
         # 먼저 촬영페이지의 넥스트 버튼 클릭 방지를 위해 Disable 처리
@@ -720,7 +756,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         stop_event.clear()
         # 찰칵 소리 출력
-        # os.system('aplay sound.wav')
+        os.system('aplay ./camera_sound.wav')
 
         time.sleep(0.5)
         self.TopStack.setStyleSheet("background-color : #FFF7E7")
@@ -732,17 +768,26 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         time.sleep(1)
 
     def NextBottomButton_to_4(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         self.Warning_label.hide()
         self.stack.setCurrentIndex(4)
         self.TopStack.setCurrentIndex(4)
 
     def Press_Back(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         self.stack.setCurrentIndex(self.stack.currentIndex() - 1)
 
     # -------------------------- 5번째 프레임 선택 페이지 ------------------------------
 
     # 프레임까지 적용하여 화면에 띄워주는 버튼
     def Press_Applying(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         # 먼저 입력한 Frame_id를 서버에 보냄
         self.frame_id = self.Frame_Id.text()
         if(self.frame_id == ""):
@@ -826,37 +871,52 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def Press_BasicFrame1(self):
         self.FrameNum = 1
         self.make_Frame_Img(self.FrameNum)
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
 
     def Press_BasicFrame2(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 2
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame3(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 3
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame4(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 4
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame5(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 5
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame6(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 6
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame7(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 7
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame8(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
         self.FrameNum = 8
         self.make_Frame_Img(self.FrameNum)
 
     def make_VideoFile(self):
-        print(1)
         back = cv2.imread('./Frame/Frame_{}.png'.format(self.FrameNum))
         back = cv2.resize(back, (900, 600))
 
@@ -893,6 +953,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # url / upload / video
     # 2번째 보낼 때 post로 data를 postid까지 보낸다
     def Press_Printing(self):
+        # 터치 효과음 추가
+        os.system('aplay ./touch_sound.wav')
+
         self.FrameImg.save('./FramePlusImg.png', 'PNG')
         self.stack.setCurrentIndex(6)
 
