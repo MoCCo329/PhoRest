@@ -51,4 +51,25 @@ public class MyPageController {
         myPageService.join(postId, username);
         return true;
     }
+
+    @DeleteMapping("mypage/{postId}/delete")
+    @ResponseBody
+    public Long deleteMyPage(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
+        if(!tokenProvider.validateToken(token))
+            return 1L;
+
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return myPageService.deletePost(postId, username);
+    }
+
+    @PostMapping("mypage/{postId}/share")
+    @ResponseBody
+    public Long sharePost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token)
+    {
+        if(!tokenProvider.validateToken(token))
+            return 1L;
+
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return myPageService.sharePost(postId, username);
+    }
 }

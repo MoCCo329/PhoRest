@@ -70,4 +70,31 @@ public class MyPageService {
         }
         return userDtos;
     }
+
+    public Long deletePost(Long postId, String username){
+        Optional<Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return 2L;
+        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
+        if(myPage.isEmpty())
+            return 3L;
+        myPageRepository.deleteById(myPage.get().getId());
+        List<MyPage> myPages = myPageRepository.findByPostIdShared(postId);
+        if(myPages.size() == 0)
+            post.get().setShared(false);
+        return 0L;
+    }
+
+    public Long sharePost(Long postId, String username){
+        Optional<Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return 2L;
+        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
+        if(myPage.isEmpty())
+            return 3L;
+        myPage.get().setShared(true);
+        if(!post.get().isShared())
+            post.get().setShared(true);
+        return 0L;
+    }
 }
