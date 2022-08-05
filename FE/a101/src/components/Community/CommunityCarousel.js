@@ -17,7 +17,7 @@ export default function CommunityCarousel(props) {
   const [humanCount, setHumanCount] = useState(1)
 
   const move = (postId) => {
-    navigate(`/community/${postId}`)
+    navigate(`/community/${btoa((postId) * 73 - 37)}`)
   }
 
   return (

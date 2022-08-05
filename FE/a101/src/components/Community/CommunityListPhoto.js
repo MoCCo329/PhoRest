@@ -103,7 +103,7 @@ export default function CommunityListPhoto() {
   }
 
   const move = (postId) => {
-    navigate(`/community/${postId}`)
+    navigate(`/community/${btoa((postId) * 73 - 37)}`)
   }
 
   return (

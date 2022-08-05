@@ -166,7 +166,7 @@ export let { setDetailPost, likeDetailPost, bookmarkDetailPost } = detailPost.ac
 
 export let detailComments = createSlice({
   name: 'detailComments',
-  initialState: [],
+  initialState: [{}, {}],
   reducers: {
     editComment (state, actions) {
       const {comment, idx} = actions.payload

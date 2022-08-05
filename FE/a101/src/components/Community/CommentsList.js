@@ -5,7 +5,7 @@ import CommentsEdit from './CommentsEdit'
 
 export default function CommentsList() {
     let editCommentId = useSelector(state => state.editCommentId)
-    let dummyComments = useSelector(state => state.comments)
+    let dummyComments = useSelector(state => state.detailComments)
 
     // 댓글 리스트를 map으로 표시
     // currentUser와 댓글 username이 같으면 편집 아이콘 표시

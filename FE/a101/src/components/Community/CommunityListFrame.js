@@ -82,7 +82,7 @@ export default function CommunityListFrame() {
   }
 
   const move = (postId) => {
-    navigate(`/community/${postId}`)
+    navigate(`/community/${btoa((postId) * 73 - 37)}`)
   }
 
   return (

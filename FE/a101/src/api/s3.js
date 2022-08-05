@@ -6,7 +6,7 @@ const s3 = {
   detailPost (postId) {
     return api({
       method: 'get',
-      url: `download/${postId}/`,
+      url: `download/${btoa(postId * 73 - 37)}/`,
     })
   },
   profileURL (data) {
