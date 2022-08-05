@@ -44,6 +44,8 @@ public class User {
 
    private String profileUrl;
 
+   private String introduce;
+
    @OneToMany(mappedBy = "user")// Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. mypage가 주인장.
    private List<MyPage> mypages = new ArrayList<>();
 

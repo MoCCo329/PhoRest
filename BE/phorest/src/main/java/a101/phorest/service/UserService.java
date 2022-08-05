@@ -93,6 +93,7 @@ public class UserService {
         userDto.setPassword(user.getPassword());
         userDto.setPhone(user.getPhone());
         userDto.setProfileURL(user.getProfileUrl());
+        userDto.setIntroduce(user.getIntroduce());
         return Optional.of(userDto);
     }
 
@@ -111,6 +112,7 @@ public class UserService {
         user.setNickname(userDto.getNickname());
         user.setProfileUrl(userDto.getProfileURL());
         user.setPhone(userDto.getPhone());
+        user.setIntroduce(userDto.getIntroduce());
         return 0L;
 
     }

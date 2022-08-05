@@ -43,8 +43,12 @@ public class MyPageService {
         return mypage.getId();
     }
 
-    public List<PostDto> findByUserId(String searchUsername, String loginUsername)
+    public UserDto findByUserId(String searchUsername, String loginUsername)
     {
+        User user = userRepository.findByUsername(searchUsername);
+        if(user == null)
+            return new UserDto();
+        UserDto userDto = UserDto.from(user);
         List<Post> posts;
         if(searchUsername.equals(loginUsername))
         {
@@ -61,7 +65,8 @@ public class MyPageService {
             PostDto postDto = new PostDto(posts.get(i), new ArrayList<>());
             postDtos.add(postDto);
         }
-        return postDtos;
+        userDto.setPostDtos(postDtos);
+        return userDto;
     }
 
     public List<UserDto> findByPostId(Long postId)

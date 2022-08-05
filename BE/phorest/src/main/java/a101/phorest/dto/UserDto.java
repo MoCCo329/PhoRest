@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,6 +47,17 @@ public class UserDto {
    private String phone;
 
    private String profileURL;
+
+   private String introduce;
+
+   private List<PostDto> postDtos;
+
+   private Long followers;
+
+   private Long following;
+
+   private boolean isFollowing;
+
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
@@ -59,6 +71,7 @@ public class UserDto {
               .role(user.getRole())
               .phone(user.getPhone())
               .profileURL(user.getProfileUrl())
+              .introduce(user.getIntroduce())
               .build();
 
       return userDto;

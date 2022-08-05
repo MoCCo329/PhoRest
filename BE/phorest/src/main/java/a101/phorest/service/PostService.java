@@ -58,6 +58,8 @@ public class PostService {
         }
         if(post.isEmpty())
             return Optional.empty();
+        else if(!post.get().isShared())
+            return Optional.empty();
         PostDto postDto = new PostDto(post.get(), userDtos);
         postDto.setIsLike(false);
         postDto.setIsBookmark(false);
@@ -88,7 +90,6 @@ public class PostService {
         {
             posts.addAll(postRepository.findFrameByLikeCount("frame", limit, offset));
         }
-        System.out.println(posts.size());
         for(int i = 0; i < posts.size(); i++) {
             List<User> users = userRepository.findByPostId(posts.get(i).getId());
             List<UserDto> userDtos = new ArrayList<>();
@@ -113,7 +114,6 @@ public class PostService {
         } else if (category.equals("frame")) {
             posts.addAll(postRepository.findFrameByRecent("frame", limit, offset));
         }
-        System.out.println(posts.size());
         for (int i = 0; i < posts.size(); i++) {
             List<User> users = userRepository.findByPostId(posts.get(i).getId());
             List<UserDto> userDtos = new ArrayList<>();
