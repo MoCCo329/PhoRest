@@ -42,7 +42,6 @@ public class UserDTO {
    @Enumerated(EnumType.STRING)
    private Role role;
 
-   @NotNull
    @Size(min = 3, max = 50)
    private String phone;
 
@@ -57,6 +56,8 @@ public class UserDTO {
    private Long followingCount;
 
    private boolean isFollowing;
+
+   private String refresh_token;
 
    //private String token;
 

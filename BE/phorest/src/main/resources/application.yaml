@@ -43,3 +43,6 @@ jwt:
   secret: aGVlc3VuLWlzLXRoZS1iZXN0LWdvcmdlb3VzLXBlcmZlY3Qtd29uZGVyZnVsLWZhbnRhc3RpYy1jcmVhdGl2ZS1jaGFybWluZy13b21hbi1pbi10aGUtd29ybGQtZm9yLXN1cmU=
   # 변환함
   token-validity-in-seconds: 86400
+
+kakao:
+  client_id: 4656da19556d6f608f3a297dd7c7b994
