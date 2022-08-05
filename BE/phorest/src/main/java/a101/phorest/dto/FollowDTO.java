@@ -13,10 +13,7 @@ import lombok.Setter;
 public class FollowDTO {
 
     public FollowDTO(Follow follow){
-        this.id = follow.getId();
-        this.following_user_id = follow.getFollowing().getUsedId();
+        this.username = follow.getFollowing().getUsername();
     }
-
-    private Long id;
-    private Long following_user_id;
+    private String username;
 }
