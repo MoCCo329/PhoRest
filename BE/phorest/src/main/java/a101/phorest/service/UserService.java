@@ -38,9 +38,9 @@ public class UserService {
         if (userRepository.findByPhone(userDto.getPhone()) != null){
             throw new DuplicateMemberException("핸드폰 번호가 이미 있습니다.");
         }
-        if (userDto.getPhone().length() != 11){
+/*        if (userDto.getPhone().length() != 11){
             throw new DuplicateMemberException("핸드폰 번호가 잘못되었습니다.");
-        }
+        }*/
 
 //        Authority authority = Authority.builder()
 //                .authorityName("ROLE_USER")
