@@ -58,4 +58,10 @@ public class User {
    @OneToMany(mappedBy = "user")//Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. bookmark가 주인장.
    private List<Bookmark> bookmarks = new ArrayList<>();
 
+   @OneToMany(mappedBy = "following")
+   private List<Follow> followings = new ArrayList<>();
+
+   @OneToMany(mappedBy = "follower")
+   private List<Follow> followers = new ArrayList<>();
+
 }
