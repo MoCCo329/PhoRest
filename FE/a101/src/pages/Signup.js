@@ -38,12 +38,11 @@ export default function Main() {
                 username : id,
                 nickname : nickname,
                 password : password,
-                phone : String(phone)
+                phone : phone
             }
             member.signup(credentials)
             .then((result) => {
-                console.log('성공', result)
-                navigate(-2)
+                navigate("/login/")
             })
             .catch((error) => {
                 dispatch(setAuthError(error.response.data.message))

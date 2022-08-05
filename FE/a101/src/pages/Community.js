@@ -9,7 +9,7 @@ import CommentsList from '../components/Community/CommentsList'
 import CommentsNew from './../components/Community/CommentsNew'
 
 // functions
-import { fetchPic } from '../store/modules/community'
+import { setDetailPost } from '../store/modules/community'
 import download from './../api/download'
 
 export default function Community(props) {
@@ -20,29 +20,26 @@ export default function Community(props) {
 
     const dispatch = useDispatch()
     const { postId } = useParams()
-    let content = useSelector(state => state.pic)
+    let content = useSelector(state => state.detailPost)
 
-    if (!!!content.url) {
-        download.pic(postId)
+    if (!content || (content.postId !== postId)) {
+        download.detailPost(postId)
         .then(result => result.data)
         .then(result => {
-            const copy = {
-                postId: result.id,
-                category: result.category,
-                url: result.url,
-                content: result.content,
-                humanCount: result.human_count,
-                time: result.time,
-            }
-            dispatch(fetchPic(copy))
+            // const copy = {
+            //     postId: result.id,
+            //     category: result.category,
+            //     url: result.url,
+            //     content: result.content,
+            //     humanCount: result.human_count,
+            //     time: result.time,
+            // }
+            dispatch(setDetailPost(result))
         })
     }
 
-    const reset = () => {
-        dispatch(fetchPic({}))
-    }
     useEffect(() => {
-        return reset()
+        return () => {dispatch(setDetailPost({}))}
     }, [])
 
     // props 게시판 종류가 네컷이면 포즈가 있어야하며
@@ -55,7 +52,7 @@ export default function Community(props) {
         <Layout>
             <main>
                 <h3 className="community-title">
-                    { content.category === 'frame' ? '프레임' : '사진'} 게시판
+                    { content.category === 'frame' ? '프레임' : '포즈'} 게시판
                     { content.category==='photogroup' ? <> ({content.humanCount}명)</> : null }
                 </h3>
                 <hr />

@@ -20,7 +20,6 @@ export default function Header() {
         <nav>
           {/* 로그인 되어있다면 profile 로그아웃, 아니면 회원가입 로그인 */}
           <Profile></Profile>
-          <p>초록물고기</p>
         </nav>
       </div>
     </header>

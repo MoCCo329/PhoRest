@@ -7,22 +7,22 @@ import Layout from '../components/Layout/Layout'
 import CommunityCarousel from './../components/Community/CommunityCarousel'
 
 // functions
-import { fetchPic } from '../store/modules/community'
+import { setDetailPost } from '../store/modules/community'
 import download from './../api/download'
 
 
 export default function Main() {
-    const picPopular = useSelector(state => state.picPopular)
-    // const picRecent = useSelector(state => state.picRecent)
-    const framePopular = useSelector(state => state.framePopular)
+    const photoLike = useSelector(state => state.photoLike)
+    // const picRecent = useSelector(state => state.photoRecent])
+    const frameLike = useSelector(state => state.frameLike)
     // const frameRecent = useSelector(state => state.frameRecent)
 
     const dispatch = useDispatch()
     const { postId } = useParams()
-    let content = useSelector(state => state.pic)
+    let content = useSelector(state => state.detailPost)
 
     if (!!!content.url) {
-        download.pic(postId)
+        download.detailPost(postId)
         .then(result => result.data)
         .then(result => {
             const copy = {
@@ -30,18 +30,17 @@ export default function Main() {
                 category: result.category,
                 url: result.url,
                 content: result.content,
-                humanCount: result.human_count,
+                humanCount: result.humanCount,
                 time: result.time,
+                photogroupId: result.photogroupId,
+                frameId: result.frameId,
             }
-            dispatch(fetchPic(copy))
+            dispatch(setDetailPost(copy))
         })
     }
 
-    const reset = () => {
-        dispatch(fetchPic({}))
-    }
     useEffect(() => {
-        return reset()
+        return () => {dispatch(setDetailPost({}))}
     }, [])
     
     const imageDownload = () => {
@@ -60,7 +59,6 @@ export default function Main() {
         })
     }
     const videoDownload = () => {
-        console.log(content.url)
         fetch(content.url + '?timestamp=2')
         .then((image) => {
             return image.blob();
@@ -95,11 +93,11 @@ export default function Main() {
                 <hr />
                 <div className="download-community">
                     <div>
-                        <CommunityCarousel communityType="photogroup" contents={picPopular}/>
+                        <CommunityCarousel communityType="photogroup" contents={photoLike}/>
                     </div>
                     <hr />
                     <div>
-                        <CommunityCarousel communityType="frame" contents={framePopular}/>
+                        <CommunityCarousel communityType="frame" contents={frameLike}/>
                     </div>
                 </div>
             </main>

@@ -26,11 +26,19 @@ const member = {
       data : data,
     })
   },
+
+  profileEdit(data) {
+    return api({
+      method: 'put',
+      url: `${END_POINT}/edit/`,
+      data : data,
+    })
+  },
   
   currentUser() {
     return api({
       method: 'get',
-      url: `${END_POINT}/user/`,
+      url: `${END_POINT}/currentuser/`,
     })
   },
 }

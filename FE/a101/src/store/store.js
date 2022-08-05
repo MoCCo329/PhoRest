@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { picPopular, picRecent, framePopular, frameRecent, pic, editCommentId, comments } from './modules/community.js'
+import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, editCommentId } from './modules/community.js'
 import { token, currentUser, authError } from './modules/member.js'
 
 export default configureStore({
   reducer: {
     // community
-    picPopular: picPopular.reducer,
-    picRecent: picRecent.reducer,
-    framePopular: framePopular.reducer,
-    frmaeRecent: frameRecent.reducer,
-    pic: pic.reducer,
-    comments: comments.reducer,
+    photoLike: photoLike.reducer,
+    photoRecent: photoRecent.reducer,
+    frameLike: frameLike.reducer,
+    frameRecent: frameRecent.reducer,
+    detailPost: detailPost.reducer,
+    detailComments: detailComments.reducer,
     editCommentId: editCommentId.reducer,
 
     // member
