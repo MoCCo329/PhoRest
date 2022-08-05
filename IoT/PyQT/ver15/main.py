@@ -1,19 +1,12 @@
-import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QPixmap, QImage
 import Main_Ui
-import time
-import threading
-import cv2
-import os
+import time, threading, cv2, os, qrcode, sys, base64
 from PIL import Image, ImageDraw, ImageFont
 import datetime as dt
-import qrcode
-import requests
-import urllib.request
-import json
+import requests, urllib.request, json
 from moviepy.editor import *
 
 stop_event = threading.Event()
@@ -701,6 +694,14 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         res = requests.post("https://i7a101.p.ssafy.io/api/upload/photogroup", files=files, data=data)
 
         post_id = res.text
+
+        #base64 암호화
+        int_post_id = (int(post_id) * 73) - 37
+        str_post_id = str(int_post_id)
+        post_id_byte = str_post_id.encode('ascii')
+        post_id_base64 = base64.b64encode(post_id_byte)
+        post_id_base64_str = post_id_base64.decode('ascii')
+
         # QR코드 작성
         qr = qrcode.QRCode(
             version=1,
@@ -709,7 +710,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             border=1
         )
 
-        url = 'https://i7a101.p.ssafy.io/download/' + post_id
+        url = 'https://i7a101.p.ssafy.io/download/' + post_id_base64_str
         qr.add_data(url)
         qr.make()
         qrimg = qr.make_image(fill_color='black', back_color='white')
