@@ -19,18 +19,10 @@ header {
   height: 4vh;
   width: 4vh;
 }
-
-header nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.header-profile {
-  margin-right: 1vw;
-}
-
-header nav {
+.header-state {
   margin-top: 1vw;
   margin-right: 3vw;
+    display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import './Community.css'
 import Layout from '../components/Layout/Layout'
-import Profile from '../components/Member/Profile.js'
+import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import CommentsNew from './../components/Community/CommentsNew'
 
 // functions
 import { setDetailPost } from '../store/modules/community'
-import download from './../api/download'
+import s3 from './../api/s3'
 
 export default function Community(props) {
 
@@ -23,19 +23,10 @@ export default function Community(props) {
     let content = useSelector(state => state.detailPost)
 
     if (!content || (content.postId !== postId)) {
-        download.detailPost(postId)
-        .then(result => result.data)
-        .then(result => {
-            // const copy = {
-            //     postId: result.id,
-            //     category: result.category,
-            //     url: result.url,
-            //     content: result.content,
-            //     humanCount: result.human_count,
-            //     time: result.time,
-            // }
-            dispatch(setDetailPost(result))
-        })
+        s3.detailPost(postId)
+        .then(result => 
+            dispatch(setDetailPost(result.data))
+        )
     }
 
     useEffect(() => {

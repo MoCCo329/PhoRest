@@ -1,9 +1,9 @@
 import api from './api'
 
-const END_POINT = 'member'
+const END_POINT = 'user'
 
 
-const member = {
+const user = {
   login (data) {
     return api({
       method: 'post',
@@ -43,4 +43,4 @@ const member = {
   },
 }
 
-export default member
+export default user

@@ -8,7 +8,7 @@ import CommunityCarousel from './../components/Community/CommunityCarousel'
 
 // functions
 import { setDetailPost } from '../store/modules/community'
-import download from './../api/download'
+import s3 from './../api/s3'
 
 
 export default function Main() {
@@ -22,7 +22,7 @@ export default function Main() {
     let content = useSelector(state => state.detailPost)
 
     if (!!!content.url) {
-        download.detailPost(postId)
+        s3.detailPost(postId)
         .then(result => result.data)
         .then(result => {
             const copy = {

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import './Profile.css'
 
 export default function Profile(props) {
     const navigate = useNavigate()
@@ -13,9 +14,9 @@ export default function Profile(props) {
 
 
     return (
-        <div onClick={() => {navigate(`/mypage/${user.username}`)}}>
+        <div className="profile" onClick={() => {navigate(`/mypage/${user.username}`)}}>
            {
-            user.url ? <img src={user.url} alt="" /> : <AccountCircleTwoToneIcon className="header-profile" />
+            user.profileURL ? <img src={user.profileURL} alt="" /> : <AccountCircleTwoToneIcon className="header-profile" />
            }
            {user.nickname}
         </div>

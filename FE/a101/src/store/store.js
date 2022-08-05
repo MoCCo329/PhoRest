@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, editCommentId } from './modules/community.js'
-import { token, currentUser, authError } from './modules/member.js'
+import { token, currentUser, authError } from './modules/user.js'
 
 export default configureStore({
   reducer: {
