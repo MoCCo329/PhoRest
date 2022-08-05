@@ -31,12 +31,6 @@ public class CommentController {
 
         return commentService.join(postId,username,content.get("content"));
     }
-
-//
-//    @PutMapping("{postId}/comment/{commentId}") // 댓글 수정
-//    public Comment editComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, @Valid @RequestBody CommentDto commentDto) {
-//
-//    }
     
     @DeleteMapping("{postId}/comment/{commentId}") //댓글 삭제
     public Boolean deleteComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token) {
@@ -44,6 +38,16 @@ public class CommentController {
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
         return commentService.remove(postId,commentId,username);
+    }
+
+    @PutMapping("{postId}/comment/{commentId}") // 댓글 수정
+    public int editComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token,@Valid @RequestBody Map<String, String> content) {
+        //수정완료 0 수정못함 1
+        if(!tokenProvider.validateToken(token)) return 3;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+
+        return commentService.change(postId,commentId,username,content.get("content"));
+
     }
 
 }

@@ -59,12 +59,25 @@ public class CommentService {
 
     @Transactional
     public Boolean remove(Long PostId, Long CommentId, String username){
-        if(userRepository.findById(CommentId).isPresent()){
+        if(commentRepository.findById(CommentId).isPresent()){
             Comment comment = commentRepository.findById(CommentId).get();
             if (comment.getUser().getUsername().equals(username) && comment.getPost().getId().equals(PostId))
                 commentRepository.deleteById(comment.getId());
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public int change(Long PostId, Long CommentId, String username,String content){
+        if(commentRepository.findById(CommentId).isPresent()){
+            Comment comment = commentRepository.findById(CommentId).get();
+            if (comment.getUser().getUsername().equals(username) && comment.getPost().getId().equals(PostId))
+            {
+                comment.setContent(content);
+                return 0;
+            }else return 1;
+        }
+        else return 2;
     }
 }
