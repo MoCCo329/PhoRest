@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Base64;
 import java.util.Optional;
 
 @Controller
@@ -111,9 +112,11 @@ public class ImageController {
 
     @GetMapping("download/{postId}")
     @ResponseBody
-    public PostDTO sendPost(@PathVariable("postId") Long id){
-
-        Optional<PostDTO> postDto = postService.findDtoOne(0L, id, "");
+    public PostDTO sendPost(@PathVariable("postId") String postIdEncoded){
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
+        Optional<PostDTO> postDto = postService.findDtoOne(0L, postId, "");
         if(postDto.isEmpty())
             return new PostDTO();
         return postDto.get();

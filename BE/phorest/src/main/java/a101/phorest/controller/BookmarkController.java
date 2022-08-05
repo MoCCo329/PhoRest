@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+
 @Controller
 @RequestMapping("api")
 @RequiredArgsConstructor
@@ -20,7 +22,10 @@ public class BookmarkController {
 
     @PostMapping("community/{postId}/bookmark")
     @ResponseBody
-    public int addLike(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
+    public int addLike(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token){
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         if(!tokenProvider.validateToken(token))
             //return "InvalidToken";
             return 2;

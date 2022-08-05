@@ -6,6 +6,7 @@ import a101.phorest.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +48,13 @@ public class CommunityController {
     }
 
     @GetMapping("{postId}")
-    public PostDTO getPost(@PathVariable("postId") Long postId, @RequestHeader(value = "Authorization", required = false) String token)
+    public PostDTO getPost(@PathVariable("postId") String postIdEncoded, @RequestHeader(value = "Authorization", required = false) String token)
     {
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         Optional<PostDTO> postDto;
-        if(token == null)
+        if(token == null || token.equals(""))
         {
             postDto = postService.findDtoOne(1L, postId, "");
             return postDto.orElseGet(PostDTO::new);
@@ -63,7 +67,10 @@ public class CommunityController {
     }
 
     @PutMapping("{postId}")
-    public Long editPost(@PathVariable("postId") Long postId, @RequestBody PostDTO postDto, @RequestHeader(value = "Authorization") String token){
+    public Long editPost(@PathVariable("postId") String postIdEncoded, @RequestBody PostDTO postDto, @RequestHeader(value = "Authorization") String token){
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
@@ -71,7 +78,10 @@ public class CommunityController {
     }
 
     @DeleteMapping("{postId}")
-    public Long deletePost(@PathVariable("postId") Long postId, @RequestHeader(value = "Authorization") String token){
+    public Long deletePost(@PathVariable("postId") String postIdEncoded, @RequestHeader(value = "Authorization") String token){
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +21,18 @@ public class CommentController {
     public final TokenProvider tokenProvider;
 
     @GetMapping("{postId}/comment") // 댓글 목록
-    public List<CommentDTO> commentList(@PathVariable("postId") Long postId){
+    public List<CommentDTO> commentList(@PathVariable("postId") String postIdEncoded){
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         return commentService.findComments(postId);
     }
     
     @PostMapping("{postId}/comment") // 댓글 생성
-    public Boolean newComment(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content) {
+    public Boolean newComment(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content) {
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         if(!tokenProvider.validateToken(token)) return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
@@ -33,7 +40,10 @@ public class CommentController {
     }
     
     @DeleteMapping("{postId}/comment/{commentId}") //댓글 삭제
-    public Boolean deleteComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token) {
+    public Boolean deleteComment(@PathVariable("postId") String postIdEncoded, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token) {
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         if(!tokenProvider.validateToken(token)) return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
@@ -41,7 +51,10 @@ public class CommentController {
     }
 
     @PutMapping("{postId}/comment/{commentId}") // 댓글 수정
-    public int editComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token,@Valid @RequestBody Map<String, String> content) {
+    public int editComment(@PathVariable("postId") String postIdEncoded, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token,@Valid @RequestBody Map<String, String> content) {
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = Long.parseLong(decodedString);
         //수정완료 0 수정못함 1
         if(!tokenProvider.validateToken(token)) return 3;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
