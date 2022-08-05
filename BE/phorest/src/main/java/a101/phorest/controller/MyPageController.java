@@ -20,7 +20,7 @@ public class MyPageController {
     public UserDTO findByUserId(@PathVariable("username") String searchUsername, @RequestHeader(value = "Authorization", required = false) String token)
     {
         String loginUsername;
-        if(token == null)
+        if(token == null || token == "")
         {
             loginUsername = "";
         }

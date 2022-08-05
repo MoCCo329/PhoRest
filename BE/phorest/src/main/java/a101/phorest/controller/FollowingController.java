@@ -38,8 +38,8 @@ public class FollowingController {
 
         String my_username = (String)tokenProvider.getTokenBody(token).get("sub");
 
-        Long my_id=userRepository.findByUsername(my_username).getUsedId();
-        Long other_id=userRepository.findByUsername(other_username).getUsedId();
+        Long my_id=userRepository.findByUsername(my_username).getUserId();
+        Long other_id=userRepository.findByUsername(other_username).getUserId();
 
         if(my_id == other_id) return 3;
 

@@ -52,9 +52,9 @@ public class UserDTO {
 
    private List<PostDTO> postDTOS;
 
-   private Long followers;
+   private Long followerCount;
 
-   private Long following;
+   private Long followingCount;
 
    private boolean isFollowing;
 

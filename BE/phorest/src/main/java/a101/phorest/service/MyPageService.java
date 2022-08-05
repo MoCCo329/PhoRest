@@ -4,6 +4,7 @@ import a101.phorest.domain.*;
 //import a101.phorest.repository.MemberRepository;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
+import a101.phorest.repository.FollowRepository;
 import a101.phorest.repository.MyPageRepository;
 import a101.phorest.repository.PostRepository;
 import a101.phorest.repository.UserRepository;
@@ -26,6 +27,7 @@ public class MyPageService {
     private final PostRepository postRepository;
     private final MyPageRepository myPageRepository;
 
+    private final FollowRepository followRepository;
     @Transactional
     public Long join(Long postId, String username)
     {
@@ -45,20 +47,31 @@ public class MyPageService {
 
     public UserDTO findByUserId(String searchUsername, String loginUsername)
     {
-        User user = userRepository.findByUsername(searchUsername);
-        if(user == null)
+        User searchUser = userRepository.findByUsername(searchUsername);
+        User loginUser = new User();
+        if(!loginUsername.equals(""))
+            loginUser = userRepository.findByUsername(loginUsername);
+        if(searchUser == null)
             return new UserDTO();
-        UserDTO userDto = UserDTO.from(user);
+        UserDTO userDto = UserDTO.from(searchUser);
         List<Post> posts;
         if(searchUsername.equals(loginUsername))
         {
             posts = postRepository.findByUserId(searchUsername);
-            System.out.println(posts.size());
+            userDto.setFollowingCount(followRepository.countFollowByFollower(searchUser));
         }
         else
         {
             posts = postRepository.findByUserIdShared(searchUsername);
+            Optional<Follow> follow = Optional.empty();
+            if(!loginUsername.equals(""))
+                follow = followRepository.findByFollowerAndFollowing(searchUser.getUserId(), loginUser.getUserId());
+            if(follow.isPresent())
+                userDto.setFollowing(true);
+            else
+                userDto.setFollowing(false);
         }
+        userDto.setFollowerCount(followRepository.countFollowByFollowing(searchUser));
         List<PostDTO> postDTOS = new ArrayList<>();
         for(int i = 0; i < posts.size(); i++)
         {
