@@ -3,7 +3,7 @@ package a101.phorest.service;
 import a101.phorest.domain.Comment;
 import a101.phorest.domain.Post;
 import a101.phorest.domain.User;
-import a101.phorest.dto.CommentDto;
+import a101.phorest.dto.CommentDTO;
 import a101.phorest.repository.CommentRepository;
 import a101.phorest.repository.PostRepository;
 import a101.phorest.repository.UserRepository;
@@ -24,15 +24,15 @@ public class CommentService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
-    public List<CommentDto> findComments(Long postId){
+    public List<CommentDTO> findComments(Long postId){
         List<Comment> comments = commentRepository.findAllByPostId(postId);
-        List<CommentDto> commentDtos = new ArrayList<>();
+        List<CommentDTO> commentDTOS = new ArrayList<>();
 
         for(int i=0;i<comments.size();i++){
-            CommentDto commentDto = new CommentDto(comments.get(i));
-            commentDtos.add(commentDto);
+            CommentDTO commentDto = new CommentDTO(comments.get(i));
+            commentDTOS.add(commentDto);
         }
-        return commentDtos;
+        return commentDTOS;
     }
 
 //    @Transactional

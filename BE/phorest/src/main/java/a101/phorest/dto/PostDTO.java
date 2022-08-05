@@ -1,7 +1,6 @@
 package a101.phorest.dto;
 
 import a101.phorest.domain.Post;
-import a101.phorest.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,9 @@ import java.util.List;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDto {
+public class PostDTO {
 
-    public PostDto (Post post, List<UserDto> users){
+    public PostDTO(Post post, List<UserDTO> users){
         this.id = post.getId();
         this.category = post.getCategory();
         if("photogroup".equals(this.category))
@@ -57,5 +56,5 @@ public class PostDto {
 
     private Boolean isBookmark;
 
-    private List<UserDto> users;
+    private List<UserDTO> users;
 }

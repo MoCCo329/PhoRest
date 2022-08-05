@@ -4,16 +4,13 @@ package a101.phorest.controller;
 import a101.phorest.S3Uploader;
 import a101.phorest.domain.Frame;
 import a101.phorest.domain.PhotoGroup;
-import a101.phorest.domain.Post;
-import a101.phorest.dto.PostDto;
-import a101.phorest.jwt.TokenProvider;
+import a101.phorest.dto.PostDTO;
 import a101.phorest.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -114,11 +111,11 @@ public class ImageController {
 
     @GetMapping("download/{postId}")
     @ResponseBody
-    public PostDto sendPost(@PathVariable("postId") Long id){
+    public PostDTO sendPost(@PathVariable("postId") Long id){
 
-        Optional<PostDto> postDto = postService.findDtoOne(id, "");
+        Optional<PostDTO> postDto = postService.findDtoOne(id, "");
         if(postDto.isEmpty())
-            return new PostDto();
+            return new PostDTO();
         return postDto.get();
     }
 

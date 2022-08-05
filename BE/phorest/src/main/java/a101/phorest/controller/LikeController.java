@@ -1,18 +1,11 @@
 package a101.phorest.controller;
 
-import a101.phorest.domain.Like;
-import a101.phorest.dto.PostDto;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.LikeRepository;
 import a101.phorest.service.LikeService;
-import a101.phorest.service.MyPageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("api")

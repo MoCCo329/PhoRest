@@ -1,19 +1,11 @@
 package a101.phorest.controller;
 
-import a101.phorest.domain.Post;
-import a101.phorest.dto.PostDto;
-import a101.phorest.dto.UserDto;
-import a101.phorest.jwt.JwtFilter;
+import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.MyPageService;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("api")
@@ -25,7 +17,7 @@ public class MyPageController {
 
     @ResponseBody
     @GetMapping("mypage/{username}")
-    public UserDto findByUserId(@PathVariable("username") String searchUsername, @RequestHeader(value = "Authorization", required = false) String token)
+    public UserDTO findByUserId(@PathVariable("username") String searchUsername, @RequestHeader(value = "Authorization", required = false) String token)
     {
         String loginUsername;
         if(token == null)
@@ -38,7 +30,7 @@ public class MyPageController {
         }
         else
         {
-            return new UserDto();
+            return new UserDTO();
         }
         return myPageService.findByUserId(searchUsername, loginUsername);
     }

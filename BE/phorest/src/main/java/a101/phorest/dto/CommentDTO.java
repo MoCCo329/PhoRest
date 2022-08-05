@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDto {
+public class CommentDTO {
 
-    public CommentDto(Comment comment){
+    public CommentDTO(Comment comment){
         this.id = comment.getId();
         this.postId = comment.getPost().getId();
         this.postId = comment.getUser().getUsedId();

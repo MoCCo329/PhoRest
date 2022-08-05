@@ -1,7 +1,7 @@
 package a101.phorest.controller;
-import a101.phorest.dto.LoginDto;
-import a101.phorest.dto.TokenDto;
-import a101.phorest.dto.UserDto;
+import a101.phorest.dto.LoginDTO;
+import a101.phorest.dto.TokenDTO;
+import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,18 +37,18 @@ public class UserController {
         response.sendRedirect("/api/user");
     }
 
-    @PostMapping("/member/signup")
-    public ResponseEntity<UserDto> signup(@Valid @RequestBody UserDto userDto) {
+    @PostMapping("/user/signup")
+    public ResponseEntity<UserDTO> signup(@Valid @RequestBody UserDTO userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
-    @PostMapping("/member/login")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto){
+    @PostMapping("/user/login")
+    public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginDTO loginDto){
 
         return ResponseEntity.ok(userService.login(loginDto));
 
     }
-    @PostMapping("/member/logout")
+    @PostMapping("/user/logout")
     public Boolean logout(@RequestHeader("Authorization") String token){
         if(!tokenProvider.validateToken(token))
             //return "InvalidToken";
@@ -57,17 +57,17 @@ public class UserController {
         userService.logout(username);
         return true;
     }
-    @GetMapping("/member/currentuser")
-    public UserDto getCurrentUser(@RequestHeader("Authorization") String token)
+    @GetMapping("/user/currentuser")
+    public UserDTO getCurrentUser(@RequestHeader("Authorization") String token)
     {
         if(!tokenProvider.validateToken(token))
-            return new UserDto();
+            return new UserDTO();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return userService.findDtoUsernameOne(username).get();
     }
 
-    @PutMapping("member/edit")
-    public Long editUser(@RequestBody UserDto user, @RequestHeader("Authorization") String token)
+    @PutMapping("user/edit")
+    public Long editUser(@RequestBody UserDTO user, @RequestHeader("Authorization") String token)
     {
         if(!tokenProvider.validateToken(token))
             return 1L;

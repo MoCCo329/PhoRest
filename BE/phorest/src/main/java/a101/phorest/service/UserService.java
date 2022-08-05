@@ -3,9 +3,9 @@ package a101.phorest.service;
 
 import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
-import a101.phorest.dto.LoginDto;
-import a101.phorest.dto.TokenDto;
-import a101.phorest.dto.UserDto;
+import a101.phorest.dto.LoginDTO;
+import a101.phorest.dto.TokenDTO;
+import a101.phorest.dto.UserDTO;
 import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.UserRepository;
@@ -28,7 +28,7 @@ public class UserService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @Transactional
-    public UserDto signup(UserDto userDto) {
+    public UserDTO signup(UserDTO userDto) {
         if (userRepository.findByUsername(userDto.getUsername()) != null){
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
@@ -55,11 +55,11 @@ public class UserService {
                 .activated(true)
                 .build();
 
-        return UserDto.from(userRepository.save(user));
+        return UserDTO.from(userRepository.save(user));
     }
 
     @Transactional
-    public TokenDto login(LoginDto loginDto){
+    public TokenDTO login(LoginDTO loginDto){
         String username = loginDto.getUsername();
         String password= loginDto.getPassword();
         User user = userRepository.findByUsername(username);
@@ -75,7 +75,7 @@ public class UserService {
 
             String jwt = tokenProvider.createToken(authenticationToken);
 
-            return new TokenDto(jwt);
+            return new TokenDTO(jwt);
         }
     }
 
@@ -85,9 +85,9 @@ public class UserService {
         user.setActivated(false);
     }
 
-    public Optional<UserDto> findDtoUsernameOne(String username){
+    public Optional<UserDTO> findDtoUsernameOne(String username){
         User user = userRepository.findByUsername(username);
-        UserDto userDto = new UserDto();
+        UserDTO userDto = new UserDTO();
         userDto.setUsername(user.getUsername());
         userDto.setNickname(user.getNickname());
         userDto.setPassword(user.getPassword());
@@ -98,7 +98,7 @@ public class UserService {
     }
 
     @Transactional
-    public Long updateUser(UserDto userDto, String username){
+    public Long updateUser(UserDTO userDto, String username){
         User user = userRepository.findByUsername(username);
         User user1 = userRepository.findByNickname(userDto.getNickname());
         User user2 = userRepository.findByPhone(userDto.getPhone());

@@ -1,7 +1,7 @@
 package a101.phorest.controller;
 
-import a101.phorest.dto.LoginDto;
-import a101.phorest.dto.TokenDto;
+import a101.phorest.dto.LoginDTO;
+import a101.phorest.dto.TokenDTO;
 import a101.phorest.jwt.JwtFilter;
 import a101.phorest.jwt.TokenProvider;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto){
+    public ResponseEntity<TokenDTO> authorize(@Valid @RequestBody LoginDTO loginDto){
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
@@ -56,6 +56,6 @@ public class AuthController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
-        return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new TokenDTO(jwt), httpHeaders, HttpStatus.OK);
     }
 }

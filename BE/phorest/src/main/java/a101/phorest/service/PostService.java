@@ -1,8 +1,8 @@
 package a101.phorest.service;
 
 import a101.phorest.domain.*;
-import a101.phorest.dto.PostDto;
-import a101.phorest.dto.UserDto;
+import a101.phorest.dto.PostDTO;
+import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -47,20 +47,20 @@ public class PostService {
         return post.getId();
     }
 
-    public Optional<PostDto> findDtoOne(Long postId, String username){
+    public Optional<PostDTO> findDtoOne(Long postId, String username){
         Optional <Post> post = postRepository.findById(postId);
         List<User> users = userRepository.findPostMyPageUsers(postId);
-        List<UserDto> userDtos = new ArrayList<>();
+        List<UserDTO> userDTOS = new ArrayList<>();
         for(int i = 0; i < users.size(); i++)
         {
-            UserDto userDto = UserDto.from(users.get(i));
-            userDtos.add(userDto);
+            UserDTO userDto = UserDTO.from(users.get(i));
+            userDTOS.add(userDto);
         }
         if(post.isEmpty())
             return Optional.empty();
         else if(!post.get().isShared())
             return Optional.empty();
-        PostDto postDto = new PostDto(post.get(), userDtos);
+        PostDTO postDto = new PostDTO(post.get(), userDTOS);
         postDto.setIsLike(false);
         postDto.setIsBookmark(false);
         if(!username.isEmpty()) {
@@ -78,8 +78,8 @@ public class PostService {
         return postRepository.findById(postId);
     }
 
-    public List<PostDto> findByLikeCount(String category, Long limit, Long offset, Long humancount) {
-        List<PostDto> postDtos = new ArrayList<>();
+    public List<PostDTO> findByLikeCount(String category, Long limit, Long offset, Long humancount) {
+        List<PostDTO> postDTOS = new ArrayList<>();
         List<Post> posts = new ArrayList<>();
         if(category.equals("photogroup"))
         {
@@ -92,21 +92,21 @@ public class PostService {
         }
         for(int i = 0; i < posts.size(); i++) {
             List<User> users = userRepository.findByPostId(posts.get(i).getId());
-            List<UserDto> userDtos = new ArrayList<>();
+            List<UserDTO> userDTOS = new ArrayList<>();
             for(int j = 0; j < users.size(); j++)
             {
-                UserDto userDto = UserDto.from(users.get(j));
-                userDtos.add(userDto);
+                UserDTO userDto = UserDTO.from(users.get(j));
+                userDTOS.add(userDto);
             }
-            PostDto postDto = new PostDto(posts.get(i), userDtos);
-            postDtos.add(postDto);
+            PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
+            postDTOS.add(postDto);
         }
-        return postDtos;
+        return postDTOS;
 
 
     }
-    public List<PostDto> findByRecent(String category, Long limit, Long offset, Long humancount) {
-        List<PostDto> postDtos = new ArrayList<>();
+    public List<PostDTO> findByRecent(String category, Long limit, Long offset, Long humancount) {
+        List<PostDTO> postDTOS = new ArrayList<>();
         List<Post> posts = new ArrayList<>();
         if (category.equals("photogroup")) {
             posts.addAll(postRepository.findPhotogroupByRecent("photogroup", limit, offset, humancount));
@@ -116,15 +116,15 @@ public class PostService {
         }
         for (int i = 0; i < posts.size(); i++) {
             List<User> users = userRepository.findByPostId(posts.get(i).getId());
-            List<UserDto> userDtos = new ArrayList<>();
+            List<UserDTO> userDTOS = new ArrayList<>();
             for (int j = 0; j < users.size(); j++) {
-                UserDto userDto = UserDto.from(users.get(i));
-                userDtos.add(userDto);
+                UserDTO userDto = UserDTO.from(users.get(i));
+                userDTOS.add(userDto);
             }
-            PostDto postDto = new PostDto(posts.get(i), userDtos);
-            postDtos.add(postDto);
+            PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
+            postDTOS.add(postDto);
         }
-        return postDtos;
+        return postDTOS;
     }
 
     @Transactional

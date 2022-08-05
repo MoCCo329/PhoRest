@@ -2,8 +2,8 @@ package a101.phorest.service;
 
 import a101.phorest.domain.*;
 //import a101.phorest.repository.MemberRepository;
-import a101.phorest.dto.PostDto;
-import a101.phorest.dto.UserDto;
+import a101.phorest.dto.PostDTO;
+import a101.phorest.dto.UserDTO;
 import a101.phorest.repository.MyPageRepository;
 import a101.phorest.repository.PostRepository;
 import a101.phorest.repository.UserRepository;
@@ -43,12 +43,12 @@ public class MyPageService {
         return mypage.getId();
     }
 
-    public UserDto findByUserId(String searchUsername, String loginUsername)
+    public UserDTO findByUserId(String searchUsername, String loginUsername)
     {
         User user = userRepository.findByUsername(searchUsername);
         if(user == null)
-            return new UserDto();
-        UserDto userDto = UserDto.from(user);
+            return new UserDTO();
+        UserDTO userDto = UserDTO.from(user);
         List<Post> posts;
         if(searchUsername.equals(loginUsername))
         {
@@ -59,25 +59,25 @@ public class MyPageService {
         {
             posts = postRepository.findByUserIdShared(searchUsername);
         }
-        List<PostDto> postDtos = new ArrayList<>();
+        List<PostDTO> postDTOS = new ArrayList<>();
         for(int i = 0; i < posts.size(); i++)
         {
-            PostDto postDto = new PostDto(posts.get(i), new ArrayList<>());
-            postDtos.add(postDto);
+            PostDTO postDto = new PostDTO(posts.get(i), new ArrayList<>());
+            postDTOS.add(postDto);
         }
-        userDto.setPostDtos(postDtos);
+        userDto.setPostDTOS(postDTOS);
         return userDto;
     }
 
-    public List<UserDto> findByPostId(Long postId)
+    public List<UserDTO> findByPostId(Long postId)
     {
         List<User> users = userRepository.findByPostId(postId);
-        List<UserDto> userDtos = new ArrayList<>();
+        List<UserDTO> userDTOS = new ArrayList<>();
         for(int i = 0; i < users.size(); i++) {
-            UserDto userDto = UserDto.from(users.get(i));
-            userDtos.add(userDto);
+            UserDTO userDto = UserDTO.from(users.get(i));
+            userDTOS.add(userDto);
         }
-        return userDtos;
+        return userDTOS;
     }
 
     public Long sharePost(Long postId, String username){

@@ -17,7 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDTO {
 
 
 
@@ -50,7 +50,7 @@ public class UserDto {
 
    private String introduce;
 
-   private List<PostDto> postDtos;
+   private List<PostDTO> postDTOS;
 
    private Long followers;
 
@@ -62,10 +62,10 @@ public class UserDto {
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
 
-   public static UserDto from(User user) {
+   public static UserDTO from(User user) {
       if(user == null) return null;
 
-      UserDto userDto = UserDto.builder()
+      UserDTO userDto = UserDTO.builder()
               .username(user.getUsername())
               .nickname(user.getNickname())
               .role(user.getRole())

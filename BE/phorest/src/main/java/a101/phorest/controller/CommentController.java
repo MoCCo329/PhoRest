@@ -1,7 +1,6 @@
 package a101.phorest.controller;
 
-import a101.phorest.domain.Comment;
-import a101.phorest.dto.CommentDto;
+import a101.phorest.dto.CommentDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class CommentController {
     public final TokenProvider tokenProvider;
 
     @GetMapping("{postId}/comment") // 댓글 목록
-    public List<CommentDto> commentList(@PathVariable("postId") Long postId){
+    public List<CommentDTO> commentList(@PathVariable("postId") Long postId){
         return commentService.findComments(postId);
     }
     
