@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -13,11 +14,13 @@ import javax.validation.constraints.Size;
 public class LoginDTO {
 
     @NotNull
-    @Size(min = 3, max = 50, message = "username의 크기는 3 이상 50 이하여야 합니다.")
+    @Pattern(regexp="(?=.*[0-9])(?=.*[a-z]).{3,50}",
+            message = "username은 영문자와 숫자 로 이루어진 5자 이상의 username이어야 합니다")
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
-    @Size(min = 3, max = 100, message = "password의 크기는 3 이상 100 이하여야 합니다.")
+    @Pattern(regexp="(?=.*[0-9])(?=.*[a-z]).{8,50}",
+            message = "password은 영문자와 숫자 로 이루어진 8자 이상의 password이어야 합니다")
     private String password;
 }

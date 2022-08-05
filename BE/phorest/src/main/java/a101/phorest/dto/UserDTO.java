@@ -9,6 +9,7 @@ import lombok.*;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -22,20 +23,23 @@ public class UserDTO {
 
 
    @NotNull
-   @Size(min = 3, max = 50, message = "username의 크기는 3 이상 50 이하여야합니다.")
+   @Pattern(regexp="(?=.*[0-9])(?=.*[a-z]).{3,50}",
+           message = "username은 영문자와 숫자 로 이루어진 5자 이상의 username이어야 합니다")
    private String username;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    @NotNull
-   @Size(min = 3, max = 100, message = "password의 크기는 3 이상 100 이하여야합니다.")
+   @Pattern(regexp="(?=.*[0-9])(?=.*[a-z]).{8,50}",
+           message = "password은 영문자와 숫자 로 이루어진 8자 이상의 password이어야 합니다")
    private String password;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-   @Size(min = 3, max = 100, message = "beforePassword의 크기는 3 이상 100 이하여야 합니다.")
+   @Pattern(regexp="(?=.*[0-9])(?=.*[a-z]).{8,50}",
+           message = "beforePassword은 영문자와 숫자 로 이루어진 8자 이상의 beforePassword이어야 합니다")
    private String beforePassword;
 
    @NotNull
-   @Size(min = 3, max = 50, message = "nickname의 크기는 3 이상 50 이하여야 합니다.")
+   @Size(min = 3, max = 50, message = "nickname의 크기는 3자 이상 이어야 합니다.")
    private String nickname;
 
    @JsonIgnore
@@ -43,7 +47,7 @@ public class UserDTO {
    private Role role;
 
    @NotNull
-   @Size(min = 3, max = 50, message = "phone의 크기는 3 이상 50 이하여야 합니다.")
+   @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "phone에는 10 ~ 11 자리의 숫자만 입력 가능합니다.")
    private String phone;
 
    private String profileURL;
