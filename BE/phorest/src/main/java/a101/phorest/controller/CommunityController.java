@@ -61,4 +61,20 @@ public class CommunityController {
         postDto = postService.findDtoOne(postId, username);
         return postDto.orElseGet(PostDto::new);
     }
+
+    @PutMapping("{postId}")
+    public Long editPost(@PathVariable("postId") Long postId,@RequestBody PostDto postDto, @RequestHeader(value = "Authorization") String token){
+        if(!tokenProvider.validateToken(token))
+            return 1L;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return postService.editPost(postId, username,postDto.getContent());
+    }
+
+    @DeleteMapping("{postId}")
+    public Long deletePost(@PathVariable("postId") Long postId, @RequestHeader(value = "Authorization") String token){
+        if(!tokenProvider.validateToken(token))
+            return 1L;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return postService.deletePost(postId, username);
+    }
 }
