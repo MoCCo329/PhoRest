@@ -2,7 +2,7 @@
 
 import './App.css'
 import { React, useEffect } from 'react'
-import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 // pages
@@ -17,14 +17,14 @@ import ProfileEdit from './pages/ProfileEdit'
 import NotFount404 from './pages/NotFound404'
 
 // functions
-import member from './api/member'
-import { setCurrentUser } from './store/modules/member'
+import user from './api/user'
+import { setCurrentUser } from './store/modules/user'
 
 function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    member.currentUser()
+    user.currentUser()
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
@@ -35,13 +35,13 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Main/>} />
         <Route exact path="/download/:postId" element={<Download/>} />
+        <Route exact path="/mypage/edit" element={<ProfileEdit/>} />
         <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/mypage" element={<Mypage/>} />
         <Route exact path="/community/:postId" element={<Community/>} />
         <Route exact path="/frameEdit" element={<FrameEdit/>} />
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
-        <Route exact path="/profile" element={<ProfileEdit/>} />
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>

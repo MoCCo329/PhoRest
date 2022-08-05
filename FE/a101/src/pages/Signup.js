@@ -2,19 +2,20 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import member from '../api/member'
-import { setAuthError } from '../store/modules/member'
+import user from '../api/user'
+import { setAuthError } from '../store/modules/user'
 
 export default function Main() {
     let dispatch = useDispatch()
     let navigate = useNavigate()
 
-    let [nickname, setNickname] = useState('')
-    let [id, setId] = useState('')
-    let [password, setPassword] = useState('')
-    let [phone, setPhone] = useState('')
-    let [passwordValidity, setPasswordValidity] = useState('')
-    let authError = useSelector(state => state.authError)
+    const [id, setId] = useState('')
+    const [nickname, setNickname] = useState('')
+    const [password, setPassword] = useState('')
+    const [phone, setPhone] = useState('')
+    const [passwordValidity, setPasswordValidity] = useState('')
+    const [phoneValidity, setPhoneValidity] = useState('')
+    const authError = useSelector(state => state.authError)
 
     useEffect(() => {
         return () => {dispatch(setAuthError(''))}
@@ -30,9 +31,21 @@ export default function Main() {
         }
     }
 
+    const phoneTest = (value) => {
+        if (value.length <= 11) {
+          setPhoneValidity('')
+        } else if (value.length > 11) {
+          setPhoneValidity('Phone number should have length of 11')
+        }
+      }
+
     const onSubmit = (e) => {
         e.preventDefault()
         dispatch(setAuthError(''))
+        if (phoneValidity==="Phone number should have length of 11") {
+            return alert('핸드본번호를 정확히 입력해 주세요')
+        }
+
         if (passwordValidity==="Passwords match") {
             const credentials = {
                 username : id,
@@ -40,9 +53,10 @@ export default function Main() {
                 password : password,
                 phone : phone
             }
-            member.signup(credentials)
+            user.signup(credentials)
             .then((result) => {
-                navigate("/login/")
+                alert('회원가입이 완료되었습니다')
+                navigate("/login")
             })
             .catch((error) => {
                 dispatch(setAuthError(error.response.data.message))
@@ -65,7 +79,7 @@ export default function Main() {
               <label htmlFor="nickname">Nickname : </label>
               <input onChange={(e)=>{setNickname(e.target.value)}} type="text" id="nickname" required placeholder="Nickname" /><br/>
               <label htmlFor="phoneNumber">Phone Number : </label>
-              <input onChange={(e)=>{setPhone(e.target.value)}} type="number" id="phoneNumber" required placeholder="PhoneNumber" /><br/>
+              <input onChange={(e)=>{setPhone(e.target.value); phoneTest(e.target.value)}} type="number" id="phoneNumber" required placeholder="PhoneNumber" />(숫자만 입력해 주세요){phoneValidity}<br/>
               <button type="submit">Sign up</button>
             </form>
             { authError ? <p>{authError}</p> : ''}

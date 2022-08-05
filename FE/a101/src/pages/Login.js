@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { setToken, setAuthError, setCurrentUser } from '../store/modules/member'
-import member from '../api/member'
+import { setToken, setAuthError, setCurrentUser } from '../store/modules/user'
+import user from '../api/user'
 
 
 export default function Main() {
@@ -25,16 +25,16 @@ export default function Main() {
             username : id,
             password : password
         }
-        member.login(credentials)
+        user.login(credentials)
         .then((result) => {
             const token = result.data.token
             dispatch(setToken(token))
             localStorage.setItem('token', token)
-            member.currentUser()
+            user.currentUser()
             .then(result => {
                 dispatch(setCurrentUser(result.data))
             })
-            // navigate("/")
+            navigate("/")
         })
         .catch((error) => {
             dispatch(setAuthError(error.response.data.message))
@@ -52,6 +52,8 @@ export default function Main() {
               <button type="submit">login</button>
             </form>
             { authError ? <p>{authError}</p> : ''}
+
+            <button onClick={() => navigate('/signup')}>회원가입</button>
         </div>
     )
 }

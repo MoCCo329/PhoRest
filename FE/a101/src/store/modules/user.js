@@ -18,7 +18,8 @@ export let currentUser = createSlice({
     username: '',
     nickname: '',
     phone: '',
-    profileUrl: ''
+    profileUrl: '',
+    introduce: '',
   },
   reducers: {
     setCurrentUser (state, value) {
