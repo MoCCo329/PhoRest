@@ -60,8 +60,10 @@ public class UserController {
         return true;
     }
     @GetMapping("/user/currentuser")
-    public UserDTO getCurrentUser(@RequestHeader("Authorization") String token)
+    public UserDTO getCurrentUser(@RequestHeader(value = "Authorization", required = false) String token)
     {
+        if(token == null || token.equals(""))
+            return new UserDTO();
         if(!tokenProvider.validateToken(token))
             return new UserDTO();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
