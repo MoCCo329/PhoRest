@@ -68,24 +68,26 @@ export default function ProfileEdit() {
         }
       })
     } else {
-        alert('비밀번호가 일치하지 않습니다')
+        alert('비밀번호가 잘못되었습니다')
     }
   }
 
   const passwordTest = (value) => {
     if (value === '') {
-        setPasswordValidity('')
+      setPasswordValidity('')
     } else if (value !== newPassword) {
-        setPasswordValidity('Passwords do not match')
+      setPasswordValidity('Passwords do not match')
+    } else if (value.length < 3) {
+      setPasswordValidity('Password length should be 3 or more')
     } else {
-        setPasswordValidity('Passwords match')
+      setPasswordValidity('Passwords match')
     }
   }
   
   const phoneTest = (value) => {
-    if (value.length <= 11) {
+    if (value.length === 11 || value.length === 0) {
       setPhoneValidity('')
-    } else if (value.length > 11) {
+    } else {
       setPhoneValidity('Phone number should have length of 11')
     }
   }
