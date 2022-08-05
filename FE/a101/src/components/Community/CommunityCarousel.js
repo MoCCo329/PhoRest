@@ -10,12 +10,12 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 export default function CommunityCarousel(props) {
-
+  const navigate = useNavigate()
 
   const { communityType } = props
   const dummyContents = props.contents
   const [humanCount, setHumanCount] = useState(1)
-  const navigate = useNavigate()
+
   const move = (postId) => {
     navigate(`/community/${postId}`)
   }

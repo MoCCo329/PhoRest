@@ -6,7 +6,7 @@ const END_POINT = 'download'
 
 
 const download = {
-  pic (postId) {
+  detailPost (postId) {
     return api({
       method: 'get',
       url: `${END_POINT}/${postId}/`,

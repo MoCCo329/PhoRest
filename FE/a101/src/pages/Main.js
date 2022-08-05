@@ -1,16 +1,13 @@
-import { useSelector } from 'react-redux'
+import { useState } from 'react'
 
 import Calendar from './../components/Calendar/Calender'
-import CommunityCarousel from '../components/Community/CommunityCarousel'
+import CommunityListPhoto from '../components/Community/CommunityListPhoto'
+import CommunityListFrame from '../components/Community/CommunityListFrame'
 import Layout from '../components/Layout/Layout'
 
 
 export default function Main() {
-    const picPopular = useSelector(state => state.picPopular)
-    // const picRecent = useSelector(state => state.picRecent)
-    const framePopular = useSelector(state => state.framePopular)
-    // const frameRecent = useSelector(state => state.frameRecent)
-
+    const [type, setType] = useState(true)  // true면 photo, false면 frame
 
     return (
         <Layout>
@@ -20,13 +17,16 @@ export default function Main() {
                 </div>
                 <hr />
                 <div className="main-community">
-                    <div>
-                        <CommunityCarousel communityType="photogroup" contents={picPopular}/>
-                    </div>
-                    <hr />
-                    <div>
-                        <CommunityCarousel communityType="frame" contents={framePopular}/>
-                    </div>
+                <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>포즈</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>프레임</div>
+                    {
+                        type ?
+                        <div>
+                            <CommunityListPhoto />
+                        </div> :
+                        <div>
+                            <CommunityListFrame />
+                        </div>
+                    }
                 </div>
             </main>
         </Layout>

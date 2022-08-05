@@ -14,7 +14,12 @@ export let { setToken } = token.actions
 
 export let currentUser = createSlice({
   name: 'currentUser',
-  initialState: '',
+  initialState: {
+    username: '',
+    nickname: '',
+    phone: '',
+    profileUrl: ''
+  },
   reducers: {
     setCurrentUser (state, value) {
       return value.payload
