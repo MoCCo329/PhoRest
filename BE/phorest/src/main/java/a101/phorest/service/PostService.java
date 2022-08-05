@@ -4,10 +4,7 @@ import a101.phorest.domain.*;
 import a101.phorest.dto.PostDto;
 import a101.phorest.dto.UserDto;
 import a101.phorest.jwt.TokenProvider;
-import a101.phorest.repository.BookmarkRepository;
-import a101.phorest.repository.LikeRepository;
-import a101.phorest.repository.PostRepository;
-import a101.phorest.repository.UserRepository;
+import a101.phorest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +27,8 @@ public class PostService {
     private final BookmarkRepository bookmarkRepository;
 
     private final LikeRepository likeRepository;
+
+    private final MyPageRepository myPageRepository;
 
     @Transactional
     public Long join(Images images, String category, String content){
@@ -127,9 +126,39 @@ public class PostService {
         }
         return postDtos;
     }
-    /** 게시물 리스트 페이징 **/
-    private static final int PAGE_POST_COUNT = 20;
 
-    //https://velog.io/@jyleedev/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8JPA%ED%83%80%EC%9E%84%EB%A6%AC%ED%94%84-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EC%B5%9C%EC%8B%A0%EC%88%9C-%EC%A2%8B%EC%95%84%EC%9A%94%EC%88%9C-%EC%A1%B0%ED%9A%8C%EC%88%98%EC%88%9C-%EC%A1%B0%ED%9A%8C
+    @Transactional
+    public Long editPost(Long postId, String username, String content){
+        Optional<Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return 2L;
+        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
+        if(myPage.isEmpty())
+            return 3L;
+        post.get().setContent(content);
+        return 0L;
+
+    }
+
+    @Transactional
+    public Long deletePost(Long postId, String username){
+        Optional<Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return 2L;
+        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
+        if(myPage.isEmpty())
+            return 3L;
+        if(post.get().getCategory().equals("photogroup")){
+            myPageRepository.deleteById(myPage.get().getId());
+            List<MyPage> myPages = myPageRepository.findByPostIdShared(postId);
+            if(myPages.size() == 0)
+                post.get().setShared(false);
+        }
+        else if(post.get().getCategory().equals("frame")){
+            postRepository.deleteById(postId);
+        }
+        return 0L;
+    }
+
 
 }

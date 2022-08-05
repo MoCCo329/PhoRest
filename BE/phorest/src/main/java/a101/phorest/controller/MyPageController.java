@@ -48,19 +48,9 @@ public class MyPageController {
         if(!tokenProvider.validateToken(token))
             return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        myPageService.join(postId, username);
-        return true;
+        return myPageService.join(postId, username) != -1L;
     }
 
-    @DeleteMapping("mypage/{postId}/delete")
-    @ResponseBody
-    public Long deleteMyPage(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
-        if(!tokenProvider.validateToken(token))
-            return 1L;
-
-        String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        return myPageService.deletePost(postId, username);
-    }
 
     @PostMapping("mypage/{postId}/share")
     @ResponseBody

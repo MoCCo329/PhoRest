@@ -29,12 +29,16 @@ public class MyPageService {
     @Transactional
     public Long join(Long postId, String username)
     {
+        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
+        if(myPage.isPresent())
+            return -1L;
         MyPage mypage = new MyPage();
         User user = userRepository.findByUsername(username);
         Post post = postRepository.findById(postId).get();
         mypage.setUser(user);
         mypage.setPost(post);
         mypage.setShared(false);
+        mypage.setCategory(post.getCategory());
         myPageRepository.save(mypage);
         return mypage.getId();
     }
@@ -69,20 +73,6 @@ public class MyPageService {
             userDtos.add(userDto);
         }
         return userDtos;
-    }
-
-    public Long deletePost(Long postId, String username){
-        Optional<Post> post = postRepository.findById(postId);
-        if(post.isEmpty())
-            return 2L;
-        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
-        if(myPage.isEmpty())
-            return 3L;
-        myPageRepository.deleteById(myPage.get().getId());
-        List<MyPage> myPages = myPageRepository.findByPostIdShared(postId);
-        if(myPages.size() == 0)
-            post.get().setShared(false);
-        return 0L;
     }
 
     public Long sharePost(Long postId, String username){
