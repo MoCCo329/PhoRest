@@ -39,6 +39,9 @@ public class MyPageController {
     @PostMapping("mypage/{postId}/add")
     @ResponseBody
     public boolean addPost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
+        /*        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = (Long.parseLong(decodedString) + 37) / 73;*/
         if(!tokenProvider.validateToken(token))
             return false;
 
@@ -49,8 +52,10 @@ public class MyPageController {
 
     @PostMapping("mypage/{postId}/share")
     @ResponseBody
-    public Long sharePost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token)
-    {
+    public Long sharePost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token) {
+        /*        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Long postId = (Long.parseLong(decodedString) + 37) / 73;*/
         if(!tokenProvider.validateToken(token))
             return 1L;
 

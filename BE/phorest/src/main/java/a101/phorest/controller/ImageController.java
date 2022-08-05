@@ -112,10 +112,10 @@ public class ImageController {
 
     @GetMapping("download/{postId}")
     @ResponseBody
-    public PostDTO sendPost(@PathVariable("postId") String postIdEncoded){
-        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+    public PostDTO sendPost(@PathVariable("postId") Long postId){
+/*        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = Long.parseLong(decodedString);
+        Long postId = (Long.parseLong(decodedString) + 37) / 73;*/
         Optional<PostDTO> postDto = postService.findDtoOne(0L, postId, "");
         if(postDto.isEmpty())
             return new PostDTO();
