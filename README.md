@@ -21,5 +21,5 @@
 - Nginx
 
 ## 문서화
-[Figma] (https://www.figma.com/file/0arBOeysoMNl8Lj0KiaBhY/PhoRest?node-id=0%3A1)
-[ERD] (https://www.erdcloud.com/d/m7TMDCTGwL2ZCnntM)
+[Figma](https://www.figma.com/file/0arBOeysoMNl8Lj0KiaBhY/PhoRest?node-id=0%3A1)     
+[ERD](https://www.erdcloud.com/d/m7TMDCTGwL2ZCnntM)
