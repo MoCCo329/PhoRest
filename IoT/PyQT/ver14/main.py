@@ -73,6 +73,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         self.Warning_label.hide()
 
+        self.ChoosePersonNumBtns = [self.Btn1, self.Btn2, self.Btn3, self.Btn4, self.Btn5, self.Btn6]
+
         self.show()
 
     def initImgs(self):
@@ -262,60 +264,31 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         if (self.ChooseBtnNum != 0):
             self.stack.setCurrentIndex(2)
 
-    def Press_Btn1(self):
+    def changeBtnColor(self, BtnNum):
         # 터치 효과음 추가
         os.system('aplay ./touch_sound.wav')
 
-        if self.ChooseBtnNum == 2:
-            self.Btn2.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 3:
-            self.Btn3.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 4:
-            self.Btn4.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 5:
-            self.Btn5.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 6:
-            self.Btn6.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-
-        self.ChooseBtnNum = 1
-
-        self.Btn1.setStyleSheet("QPushButton{"
+        for Btn in self.ChoosePersonNumBtns:
+            Btn.setStyleSheet("QPushButton{"
+                            "color: #000000;"
+                            "background-color: #F8F8F8;"
+                            "padding: 12px;"
+                            "border-bottom: 4px solid #c8c8c8;"
+                            "border-radius: 50%;"
+                            "}")
+        
+        self.ChoosePersonNumBtns[BtnNum].setStyleSheet("QPushButton{"
                                 "color: #000000;"
                                 "background-color: #FFE650;"
                                 "padding: 12px;"
                                 "border-bottom: 4px solid #FFC81E;"
                                 "border-radius: 50%;"
                                 "}")
+
+    def Press_Btn1(self):
+
+        self.ChooseBtnNum = 1
+        self.changeBtnColor(self.ChooseBtnNum)
 
         # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
         self.RecommandPose()
@@ -323,295 +296,45 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn2(self):
-        # 터치 효과음 추가
-        os.system('aplay ./touch_sound.wav')
-
-        if self.ChooseBtnNum == 1:
-            self.Btn1.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 3:
-            self.Btn3.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 4:
-            self.Btn4.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 5:
-            self.Btn5.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 6:
-            self.Btn6.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-
+      
         self.ChooseBtnNum = 2
-
-        self.Btn2.setStyleSheet("QPushButton{"
-                                "color: #000000;"
-                                "background-color: #FFE650;"
-                                "padding: 12px;"
-                                "border-bottom: 4px solid #FFC81E;"
-                                "border-radius: 50%;"
-                                "}")
+        self.changeBtnColor(self.ChooseBtnNum)
 
         # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
         self.RecommandPose()
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn3(self):
-        # 터치 효과음 추가
-        os.system('aplay ./touch_sound.wav')
-
-        if self.ChooseBtnNum == 2:
-            self.Btn2.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 1:
-            self.Btn1.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 4:
-            self.Btn4.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 5:
-            self.Btn5.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 6:
-            self.Btn6.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-
+      
         self.ChooseBtnNum = 3
-
-        self.Btn3.setStyleSheet("QPushButton{"
-                                "color: #000000;"
-                                "background-color: #FFE650;"
-                                "padding: 12px;"
-                                "border-bottom: 4px solid #FFC81E;"
-                                "border-radius: 50%;"
-                                "}")
+        self.changeBtnColor(self.ChooseBtnNum)
 
         # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
         self.RecommandPose()
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn4(self):
-        # 터치 효과음 추가
-        os.system('aplay ./touch_sound.wav')
-
-        if self.ChooseBtnNum == 2:
-            self.Btn2.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 3:
-            self.Btn3.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 1:
-            self.Btn1.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 5:
-            self.Btn5.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 6:
-            self.Btn6.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
 
         self.ChooseBtnNum = 4
-
-        self.Btn4.setStyleSheet("QPushButton{"
-                                "color: #000000;"
-                                "background-color: #FFE650;"
-                                "padding: 12px;"
-                                "border-bottom: 4px solid #FFC81E;"
-                                "border-radius: 50%;"
-                                "}")
+        self.changeBtnColor(self.ChooseBtnNum)
 
         # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
         self.RecommandPose()
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn5(self):
-        # 터치 효과음 추가
-        os.system('aplay ./touch_sound.wav')
-
-        if self.ChooseBtnNum == 2:
-            self.Btn2.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 3:
-            self.Btn3.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 4:
-            self.Btn4.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 1:
-            self.Btn1.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 6:
-            self.Btn6.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
 
         self.ChooseBtnNum = 5
-
-        self.Btn5.setStyleSheet("QPushButton{"
-                                "color: #000000;"
-                                "background-color: #FFE650;"
-                                "padding: 12px;"
-                                "border-bottom: 4px solid #FFC81E;"
-                                "border-radius: 50%;"
-                                "}")
+        self.changeBtnColor(self.ChooseBtnNum)
 
         # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
         self.RecommandPose()
         self.TopStack.setCurrentIndex(1)
 
     def Press_Btn6(self):
-        # 터치 효과음 추가
-        os.system('aplay ./touch_sound.wav')
-
-        if self.ChooseBtnNum == 2:
-            self.Btn2.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 3:
-            self.Btn3.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 4:
-            self.Btn4.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 5:
-            self.Btn5.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
-        elif self.ChooseBtnNum == 1:
-            self.Btn1.setStyleSheet("QPushButton{"
-                                    "color: #000000;"
-                                    "background-color: #F8F8F8;"
-                                    "padding: 12px;"
-                                    "border-bottom: 4px solid #c8c8c8;"
-                                    "border-radius: 50%;"
-                                    "}")
 
         self.ChooseBtnNum = 6
-
-        self.Btn6.setStyleSheet("QPushButton{"
-                                "color: #000000;"
-                                "background-color: #FFE650;"
-                                "padding: 12px;"
-                                "border-bottom: 4px solid #FFC81E;"
-                                "border-radius: 50%;"
-                                "}")
+        self.changeBtnColor(self.ChooseBtnNum)
 
         # 선택 후 첫번째 장 받아오고 다음 버튼 누를때마다 사진을 받아와?
         self.RecommandPose()
