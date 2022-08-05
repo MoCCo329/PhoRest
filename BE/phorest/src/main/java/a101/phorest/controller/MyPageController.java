@@ -15,6 +15,7 @@ public class MyPageController {
 
     private final TokenProvider tokenProvider;
 
+
     @ResponseBody
     @GetMapping("mypage/{username}")
     public UserDTO findByUserId(@PathVariable("username") String searchUsername, @RequestHeader(value = "Authorization", required = false) String token)
@@ -40,6 +41,7 @@ public class MyPageController {
     public boolean addPost(@PathVariable("postId") Long postId, @RequestHeader("Authorization") String token){
         if(!tokenProvider.validateToken(token))
             return false;
+
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return myPageService.join(postId, username) != -1L;
     }

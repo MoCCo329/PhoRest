@@ -47,8 +47,12 @@ public class PostService {
         return post.getId();
     }
 
-    public Optional<PostDTO> findDtoOne(Long postId, String username){
+    public Optional<PostDTO> findDtoOne(Long mode, Long postId, String username){
         Optional <Post> post = postRepository.findById(postId);
+        if(post.isEmpty())
+            return Optional.empty();
+        else if(!post.get().isShared() && mode == 1L)
+            return Optional.empty();
         List<User> users = userRepository.findPostMyPageUsers(postId);
         List<UserDTO> userDTOS = new ArrayList<>();
         for(int i = 0; i < users.size(); i++)
@@ -56,10 +60,6 @@ public class PostService {
             UserDTO userDto = UserDTO.from(users.get(i));
             userDTOS.add(userDto);
         }
-        if(post.isEmpty())
-            return Optional.empty();
-        else if(!post.get().isShared())
-            return Optional.empty();
         PostDTO postDto = new PostDTO(post.get(), userDTOS);
         postDto.setIsLike(false);
         postDto.setIsBookmark(false);

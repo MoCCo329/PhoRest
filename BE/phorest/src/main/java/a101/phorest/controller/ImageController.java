@@ -113,7 +113,7 @@ public class ImageController {
     @ResponseBody
     public PostDTO sendPost(@PathVariable("postId") Long id){
 
-        Optional<PostDTO> postDto = postService.findDtoOne(id, "");
+        Optional<PostDTO> postDto = postService.findDtoOne(0L, id, "");
         if(postDto.isEmpty())
             return new PostDTO();
         return postDto.get();

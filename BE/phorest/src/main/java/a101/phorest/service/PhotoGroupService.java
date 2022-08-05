@@ -18,10 +18,10 @@ public class PhotoGroupService {
     private final PhotoGroupRepository photoGroupRepository;
 
     @Transactional
-    public Long join(String uploadUrl, Long humancount){
+    public Long join(String uploadUrl, Long humanCount){
         PhotoGroup photoGroup = new PhotoGroup();
         photoGroup.setPhotoGroupPath(uploadUrl);
-        photoGroup.setHumanCount(humancount);
+        photoGroup.setHumanCount(humanCount);
         photoGroup.setVideoPath(null);
         photoGroupRepository.save(photoGroup);
         return photoGroup.getId();

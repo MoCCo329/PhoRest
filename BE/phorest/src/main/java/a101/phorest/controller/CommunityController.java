@@ -52,13 +52,13 @@ public class CommunityController {
         Optional<PostDTO> postDto;
         if(token == null)
         {
-            postDto = postService.findDtoOne(postId, "");
+            postDto = postService.findDtoOne(1L, postId, "");
             return postDto.orElseGet(PostDTO::new);
         }
         if(!tokenProvider.validateToken(token))
             return new PostDTO();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        postDto = postService.findDtoOne(postId, username);
+        postDto = postService.findDtoOne(1L, postId, username);
         return postDto.orElseGet(PostDTO::new);
     }
 

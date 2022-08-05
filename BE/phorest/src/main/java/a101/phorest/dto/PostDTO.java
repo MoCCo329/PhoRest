@@ -22,6 +22,7 @@ public class PostDTO {
             this.url = post.getPhotoGroup().getPhotoGroupPath();
             this.humanCount = post.getPhotoGroup().getHumanCount();
             this.photogroupId = post.getPhotoGroup().getId();
+            this.videoURL = post.getPhotoGroup().getVideoPath();
         }
         else if("frame".equals(this.category))
         {
@@ -50,6 +51,7 @@ public class PostDTO {
 
     private Long photogroupId;
 
+    private String videoURL;
     private Long frameId;
 
     private Boolean isLike;
