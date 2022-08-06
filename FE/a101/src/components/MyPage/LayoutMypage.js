@@ -5,7 +5,7 @@ import Footer from '../Layout/Footer'
 export default function Layout(props) {
     return (
         <div className="layout-mypage">
-            <NavMypage/>
+            <NavMypage nickname={props.nickname}/>
             <main>
                 {props.children}
             </main>

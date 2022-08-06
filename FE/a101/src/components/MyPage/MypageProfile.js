@@ -1,13 +1,11 @@
 import "./MypageProfile.css";
-import profile from "./../../assets/tmp_profile.jpg";
 
-export default function MypageProfile() {
-  const memo =
-    "제 이름은 똑바로 읽어도 거꾸로 읽어도 우영우입니다. \n기러기 토마토 스위스 인도인 별똥별 우영우… 역삼역?";
+export default function MypageProfile(props) {
+  
   return (
     <div>
       <div className="profile-box">
-        <img className="profile-img" src={profile} alt="우영우" />
+        <img className="profile-img" src={props.profileUrl} alt="프로필" />
         <div className="info">
           <div className="num">21</div>
           <div className="name">게시글</div>
@@ -21,7 +19,9 @@ export default function MypageProfile() {
           <div className="name">프레임</div>
         </div>
       </div>
-      <div className="memo">{memo}</div>
+      <div className="memo">{props.introduce}</div>
+      <button>프로필 수정하기</button>
+      <button>팔로우하기</button>
     </div>
   );
 }

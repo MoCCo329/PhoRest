@@ -1,21 +1,26 @@
-import * as React from 'react';
-import './MyPhotos.css'
+import * as React from "react";
+import "./MyPhotos.css";
 
 export default function MyPhotos() {
   return (
-    <div className='container-gallery'>
-      {itemData.map((item) => (
-          <img className='image'
+    <div>
+      {itemData.length === 0 && <p>등록된 게시물이 없습니다</p>}
+
+      <div className="container-gallery">
+        {itemData.map((item) => (
+          <img
+            className="image"
             key={item.title}
             src={item.img}
             alt={item.title}
             loading="lazy"
           />
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
-
+// const itemData = [];
 const itemData = [
   {
     img: 'https://images.unsplash.com/flagged/photo-1563693703591-ef3a7e5d70d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDN8fHBvbGFyb2lkfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',

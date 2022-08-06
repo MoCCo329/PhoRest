@@ -49,6 +49,7 @@ function App() {
         <Route exact path="/" element={<Main/>} />
         <Route exact path="/download/:postId" element={<Download/>} />
         <Route exact path="/mypage" element={<Mypage/>} />
+        <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/community/:postId" element={<Community/>} />
         <Route exact path="/frameEdit" element={<FrameEdit/>} />
         <Route exact path="/signup" element={<Signup/>} />
