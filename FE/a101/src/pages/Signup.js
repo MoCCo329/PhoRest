@@ -124,7 +124,7 @@ export default function Main() {
               <input onChange={(e)=>{setNickname(e.target.value)}} type="text" id="nickname" required placeholder="Nickname" /><br/>
 
               <label htmlFor="phoneNumber">Phone Number : </label>
-              <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="PhoneNumber" />(숫자만 입력해 주세요) {phoneValidity}<br/>
+              <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="PhoneNumber" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
 
               <button type="submit">Sign up</button>
             </form>

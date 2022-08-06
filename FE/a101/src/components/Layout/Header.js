@@ -44,7 +44,7 @@ export default function Header() {
         <div className="header-logo-box" onClick={() => {navigate('/')}}>
           <img className="header-logo" src={logo} alt="logo" />
         </div>
-        <button onClick={() => navigate('mypage/edit')}>회원정보 수정(임시)</button>
+        <button onClick={() => navigate('/mypage/edit')}>회원정보 수정(임시)</button>
         <div className='header-state'>
           {
             isLoggedIn ?

@@ -35,7 +35,8 @@ export default function ProfileEdit() {
     if (phoneValidity) {
       return alert('핸드본번호를 정확히 입력해 주세요')
     }
-    if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
+    console.log(type)
+    if (type && (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다')) {
       return alert('비밀번호를 정확히 입력해 주세요')
     }
 
@@ -136,7 +137,6 @@ export default function ProfileEdit() {
     }
   }
 
-
   return (
     <div>
       { profileURL ? <img src={ profileURL } alt="profileImg"></img> : null }
@@ -163,7 +163,7 @@ export default function ProfileEdit() {
         }
         
         <label htmlFor="phone">Phone : </label>
-        <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(숫자만 입력해 주세요) {phoneValidity}<br/>
+        <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
 
         <label htmlFor="introduce">Introduce : </label>
         <input name="introduce" type="text" id="introduce" defaultValue={ userDetail.introduce || '' } placeholder="Introduce" /><br/>
