@@ -25,7 +25,7 @@ public class BookmarkController {
     public int addLike(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token))
             //return "InvalidToken";
             return 2;

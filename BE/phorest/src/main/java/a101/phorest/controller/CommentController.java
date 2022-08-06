@@ -24,7 +24,7 @@ public class CommentController {
     public List<CommentDTO> commentList(@PathVariable("postId") String postIdEncoded){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         return commentService.findComments(postId);
     }
     
@@ -32,7 +32,7 @@ public class CommentController {
     public Boolean newComment(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token)) return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
@@ -43,7 +43,7 @@ public class CommentController {
     public Boolean deleteComment(@PathVariable("postId") String postIdEncoded, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token)) return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
@@ -54,7 +54,7 @@ public class CommentController {
     public int editComment(@PathVariable("postId") String postIdEncoded, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token,@Valid @RequestBody Map<String, String> content) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         //수정완료 0 수정못함 1
         if(!tokenProvider.validateToken(token)) return 3;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");

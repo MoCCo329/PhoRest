@@ -43,7 +43,7 @@ public class MyPageController {
     public boolean addPost(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token))
             return false;
 
@@ -57,7 +57,7 @@ public class MyPageController {
     public Long sharePost(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token))
             return 1L;
 

@@ -52,7 +52,7 @@ public class CommunityController {
     {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         Optional<PostDTO> postDto;
         if(token == null || token.equals(""))
         {
@@ -70,7 +70,7 @@ public class CommunityController {
     public Long editPost(@PathVariable("postId") String postIdEncoded, @RequestBody PostDTO postDto, @RequestHeader(value = "Authorization") String token){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
@@ -81,7 +81,7 @@ public class CommunityController {
     public Long deletePost(@PathVariable("postId") String postIdEncoded, @RequestHeader(value = "Authorization") String token){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Long postId = (Long.parseLong(decodedString) - 37) / 73;
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
