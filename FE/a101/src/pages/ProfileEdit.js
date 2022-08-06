@@ -16,9 +16,12 @@ export default function ProfileEdit() {
 
   const [type, setType] = useState(false)
   const [newPassword, setNewPassword] = useState('')
-  const [passwordValidity, setPasswordValidity] = useState('')
-  const [phoneValidity, setPhoneValidity] = useState('')
   const [profileURL, setProfileURL] = useState('1')
+
+  const [passwordValidity, setPasswordValidity] = useState('')
+  const [passwordMatch, setPasswordMatch] = useState('')
+  const [phoneValidity, setPhoneValidity] = useState('')
+
 
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
@@ -29,11 +32,14 @@ export default function ProfileEdit() {
   const onSubmit = (event) => {
     event.preventDefault()
     setAuthError('')
-    if (phoneValidity==="Phone number should have length of 11") {
+    if (phoneValidity) {
       return alert('핸드본번호를 정확히 입력해 주세요')
     }
+    if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
+      return alert('비밀번호를 정확히 입력해 주세요')
+    }
 
-    if (passwordValidity==="Passwords match" || type===false) {
+    if (passwordValidity==='' || type===false) {
 
       let form = document.forms.profileEdit.elements
 
@@ -46,6 +52,8 @@ export default function ProfileEdit() {
         profileURL : profileURL,
         introduce: form.introduce.value
       }
+
+      console.log(credentials)
 
       if (!type) {
         credentials.password = form.beforePassword.value
@@ -67,28 +75,16 @@ export default function ProfileEdit() {
           setAuthError('중복된 핸드폰번호가 존재합니다.')
         }
       })
+      .catch((error) => {
+        if (error.response.data.message==='@Valid Error') {
+          let errorMessage = `${error.response.data.fieldErrors[0].field} : ${error.response.data.fieldErrors[0].defaultMessage}`
+          setAuthError(errorMessage)
+        } else {
+          setAuthError(error.response.data.message)
+        }
+      })
     } else {
         alert('비밀번호가 잘못되었습니다')
-    }
-  }
-
-  const passwordTest = (value) => {
-    if (value === '') {
-      setPasswordValidity('')
-    } else if (value !== newPassword) {
-      setPasswordValidity('Passwords do not match')
-    } else if (value.length < 3) {
-      setPasswordValidity('Password length should be 3 or more')
-    } else {
-      setPasswordValidity('Passwords match')
-    }
-  }
-  
-  const phoneTest = (value) => {
-    if (value.length === 11 || value.length === 0) {
-      setPhoneValidity('')
-    } else {
-      setPhoneValidity('Phone number should have length of 11')
     }
   }
 
@@ -105,6 +101,41 @@ export default function ProfileEdit() {
     document.querySelector('#profileURL').value = ''
     setProfileURL('')
   }
+
+  const passwordFilter = (e) => {
+    const { value } = e.target
+    const filtered = value.replace(/[^0-9a-zA-Z~!@#$%^&*()=|+]/g, '')
+    e.target.value = filtered
+    if (e.target.value.length < 8) {
+      setPasswordValidity('비밀번호는 8자 이상이여야 합니다')
+    } else {
+      setPasswordValidity('')
+    }
+  }
+
+  const passwordTest = () => {
+    const password1 = document.querySelector('#password').value
+    const password2 = document.querySelector('#password2').value
+    if (password2 === '') {
+      setPasswordMatch('')
+    } else if (password1===password2) {
+      setPasswordMatch('비밀번호가 일치합니다')
+    } else {
+      setPasswordMatch('비밀번호가 일치하지 않습니다')
+    }
+  }
+
+  const phoneFilter = (e) => {
+    const { value } = e.target
+    const filtered = value.replace(/[^0-9]/g, '')
+    e.target.value = filtered
+    if (e.target.value.length === 10 || e.target.value.length === 11) {
+      setPhoneValidity('')
+    } else {
+      setPhoneValidity('핸드폰번호는 10자 혹은 11자이여야 합니다')
+    }
+  }
+
 
   return (
     <div>
@@ -125,14 +156,14 @@ export default function ProfileEdit() {
           type ?
           <div>
             <label htmlFor="password">New Password : </label>
-            <input name="Password" onChange={(e) => {setNewPassword(e.target.value)}} type="password" id="password" required placeholder="New Password" /><br/>
+            <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
             <label htmlFor="password2">New Password Again : </label>
-            <input name="password2" onChange={(e) => {passwordTest(e.target.value)}} type="password" id="password2" required placeholder="New Password Again" /> {passwordValidity}<br/>
+            <input name="password2" onChange={() => {passwordTest(); passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
           </div> : null
         }
         
         <label htmlFor="phone">Phone : </label>
-        <input name="phone" onChange={(e) => phoneTest(e.target.value)} type="number" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(숫자만 입력해 주세요){phoneValidity}<br/>
+        <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(숫자만 입력해 주세요) {phoneValidity}<br/>
 
         <label htmlFor="introduce">Introduce : </label>
         <input name="introduce" type="text" id="introduce" defaultValue={ userDetail.introduce || '' } placeholder="Introduce" /><br/>

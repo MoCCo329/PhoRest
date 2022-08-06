@@ -18,9 +18,8 @@ export default function Main() {
     // const frameRecent = useSelector(state => state.frameRecent)
 
     const dispatch = useDispatch()
-    console.log(useParams().postId)
     const postId = (Number(atob(useParams().postId)) + 37) / 73
-    console.log(postId)
+
     let content = useSelector(state => state.detailPost)
 
     if (!!!content.url) {

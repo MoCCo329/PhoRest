@@ -19,7 +19,7 @@ export default function Community(props) {
     let [isBookmark, setIsBookmark] = useState(false)
 
     const dispatch = useDispatch()
-    const postId = (Number(atob(useParams().postId)) + 37) / 73
+    const postId = (Number(atob(useParams().postId)) - 37) / 73
     let content = useSelector(state => state.detailPost)
     
     if (!content || (content.postId !== postId)) {

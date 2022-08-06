@@ -14,6 +14,7 @@ import FrameEdit from './pages/FrameEdit'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ProfileEdit from './pages/ProfileEdit'
+import FollowingList from './pages/FollowingList'
 import NotFount404 from './pages/NotFound404'
 
 // functions
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/" element={<Main/>} />
         <Route exact path="/download/:postId" element={<Download/>} />
         <Route exact path="/mypage/edit" element={<ProfileEdit/>} />
+        <Route exact path="/mypage/following" element={<FollowingList/>} />
         <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/mypage" element={<Mypage/>} />
         <Route exact path="/community/:postId" element={<Community/>} />

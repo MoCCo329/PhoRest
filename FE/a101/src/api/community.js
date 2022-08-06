@@ -4,62 +4,62 @@ const END_POINT = 'community'
 
 
 const community = {
-  getPost (postId) {
+  detailPost (postId) {
     return api({
       method: 'get',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/`
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/`
     })
   },
 
   editPost (postId, data) {
     return api({
       method: 'put',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/`,
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/`,
       data: data
     })
   },
   deletePost (postId) {
     return api({
       method: 'delete',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/`
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/`
     })
   },
   likePost (postId) {
     return api({
       method: 'post',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/like/`,
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/like/`,
     })
   },
   bookmarkPost (postId) {
     return api({
       method: 'post',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/bookmark/`
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/bookmark/`
     })
   },
   getComments (postId) {
     return api({
       method: 'get',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/comment/`
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/`
     })
   },
   createComments (postId, data) {
     return api({
       method: 'post',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/comment/`,
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/`,
       data: data
     })
   },
   editComments (postId, commentId, data) {
     return api({
       method: 'put',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/comment/${commentId}`,
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/${commentId}`,
       data: data
     })
   },
   deleteComments (postId, commentId, data) {
     return api({
       method: 'delete',
-      url: `${END_POINT}/${btoa(postId * 73 - 37)}/comment/${commentId}`
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/${commentId}`
     })
   },
   photoLike (data) {
