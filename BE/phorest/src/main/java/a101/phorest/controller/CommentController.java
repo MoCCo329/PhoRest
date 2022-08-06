@@ -1,12 +1,14 @@
 package a101.phorest.controller;
 
 import a101.phorest.dto.CommentDTO;
+import a101.phorest.dto.PostDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +26,10 @@ public class CommentController {
     public List<CommentDTO> commentList(@PathVariable("postId") String postIdEncoded){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) - 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return new ArrayList<>();
         return commentService.findComments(postId);
     }
     
@@ -32,7 +37,10 @@ public class CommentController {
     public Boolean newComment(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) - 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return false;
         if(!tokenProvider.validateToken(token)) return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
@@ -43,7 +51,10 @@ public class CommentController {
     public Boolean deleteComment(@PathVariable("postId") String postIdEncoded, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) - 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return false;
         if(!tokenProvider.validateToken(token)) return false;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
@@ -54,7 +65,10 @@ public class CommentController {
     public int editComment(@PathVariable("postId") String postIdEncoded, @PathVariable("commentId") Long commentId, @RequestHeader("Authorization") String token,@Valid @RequestBody Map<String, String> content) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) - 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return 4;
         //수정완료 0 수정못함 1
         if(!tokenProvider.validateToken(token)) return 3;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");

@@ -115,7 +115,10 @@ public class ImageController {
     public PostDTO sendPost(@PathVariable("postId") String postIdEncoded){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) + 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) + 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return new PostDTO();
         Optional<PostDTO> postDto = postService.findDtoOne(0L, postId, "");
         if(postDto.isEmpty())
             return new PostDTO();

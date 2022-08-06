@@ -1,5 +1,6 @@
 package a101.phorest.controller;
 
+import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.MyPageService;
@@ -43,7 +44,10 @@ public class MyPageController {
     public boolean addPost(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) - 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return false;
         if(!tokenProvider.validateToken(token))
             return false;
 
@@ -57,7 +61,10 @@ public class MyPageController {
     public Long sharePost(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Long postId = (Long.parseLong(decodedString) - 37) / 73;
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
+        if(postId - decodedNumber != 0)
+            return 4L;
         if(!tokenProvider.validateToken(token))
             return 1L;
 
