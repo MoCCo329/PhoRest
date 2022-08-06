@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @PutMapping("user/edit")
-    public Long editUser(@RequestBody UserDTO user, @RequestHeader("Authorization") String token)
+    public Long editUser(@RequestBody @Valid UserDTO user, @RequestHeader("Authorization") String token)
     {
         if(!tokenProvider.validateToken(token))
             return 1L;
