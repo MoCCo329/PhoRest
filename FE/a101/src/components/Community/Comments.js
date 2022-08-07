@@ -1,22 +1,35 @@
-import { useDispatch } from 'react-redux'
-import { deleteComment, setEditCommentId } from '../../store/modules/community'
+import { useDispatch, useSelector } from 'react-redux'
+
+import community from '../../api/community'
+import { setDetailComment } from '../../store/modules/community'
+
 
 export default function Comments(props) {
-    // const changeEditCommentId = () => {
-    //     return props.setEditCommentId(props.comment.commentId)
-    // }
-    const username = '초록물고기'
+    const currentUser = useSelector(state => state.currentUser)
     let dispatch = useDispatch()
+
+    const clickDelete = () => {
+        community.deleteComment(props.comment.postId, props.comment.id)
+        .then(result => {
+            if (result.data) {
+                community.getComments(props.comment.postId)
+                .then(result => {
+                    dispatch(setDetailComment(result.data))
+                })
+            }
+        })
+    }
 
     return (
         <div>
             작성자 : {props.comment.username} | 
             내용 : {props.comment.content} | 
+            작성일 : {props.comment.time.slice(0, 10)} {props.comment.time.slice(11, 19)}
             {
-                username===props.comment.username ?
+                currentUser.username===props.comment.username ?
                 (<>
-                <button onClick={() => {dispatch(setEditCommentId(props.comment.commentId))}}>편집</button>
-                <button onClick={() => {dispatch(deleteComment(props.idx))}}>삭제</button>
+                <button onClick={() => {props.setEditCommentId(props.comment.id)}}>편집</button>
+                <button onClick={() => clickDelete()}>삭제</button>
                 </>)
                 : null
             }

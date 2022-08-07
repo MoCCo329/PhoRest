@@ -102,7 +102,7 @@ export default function CommunityListFrame() {
               {post.likeCount}
               <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
             </div>
-          )) : 
+          )) :
           frameRecent.map((post, idx) => (
             <div key={idx}>
               <img src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
