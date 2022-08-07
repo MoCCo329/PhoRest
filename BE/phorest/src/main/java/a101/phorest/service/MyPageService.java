@@ -96,10 +96,16 @@ public class MyPageService {
     public Long sharePost(Long postId, String username){
         Optional<Post> post = postRepository.findById(postId);
         if(post.isEmpty())
-            return 2L;
+            return 3L;
         Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
         if(myPage.isEmpty())
-            return 3L;
+            return 4L;
+        if(myPage.get().isShared()) {
+            myPage.get().setShared(false);
+            if(myPageRepository.findByPostIdShared(postId).isEmpty())
+                post.get().setShared(false);
+            return 1L;
+        }
         myPage.get().setShared(true);
         if(!post.get().isShared())
             post.get().setShared(true);
