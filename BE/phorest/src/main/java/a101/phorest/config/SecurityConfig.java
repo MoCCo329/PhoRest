@@ -79,6 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/kakao/**").permitAll()
 
                 .anyRequest().authenticated()
 

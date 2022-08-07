@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -117,15 +118,40 @@ public class UserService {
 
     }
 
-//
-//    @Transactional(readOnly = true)
-//    public UserDto getUserWithAuthorities(String username) {
-//        return UserDto.from(userRepository.findByUsername(username));
-//    }
+    @Transactional
+    public UserDTO setKakaoUser(HashMap<String, String> userInfo){
+        /** 회원 정보 카톡으로 받기 */
 
-//    @Transactional(readOnly = true)
-//    public UserDto getMyUserWithAuthorities() {
-//        UserDto userDto = UserDto.from(SecurityUtil.getCurrentUsername().flatMap(userRepository::findByUsername));
-//        return  userDto;
-//    }
+        UserDTO ud = new UserDTO();
+
+        String username = userInfo.get("id") +"@k";
+        ud.setUsername(username);
+
+        if(userInfo.get("nickname") != null){
+            ud.setNickname(userInfo.get("nickname"));
+        } else ud.setNickname("PhoRest"+username);
+        if(userInfo.get("profile_image_url") != null){
+            ud.setProfileURL(userInfo.get("profile_image_url"));
+        }
+        if(userInfo.get("phone_number") != null){
+            ud.setPhone(userInfo.get("phone_number"));
+            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
+        }
+
+
+        if (userRepository.findByUsername(username) != null){
+            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
+        }
+
+        User user = User.builder()
+                .username(ud.getUsername())
+                .password(passwordEncoder.encode(username))
+                .nickname(ud.getNickname())
+                .phone(ud.getPhone())
+                .role(Role.USER) // user로 가입
+                .activated(true)
+                .build();
+
+        return UserDTO.from(userRepository.save(user));
+    }
 }

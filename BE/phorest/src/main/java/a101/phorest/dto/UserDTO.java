@@ -62,6 +62,8 @@ public class UserDTO {
 
    private boolean isFollowing;
 
+   private String refresh_token;
+
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;

@@ -31,6 +31,9 @@ dependencies {
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 
+	//kakao
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
 	implementation 'javax.xml.bind:jaxb-api'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
