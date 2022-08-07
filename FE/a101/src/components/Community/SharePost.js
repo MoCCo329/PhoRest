@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import mypage from '../../api/mypage'
@@ -7,7 +8,7 @@ import { setDetailPost } from '../../store/modules/community'
 
 export default function Comments(props) {
   const dispatch = useDispatch()
-  const { isSharing } = props
+  const [isSharing, setIsSharing] = useState(props.isSharing)
 
   const sharePost = () => {
     mypage.sharePost(props.postId)
@@ -25,9 +26,11 @@ export default function Comments(props) {
 
   const clickSharing = (type) => {
     if (type===1 && !isSharing) {
+      setIsSharing(true)
       sharePost()
     }
     if (type===2 && isSharing) {
+      setIsSharing(false)
       sharePost()
     }
   }

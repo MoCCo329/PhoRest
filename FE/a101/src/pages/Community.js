@@ -36,6 +36,13 @@ export default function Community(props) {
     }, [])
 
     useEffect(() => {
+        community.detailPost(postId)
+        .then(result => {
+            dispatch(setDetailPost(result.data))
+        })
+    }, [!!detailPost])
+
+    useEffect(() => {
         if (detailPost.users) {
             setIsSharing(
                 detailPost.users.some((user) => {
@@ -85,7 +92,13 @@ export default function Community(props) {
     }
 
     const deletePost = () => {
-        const confirmResult = window.confirm('게시글 소유권을 삭제합니다.')
+        let confirmResult = false
+        if (detailPost.category==='photogroup') {
+            confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
+        } else {
+            confirmResult = window.confirm('프레임게시글을 삭제합니다.')
+        }
+
         if (confirmResult) {
             community.deletePost(postId)
             .then(result => {
@@ -106,7 +119,7 @@ export default function Community(props) {
         <Layout>
             <main>
                 <div className="community-header">
-                    { detailPost.category === 'frame' ? '프레임' : null }{ detailPost.category === 'photogruop' ? '포즈' : null } 게시판
+                    { detailPost.category === 'frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
                     { detailPost.category==='photogroup' ? <div className='human-count'>{detailPost.humanCount}명</div> : null }
                 </div>
                 <hr />

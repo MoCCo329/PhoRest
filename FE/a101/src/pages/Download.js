@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -26,17 +26,19 @@ export default function Main() {
             dispatch(setDetailPost(result.data))
         })
     }
-
-    if (!isOwned && currentUser.username) {
-        mypage.ownPost(postId)
-        .then(result => {
-            if (result.data) {
-                setIsOwned(true)
-            } else {
-                setIsOwned(false)
-            }
-        })
-    }
+    console.log(isOwned, currentUser.username)
+    useEffect(() => {
+        if (!isOwned && currentUser.username) {
+            mypage.ownPost(postId)
+            .then(result => {
+                if (result.data) {
+                    setIsOwned(true)
+                } else {
+                    setIsOwned(false)
+                }
+            })
+        }
+    }, [currentUser])
 
     const imageDownload = () => {
         fetch(content.url + '?timestamp=2')
