@@ -1,4 +1,4 @@
-package a101.phorest.kakao;
+package a101.phorest.service;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,11 +16,13 @@ import java.util.Map;
 public class KakaoService {
 
     //private final String redirect_uri = "https://phorest.site";
-    private final String redirect_uri = "http://localhost:8399/api/user/kakao/login";
+    private final String redirect_uri = "http://localhost:8399/api/user/kakao/";
 
-    public String getToken(String code) throws IOException {
+    public String getToken(String code,String status) throws IOException {
         //인가코드로 토큰 받기
         String host = "https://kauth.kakao.com/oauth/token";
+
+        String uri = redirect_uri + status;
 
         String token = "";
         try {
@@ -34,7 +36,7 @@ public class KakaoService {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=4656da19556d6f608f3a297dd7c7b994");
-            sb.append("&redirect_uri=" + redirect_uri);
+            sb.append("&redirect_uri=" + uri);
             sb.append("&code=" + code);
 
             bw.write(sb.toString());
@@ -102,18 +104,18 @@ public class KakaoService {
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(res);
             JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
-            JSONObject profile = (JSONObject) obj.get("profile");
+            JSONObject profile = (JSONObject) obj.get("properties");
 
 
             String id = obj.get("id").toString();
             String nickname = profile.get("nickname").toString();
-            String profile_image_url = profile.get("profile_image_url").toString();
-            String phone_number = kakao_account.get("phone_number").toString();
+            String profile_image = profile.get("profile_image").toString();
+            //String phone_number = kakao_account.get("phone_number").toString();
 
             result.put("id", id);
             result.put("nickname", nickname);
-            result.put("profile_image_url", profile_image_url);
-            result.put("phone_number", phone_number);
+            result.put("profile_image", profile_image);
+            //result.put("phone_number", phone_number);
             //result.put("age_range", age_range);
 
             br.close();
