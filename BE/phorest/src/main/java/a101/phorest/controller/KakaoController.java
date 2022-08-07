@@ -30,7 +30,7 @@ public class KakaoController {
 
         String snsId = (String) userInfo.get("id") +"@k";
         String nickname = (String) userInfo.get("nickname");
-        //String phone = (String) userInfo.get("phone_number");
+        String phone = (String) userInfo.get("phone_number");
         String profile_image = (String) userInfo.get("profile_image");
         String userpw = snsId+"123";
 
@@ -38,7 +38,7 @@ public class KakaoController {
 
         //(!userService.findDtoUsernameOne(snsId).isPresent()){
             userDTO.setUsername(snsId);
-            userDTO.setPhone("11122223333");
+            userDTO.setPhone(phone);
             userDTO.setNickname(nickname);
             userDTO.setProfileURL(profile_image);
             userDTO.setPassword(userpw);

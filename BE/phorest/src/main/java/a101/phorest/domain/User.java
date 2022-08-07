@@ -38,7 +38,7 @@ public class User {
    @Column(name = "role")
    private Role role;
 
-   @Length(min = 10, max = 11)
+   @Length(min = 10, max = 16)
    @Column(name = "phone", unique = true)
    private String phone;
 
