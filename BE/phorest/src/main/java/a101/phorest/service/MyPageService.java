@@ -4,10 +4,7 @@ import a101.phorest.domain.*;
 //import a101.phorest.repository.MemberRepository;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
-import a101.phorest.repository.FollowRepository;
-import a101.phorest.repository.MyPageRepository;
-import a101.phorest.repository.PostRepository;
-import a101.phorest.repository.UserRepository;
+import a101.phorest.repository.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -27,6 +24,9 @@ public class MyPageService {
     private final PostRepository postRepository;
     private final MyPageRepository myPageRepository;
 
+    private final BookmarkRepository bookmarkRepository;
+
+    private final LikeRepository likeRepository;
     private final FollowRepository followRepository;
     @Transactional
     public Long join(Long postId, String username)
@@ -72,6 +72,8 @@ public class MyPageService {
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : posts) {
             PostDTO postDto = new PostDTO(post, new ArrayList<>());
+            postDto.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(post.getId(), loginUsername).isPresent());
+            postDto.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),loginUsername).isPresent());
             postDTOS.add(postDto);
         }
         userDto.setPostDTOS(postDTOS);

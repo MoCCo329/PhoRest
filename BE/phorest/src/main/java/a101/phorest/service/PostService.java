@@ -59,18 +59,10 @@ public class PostService {
             userDTOS.add(userDto);
         }
         PostDTO postDto = new PostDTO(post.get(), userDTOS);
-        postDto.setIsLike(false);
-        postDto.setIsBookmark(false);
-        postDto.setIsWriter(false);
-        if(!username.isEmpty()) {
-            if(likeRepository.findByPostIdAndUsername(postId, username).isPresent())
-                postDto.setIsLike(true);
-            if(bookmarkRepository.findByPostIdAndUsername(postId,username).isPresent())
-                postDto.setIsBookmark(true);
-            if(myPageRepository.findByPostIdAndUsername(postId, username).isPresent())
-                postDto.setIsWriter(true);
+        postDto.setIsLike(likeRepository.findByPostIdAndUsername(postId, username).isPresent());
+        postDto.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(postId,username).isPresent());
+        postDto.setIsWriter(myPageRepository.findByPostIdAndUsername(postId, username).isPresent());
 
-        }
         if(!post.get().isShared() && mode == 1L && !postDto.getIsWriter())
             return Optional.empty();
         return Optional.of(postDto);
