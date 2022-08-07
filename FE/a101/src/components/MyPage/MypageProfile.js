@@ -16,7 +16,7 @@ export default function MypageProfile(props) {
   let frameCnt = userDetail.postDTOS.filter(item => item.category === "frame").length;
 
   // 팔로우 버튼 누르면 신청
-
+  let isFollow = userDetail.following
 
   console.log(userDetail.introduce)
   return (
