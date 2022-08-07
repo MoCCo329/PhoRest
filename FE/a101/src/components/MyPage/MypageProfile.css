@@ -8,7 +8,7 @@
   /* margin: 3%; */
 }
 .memo {
-    white-space: pre-wrap;
+    white-space: pre-line;
     margin-left: 6%;
     margin-right: 6%;
     margin-bottom: 5%;

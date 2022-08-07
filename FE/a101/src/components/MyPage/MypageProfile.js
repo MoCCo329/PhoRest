@@ -17,6 +17,8 @@ export default function MypageProfile(props) {
 
   // 팔로우 버튼 누르면 신청
 
+
+  console.log(userDetail.introduce)
   return (
     <div>
       <div className="profile-box">
@@ -39,7 +41,7 @@ export default function MypageProfile(props) {
           <div className="name">팔로워</div>
         </div>
       </div>
-      <div className="memo">{props.introduce}</div>
+      <div className="memo">{userDetail.introduce}</div>
       <button>프로필 수정하기</button>
       <button disabled={userDetail.following}>팔로우하기</button>
     </div>
