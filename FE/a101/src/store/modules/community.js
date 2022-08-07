@@ -135,7 +135,6 @@ export let detailPost = createSlice({
     isBookmark: null,
     users: [
       {
-        userId: '',
         username: '',
         password: '',
         nickname: '',
@@ -166,29 +165,24 @@ export let { setDetailPost, likeDetailPost, bookmarkDetailPost } = detailPost.ac
 
 export let detailComments = createSlice({
   name: 'detailComments',
-  initialState: [{}, {}],
+  initialState: [],
   reducers: {
+    setDetailComment (state, actions) {
+      return actions.payload
+    },
     editComment (state, actions) {
       const {comment, idx} = actions.payload
       state[idx] = comment
     },
-    deleteComment (state, idx) {
-      state.splice(idx.payload, 1)
+    deleteComment (state, id) {
+      const copy = state.map((comment) => {
+        if (comment.id!==id) return comment
+      })
+      return copy
     },
     addComment (state, comment) {
       return state.concat(comment.payload)
     }
   }
 })
-export let { editComment, deleteComment, addComment } = detailComments.actions
-
-export let editCommentId = createSlice({
-  name: 'editCommentId',
-  initialState: 0,
-  reducers: {
-    setEditCommentId (state, value) {
-      return value.payload
-    }
-  }
-})
-export let { setEditCommentId } = editCommentId.actions
+export let { setDetailComment } = detailComments.actions

@@ -1,27 +1,47 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addComment, setEditCommentId } from '../../store/modules/community'
+
+import community from './../../api/community'
+import { setDetailComment } from './../../store/modules/community'
 
 export default function CommentsNew(props) {
-    const [content, setContent] = useState('')
     let dispatch = useDispatch()
-    let commentsLen = useSelector(state => state.comments).length + 1
+
+    const [content, setContent] = useState('')
+    const currentUser = useSelector(state => state.currentUser)
+    const postId = useSelector(state => state.detailPost).id
+
     const clickAddComment = () => {
-        dispatch(setEditCommentId(0))
-        const comment = {
-            username: '초록물고기',
-            content: content,
-            commentId : commentsLen,
-            date: '서울시 여러분'
+        props.setEditCommentId(0)
+
+        if (!currentUser.username) {
+            return alert('로그인 후 이용해주세요')
         }
-        dispatch(addComment(comment))
+
+        const comment = {
+            content: content
+        }
+
+        community.createComment(postId, comment)
+        .then(result => {
+            if (result.data) {
+                community.getComments(postId)
+                .then(result => {
+                    dispatch(setDetailComment(result.data))
+                })
+            } else {
+                alert('잘못된 접근입니다')
+            }
+        })
+
         return props.setIsEditing(false)
     }
 
     return (
         <div>
             <input type='text' onChange={(e) => {setContent(e.target.value)}}></input> | 
-            <button onClick={() => {clickAddComment()}}>작성</button>
+            <button onClick={() => {clickAddComment()}}>작성</button> |
+            <button onClick={() => {props.setIsEditing(false)}}>취소</button>
         </div>
     )
 }

@@ -17,6 +17,8 @@ import ProfileEdit from './pages/ProfileEdit'
 import FollowingList from './pages/FollowingList'
 import NotFount404 from './pages/NotFound404'
 
+import KakaoSignup from './components/User/KakaoSignup'
+
 // functions
 import user from './api/user'
 import { setCurrentUser } from './store/modules/user'
@@ -45,6 +47,7 @@ function App() {
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         <Route exact path="*" element={<NotFount404/>} />
+        <Route exact path="/kakaosignup" element={<KakaoSignup/>} />
       </Routes>
     </BrowserRouter>
   );

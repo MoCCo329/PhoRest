@@ -1,25 +1,39 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Comments from './Comments'
 import CommentsEdit from './CommentsEdit'
+import CommentsNew from './CommentsNew'
 
-export default function CommentsList() {
-    let editCommentId = useSelector(state => state.editCommentId)
-    let dummyComments = useSelector(state => state.detailComments)
+export default function CommentsList(props) {
+    const { isEditing, setIsEditing } = props
+    let comments = useSelector(state => state.detailComments)
+    
+    const [editCommentId, setEditCommentId] = useState(0)
 
-    // 댓글 리스트를 map으로 표시
-    // currentUser와 댓글 username이 같으면 편집 아이콘 표시
-    // 편집 아이콘 누를시 editCommentId 변화
-    // map 돌리면서 editCommentId와 같으면 댓글 대신 댓글 편집창을 띄운다.
+    // 댓글작성자랑 개시글작성자랑 같으면 배경색?
 
     return (
         <div>
-            { dummyComments.map((comment, idx) => {
-                if (editCommentId === comment.commentId) {
-                    return <CommentsEdit comment={comment} idx={idx} key={idx}/>
+            <div className='comments'>
+                { 
+                    comments && comments.length ?
+                    comments.map((comment, idx) => {
+                        if (editCommentId === comment.id) {
+                            return <CommentsEdit comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
+                        }
+                        return <Comments comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
+                    })
+                    : <div>댓글이 없습니다</div>
                 }
-                return <Comments comment={comment} idx={idx} key={idx}/>
-            })}
+            </div>
+            <div className='comments-new'>
+                {
+                    isEditing ?
+                    <CommentsNew setIsEditing={setIsEditing} setEditCommentId={setEditCommentId} ></CommentsNew>
+                    : null
+                }
+            </div>
         </div>
     )
 }

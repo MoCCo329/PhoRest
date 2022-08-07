@@ -42,21 +42,21 @@ const community = {
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/`
     })
   },
-  createComments (postId, data) {
+  createComment (postId, data) {
     return api({
       method: 'post',
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/`,
       data: data
     })
   },
-  editComments (postId, commentId, data) {
+  editComment (postId, commentId, data) {
     return api({
       method: 'put',
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/${commentId}`,
       data: data
     })
   },
-  deleteComments (postId, commentId, data) {
+  deleteComment (postId, commentId, data) {
     return api({
       method: 'delete',
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/${commentId}`

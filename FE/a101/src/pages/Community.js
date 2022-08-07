@@ -6,58 +6,129 @@ import './Community.css'
 import Layout from '../components/Layout/Layout'
 import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
-import CommentsNew from './../components/Community/CommentsNew'
+import SharePost from '../components/Community/SharePost'
 
 // functions
-import { setDetailPost } from '../store/modules/community'
-import s3 from './../api/s3'
+import { setDetailPost, setDetailComment, likeDetailPost, bookmarkDetailPost } from '../store/modules/community'
+import community from './../api/community'
 
 export default function Community(props) {
 
-    let [isEditing, setIsEditing] = useState(false)
-    let [isLike, setIsLike] = useState(false)  // 서버 내용을 redux로 저장하는식으로 바꿀예정
-    let [isBookmark, setIsBookmark] = useState(false)
-
-    const dispatch = useDispatch()
     const postId = (Number(atob(useParams().postId)) - 37) / 73
-    let content = useSelector(state => state.detailPost)
-    
-    if (!content || (content.postId !== postId)) {
-        s3.detailPost(postId)
-        .then(result => 
-            dispatch(setDetailPost(result.data))
-        )
-    }
+    const dispatch = useDispatch()
+
+    const [isEditing, setIsEditing] = useState(false)
+    const [isWriter, setIsWriter] = useState(false)
+    const [isSharing, setIsSharing] = useState(false)
+
+    const content = useSelector(state => state.detailPost)
+    const currentUser = useSelector(state => state.currentUser)
 
     useEffect(() => {
-        return () => {dispatch(setDetailPost({}))}
+        if (!content || (content.id !== postId)) {
+            community.detailPost(postId)
+            .then(result => 
+                dispatch(setDetailPost(result.data))
+            )
+
+            community.getComments(postId)
+            .then(result => {
+                dispatch(setDetailComment(result.data))
+            })
+        }
+    })
+
+    useEffect(() => {
+        if (content.users) {
+            setIsSharing(
+                content.users.some((user) => {
+                    return user.username===currentUser.username
+                })
+            )
+            setIsWriter(content.isWriter)
+        }
+
+    }, [content, currentUser.username])
+
+    useEffect(() => {
+        return () => {
+            dispatch(setDetailPost({}))
+            dispatch(setDetailComment([]))
+        }
     }, [])
 
-    // props 게시판 종류가 네컷이면 포즈가 있어야하며
     // 프레임이면 글표시랑 프레임 편집 링크
 
     // community-header 상단에 도착하면 고정시키기
     // community-comment를 style="overflow:scroll"
 
+    const clickLike = () => {
+        community.likePost(postId)
+        .then(result => {
+            if (result.data===1) {
+                dispatch(likeDetailPost(true))
+            } else if (result.data===0) {
+                dispatch(likeDetailPost(false))
+            } else {
+                alert('로그인 후 좋아요가 가능합니다')
+            }
+        })
+    }
+
+    const clickBookmark = () => {
+        community.bookmarkPost(postId)
+        .then(result => {
+            if (result.data===1) {
+                dispatch(bookmarkDetailPost(true))
+            } else if (result.data===0) {
+                dispatch(bookmarkDetailPost(false))
+            } else {
+                alert('로그인 후 북마크가 가능합니다')
+            }
+        })
+    }
+
     return (
         <Layout>
             <main>
-                <h3 className="community-title">
+                <div className="community-header">
                     { content.category === 'frame' ? '프레임' : '포즈'} 게시판
-                    { content.category==='photogroup' ? <> ({content.humanCount}명)</> : null }
-                </h3>
+                    { content.category==='photogroup' ? <div className='human-count'>{content.humanCount}명</div> : null }
+                </div>
                 <hr />
+                <h3>Content</h3>
                 <div className="community-body">
-                    <h3>Content</h3>
-                    <div className="community-header">
-                        <div className='community-header-for-test'><Profile user={props.writer}/><div>분홍호랑이</div></div>
-                        <div className='community-header-icons'>
-                            <box-icon type={isLike ? 'solid' : 'regular' } name='like' onClick={() => setIsLike(!isLike)}></box-icon>
-                            <box-icon type={isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => {setIsBookmark(!isBookmark)}}></box-icon>
-                            <box-icon name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
+                    <div className="community-body-meta">
+                        <div className='community-body-profiles'>
+                        {
+                            content.users ?
+                            content.users.map((user) => 
+                                <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
+                            ) : <div>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
+                        }
                         </div>
+                        <div>
+                            {
+                                isWriter ?
+                                <SharePost isSharing={isSharing} postId={content.postId} ></SharePost> : null
+                            }
+                        </div>
+                        <div className='community-body-icons'>
+                            {
+                                !isWriter ?
+                                <div>
+                                    <box-icon type={content.isLike ? 'solid' : 'regular' } name='like' onClick={() => clickLike()}></box-icon>
+                                    <box-icon type={content.isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => clickBookmark()}></box-icon>
+                                </div> : null
+                            }
+                            <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
+                        </div>
+                        {
+                            content.category==="photogroup" ?
+                            <button>사진에 쓰인 프레임 보러가기(미완)</button> : null
+                        }
                     </div>
-                    <div className="community-content">
+                    <div className="community-body-content">
                         <div>
                             <img src={content.url} alt={content.content} />
                         </div>
@@ -69,8 +140,7 @@ export default function Community(props) {
                 <hr />
                 <div className="community-comment">
                     <h3>Comments</h3>
-                    <CommentsList />
-                    { isEditing ? <CommentsNew setIsEditing={setIsEditing} /> : null }
+                    <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                 </div>
             </main>
         </Layout>
