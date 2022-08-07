@@ -25,6 +25,7 @@ export default function Kakao() {
         .then(data => {
             if (data.access_token) {
                 localStorage.setItem('token', data.access_token)
+                navigate('/')
             } else {
                 navigate('/')
             }
@@ -38,7 +39,7 @@ export default function Kakao() {
 
     return (
         <div>
-            <Kakao/>
+            미들웨어입니다
         </div>
     )
 }
