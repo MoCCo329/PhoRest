@@ -52,7 +52,7 @@ public class PostService {
         Optional <Post> post = postRepository.findById(postId);
         if(post.isEmpty())
             return Optional.empty();
-        List<User> users = userRepository.findPostMyPageUsers(postId);
+        List<User> users = userRepository.findPostMyPageSharedUsers(postId);
         List<UserDTO> userDTOS = new ArrayList<>();
         for (User user : users) {
             UserDTO userDto = UserDTO.from(user);
