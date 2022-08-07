@@ -140,9 +140,9 @@ public class UserService {
         }
 
 
-        if (userRepository.findByUsername(username) != null){
-            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
-        }
+//        if (userRepository.findByUsername(username) != null){
+//            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
+//        }
 
         User user = User.builder()
                 .username(ud.getUsername())
