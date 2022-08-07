@@ -38,7 +38,7 @@ public class KakaoController {
 
         //(!userService.findDtoUsernameOne(snsId).isPresent()){
             userDTO.setUsername(snsId);
-            userDTO.setPhone("11122223333");
+            //userDTO.setPhone(phone);
             userDTO.setNickname(nickname);
             userDTO.setProfileURL(profile_image);
             userDTO.setPassword(userpw);

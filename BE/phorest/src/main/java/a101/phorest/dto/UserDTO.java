@@ -46,8 +46,8 @@ public class UserDTO {
    @Enumerated(EnumType.STRING)
    private Role role;
 
-   @NotNull(message = "phone은 필수값입니다.")
-   @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "제대로 된 휴대폰 번호를 입력해주세요")
+   //@NotNull(message = "phone은 필수값입니다.")
+   //@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "제대로 된 휴대폰 번호를 입력해주세요")
    private String phone;
 
    private String profileURL;

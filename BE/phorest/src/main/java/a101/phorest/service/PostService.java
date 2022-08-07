@@ -52,18 +52,16 @@ public class PostService {
         Optional <Post> post = postRepository.findById(postId);
         if(post.isEmpty())
             return Optional.empty();
-        else if(!post.get().isShared() && mode == 1L)
-            return Optional.empty();
         List<User> users = userRepository.findPostMyPageUsers(postId);
         List<UserDTO> userDTOS = new ArrayList<>();
-        for(int i = 0; i < users.size(); i++)
-        {
-            UserDTO userDto = UserDTO.from(users.get(i));
+        for (User user : users) {
+            UserDTO userDto = UserDTO.from(user);
             userDTOS.add(userDto);
         }
         PostDTO postDto = new PostDTO(post.get(), userDTOS);
         postDto.setIsLike(false);
         postDto.setIsBookmark(false);
+        postDto.setIsWriter(false);
         if(!username.isEmpty()) {
             if(likeRepository.findByPostIdAndUsername(postId, username).isPresent())
                 postDto.setIsLike(true);
@@ -73,6 +71,8 @@ public class PostService {
                 postDto.setIsWriter(true);
 
         }
+        if(!post.get().isShared() && mode == 1L && !postDto.getIsWriter())
+            return Optional.empty();
         return Optional.of(postDto);
 
     }

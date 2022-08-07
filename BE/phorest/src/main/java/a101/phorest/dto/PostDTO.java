@@ -59,5 +59,6 @@ public class PostDTO {
     private Boolean isBookmark;
 
     private Boolean isWriter;
+    
     private List<UserDTO> users;
 }
