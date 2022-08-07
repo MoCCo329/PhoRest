@@ -74,7 +74,6 @@ public class PostService {
         if(!post.get().isShared() && mode == 1L && !postDto.getIsWriter())
             return Optional.empty();
         return Optional.of(postDto);
-
     }
 
     public Optional<Post> findOne(Long postId){
