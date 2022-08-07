@@ -4,22 +4,27 @@ import "./MyPhotos.css";
 import { useSelector } from "react-redux";
 
 export default function MyPhotos() {
-  const userDetail = useSelector(state => state.userDetail)
-  
+  const userDetail = useSelector((state) => state.userDetail);
+
   return (
     <div>
-      {userDetail.postDTOS.filter(item => item.category === "photogroup") === 0 && <p>등록된 게시물이 없습니다</p>}
+      {userDetail.postDTOS.filter((item) => item.category === "photogroup") ===
+        0 && <p>등록된 게시물이 없습니다</p>}
 
       <div className="container-gallery">
-        {userDetail.postDTOS.filter(item => item.category === "photogroup").map((item) => (
-          <img
-            className="image"
-            key={item.id}
-            src={item.url}
-            alt={item.title}
-            loading="lazy"
-          />
-        ))}
+        {userDetail.postDTOS
+          .filter((item) => item.category === "photogroup")
+          .map((item) => (
+            <div className="img-board">
+              <img
+                className="image"
+                key={item.id}
+                src={item.url}
+                alt={item.title}
+                loading="lazy"
+              />
+            </div>
+          ))}
       </div>
     </div>
   );
