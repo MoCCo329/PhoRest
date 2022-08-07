@@ -106,7 +106,7 @@ public class KakaoService {
             String id = obj.get("id").toString();
 
             JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
-            String phone_number = kakao_account.get("phone_number").toString();
+            //String phone_number = kakao_account.get("phone_number").toString();
 
             JSONObject profile = (JSONObject) kakao_account.get("profile");
             String nickname = profile.get("nickname").toString();
@@ -115,7 +115,7 @@ public class KakaoService {
             result.put("id", id);
             result.put("nickname", nickname);
             result.put("profile_image", profile_image);
-            result.put("phone_number", phone_number);
+            //result.put("phone_number", phone_number);
             //result.put("age_range", age_range);
 
             br.close();
