@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +35,7 @@ public class PostService {
     public Long join(Images images, String category, String content){
         //validateDuplicateMember(post);
         Post post = new Post();
-        post.setTime(LocalDateTime.now());
+        post.setTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         post.setLikeCount(0);
         post.setCategory(category);
         post.setContent(content);
@@ -63,11 +64,14 @@ public class PostService {
         PostDTO postDto = new PostDTO(post.get(), userDTOS);
         postDto.setIsLike(false);
         postDto.setIsBookmark(false);
+        postDto.setIsWriter(false);
         if(!username.isEmpty()) {
             if(likeRepository.findByPostIdAndUsername(postId, username).isPresent())
                 postDto.setIsLike(true);
             if(bookmarkRepository.findByPostIdAndUsername(postId,username).isPresent())
                 postDto.setIsBookmark(true);
+            if(myPageRepository.findByPostIdAndUsername(postId, username).isPresent())
+                postDto.setIsWriter(true);
 
         }
         return Optional.of(postDto);
