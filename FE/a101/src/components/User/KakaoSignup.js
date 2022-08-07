@@ -8,15 +8,24 @@ export default function KakaoSignup() {
 //     });
 //   }
   const url = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=http://localhost:3000/kakao"
-  const base = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/api/user/kakao/signup'
+  const singup_url = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/api/user/kakao/signup'
+  const login_url = 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/api/user/kakao/login'
 
-  function move() {
-    window.location.href = base;
+  function singup() {
+    window.location.href = singup_url;
+  }
+  function login() {
+    window.location.href = login_url;
   }
   return (
     <div>
       <button
-        onClick={move}
+        onClick={singup}
+      >
+        카카오로 회원가입하기
+      </button>
+      <button
+        onClick={login}
       >
         카카오로 로그인하기
       </button>
