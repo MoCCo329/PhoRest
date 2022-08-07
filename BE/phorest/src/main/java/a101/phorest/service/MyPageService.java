@@ -39,7 +39,9 @@ public class MyPageService {
         Post post = postRepository.findById(postId).get();
         mypage.setUser(user);
         mypage.setPost(post);
-        mypage.setShared(false);
+        mypage.setShared(true);
+        if(!post.isShared())
+            post.setShared(true);
         mypage.setCategory(post.getCategory());
         myPageRepository.save(mypage);
         return mypage.getId();
