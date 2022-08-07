@@ -44,7 +44,7 @@ export default function Main() {
             password : password,
             phone : phone
         }
-        console.log(credentials)
+        
         user.signup(credentials)
         .then((result) => {
           alert('회원가입이 완료되었습니다')

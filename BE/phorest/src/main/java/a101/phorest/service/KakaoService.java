@@ -15,8 +15,8 @@ import java.util.Map;
 @Service
 public class KakaoService {
 
-    //private final String redirect_uri = "https://phorest.site";
-    private final String redirect_uri = "http://localhost:8399/api/user/kakao/";
+    //private final String redirect_uri = "http://localhost:8399/api/user/kakao/";
+    private final String redirect_uri = "https://phorest.site/api/user/kakao/";
 
     public String getToken(String code,String status) throws IOException {
         //인가코드로 토큰 받기
