@@ -15,6 +15,7 @@ import FrameEdit from './pages/FrameEdit'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import NotFount404 from './pages/NotFound404'
+import KakaoLogin from './components/Members/KakaoLogin'
 
 // functions
 import members from './api/members'
@@ -55,6 +56,7 @@ function App() {
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         <Route exact path="*" element={<NotFount404/>} />
+        <Route exact path="/kakaosignup" element={<KakaoLogin/>} />
       </Routes>
     </BrowserRouter>
   );

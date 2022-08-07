@@ -1,5 +1,6 @@
 import * as React from "react";
 import MyPhotos from "./MyPhotos";
+import MyFrames from "./MyFrames";
 import MyGallery from "./MyGallery";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined";
@@ -10,8 +11,8 @@ export default function ActivityTabs(props) {
   const [viewMenu, setViewMenu] = React.useState(0);
   const menus = {
     0: <MyGallery photos={props.photos}/>,
-    1: <MyPhotos />,
-    2: <MyPhotos />,
+    1: <MyFrames />,
+    2: <MyPhotos />
   };
 
   

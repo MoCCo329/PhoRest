@@ -1,10 +1,12 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-export let pics_mypage = createSlice({
-    name: 'pics_mypage',
-    initialState: [],
+export let userDetail = createSlice({
+    name: 'userDetail',
+    initialState: {postDTOS: []},
     reducers: {
-
+        setUserDetail (state, actions) {
+            return actions.payload
+        },
     }
 })
-
+export let { setUserDetail } = userDetail.actions

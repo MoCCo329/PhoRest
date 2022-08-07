@@ -6,7 +6,7 @@ const END_POINT = 'mypage'
 
 
 const mypage = {
-  photos (username) {
+  userDetail (username) {
     return api({
       method: 'get',
       url: `${END_POINT}/${username}/`,

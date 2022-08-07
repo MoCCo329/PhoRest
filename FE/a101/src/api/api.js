@@ -13,7 +13,7 @@ api.interceptors.request.use(
 
   if (!token) return config
 
-  config.headers.Authorization = `Token ${token}`
+  config.headers.Authorization = `${token}`
   return config
   },
   error => {
