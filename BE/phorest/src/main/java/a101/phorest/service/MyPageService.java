@@ -93,6 +93,7 @@ public class MyPageService {
         return userDTOS;
     }
 
+    @Transactional
     public Long sharePost(Long postId, String username){
         Optional<Post> post = postRepository.findById(postId);
         if(post.isEmpty())
