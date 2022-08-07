@@ -12,6 +12,8 @@ export default function Kakao() {
     let params = new URL(window.location.href).searchParams;
     let code = params.get('code');
 
+    console.log(code)
+
     //토큰 저장
     const getKakaoToken = () => {
         fetch('https://kauth.kakao.com/ouath/token', {
@@ -30,7 +32,7 @@ export default function Kakao() {
     }
 
     useEffect(() => {
-        if (!code) return;
+        // if (!code) return;
         getKakaoToken();
     }, []);
 
