@@ -63,6 +63,7 @@ public class UserDTO {
    private boolean isFollowing;
 
    private String refresh_token;
+   private String access_token;
 
    //private String token;
 
@@ -77,6 +78,7 @@ public class UserDTO {
               .role(user.getRole())
               .phone(user.getPhone())
               .profileURL(user.getProfileUrl())
+              .access_token(user.getAccess_token())
               .introduce(user.getIntroduce())
               .build();
 

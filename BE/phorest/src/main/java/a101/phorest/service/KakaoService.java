@@ -1,8 +1,13 @@
 package a101.phorest.service;
 
+import a101.phorest.domain.Role;
+import a101.phorest.domain.User;
+import a101.phorest.dto.UserDTO;
+import a101.phorest.repository.UserRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
+import springfox.documentation.spring.web.json.Json;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -14,6 +19,8 @@ import java.util.Map;
 
 @Service
 public class KakaoService {
+
+//    private final UserRepository userRepository;
 
     //private final String redirect_uri = "http://localhost:8399/api/user/kakao/";
     private final String redirect_uri = "https://phorest.site/api/user/kakao/";
@@ -83,6 +90,7 @@ public class KakaoService {
             URL url = new URL(host);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             urlConnection.setRequestProperty("Authorization", "Bearer " + access_token);
             urlConnection.setRequestMethod("GET");
 
@@ -105,12 +113,9 @@ public class KakaoService {
             JSONObject obj = (JSONObject) parser.parse(res);
             String id = obj.get("id").toString();
 
-            JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
-            //String phone_number = kakao_account.get("phone_number").toString();
-
-            JSONObject profile = (JSONObject) kakao_account.get("profile");
-            String nickname = profile.get("nickname").toString();
-            String profile_image = profile.get("profile_image_url").toString();
+            JSONObject properties = (JSONObject) obj.get("properties");
+            String nickname = properties.get("nickname").toString();
+            String profile_image = properties.get("profile_image").toString();
 
             result.put("id", id);
             result.put("nickname", nickname);

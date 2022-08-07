@@ -28,22 +28,7 @@ public class KakaoController {
 
         HashMap<String, String> userInfo = (HashMap<String, String>) kaKaoService.getUserInfo(access_token);
 
-        String snsId = (String) userInfo.get("id") +"@k";
-        String nickname = (String) userInfo.get("nickname");
-        //String phone = (String) userInfo.get("phone_number");
-        String profile_image = (String) userInfo.get("profile_image");
-        String userpw = snsId+"123";
-
-        UserDTO userDTO = new UserDTO();
-
-        //(!userService.findDtoUsernameOne(snsId).isPresent()){
-            userDTO.setUsername(snsId);
-            //userDTO.setPhone(phone);
-            userDTO.setNickname(nickname);
-            userDTO.setProfileURL(profile_image);
-            userDTO.setPassword(userpw);
-        //}
-        return ResponseEntity.ok(userService.setKakaoUser(userInfo)); //ResponseEntity<UserDTO>
+        return ResponseEntity.ok(userService.setKakaoUser(userInfo,access_token)); //ResponseEntity<UserDTO>
 
     }
 

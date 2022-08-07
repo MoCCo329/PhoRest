@@ -38,13 +38,16 @@ public class User {
    @Column(name = "role")
    private Role role;
 
-   @Length(min = 10, max = 16)
+   //@Length(min = 10, max = 16)
    @Column(name = "phone", unique = true)
    private String phone;
 
    private String profileUrl;
 
    private String introduce;
+
+   private String refresh_token;
+   private String access_token;
 
    @OneToMany(mappedBy = "user")// Post - comments 하나의 멤버가 여러개의 댓글을 달을 수 있다. 일대다. mypage가 주인장.
    private List<MyPage> mypages = new ArrayList<>();
