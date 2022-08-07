@@ -131,7 +131,7 @@ public class UserService {
         if(userInfo.get("nickname") != null){
             ud.setNickname(userInfo.get("nickname"));
         } else ud.setNickname("PhoRest"+username);
-        if(userInfo.get("profile_image_url") != null){
+        if(userInfo.get("profile_image") != null){
             ud.setProfileURL(userInfo.get("profile_image_url"));
         }
         if(userInfo.get("phone_number") != null){

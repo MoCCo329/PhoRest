@@ -9,9 +9,9 @@ export default configureStore({
     photoRecent: photoRecent.reducer,
     frameLike: frameLike.reducer,
     frameRecent: frameRecent.reducer,
+    
     detailPost: detailPost.reducer,
     detailComments: detailComments.reducer,
-    editCommentId: editCommentId.reducer,
 
     // member
     token: token.reducer,
