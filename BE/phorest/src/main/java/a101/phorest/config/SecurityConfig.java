@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         ,"/favicon.ico"
                         ,"/error"
                         ,"/swagger-ui/**","/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**"
+                        ,"/kakao/**","/**"
                 );
     }
 
@@ -80,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/kakao/**").permitAll()
+                .antMatchers("/**").permitAll()
 
                 .anyRequest().authenticated()
 

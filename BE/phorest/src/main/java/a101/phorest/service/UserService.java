@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -153,5 +154,17 @@ public class UserService {
                 .build();
 
         return UserDTO.from(userRepository.save(user));
+    }
+
+
+    @Transactional
+    public Boolean loginKakaoUser(String snsId){
+        User user = userRepository.findByUsername(snsId);
+        if(user == null){
+            throw new DuplicateMemberException("아이디가 없습니다.");
+        }else{
+            user.setActivated(true);
+return true;
+        }
     }
 }
