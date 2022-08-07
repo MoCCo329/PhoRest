@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class CommentService {
         comment.setUser(user);
         comment.setPost(post);
         comment.setContent(content);
-        comment.setTime(LocalDateTime.now());
+        comment.setTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
         commentRepository.save(comment);
         return true;
