@@ -16,7 +16,7 @@ export default function Profile(props) {
     return (
         <div className="profile" onClick={() => {navigate(`/mypage/${user.username}`)}}>
            {
-            user.profileURL ? <img src={user.profileURL} alt="" /> : <AccountCircleTwoToneIcon className="header-profile" />
+            user.profileURL ? <img src={user.profileURL} alt="" /> : <AccountCircleTwoToneIcon className="profile-header" />
            }
            {user.nickname}
         </div>
