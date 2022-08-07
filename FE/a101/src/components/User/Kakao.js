@@ -16,10 +16,8 @@ export default function Kakao() {
 
     //토큰 저장
     const getKakaoToken = () => {
-        fetch(`https://phorest`, {
-            method: 'post',
-            headers: { 'Content-type': 'application/x-www-form-urlencoded'},
-            body: `grant_type=authorization_code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/kakao&code=${code}`
+        fetch(`https://phorest.site/api/user/kakao/signup?code=${code}`, {
+            method: 'get',
         })
         .then(res => res.json())
         .then(data => {
