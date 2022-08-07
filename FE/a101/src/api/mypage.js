@@ -16,6 +16,12 @@ const mypage = {
       url: `${END_POINT}/${username}/`,
     });
   },
-};
+  ownPost (postId) {
+    return api({
+      method: 'post',
+      url: `mypage/${btoa(postId * 73 + 37)}/add`
+    })
+  }
+}
 
 export default mypage;

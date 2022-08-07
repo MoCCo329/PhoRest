@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import "./Header.css"
 import logo from './../../assets/logo.png'
@@ -9,12 +9,14 @@ import Profile from '../User/Profile'
 
 // functions
 import user from './../../api/user'
+import { setDetailPost } from '../../store/modules/community' 
 
 // 로고, 로그인 혹은 로그아웃 등
 // 아래로 스크롤시 위로 사라지도록
 
 export default function Header() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const userDetail = useSelector(state => state.currentUser)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -34,6 +36,7 @@ export default function Header() {
         setIsLoggedIn(false)
         localStorage.setItem('token', '')
         user.currentUser()
+        dispatch(setDetailPost(''))
       }
     })
   }

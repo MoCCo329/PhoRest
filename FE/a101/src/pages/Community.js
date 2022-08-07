@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Community.css'
@@ -13,42 +13,45 @@ import { setDetailPost, setDetailComment, likeDetailPost, bookmarkDetailPost } f
 import community from './../api/community'
 
 export default function Community(props) {
-
     const postId = (Number(atob(useParams().postId)) - 37) / 73
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const [isEditing, setIsEditing] = useState(false)
     const [isWriter, setIsWriter] = useState(false)
     const [isSharing, setIsSharing] = useState(false)
 
-    const content = useSelector(state => state.detailPost)
+    const detailPost = useSelector(state => state.detailPost)
     const currentUser = useSelector(state => state.currentUser)
 
     useEffect(() => {
-        if (!content || (content.id !== postId)) {
-            community.detailPost(postId)
-            .then(result => 
-                dispatch(setDetailPost(result.data))
-            )
-
-            community.getComments(postId)
-            .then(result => {
-                dispatch(setDetailComment(result.data))
-            })
-        }
-    })
+        community.detailPost(postId)
+        .then(result => 
+            dispatch(setDetailPost(result.data))
+        )
+        community.getComments(postId)
+        .then(result => {
+            dispatch(setDetailComment(result.data))
+        })
+    }, [])
 
     useEffect(() => {
-        if (content.users) {
+        community.detailPost(postId)
+        .then(result => {
+            dispatch(setDetailPost(result.data))
+        })
+    }, [!!detailPost])
+
+    useEffect(() => {
+        if (detailPost.users) {
             setIsSharing(
-                content.users.some((user) => {
+                detailPost.users.some((user) => {
                     return user.username===currentUser.username
                 })
             )
-            setIsWriter(content.isWriter)
         }
-
-    }, [content, currentUser.username])
+        setIsWriter(detailPost.isWriter)
+    }, [detailPost, currentUser])
 
     useEffect(() => {
         return () => {
@@ -88,12 +91,36 @@ export default function Community(props) {
         })
     }
 
+    const deletePost = () => {
+        let confirmResult = false
+        if (detailPost.category==='photogroup') {
+            confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
+        } else {
+            confirmResult = window.confirm('프레임게시글을 삭제합니다.')
+        }
+
+        if (confirmResult) {
+            community.deletePost(postId)
+            .then(result => {
+                if (result.data===0) {
+                    community.detailPost(postId)
+                    .then(result => 
+                        dispatch(setDetailPost(result.data))
+                    )
+                } else {
+                    alert('잘못된 접근입니다.')
+                }
+            })
+        }
+
+    }
+
     return (
         <Layout>
             <main>
                 <div className="community-header">
-                    { content.category === 'frame' ? '프레임' : '포즈'} 게시판
-                    { content.category==='photogroup' ? <div className='human-count'>{content.humanCount}명</div> : null }
+                    { detailPost.category === 'frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
+                    { detailPost.category==='photogroup' ? <div className='human-count'>{detailPost.humanCount}명</div> : null }
                 </div>
                 <hr />
                 <h3>Content</h3>
@@ -101,39 +128,49 @@ export default function Community(props) {
                     <div className="community-body-meta">
                         <div className='community-body-profiles'>
                         {
-                            content.users ?
-                            content.users.map((user) => 
+                            detailPost.users ?
+                            detailPost.users.map((user) => 
                                 <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
                             ) : <div>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
                         }
                         </div>
-                        <div>
+                        <div className='community-share'>
                             {
                                 isWriter ?
-                                <SharePost isSharing={isSharing} postId={content.postId} ></SharePost> : null
+                                <SharePost isSharing={isSharing} postId={detailPost.id} ></SharePost> : null
+                            }
+                        </div>
+                        <div className='community-delete'>
+                            {
+                                isWriter ?
+                                <div onClick={() => deletePost()}>게시글 삭제하기</div> : null
                             }
                         </div>
                         <div className='community-body-icons'>
                             {
                                 !isWriter ?
                                 <div>
-                                    <box-icon type={content.isLike ? 'solid' : 'regular' } name='like' onClick={() => clickLike()}></box-icon>
-                                    <box-icon type={content.isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => clickBookmark()}></box-icon>
+                                    <box-icon type={detailPost.isLike ? 'solid' : 'regular' } name='like' onClick={() => clickLike()}></box-icon>
+                                    <box-icon type={detailPost.isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => clickBookmark()}></box-icon>
                                 </div> : null
                             }
                             <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
                         </div>
                         {
-                            content.category==="photogroup" ?
-                            <button>사진에 쓰인 프레임 보러가기(미완)</button> : null
+                            isWriter && detailPost.category==='frame' ?
+                            <div onClick={() => navigate(`/community/edit/${btoa((postId) * 73 + 37)}`)}>프레임 편집하기</div> : null
                         }
+                        {/* {
+                            detailPost.category==="photogroup" ?
+                            <button>사진에 쓰인 프레임 보러가기(미완)</button> : null
+                        } */}
                     </div>
                     <div className="community-body-content">
                         <div>
-                            <img src={content.url} alt={content.content} />
+                            <img src={detailPost.url} alt={detailPost.content} />
                         </div>
                         <div>
-                            { content.category === "frame" ? content.content : null }
+                            { detailPost.category === "frame" ? detailPost.content : null }
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,6 @@ export default function ProfileEdit() {
   const [passwordMatch, setPasswordMatch] = useState('')
   const [phoneValidity, setPhoneValidity] = useState('')
 
-
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export default function ProfileEdit() {
     if (phoneValidity) {
       return alert('핸드본번호를 정확히 입력해 주세요')
     }
-    console.log(type)
+    
     if (type && (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다')) {
       return alert('비밀번호를 정확히 입력해 주세요')
     }

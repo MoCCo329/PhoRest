@@ -122,29 +122,7 @@ export let { setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecen
 
 export let detailPost = createSlice({
   name: 'detailPost',
-  initialState: {
-    id: '',
-    category: '',
-    url: '',
-    content: '',
-    humanCount: null,
-    time: '',
-    photogroupId: null,
-    frameId: null,
-    isLike: null,
-    isBookmark: null,
-    users: [
-      {
-        username: '',
-        password: '',
-        nickname: '',
-        activated: '',
-        role: '',
-        phone: '',
-        profileUrl: '',
-      }
-    ]
-  },
+  initialState: '',
   reducers: {
     setDetailPost (state, actions) {
       return actions.payload

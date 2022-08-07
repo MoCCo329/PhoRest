@@ -16,6 +16,16 @@ const s3 = {
         'Content-Type': 'multipart/form-data'
       },
     })
+  },
+  uploadFrame (data) {
+    return api({
+      method: 'post',
+      url: `upload/frame/`,
+      data: data,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    })
   }
 }
 
