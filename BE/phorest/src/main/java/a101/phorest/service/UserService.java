@@ -127,9 +127,9 @@ public class UserService {
 
         String username = userInfo.get("id") +"@k";
 
-        if (userRepository.findByUsername(username) != null){
-            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
-        }
+//        if (userRepository.findByUsername(username) != null){
+//            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
+//        }
 
         ud.setUsername(username);
 
