@@ -120,7 +120,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO setKakaoUser(HashMap<String, String> userInfo){
+    public UserDTO setKakaoUser(HashMap<String, String> userInfo,String access_token){
         /** 회원 정보 카톡으로 받기 */
 
         UserDTO ud = new UserDTO();
@@ -132,13 +132,9 @@ public class UserService {
         }
 
         ud.setUsername(username);
-
-        if(userInfo.get("nickname") != null){
-            ud.setNickname(userInfo.get("nickname"));
-        } else ud.setNickname("PhoRest"+username);
-        if(userInfo.get("profile_image") != null){
-            ud.setProfileURL(userInfo.get("profile_image_url"));
-        }
+        ud.setAccess_token(access_token);
+        ud.setNickname(userInfo.get("nickname"));
+        ud.setProfileURL(userInfo.get("profile_image"));
         if(userInfo.get("phone_number") != null){
             ud.setPhone(userInfo.get("phone_number"));
             //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
@@ -150,6 +146,8 @@ public class UserService {
                 .password(passwordEncoder.encode(username))
                 .nickname(ud.getNickname())
                 .phone(ud.getPhone())
+                .access_token(ud.getAccess_token())
+                .profileUrl(ud.getProfileURL())
                 .role(Role.USER) // user로 가입
                 .activated(true)
                 .build();
