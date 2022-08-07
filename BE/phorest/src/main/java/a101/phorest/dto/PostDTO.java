@@ -42,6 +42,7 @@ public class PostDTO {
 
     private String url;
 
+
     private String content;
 
     private Long humanCount;

@@ -33,7 +33,7 @@ public class MyPageService {
     {
         Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
         if(myPage.isPresent())
-            return -1L;
+            return 1L;
         MyPage mypage = new MyPage();
         User user = userRepository.findByUsername(username);
         Post post = postRepository.findById(postId).get();
