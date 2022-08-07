@@ -26,7 +26,7 @@ export default function Main() {
             dispatch(setDetailPost(result.data))
         })
     }
-    console.log(isOwned, currentUser.username)
+
     useEffect(() => {
         if (!isOwned && currentUser.username) {
             mypage.ownPost(postId)

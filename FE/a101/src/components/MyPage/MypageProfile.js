@@ -18,7 +18,6 @@ export default function MypageProfile(props) {
   // 팔로우 버튼 누르면 신청
   let isFollow = userDetail.following
 
-  console.log(userDetail.introduce)
   return (
     <div>
       <div className="profile-box">

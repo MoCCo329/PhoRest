@@ -29,7 +29,6 @@ export default function MyPage() {
         console.log(err);
       })
       .then((result) => {
-        console.log(result.data);
         dispatch(setUserDetail(result.data));
       });
   }, []);

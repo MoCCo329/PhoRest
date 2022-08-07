@@ -63,7 +63,6 @@ export default function FrameEdit() {
 
         s3.uploadFrame(formdata)
         .then(result => {
-            console.log(result.data)
             navigate(`/community/${btoa((result.data) * 73 + 37)}`)
         })
     }
