@@ -143,6 +143,7 @@ public class PostService {
         if(myPage.isEmpty())
             return 3L;
         if(post.get().getCategory().equals("photogroup")){
+            post.get().getMypages().removeIf(myPage1 -> myPage1.getId().equals(myPage.get().getId()));
             myPageRepository.deleteById(myPage.get().getId());
             List<MyPage> myPages = myPageRepository.findByPostIdShared(postId);
             if(myPages.size() == 0)
