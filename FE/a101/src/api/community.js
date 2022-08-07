@@ -10,7 +10,6 @@ const community = {
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/`
     })
   },
-
   editPost (postId, data) {
     return api({
       method: 'put',

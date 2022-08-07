@@ -33,6 +33,14 @@ function App() {
     })
   })
 
+  // useEffect(() => {
+  //   return (() => {
+  //     console.log('logout')
+  //     user.logout()
+  //     localStorage.setItem('token', '')
+  //   })
+  // }, [])
+
   return (
     <BrowserRouter>
       <Routes>
@@ -42,8 +50,8 @@ function App() {
         <Route exact path="/mypage/following" element={<FollowingList/>} />
         <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/mypage" element={<Mypage/>} />
+        <Route exact path="/community/edit/:postId" element={<FrameEdit/>} />
         <Route exact path="/community/:postId" element={<Community/>} />
-        <Route exact path="/frameEdit" element={<FrameEdit/>} />
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         <Route exact path="*" element={<NotFount404/>} />

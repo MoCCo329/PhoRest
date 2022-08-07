@@ -1,24 +1,52 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+
+import community from '../../api/community'
+import { setPhotoLike, setFrameLike } from './../../store/modules/community'
 
 import './CommunityCarousel.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
+
 export default function CommunityCarousel(props) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const { communityType } = props
-  const dummyContents = props.contents
+
   const [humanCount, setHumanCount] = useState(1)
+  const photo = useSelector(state => state.photoLike)
+  const frame = useSelector(state => state.frameLike)
 
   const move = (postId) => {
     navigate(`/community/${btoa((postId) * 73 + 37)}`)
   }
+
+  useEffect(() => {
+    if (communityType==='photogroup') {
+      community.photoLike({limit: 100, offset: 0, humanCount: humanCount})
+      .then(result => {
+        dispatch(setPhotoLike(result.data))
+      })
+    } else {
+      community.frameLike({limit: 100, offset: 0})
+      .then(result => {
+        dispatch(setFrameLike(result.data))
+      })      
+    }
+  }, [])
+
+  useEffect(() => {
+    community.photoLike({limit: 100, offset: 0, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoLike(result.data))
+    })
+  }, [humanCount])
 
   return (
       <div className="community-carousel">
@@ -46,17 +74,34 @@ export default function CommunityCarousel(props) {
             // onSwiper={(swiper) => console.log(swiper)}
             // onSlideChange={() => console.log('slide change')}
           >
-            {dummyContents.map((content, idx) =>
-              (communityType==='frame' || content.humanCount===humanCount) ?
-              <SwiperSlide key={idx}>
-                <img onClick={() => move(content.postId)}
-                  className="community-carousel-slider-img"
-                  
-                  src={content.url}
-                  alt={content.postId}
-                />
-              </SwiperSlide> : null
-            )}
+            {
+              communityType==='photogroup' && photo.length ?
+                photo.map((content) =>
+                  <SwiperSlide key={content.id}>
+                    <img onClick={() => move(content.id)}
+                      className="community-carousel-slider-img"
+                      
+                      src={content.url}
+                      alt={content.postId}
+                    />
+                    <div>{content.likeCount}</div>
+                  </SwiperSlide>
+                ) : null
+            }
+            {
+              communityType==='frame' && frame.length ?
+                frame.map((content) => 
+                  <SwiperSlide key={content.id}>
+                    <img onClick={() => move(content.id)}
+                      className="community-carousel-slider-img"
+                      
+                      src={content.url}
+                      alt={content.postId}
+                    />
+                    <div>{content.likeCount}</div>
+                  </SwiperSlide>
+                ) : null
+            }
           </Swiper>
         </div>
       </div>

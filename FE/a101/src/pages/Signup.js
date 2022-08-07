@@ -48,7 +48,7 @@ export default function Main() {
         user.signup(credentials)
         .then((result) => {
           alert('회원가입이 완료되었습니다')
-          navigate("/login")
+          navigate("/login", { replace: true })
         })
         .catch((error) => {
           if (error.response.data.message==='@Valid Error') {

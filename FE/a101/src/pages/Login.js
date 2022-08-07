@@ -34,7 +34,7 @@ export default function Main() {
             .then(result => {
                 dispatch(setCurrentUser(result.data))
             })
-            navigate("/")
+            navigate(-1, { replace: true })
         })
         .catch((error) => {
             dispatch(setAuthError(error.response.data.message))
@@ -46,14 +46,14 @@ export default function Main() {
         <div>
             <form onSubmit={(e) => {onSubmit(e)}}>
               <label htmlFor="username">ID : </label>
-              <input onChange={(e)=>{setId(e.target.value)}} type="text" id="username" required placeholder="ID" /><br/>
+              <input onChange={(e)=>{setId(e.target.value)}} type="text" id="username" required autoFocus placeholder="ID" /><br/>
               <label htmlFor="password">Password : </label>
               <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="password" required placeholder="Password" /><br/>
               <button type="submit">login</button>
             </form>
             { authError ? <p>{authError}</p> : ''}
 
-            <button onClick={() => navigate('/signup')}>회원가입</button>
+            <button onClick={() => navigate('/signup', { replace: true })}>회원가입</button>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -9,41 +9,35 @@ import CommunityCarousel from './../components/Community/CommunityCarousel'
 // functions
 import { setDetailPost } from '../store/modules/community'
 import s3 from './../api/s3'
+import mypage from './../api/mypage'
 
 
 export default function Main() {
-    const photoLike = useSelector(state => state.photoLike)
-    // const picRecent = useSelector(state => state.photoRecent])
-    const frameLike = useSelector(state => state.frameLike)
-    // const frameRecent = useSelector(state => state.frameRecent)
-
     const dispatch = useDispatch()
     const postId = (Number(atob(useParams().postId)) + 37) / 73
 
     let content = useSelector(state => state.detailPost)
+    const currentUser = useSelector(state => state.currentUser)
+    const [isOwned, setIsOwned] = useState(false)
 
-    if (!!!content.url) {
+    if (!content.url) {
         s3.detailPost(postId)
-        .then(result => result.data)
         .then(result => {
-            const copy = {
-                postId: result.id,
-                category: result.category,
-                url: result.url,
-                content: result.content,
-                humanCount: result.humanCount,
-                time: result.time,
-                photogroupId: result.photogroupId,
-                frameId: result.frameId,
-            }
-            dispatch(setDetailPost(copy))
+            dispatch(setDetailPost(result.data))
         })
     }
 
-    useEffect(() => {
-        return () => {dispatch(setDetailPost({}))}
-    }, [])
-    
+    if (!isOwned && currentUser.username) {
+        mypage.ownPost(postId)
+        .then(result => {
+            if (result.data) {
+                setIsOwned(true)
+            } else {
+                setIsOwned(false)
+            }
+        })
+    }
+
     const imageDownload = () => {
         fetch(content.url + '?timestamp=2')
         .then((image) => {
@@ -60,7 +54,7 @@ export default function Main() {
         })
     }
     const videoDownload = () => {
-        fetch(content.url + '?timestamp=2')
+        fetch(content.videoURL + '?timestamp=2')
         .then((image) => {
             return image.blob();
         })
@@ -68,7 +62,7 @@ export default function Main() {
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement("a")
             a.href = url
-            a.download = `PhoRest_${content.time.slice(0, 10)}.gif`
+            a.download = `PhoRest_${content.time.slice(0, 10)}.mp4`
             a.click()
             a.remove()
             window.URL.revokeObjectURL(url)
@@ -94,11 +88,11 @@ export default function Main() {
                 <hr />
                 <div className="download-community">
                     <div>
-                        <CommunityCarousel communityType="photogroup" contents={photoLike}/>
+                        <CommunityCarousel communityType="photogroup" />
                     </div>
                     <hr />
                     <div>
-                        <CommunityCarousel communityType="frame" contents={frameLike}/>
+                        <CommunityCarousel communityType="frame" />
                     </div>
                 </div>
             </main>
