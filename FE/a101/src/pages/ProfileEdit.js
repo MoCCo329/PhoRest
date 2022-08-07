@@ -54,8 +54,6 @@ export default function ProfileEdit() {
         introduce: form.introduce.value
       }
 
-      console.log(credentials)
-
       if (!type) {
         credentials.password = form.beforePassword.value
       }

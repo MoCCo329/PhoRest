@@ -56,7 +56,7 @@ const community = {
       data: data
     })
   },
-  deleteComment (postId, commentId, data) {
+  deleteComment (postId, commentId) {
     return api({
       method: 'delete',
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/comment/${commentId}`
