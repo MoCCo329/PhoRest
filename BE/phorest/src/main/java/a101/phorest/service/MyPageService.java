@@ -66,16 +66,12 @@ public class MyPageService {
             Optional<Follow> follow = Optional.empty();
             if(!loginUsername.equals(""))
                 follow = followRepository.findByFollowerAndFollowing(searchUser.getUserId(), loginUser.getUserId());
-            if(follow.isPresent())
-                userDto.setFollowing(true);
-            else
-                userDto.setFollowing(false);
+            userDto.setFollowing(follow.isPresent());
         }
         userDto.setFollowerCount(followRepository.countFollowByFollowing(searchUser));
         List<PostDTO> postDTOS = new ArrayList<>();
-        for(int i = 0; i < posts.size(); i++)
-        {
-            PostDTO postDto = new PostDTO(posts.get(i), new ArrayList<>());
+        for (Post post : posts) {
+            PostDTO postDto = new PostDTO(post, new ArrayList<>());
             postDTOS.add(postDto);
         }
         userDto.setPostDTOS(postDTOS);

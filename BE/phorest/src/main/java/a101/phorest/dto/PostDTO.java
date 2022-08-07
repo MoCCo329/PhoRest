@@ -32,6 +32,7 @@ public class PostDTO {
         this.content = post.getContent();
         this.likeCount = post.getLikeCount();
         this.time = post.getTime();
+        this.isShared = post.isShared();
         if(!users.isEmpty())
             this.users = users;
     }
@@ -60,6 +61,7 @@ public class PostDTO {
     private Boolean isBookmark;
 
     private Boolean isWriter;
-    
+
+    private Boolean isShared;
     private List<UserDTO> users;
 }
