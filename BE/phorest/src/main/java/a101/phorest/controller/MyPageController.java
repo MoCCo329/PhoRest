@@ -64,10 +64,9 @@ public class MyPageController {
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
         if(postId - decodedNumber != 0)
-            return 4L;
+            return 5L;
         if(!tokenProvider.validateToken(token))
-            return 1L;
-
+            return 2L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return myPageService.sharePost(postId, username);
     }
