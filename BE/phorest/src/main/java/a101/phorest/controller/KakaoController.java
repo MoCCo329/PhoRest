@@ -18,7 +18,6 @@ import java.util.HashMap;
 public class KakaoController {
     public final KakaoService kaKaoService;
     public final UserService userService;
-
     @RequestMapping(value = "/kakao/signup", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> signup(@RequestParam("code") String code, HttpSession session) throws IOException {
         String access_token = kaKaoService.getToken(code,"signup");
@@ -29,7 +28,6 @@ public class KakaoController {
         HashMap<String, String> userInfo = (HashMap<String, String>) kaKaoService.getUserInfo(access_token);
 
         return ResponseEntity.ok(userService.setKakaoUser(userInfo,access_token)); //ResponseEntity<UserDTO>
-
     }
 
     @RequestMapping(value = "/kakao/login", method = RequestMethod.GET)
