@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 import './ScrollCalendar.css'
 
 // 먼저 올해의 년도를 구한다.
@@ -6,7 +6,7 @@ import './ScrollCalendar.css'
 // let month = [{month: 0, days: [220101, 220102....]}, {month: 0, days: [220101, 220102....]}, ...]
 let months = []
 const today = new Date()
-const year = today.getFullYear();
+const year = today.getFullYear()
 function calMonth(month) {
   // 달의 시작일 구하기
   const firstDate = new Date(year, month, 1)
@@ -48,7 +48,7 @@ export default function ScrollCalendar() {
     <div>
       <Months />
     </div>
-  );
+  )
 }
 
 function Months() {
@@ -79,5 +79,5 @@ function Months() {
       ))
       }
     </div>
-  );
+  )
 }

@@ -14,20 +14,29 @@ import { setDetailPost } from '../../store/modules/community'
 // 로고, 로그인 혹은 로그아웃 등
 // 아래로 스크롤시 위로 사라지도록
 
-export default function Header() {
+export default function Header(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const userDetail = useSelector(state => state.currentUser)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)  
+  // const [mypage, setMypage] = useState(props.mypage)
+
+  const currentUser = useSelector(state => state.currentUser)
+  const userDetail = useSelector(state => state.userDetail)
 
   useEffect(() => {
-    if (userDetail.username && localStorage.getItem('token')) {
+    if (currentUser.username && localStorage.getItem('token')) {
       setIsLoggedIn(true)
     } else {
       setIsLoggedIn(false)
     }
-  }, [userDetail])
+  }, [currentUser])
+
+  // useEffect(() => {
+  //   if (props.mypage) {
+  //     setMypage(true)
+  //   }
+  // }, [])
 
   const clickLogout = () => {
     user.logout()
@@ -40,14 +49,14 @@ export default function Header() {
       }
     })
   }
-
+  // console.log(mypage)
   return (
     <header>
       <div className="contents">
-        <div className="header-logo-box" onClick={() => {navigate('/')}}>
+        <div className="header-logo-box" style={{ marginLeft : props.mypage ? '3vw' : '48vw' }} onClick={() => {navigate('/')}}>
           <img className="header-logo" src={logo} alt="logo" />
+          { props.mypage ? <div>{userDetail.nickname + "'s PhoRest"}</div> : null }
         </div>
-        <button onClick={() => navigate('/mypage/edit')}>회원정보 수정(임시)</button>
         <div className='header-state'>
           {
             isLoggedIn ?

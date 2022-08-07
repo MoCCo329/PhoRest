@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import Layout from '../components/Layout/Layout'
+
 import community from '../api/community'
 import s3 from '../api/s3'
 import { setDetailPost } from '../store/modules/community'
@@ -69,21 +71,24 @@ export default function FrameEdit() {
 
 
     return (
-        <div>
-            {
-                frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
-            }
-            {
-                frameURL ? <button onClick={() => deleteImage()}>지우기</button> : null
-            }
+        <Layout>
+            <div>
+                {
+                    frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
+                }
+                {
+                    frameURL ? <button onClick={() => deleteImage()}>지우기</button> : null
+                }
 
-            <label htmlFor="frame">이미지 업로드 : </label>
-            <input name="frame" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="frame" />
+                <label htmlFor="frame">이미지 업로드 : </label>
+                <input name="frame" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="frame" />
 
-            <label htmlFor="content">글 내용 : </label>
-            <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
+                <label htmlFor="content">글 내용 : </label>
+                <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
 
-            <button onClick={() => clickComplete()}>완료</button>
-        </div>
+                <button onClick={() => clickComplete()}>완료</button>
+                <button onClick={() => navigate(-1)}>뒤로가기</button>
+            </div>
+        </Layout>
     )
   }

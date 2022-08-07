@@ -6,10 +6,9 @@ export default function Layout(props) {
     return (
         <div className="layout-mypage">
             <NavMypage nickname={props.nickname}/>
-            <main>
-                {props.children}
-            </main>
-            <Footer/>
+                <main>
+                    {props.children}
+                </main>
         </div>
     )
 }

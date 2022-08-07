@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import Layout from '../components/Layout/Layout'
+
 import user from '../api/user'
 import { setAuthError } from '../store/modules/user'
 
@@ -110,7 +112,8 @@ export default function Main() {
     }
 
     return (
-        <div>
+      <Layout>
+        <main>
             <form onSubmit={(e) => {onSubmit(e)}}>
               <label htmlFor="username">ID : </label>
               <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="ID" /> {idValidity}<br/>
@@ -129,6 +132,7 @@ export default function Main() {
               <button type="submit">Sign up</button>
             </form>
             { authError ? <p>{authError}</p> : ''}
-        </div>
+        </main>
+      </Layout>
     )
 }

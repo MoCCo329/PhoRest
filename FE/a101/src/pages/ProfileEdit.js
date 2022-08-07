@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-// import { setCurrentUser } from '../store/modules/user'
+import Layout from '../components/Layout/Layout'
 
 // functions
 import user from '../api/user'
@@ -135,43 +135,45 @@ export default function ProfileEdit() {
   }
 
   return (
-    <div>
-      { profileURL ? <img src={ profileURL } alt="profileImg"></img> : null }
-      {
-        profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
-      }
-      <label htmlFor="profileURL">Profile Image : </label>
-      <input name="profileURL" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="profileURL" />
-      <br/>
-
-      <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
-        <label htmlFor="Nickname">Nickname : </label>
-        <input name="nickname" type="text" id="Nickname" defaultValue={ userDetail.nickname || '' } required placeholder="Nickname" /><br/>
-        
-        <button onClick={(e) => {e.preventDefault(); setType(!type)}}>{ type ? "비밀번호 변경하지 않기" : "비밀번호 변경" }</button><br />
+    <Layout>
+      <main>
+        { profileURL ? <img src={ profileURL } alt="profileImg"></img> : null }
         {
-          type ?
-          <div>
-            <label htmlFor="password">New Password : </label>
-            <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
-            <label htmlFor="password2">New Password Again : </label>
-            <input name="password2" onChange={() => {passwordTest(); passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
-          </div> : null
+          profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
         }
-        
-        <label htmlFor="phone">Phone : </label>
-        <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+        <label htmlFor="profileURL">Profile Image : </label>
+        <input name="profileURL" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="profileURL" />
+        <br/>
 
-        <label htmlFor="introduce">Introduce : </label>
-        <input name="introduce" type="text" id="introduce" defaultValue={ userDetail.introduce || '' } placeholder="Introduce" /><br/>
+        <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
+          <label htmlFor="Nickname">Nickname : </label>
+          <input name="nickname" type="text" id="Nickname" defaultValue={ userDetail.nickname || '' } required placeholder="Nickname" /><br/>
+          
+          <button onClick={(e) => {e.preventDefault(); setType(!type)}}>{ type ? "비밀번호 변경하지 않기" : "비밀번호 변경" }</button><br />
+          {
+            type ?
+            <div>
+              <label htmlFor="password">New Password : </label>
+              <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
+              <label htmlFor="password2">New Password Again : </label>
+              <input name="password2" onChange={() => {passwordTest(); passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
+            </div> : null
+          }
+          
+          <label htmlFor="phone">Phone : </label>
+          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
 
-        기존 비밀번호 입력
-        <label htmlFor="beforePassword">Password : </label>
-        <input name="beforePassword" type="password" id="beforePassword" required placeholder="Password" /><br/>
+          <label htmlFor="introduce">Introduce : </label>
+          <input name="introduce" type="text" id="introduce" defaultValue={ userDetail.introduce || '' } placeholder="Introduce" /><br/>
 
-        <button type="submit">Edit</button>
-        { authError ? <p>{ authError }</p> : '' }
-      </form>
-    </div>
+          기존 비밀번호 입력
+          <label htmlFor="beforePassword">Password : </label>
+          <input name="beforePassword" type="password" id="beforePassword" required placeholder="Password" /><br/>
+
+          <button type="submit">Edit</button>
+          { authError ? <p>{ authError }</p> : '' }
+        </form>
+      </main>
+    </Layout>
   )
 }

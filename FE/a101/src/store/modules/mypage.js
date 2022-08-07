@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export let userDetail = createSlice({
     name: 'userDetail',
-    initialState: {postDTOS: []},
+    initialState: '',
     reducers: {
         setUserDetail (state, actions) {
             return actions.payload

@@ -12,13 +12,14 @@ header {
 }
 
 .header-logo-box {
-  margin-left: 48vw;
+  display: flex;
 }
 
 .header-logo {
   height: 4vh;
   width: 4vh;
 }
+
 .header-state {
   margin-top: 1vw;
   margin-right: 3vw;

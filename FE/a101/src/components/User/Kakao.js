@@ -9,8 +9,8 @@ export default function Kakao() {
     const navigate = useNavigate()
 
     const href = window.location.href
-    let params = new URL(window.location.href).searchParams;
-    let code = params.get('code');
+    let params = new URL(window.location.href).searchParams
+    let code = params.get('code')
 
     console.log(code)
 
@@ -32,7 +32,7 @@ export default function Kakao() {
 
     useEffect(() => {
         // if (!code) return;
-        getKakaoToken();
+        getKakaoToken()
     }, []);
 
     return (

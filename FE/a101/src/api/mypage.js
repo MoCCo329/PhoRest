@@ -7,7 +7,7 @@ const mypage = {
   sharePost(postId) {
     return api({
       method: "post",
-      url: `mypage/${btoa(postId * 73 - 37)}/share/`,
+      url: `mypage/${btoa(postId * 73 + 37)}/share/`,
     });
   },
   userDetail(username) {

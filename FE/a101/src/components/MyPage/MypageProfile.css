@@ -33,10 +33,9 @@
     font-family: 'LeferiBaseType-RegularA';
 }
 .profile-img {
-  border-radius: 50%;
-  max-height: 10vh;
-  max-width: 10vh;
-  /* margin: 8%; */
+  border-radius: 100%;
+  height: 10vh;
+  width: 10vh;
 }
 
 @font-face {

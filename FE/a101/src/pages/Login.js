@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import Layout from '../components/Layout/Layout'
+
 import { setToken, setAuthError, setCurrentUser } from '../store/modules/user'
 import user from '../api/user'
 
@@ -43,17 +45,19 @@ export default function Main() {
     }
 
     return (
-        <div>
-            <form onSubmit={(e) => {onSubmit(e)}}>
-              <label htmlFor="username">ID : </label>
-              <input onChange={(e)=>{setId(e.target.value)}} type="text" id="username" required autoFocus placeholder="ID" /><br/>
-              <label htmlFor="password">Password : </label>
-              <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="password" required placeholder="Password" /><br/>
-              <button type="submit">login</button>
-            </form>
-            { authError ? <p>{authError}</p> : ''}
+        <Layout>
+            <main>
+                <form onSubmit={(e) => {onSubmit(e)}}>
+                <label htmlFor="username">ID : </label>
+                <input onChange={(e)=>{setId(e.target.value)}} type="text" id="username" required autoFocus placeholder="ID" /><br/>
+                <label htmlFor="password">Password : </label>
+                <input onChange={(e)=>{setPassword(e.target.value)}} type="password" id="password" required placeholder="Password" /><br/>
+                <button type="submit">login</button>
+                </form>
+                { authError ? <p>{authError}</p> : ''}
 
-            <button onClick={() => navigate('/signup', { replace: true })}>회원가입</button>
-        </div>
+                <button onClick={() => navigate('/signup', { replace: true })}>회원가입</button>
+            </main>
+        </Layout>
     )
 }

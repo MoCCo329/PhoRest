@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone"
 import './Profile.css'
 
 export default function Profile(props) {
