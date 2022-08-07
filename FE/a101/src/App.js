@@ -16,6 +16,7 @@ import Login from './pages/Login'
 import ProfileEdit from './pages/ProfileEdit'
 import FollowingList from './pages/FollowingList'
 import NotFount404 from './pages/NotFound404'
+import KakaoLogin from './components/Members/KakaoLogin'
 
 import KakaoSignup from './components/User/KakaoSignup'
 import Kakao from './components/User/Kakao'
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/mypage/following" element={<FollowingList/>} />
         <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/mypage" element={<Mypage/>} />
+        <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/community/:postId" element={<Community/>} />
         <Route exact path="/frameEdit" element={<FrameEdit/>} />
         <Route exact path="/signup" element={<Signup/>} />
