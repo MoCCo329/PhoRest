@@ -1,10 +1,13 @@
 package a101.phorest.controller;
+import a101.phorest.S3Uploader;
 import a101.phorest.dto.OffsetDTO;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.jwt.TokenProvider;
+import a101.phorest.service.FrameService;
 import a101.phorest.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Base64;
 import java.util.List;
@@ -18,6 +21,8 @@ public class CommunityController {
     private final PostService postService;
 
     private final TokenProvider tokenProvider;
+    private final S3Uploader s3Uploader;
+    private final FrameService frameService;
 
     @PostMapping("photogroup/like")
     @ResponseBody
@@ -70,7 +75,14 @@ public class CommunityController {
     }
 
     @PutMapping("{postId}")
-    public Long editPost(@PathVariable("postId") String postIdEncoded, @RequestBody PostDTO postDto, @RequestHeader(value = "Authorization") String token){
+    public Long editPost(@PathVariable("postId") String postIdEncoded, @RequestPart("image") MultipartFile multipartFile,@RequestParam("content") String content, @RequestHeader(value = "Authorization") String token){
+        String uploadUrl;
+        try {
+            uploadUrl = s3Uploader.uploadFiles(multipartFile, "frame");
+        } catch (Exception e) {
+            return -1L;
+        }
+        Long frameId = frameService.join(uploadUrl);
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
@@ -80,7 +92,7 @@ public class CommunityController {
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        return postService.editPost(postId, username,postDto.getContent());
+        return postService.editPost(postId, username,content,frameId);
     }
 
     @DeleteMapping("{postId}")

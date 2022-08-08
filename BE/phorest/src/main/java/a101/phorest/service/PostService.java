@@ -31,6 +31,8 @@ public class PostService {
 
     private final MyPageRepository myPageRepository;
 
+    private final FrameRepository frameRepository;
+
     @Transactional
     public Long join(Images images, String category, String content){
         //validateDuplicateMember(post);
@@ -122,7 +124,7 @@ public class PostService {
     }
 
     @Transactional
-    public Long editPost(Long postId, String username, String content){
+    public Long editPost(Long postId, String username, String content, Long frameId){
         Optional<Post> post = postRepository.findById(postId);
         if(post.isEmpty())
             return 2L;
@@ -130,6 +132,7 @@ public class PostService {
         if(myPage.isEmpty())
             return 3L;
         post.get().setContent(content);
+        post.get().setFrame(frameRepository.findById(frameId).get());
         return 0L;
 
     }
