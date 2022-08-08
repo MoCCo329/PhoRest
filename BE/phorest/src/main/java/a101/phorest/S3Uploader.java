@@ -2,6 +2,7 @@ package a101.phorest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,10 +38,14 @@ public class S3Uploader {
         return uploadImageUrl;
     }
 
+    public void deleteFile(String fileName){
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+        amazonS3Client.deleteObject(request);
+    }
+
     // S3로 업로드
     private String putS3(File uploadFile, String fileName) {
-        System.out.println(fileName);
-        System.out.println(amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead)));
+        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 

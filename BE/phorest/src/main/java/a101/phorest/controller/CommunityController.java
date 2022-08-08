@@ -75,14 +75,18 @@ public class CommunityController {
     }
 
     @PutMapping("{postId}")
-    public Long editPost(@PathVariable("postId") String postIdEncoded, @RequestPart("image") MultipartFile multipartFile,@RequestParam("content") String content, @RequestHeader(value = "Authorization") String token){
-        String uploadUrl;
-        try {
-            uploadUrl = s3Uploader.uploadFiles(multipartFile, "frame");
-        } catch (Exception e) {
-            return -1L;
+    public Long editPost(@PathVariable("postId") String postIdEncoded, @RequestPart(value = "image", required = false) MultipartFile multipartFile,@RequestParam("content") String content, @RequestHeader(value = "Authorization") String token){
+        String uploadUrl = null;
+        Long frameId = null;
+        if(multipartFile != null)
+        {
+            try {
+                uploadUrl = s3Uploader.uploadFiles(multipartFile, "frame");
+                frameId = frameService.join(uploadUrl);
+            } catch (Exception e) {
+                return -1L;
+            }
         }
-        Long frameId = frameService.join(uploadUrl);
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;

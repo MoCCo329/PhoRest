@@ -1,5 +1,6 @@
 package a101.phorest.service;
 
+import a101.phorest.S3Uploader;
 import a101.phorest.domain.*;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
@@ -32,6 +33,8 @@ public class PostService {
     private final MyPageRepository myPageRepository;
 
     private final FrameRepository frameRepository;
+
+    private final S3Uploader s3Uploader;
 
     @Transactional
     public Long join(Images images, String category, String content){
@@ -132,7 +135,14 @@ public class PostService {
         if(myPage.isEmpty())
             return 3L;
         post.get().setContent(content);
-        post.get().setFrame(frameRepository.findById(frameId).get());
+        if(frameId != null)
+        {
+            Frame frame = post.get().getFrame();
+            String fileName = frame.getFramePath().replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
+            s3Uploader.deleteFile(fileName);
+            frameRepository.deleteById(frame.getId());
+            post.get().setFrame(frameRepository.findById(frameId).get());
+        }
         return 0L;
 
     }
@@ -153,6 +163,10 @@ public class PostService {
                 post.get().setShared(false);
         }
         else if(post.get().getCategory().equals("frame")){
+            Frame frame = post.get().getFrame();
+            String fileName = frame.getFramePath().replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
+            s3Uploader.deleteFile(fileName);
+            frameRepository.deleteById(frame.getId());
             postRepository.deleteById(postId);
         }
         return 0L;
