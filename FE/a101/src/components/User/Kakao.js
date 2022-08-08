@@ -1,42 +1,31 @@
-import React from 'react'
+import React from "react";
 // import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import user from "../../api/user";
 
 export default function Kakao() {
-    // const dispatch = useDispatch()
-    const navigate = useNavigate()
+  // const dispatch = useDispatch()
+  const navigate = useNavigate();
 
-    const href = window.location.href
-    let params = new URL(window.location.href).searchParams
-    let code = params.get('code')
+  const href = window.location.href;
+  let params = new URL(window.location.href).searchParams;
+  let code = params.get("code");
 
-    console.log(code)
+  console.log(code);
 
-    //토큰 저장
-    const getKakaoToken = () => {
-        fetch(`https://i7a101.p.ssafy.io/api/user/kakao?code=${code}`, {
-            method: 'get',
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.token) {
-                localStorage.setItem('token', data.token)
+  //토큰 저장
+  const getKakaoToken = () => {
+    user.kakaoSignup(code).then((result) => {
+      console.log(result.data);
+      localStorage.setItem("token", result.data.token);
+    });
+  };
 
-            } else {
-            }
-        })
-    }
+  useEffect(() => {
+    // if (!code) return;
+    getKakaoToken();
+  }, []);
 
-    useEffect(() => {
-        // if (!code) return;
-        getKakaoToken()
-    }, []);
-
-    return (
-        <div>
-            미들웨어입니다
-        </div>
-    )
+  return <div>미들웨어입니다</div>;
 }

@@ -48,6 +48,13 @@ const user = {
       url: `${END_POINT}/${username}/follow`
     })
   },
+
+  kakaoSignup(code) {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/kakao?code=${code}`
+    })
+  }
 }
 
 export default user
