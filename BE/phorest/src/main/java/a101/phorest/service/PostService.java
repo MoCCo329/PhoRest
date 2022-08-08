@@ -117,7 +117,7 @@ public class PostService {
             List<User> users = userRepository.findByPostId(posts.get(i).getId());
             List<UserDTO> userDTOS = new ArrayList<>();
             for (int j = 0; j < users.size(); j++) {
-                UserDTO userDto = UserDTO.from(users.get(i));
+                UserDTO userDto = UserDTO.from(users.get(j));
                 userDTOS.add(userDto);
             }
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
