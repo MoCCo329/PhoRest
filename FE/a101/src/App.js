@@ -59,7 +59,7 @@ function App() {
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         <Route exact path="*" element={<NotFount404/>} />
-        <Route exact path="/kakao" element={<Kakao/>} />
+        <Route exact path="/api/user/kakao" element={<Kakao/>} />
       </Routes>
     </BrowserRouter>
   );
