@@ -9,6 +9,7 @@ import a101.phorest.dto.UserDTO;
 import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.UserRepository;
+import antlr.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -121,7 +122,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO setKakaoUser(HashMap<String, String> userInfo, List<String> tokens){
+    public TokenDTO setKakaoUser(HashMap<String, String> userInfo, List<String> tokens){
         /** 회원 정보 카톡으로 받기 */
 
         UserDTO ud = new UserDTO();
@@ -137,25 +138,33 @@ public class UserService {
         ud.setRefresh_token(tokens.get(1));
         ud.setNickname(userInfo.get("nickname"));
         ud.setProfileURL(userInfo.get("profile_image"));
-        if(userInfo.get("phone_number") != null){
-            ud.setPhone(userInfo.get("phone_number"));
-            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
-        }
+//        if(userInfo.get("phone_number") != null){
+//            ud.setPhone(userInfo.get("phone_number"));
+//            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
+//        }
 
 
         User user = User.builder()
                 .username(ud.getUsername())
                 .password(passwordEncoder.encode(username))
                 .nickname(ud.getNickname())
-                .phone(ud.getPhone())
+                //.phone(ud.getPhone())
                 .access_token(ud.getAccess_token())
                 .refresh_token(ud.getRefresh_token())
                 .profileUrl(ud.getProfileURL())
                 .role(Role.USER) // user로 가입
                 .activated(true)
                 .build();
-        //userRepository.save(user);
-        return UserDTO.from(userRepository.save(user));
+
+        userRepository.save(user);
+
+        user.setActivated(true);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(username, user.getPassword());
+
+        String jwt = tokenProvider.createToken(authenticationToken);
+
+        return new TokenDTO(jwt);
     }
 
 
