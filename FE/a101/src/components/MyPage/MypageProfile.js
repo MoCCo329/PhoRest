@@ -34,11 +34,10 @@ export default function MypageProfile(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // 팔로우 버튼 누르면 신청
+  // 팔로우 버튼 누르면 신청 / 다시 누르면 언팔
   const dispatch = useDispatch();
   function follow() {
     user.follow(userDetail.username).then((result) => {
-      console.log(result.data);
       dispatch(setIsFollowing(result.data));
     });
   }
@@ -53,16 +52,15 @@ export default function MypageProfile(props) {
             alt="profileImage"
             onError={handleImgError}
           />
-          <div className="profile-introduce">{userDetail.introduce}</div>
         </div>
 
         <div className="info">
           <div className="num">
             {userDetail
               ? userDetail.postDTOS.filter(
-                  (item) => item.category === "photogroup"
+                (item) => item.category === "photogroup"
                 ).length
-              : 0}
+                : 0}
           </div>
           <div className="name">게시글</div>
         </div>
@@ -82,6 +80,7 @@ export default function MypageProfile(props) {
           <div className="name">팔로워</div>
         </div>
       </div>
+                <div className="profile-introduce">{userDetail.introduce}</div>
       {isMyMypage && (
         <button onClick={() => navigate("/mypage/edit")}>
           회원정보 수정하기
@@ -89,7 +88,7 @@ export default function MypageProfile(props) {
       )}
       <div className="modal-button">
         {currentUser.username ? (
-          userDetail.following ? (
+          !isMyMypage ? (userDetail.following ? (
             <button className="button-unfollow" onClick={follow}>
               팔로우 취소하기
             </button>
@@ -97,7 +96,7 @@ export default function MypageProfile(props) {
             <button className="button-follow" onClick={follow}>
               팔로우 하기
             </button>
-          )
+          )) : (null)
         ) : (
           <button variant="primary" onClick={handleShow}>
           팔로우하기

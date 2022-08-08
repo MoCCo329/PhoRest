@@ -53,6 +53,7 @@ export default function MyGallery(props) {
                     <img className="post-image" src={ post.url } alt='post' />
                     { post.isLike ? '좋아요함' : '좋아요안함' } 
                     { post.isBookmark ? '북마크됨' : '북마크안됨' }
+                    { post.isShare ? '공개' : '비공개' }
                   </div>
                 ))
               }
