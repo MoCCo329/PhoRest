@@ -6,6 +6,7 @@ import Layout from '../components/Layout/Layout'
 
 import community from '../api/community'
 import s3 from '../api/s3'
+import mypage from '../api/mypage'
 import { setDetailPost } from '../store/modules/community'
 
 export default function FrameEdit() {
@@ -27,13 +28,13 @@ export default function FrameEdit() {
         if (type) {
             community.detailPost(postId)
             .then(result => {
-                // if (result.data.category==="photogroup") {
-                //     navigate(`/community/${btoa((postId) * 73 + 37)}`)
-                // } else {
+                if (result.data.category==="photogroup") {
+                    navigate(`/community/${btoa((postId) * 73 + 37)}`)
+                } else {
                     dispatch(setDetailPost(result.data))
                     setFrameURL(result.data.url)
                     setContent(result.data.content)
-                // }
+                }
             })
         }
     }, [postId, type])
@@ -65,6 +66,9 @@ export default function FrameEdit() {
 
         s3.uploadFrame(formdata)
         .then(result => {
+            if (result.data) {
+                mypage.ownPost(result.data)
+            }
             navigate(`/community/${btoa((result.data) * 73 + 37)}`)
         })
     }
