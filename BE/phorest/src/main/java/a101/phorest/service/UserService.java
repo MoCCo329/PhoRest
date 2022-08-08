@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.StyledEditorKit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -120,7 +121,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO setKakaoUser(HashMap<String, String> userInfo,String access_token){
+    public UserDTO setKakaoUser(HashMap<String, String> userInfo, List<String> tokens){
         /** 회원 정보 카톡으로 받기 */
 
         UserDTO ud = new UserDTO();
@@ -132,7 +133,8 @@ public class UserService {
         }
 
         ud.setUsername(username);
-        ud.setAccess_token(access_token);
+        ud.setAccess_token(tokens.get(0));
+        ud.setRefresh_token(tokens.get(1));
         ud.setNickname(userInfo.get("nickname"));
         ud.setProfileURL(userInfo.get("profile_image"));
         if(userInfo.get("phone_number") != null){
@@ -147,11 +149,12 @@ public class UserService {
                 .nickname(ud.getNickname())
                 .phone(ud.getPhone())
                 .access_token(ud.getAccess_token())
+                .refresh_token(ud.getRefresh_token())
                 .profileUrl(ud.getProfileURL())
                 .role(Role.USER) // user로 가입
                 .activated(true)
                 .build();
-
+        //userRepository.save(user);
         return UserDTO.from(userRepository.save(user));
     }
 
