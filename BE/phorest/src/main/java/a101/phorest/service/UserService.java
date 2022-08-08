@@ -130,7 +130,13 @@ public class UserService {
         String username = userInfo.get("id") +"@k";
 
         if (userRepository.findByUsername(username) != null){
-            throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
+            //이미 있는 회원
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(username, userRepository.findByUsername(username).getPassword());
+
+            String jwt = tokenProvider.createToken(authenticationToken);
+
+            return new TokenDTO(jwt);
         }
 
         ud.setUsername(username);
