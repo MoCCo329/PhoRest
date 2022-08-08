@@ -21,8 +21,8 @@ export default function Kakao() {
         })
         .then(res => res.json())
         .then(data => {
-            if (data.access_token) {
-                localStorage.setItem('token', data.access_token)
+            if (data.token) {
+                localStorage.setItem('token', data.token)
 
             } else {
             }
