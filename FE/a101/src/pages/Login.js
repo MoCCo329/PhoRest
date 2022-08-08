@@ -8,7 +8,7 @@ import { setToken, setAuthError, setCurrentUser } from "../store/modules/user";
 import user from "../api/user";
 
 // 카카오 로그인 이미지
-import kakaoBtn from '../assets/UI/kakao_login_medium_narrow.png'
+import kakaoBtn from "../assets/UI/kakao_login_medium_narrow.png";
 export default function Main() {
   let dispatch = useDispatch();
   let navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function Main() {
 
   // 카카오 로그인
   const url =
-    "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/kakao";
+    "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/api/user/kakao";
 
   function login() {
     window.location.href = url;
@@ -92,7 +92,7 @@ export default function Main() {
         <button onClick={() => navigate("/signup", { replace: true })}>
           회원가입
         </button>
-        <img src={kakaoBtn} alt='카카로 로그인' onClick={login}/>
+        <img src={kakaoBtn} alt="카카로 로그인" onClick={login} />
       </main>
     </Layout>
   );
