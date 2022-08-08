@@ -81,6 +81,12 @@ public class ImageController {
         return uploadUrl;
     }
 
+    @DeleteMapping("upload/profileimage")
+    @ResponseBody
+    public void deleteProfileImage(@RequestParam("image") String profileImageURL){
+        s3Uploader.deleteFile(profileImageURL);
+    }
+
     @PostMapping("download/frame")
     @ResponseBody
     public String frameDownload(@RequestParam("frameId") Long frameId)
