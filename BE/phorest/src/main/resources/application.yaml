@@ -23,23 +23,17 @@ spring:
     defer-datasource-initialization: true
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         show_sql: true
         ddl-auto : none
         format_sql: true
 
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: trace
 
 server:
   port: 8399
-
-jwt:
-  header: Authorization
-  secret: aGVlc3VuLWlzLXRoZS1iZXN0LWdvcmdlb3VzLXBlcmZlY3Qtd29uZGVyZnVsLWZhbnRhc3RpYy1jcmVhdGl2ZS1jaGFybWluZy13b21hbi1pbi10aGUtd29ybGQtZm9yLXN1cmU=
-  # 변환함
-  token-validity-in-seconds: 86400
