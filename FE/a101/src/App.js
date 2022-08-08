@@ -16,9 +16,7 @@ import Login from './pages/Login'
 import ProfileEdit from './pages/ProfileEdit'
 import FollowingList from './pages/FollowingList'
 import NotFount404 from './pages/NotFound404'
-import KakaoLogin from './components/Members/KakaoLogin'
 
-import KakaoSignup from './components/User/KakaoSignup'
 import Kakao from './components/User/Kakao'
 
 // functions
@@ -61,7 +59,6 @@ function App() {
         <Route exact path="/signup" element={<Signup/>} />
         <Route exact path="/login" element={<Login/>} />
         <Route exact path="*" element={<NotFount404/>} />
-        <Route exact path="/kakaosignup" element={<KakaoSignup/>} />
         <Route exact path="/kakao" element={<Kakao/>} />
       </Routes>
     </BrowserRouter>

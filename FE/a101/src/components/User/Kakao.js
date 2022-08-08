@@ -16,16 +16,15 @@ export default function Kakao() {
 
     //토큰 저장
     const getKakaoToken = () => {
-        fetch(`https://phorest.site/api/user/kakao/signup?code=${code}`, {
+        fetch(`https://i7a101.p.ssafy.io/api//user/kakao?code=${code}`, {
             method: 'get',
         })
         .then(res => res.json())
         .then(data => {
             if (data.access_token) {
                 localStorage.setItem('token', data.access_token)
-                navigate('/')
+
             } else {
-                navigate('/')
             }
         })
     }
