@@ -84,6 +84,7 @@ public class ImageController {
     @DeleteMapping("upload/profileimage")
     @ResponseBody
     public void deleteProfileImage(@RequestParam("image") String profileImageURL){
+
         s3Uploader.deleteFile(profileImageURL);
     }
 

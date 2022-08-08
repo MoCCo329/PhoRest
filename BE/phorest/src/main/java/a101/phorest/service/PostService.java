@@ -138,8 +138,7 @@ public class PostService {
         if(frameId != null)
         {
             Frame frame = post.get().getFrame();
-            String fileName = frame.getFramePath().replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
-            s3Uploader.deleteFile(fileName);
+            s3Uploader.deleteFile(frame.getFramePath());
             frameRepository.deleteById(frame.getId());
             post.get().setFrame(frameRepository.findById(frameId).get());
         }

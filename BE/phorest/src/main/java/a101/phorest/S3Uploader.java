@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,8 +40,17 @@ public class S3Uploader {
         return uploadImageUrl;
     }
 
-    public void deleteFile(String fileName){
-        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
+    public void deleteFile(String URL){
+        String decodeResult = null;
+        String fileName = URL.replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
+        try{
+            decodeResult = URLDecoder.decode(fileName, "UTF-8");
+        }catch(UnsupportedEncodingException e)
+        {
+            return;
+        }
+        System.out.println(decodeResult);
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, decodeResult);
         amazonS3Client.deleteObject(request);
     }
 
