@@ -16,7 +16,7 @@ export default function Kakao() {
 
     //토큰 저장
     const getKakaoToken = () => {
-        fetch(`https://i7a101.p.ssafy.io/api//user/kakao?code=${code}`, {
+        fetch(`https://i7a101.p.ssafy.io/api/user/kakao?code=${code}`, {
             method: 'get',
         })
         .then(res => res.json())
