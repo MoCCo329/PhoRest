@@ -29,15 +29,15 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.ChooseBtnNum = 0
 
         # Stacked Widget을 처음 화면으로 돌리기
-        self.stack.setCurrentIndex(4)
-        self.TopStack.setCurrentIndex(4)
+        self.stack.setCurrentIndex(0)
+        self.TopStack.setCurrentIndex(0)
 
         # 마우스 클릭 이벤트 설정
         self.setMouseTracking(True)
 
         # 촬영버튼에 사용할 타이머기능 세팅
-        # self.timer = QTimer(self)
-        # self.timer.setInterval(1000)
+        self.timer = QTimer(self)
+        self.timer.setInterval(1000)
 
         # 촬영화면에서 클릭 방지를 위해 flag변수 하나 채용
         self.Shot_Click_Flag = 0
@@ -59,7 +59,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.RunCamera_thread.setDaemon(True)
         self.Print_thread = threading.Thread(target=self.Print_Back)
         self.Print_thread.setDaemon(True)
+
         self.lock = threading.Lock()
+        self.printlock = threading.Lock()
 
         # 카메라에서 시간초마다 사진을 찍게 하려면 별도 스레드에서 구현
         self.ShotPhoto_thread.start()
@@ -98,24 +100,10 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Label_Camera.clear()
         self.PhotoPlusFrame.clear()
 
-        self.ChoosePersonNumBtns = [self.Btn1, self.Btn2, self.Btn3, self.Btn4, self.Btn5, self.Btn6]
-
-        # 버튼 색 초기화
-        for Btn in self.ChoosePersonNumBtns:
-            Btn.setStyleSheet("QPushButton{"
-                              "color: #000000;"
-                              "background-color: #F8F8F8;"
-                              "padding: 12px;"
-                              "border-bottom: 4px solid #c8c8c8;"
-                              "border-radius: 50%;"
-                              "}")
-
-
-
     # 첫번째 화면에서는 어느 화면이던 클릭하면 두번째 화면으로 넘어간다
     def mousePressEvent(self, e):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
 
         # 마우스 좌표 파악
         # print("Mouse Point : x={0},y={1}".format(e.x(), e.y()))
@@ -187,27 +175,21 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         headers = {'Content-type': 'application/json; charset=utf-8'}
         cookies = {'ck_test': 'cookies_test'}
 
-        res = requests.post("https://i7a101.p.ssafy.io/api/community/photogroup/like", json=data, headers=headers,
+        res = requests.post("https://phorest.site/api/community/photogroup/like", json=data, headers=headers,
                             cookies=cookies)
-        print(res)
-        print(type(res))
-        print(res.text)
 
         js = json.loads(res.text)
-        print(js)
+        if len(js) == 0:
+            return
         url = js[0].get("url")
-        print(url)
 
         # json으로 받아오면 이를 띄워줘야한다.
         # Web에서 Image 정보 로드
         poseimg = urllib.request.urlopen(url).read()
         pixmap = QPixmap()
         pixmap.loadFromData(poseimg)
-        #pixmap = pixmap.scaledToHeight(600)
-        pixmap = pixmap.scaledToWidth(800)
+        pixmap = pixmap.scaledToHeight(600)
         self.Pose_img.setPixmap(pixmap)
-
-        print("성공")
 
     # 좌우 버튼 누를때마다 백엔드에 계속 신호 보내줘야 한다.
     def Press_RightBtn(self):
@@ -359,7 +341,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # 15초간의 타이머 작동
     def Press_PreparedBtn(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
 
         self.CurrentPhotoCnt = 0
 
@@ -377,7 +359,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Label_Camera.resize(900, 600)
         while True:
             stop_event.wait()
-            self.cap = cv2.VideoCapture(0)
+            self.cap = cv2.VideoCapture(-1)
 
             fps = self.cap.get(cv2.CAP_PROP_FPS)
 
@@ -507,7 +489,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     def NextBottomButton_to_4(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
 
         self.Warning_label.hide()
         self.stack.setCurrentIndex(4)
@@ -515,7 +497,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
     def Press_Back(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
 
         self.stack.setCurrentIndex(self.stack.currentIndex() - 1)
 
@@ -524,7 +506,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     # 프레임까지 적용하여 화면에 띄워주는 버튼
     def Press_Applying(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
 
         # 먼저 입력한 Frame_id를 서버에 보냄
         self.frame_id = self.Frame_Id.text()
@@ -536,7 +518,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             }
 
             # 서버에 post 요청
-            res = requests.post("https://i7a101.p.ssafy.io/api/download/frame", data=data)
+            res = requests.post("https://phorest.site/api/download/frame", data=data)
             print(res)
             # 리턴으로 res에 이미지 url을 담아서 보내줌
             # print(res.text)
@@ -610,35 +592,35 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.FrameNum = 1
         self.make_Frame_Img(self.FrameNum)
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
 
     def Press_BasicFrame2(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
         self.FrameNum = 2
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame3(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
         self.FrameNum = 3
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame4(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
         self.FrameNum = 4
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame5(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
         self.FrameNum = 5
         self.make_Frame_Img(self.FrameNum)
 
     def Press_BasicFrame6(self):
         # 터치 효과음 추가
-        # os.system('aplay ./touch_sound.wav')
+        #os.system('aplay ./touch_sound.wav')
         self.FrameNum = 6
         self.make_Frame_Img(self.FrameNum)
 
@@ -655,8 +637,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.make_Frame_Img(self.FrameNum)
 
     def make_VideoFile(self):
-        back = cv2.imread('./Frame/Frame_{}.png'.format(self.FrameNum))
-        back = cv2.resize(back, (900, 600))
+        back = cv2.imread('./ShowImg.png')
+        #back = cv2.resize(back, (900, 600))
 
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         writer = cv2.VideoWriter('./video/back.mp4', fourcc, 1, (900, 600))
@@ -665,6 +647,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             writer.write(back)
 
         writer.release()
+        
         background = VideoFileClip('./video/back.mp4')
         clip1 = VideoFileClip('./video/video_1.mp4')
         clip2 = VideoFileClip('./video/video_2.mp4')
@@ -672,6 +655,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         clip4 = VideoFileClip('./video/video_4.mp4')
 
         video_size = (360, 255)
+        
         mergedVideo = CompositeVideoClip([
             background,
             clip1.set_position((30, 30)),
@@ -682,12 +666,24 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
         mergedVideo.write_videofile('./video/mergedVideo.mp4')
 
+        # 동영상 업로드 코드
+        Vid = open('./video/mergedVideo.mp4', 'rb')
+        files_video = {
+            'video': Vid
+        }
+
+        data_video = {
+            'postId': self.post_id
+        }
+
+        res_video = requests.post("https://phorest.site/api/upload/video", files=files_video, data=data_video)
+        
+
     # 프린트 버튼
     # 프린트 누르고
     # 1번째로는 사진 보내고
     # url / upload / video
     # 2번째 보낼 때 post로 data를 postid까지 보낸다
-
     def Press_Printing(self):
         # 터치 효과음 추가
         # os.system('aplay ./touch_sound.wav')
@@ -697,6 +693,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Print_thread.start()
 
     def Print_Back(self):
+        self.printlock.acquire()
         # -------------------------- 6번째 인쇄중 출력 페이지 ------------------------------
         # 인쇄가 끝나면 업로드 코드 넣기 (사진 먼저)
         img = open('./FramePlusImg.png', 'rb')
@@ -708,12 +705,12 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             'humanCount': self.ChooseBtnNum
         }
         print(self.ChooseBtnNum)
-        res = requests.post("https://i7a101.p.ssafy.io/api/upload/photogroup", files=files, data=data)
+        res = requests.post("https://phorest.site/api/upload/photogroup", files=files, data=data)
 
-        post_id = res.text
+        self.post_id = res.text
 
-        # base64 암호화
-        int_post_id = (int(post_id) * 73) - 37
+        #base64 암호화
+        int_post_id = (int(self.post_id) * 73) - 37
         str_post_id = str(int_post_id)
         post_id_byte = str_post_id.encode('ascii')
         post_id_base64 = base64.b64encode(post_id_byte)
@@ -727,7 +724,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
             border=1
         )
 
-        url = 'https://i7a101.p.ssafy.io/download/' + post_id_base64_str
+        url = 'https://phorest.site/download/' + post_id_base64_str
         qr.add_data(url)
         qr.make()
         qrimg = qr.make_image(fill_color='black', back_color='white')
@@ -743,26 +740,15 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         printImg.save('./FramePlusImg.png', 'PNG')
 
         # 인쇄 하는 코드 넣기
-        # os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
+        os.system('lp -d epson -n {} ./FramePlusImg.png'.format(self.ChooseBtnNum))
 
         # 동영상 만들기
         self.make_VideoFile()
 
-        # 동영상 업로드 코드
-        Vid = open('./video/mergedVideo.mp4', 'rb')
-        files_video = {
-            'video': Vid
-        }
-
-        data_video = {
-            'postId': post_id
-        }
-
-        res_video = requests.post("https://i7a101.p.ssafy.io/api/upload/video", files=files_video, data=data_video)
-        print(res_video)
-
         self.Final_Flag = 1
         self.initImgs()
+        self.printlock.release()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
