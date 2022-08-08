@@ -643,7 +643,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stack.setCurrentIndex(4)
+        self.stack.setCurrentIndex(2)
         self.TopStack.setCurrentIndex(0)
         self.NextBtn.clicked.connect(MainWindow.NextBottomButton_to_2) # type: ignore
         self.Btn1.clicked.connect(MainWindow.Press_Btn1) # type: ignore
@@ -686,7 +686,7 @@ class Ui_MainWindow(object):
         self.Btn_Already.setText(_translate("MainWindow", "촬영 시작"))
         self.Btn_Back_2.setText(_translate("MainWindow", "뒤로"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">촬영 시작을 눌러 촬영을 시작하세요! </p></body></html>"))
-        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">카운트 다운 4초부터 동영상 촬영을 시작합니다.</p></body></html>"))
+        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">카운트 다운 6초부터 동영상 촬영을 시작합니다.</p></body></html>"))
         self.Photo3.setText(_translate("MainWindow", "3"))
         self.Photo1.setText(_translate("MainWindow", "1"))
         self.Photo2.setText(_translate("MainWindow", "2"))

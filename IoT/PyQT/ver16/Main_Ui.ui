@@ -33,7 +33,7 @@
      <string notr="true">background-color : #FFF7E7</string>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="InitPage">
      <widget class="QLabel" name="label">
@@ -469,7 +469,7 @@
        </font>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;카운트 다운 4초부터 동영상 촬영을 시작합니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;카운트 다운 6초부터 동영상 촬영을 시작합니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <zorder>label_12</zorder>
