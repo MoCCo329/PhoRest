@@ -158,7 +158,6 @@ public class UserService {
 
         userRepository.save(user);
 
-        user.setActivated(true);
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(username, user.getPassword());
 

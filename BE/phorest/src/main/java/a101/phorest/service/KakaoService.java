@@ -24,12 +24,12 @@ public class KakaoService {
 
 //    private final UserRepository userRepository;
 
-    //private final String redirect_uri = "http://localhost:8399/api/user/kakao";
-    private final String redirect_uri = "https://phorest.site/api/user/kakao";
+    private final String redirect_uri = "http://localhost:8399/api/user/kakao";
+    //private final String redirect_uri = "https://phorest.site/api/user/kakao";
 
     public List<String> getToken(String code) throws IOException {
         //인가코드로 토큰 받기
-        String host = "https://i7a101.p.ssafy.io/api/user/kakao";
+        String host = "https://kauth.kakao.com/oauth/token";
 
         String uri = redirect_uri;
 
