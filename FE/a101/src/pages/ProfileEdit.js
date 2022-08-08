@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
@@ -7,16 +7,19 @@ import Layout from '../components/Layout/Layout'
 // functions
 import user from '../api/user'
 import s3 from '../api/s3'
+import { setCurrentUser } from '../store/modules/user'
 
 
 export default function ProfileEdit() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const userDetail = useSelector(state => state.currentUser)
+  const currentUser = useSelector(state => state.currentUser)
 
   const [type, setType] = useState(false)
   const [newPassword, setNewPassword] = useState('')
-  const [profileURL, setProfileURL] = useState('1')
+  const [profileURL, setProfileURL] = useState('')
+  const [beforeProfileURL, setBeforeProfileURL] = useState('')
 
   const [passwordValidity, setPasswordValidity] = useState('')
   const [passwordMatch, setPasswordMatch] = useState('')
@@ -25,8 +28,13 @@ export default function ProfileEdit() {
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
   useEffect(() => {
-    setProfileURL(userDetail.profileURL)
-  }, [userDetail])
+    setProfileURL(currentUser.profileURL)
+    setBeforeProfileURL(currentUser.profileURL)
+  }, [currentUser])
+
+  useEffect(() => {
+    user.currentUser()
+  }, [])
 
   const onSubmit = (event) => {
     event.preventDefault()
@@ -44,7 +52,7 @@ export default function ProfileEdit() {
       let form = document.forms.profileEdit.elements
 
       const credentials = {
-        username : userDetail.username,
+        username : currentUser.username,
         nickname : form.nickname.value,
         beforePassword : form.beforePassword.value,
         password : newPassword,
@@ -60,9 +68,13 @@ export default function ProfileEdit() {
       user.profileEdit(credentials)
       .then((result) => {
         if (result.data===0) {
+          dispatch(setCurrentUser(''))
           user.currentUser()
+          .then(result => {
+            dispatch(setCurrentUser(result.data))
+          })
           alert('회원정보가 변경되었습니다.')
-          navigate(`/mypage/${userDetail.username}`)
+          navigate(`/mypage/${currentUser.username}`)
         } else if (result.data===1) {
           setAuthError('잘못된 접근입니다. (로그인 되어있지 않음)')
         } else if (result.data===2) {
@@ -87,6 +99,13 @@ export default function ProfileEdit() {
   }
 
   const changeImageURL = (e) => {
+    let beforeFormdata = new FormData()
+    beforeFormdata.append('image', beforeProfileURL)
+    if (beforeProfileURL) {
+      s3.deleteProfileURL(beforeFormdata)
+    }    
+    setBeforeProfileURL(profileURL)
+
     let formdata = new FormData()
     formdata.append('image', e.target.files[0])
     s3.profileURL(formdata)
@@ -147,7 +166,7 @@ export default function ProfileEdit() {
 
         <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
           <label htmlFor="Nickname">Nickname : </label>
-          <input name="nickname" type="text" id="Nickname" defaultValue={ userDetail.nickname || '' } required placeholder="Nickname" /><br/>
+          <input name="nickname" type="text" id="Nickname" defaultValue={ currentUser.nickname || '' } required placeholder="Nickname" /><br/>
           
           <button onClick={(e) => {e.preventDefault(); setType(!type)}}>{ type ? "비밀번호 변경하지 않기" : "비밀번호 변경" }</button><br />
           {
@@ -161,10 +180,10 @@ export default function ProfileEdit() {
           }
           
           <label htmlFor="phone">Phone : </label>
-          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ userDetail.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ currentUser.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
 
           <label htmlFor="introduce">Introduce : </label>
-          <input name="introduce" type="text" id="introduce" defaultValue={ userDetail.introduce || '' } placeholder="Introduce" /><br/>
+          <input name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="Introduce" /><br/>
 
           기존 비밀번호 입력
           <label htmlFor="beforePassword">Password : </label>

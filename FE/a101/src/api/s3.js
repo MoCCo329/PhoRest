@@ -17,6 +17,16 @@ const s3 = {
       },
     })
   },
+  deleteProfileURL (data) {
+    return api({
+      method: 'delete',
+      url: `upload/profileimage/`,
+      data: data,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    })
+  },
   uploadFrame (data) {
     return api({
       method: 'post',

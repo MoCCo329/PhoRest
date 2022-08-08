@@ -18,8 +18,10 @@ export default function MypageProfile(props) {
   const [isMyMypage, setIsMyMypage] = useState(false);
 
   useEffect(() => {
-    if (userDetail.username === currentUser.username) {
-      setIsMyMypage(true);
+    if (userDetail.username===currentUser.username) {
+      setIsMyMypage(true)
+    } else {
+      setIsMyMypage(false)
     }
   }, [userDetail, currentUser]);
 

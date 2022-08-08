@@ -12,14 +12,14 @@ import { setDetailPost } from '../store/modules/community'
 export default function FrameEdit() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const postId = (Number(atob(useParams().postId)) - 37) / 73  // LTM2이면 new frame
+    const postId = (Number(atob(useParams().postId)) - 37) / 73
 
     const [type, setType] = useState(false)
     const [frameURL, setFrameURL] = useState('')
     const [content, setContent] = useState('')
 
-    useEffect(() => {
-        if (postId!==-1) {
+    useEffect(() => {  // LTM2이면 new frame
+        if (postId!==-1) {  // true 면 수정, false면 생성
             setType(true)
         }
     }, [])
@@ -39,9 +39,10 @@ export default function FrameEdit() {
         }
     }, [postId, type])
 
+    const reader = new FileReader()
     const changeImageURL = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            const reader = new FileReader()
+            // const reader = new FileReader()
             reader.readAsDataURL(e.target.files[0])
             reader.addEventListener('load', () => {
                 setFrameURL(reader.result)
@@ -53,24 +54,40 @@ export default function FrameEdit() {
         document.querySelector('#frame').value = ''
         setFrameURL('')
     }
-
+    // console.log(type)
     const clickComplete = () => {
-        // type에 따라 편집본이냐 아니냐... 편집기능 미완으로 포기
-        if (!document.querySelector('#frame').files[0]) {
+        if (!type && !document.querySelector('#frame').files[0]) {
             return alert('이미지를 확인해주세요')
         }
 
         let formdata = new FormData()
-        formdata.append('image', document.querySelector('#frame').files[0])
         formdata.append('content', content)
 
-        s3.uploadFrame(formdata)
-        .then(result => {
-            if (result.data) {
-                mypage.ownPost(result.data)
-            }
-            navigate(`/community/${btoa((result.data) * 73 + 37)}`)
-        })
+        if (type && !document.querySelector('#frame').files[0]) {
+            formdata.append('image', null)
+        } else {
+            formdata.append('image', document.querySelector('#frame').files[0])
+        }
+
+        if (type) {
+            community.editPost(postId, formdata)
+            .then(result => {
+                if (result.data===0) {
+                    navigate(`/community/${btoa(postId * 73 + 37)}`)
+                } else {
+                    alert('잘못된 접근입니다')
+                }
+                console.log(result.data)
+            })
+        } else {
+            s3.uploadFrame(formdata)
+            .then(result => {
+                if (result.data) {
+                    mypage.ownPost(result.data)
+                }
+                navigate(`/community/${btoa((result.data) * 73 + 37)}`)
+            })
+        }
     }
 
 

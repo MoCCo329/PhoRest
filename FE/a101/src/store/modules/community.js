@@ -11,20 +11,24 @@ export let photoLike = createSlice({
       return [...new Set([...state, ...actions.payload])]
     },
     likePhotoLike (state, actions) {
-      const {postId, isLike} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isLike = isLike
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     },
     bookmarkPhotoLike (state, actions) {
-      const {postId, isBookmark} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isBookmark = isBookmark
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     }
   }
 })
@@ -41,20 +45,24 @@ export let photoRecent = createSlice({
       return [...state, ...actions.payload]
     },
     likePhotoRecent (state, actions) {
-      const {postId, isLike} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isLike = isLike
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     },
     bookmarkPhotoRecent (state, actions) {
-      const {postId, isBookmark} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isBookmark = isBookmark
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     }
   }
 })
@@ -71,20 +79,24 @@ export let frameLike = createSlice({
       return [...state, ...actions.payload]
     },
     likeFrameLike (state, actions) {
-      const {postId, isLike} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isLike = isLike
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     },
     bookmarkFrameLike (state, actions) {
-      const {postId, isBookmark} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isBookmark = isBookmark
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     }
   }
 })
@@ -101,20 +113,24 @@ export let frameRecent = createSlice({
       return [...state, ...actions.payload]
     },
     likeFrameRecent (state, actions) {
-      const {postId, isLike} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isLike = isLike
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     },
     bookmarkFrameRecent (state, actions) {
-      const {postId, isBookmark} = actions.payload
-      state.forEach((post, idx) => {
-        if (post.id===postId) {
-          post.isBookmark = isBookmark
+      const newPost = actions.payload
+      const copy = state.map((post, idx) => {
+        if (post.id===newPost.id) {
+          return newPost
         }
+        return post
       })
+      return copy
     }
   }
 })

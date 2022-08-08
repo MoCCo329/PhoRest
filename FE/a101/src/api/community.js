@@ -13,6 +13,9 @@ const community = {
   editPost (postId, data) {
     return api({
       method: 'put',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
       url: `${END_POINT}/${btoa(postId * 73 + 37)}/`,
       data: data
     })
