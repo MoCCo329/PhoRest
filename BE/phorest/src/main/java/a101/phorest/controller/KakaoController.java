@@ -24,7 +24,7 @@ public class KakaoController {
     public final UserService userService;
     @RequestMapping(value = "/kakao/signup", method = RequestMethod.GET)
     public ResponseEntity<UserDTO> signup(@RequestParam("code") String code, HttpSession session) throws IOException {
-        List<String> tokens = kaKaoService.getToken(code,"signup");
+        List<String> tokens = kaKaoService.getToken(code);
 //        Logger logger = (Logger) LoggerFactory.getLogger("kakao-check");
 //        logger.info(code);
 //        logger.info(access_token);
@@ -36,7 +36,7 @@ public class KakaoController {
 
     @RequestMapping(value = "/kakao/login", method = RequestMethod.GET)
     public ResponseEntity<Boolean> login(@RequestParam("code") String code, HttpSession session) throws IOException {
-        List<String> tokens = kaKaoService.getToken(code,"login");
+        List<String> tokens = kaKaoService.getToken(code);
 
         HashMap<String, String> userInfo = (HashMap<String, String>) kaKaoService.getUserInfo(tokens.get(0));
         String snsId = userInfo.get("id") + "@k";
