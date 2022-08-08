@@ -41,7 +41,7 @@ export default function MyGallery(props) {
           view ?
           <div>
             {
-            userDetail &&
+            userDetail.postDTOS &&
             userDetail.postDTOS.filter(post => post.category===type)===0 &&
             <p>등록된 게시물이 없습니다</p>
             }

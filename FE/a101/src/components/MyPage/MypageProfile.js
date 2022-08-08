@@ -16,6 +16,8 @@ export default function MypageProfile(props) {
   useEffect(() => {
     if (userDetail.username===currentUser.username) {
       setIsMyMypage(true)
+    } else {
+      setIsMyMypage(false)
     }
   }, [userDetail, currentUser])
 

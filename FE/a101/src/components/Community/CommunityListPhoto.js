@@ -11,8 +11,9 @@ export default function CommunityListPhoto() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  let photoLike = useSelector(state => state.photoLike)
-  let photoRecent = useSelector(state => state.photoRecent)
+  const photoLike = useSelector(state => state.photoLike)
+  const photoRecent = useSelector(state => state.photoRecent)
+  const currentUser = useSelector(state => state.currentUser)
 
   const [humanCount, setHumanCount] = useState(1)
   const [type, setType] = useState(true)  // true면 like, false면 recent
@@ -77,27 +78,31 @@ export default function CommunityListPhoto() {
   // })
 
   const likePost = (postId) => {
+    if (!currentUser.username) {
+      return alert('로그인 후 좋아요가 가능합니다')
+    }
+
     community.likePost(postId)
     .then(result => {
-      let isLike = false
-      if (result.data===1) {isLike = true}
       if (type) {
-        dispatch(likePhotoLike({postId:postId, isLike:isLike}))
+        dispatch(likePhotoLike(result.data))
       } else {
-        dispatch(likePhotoRecent({postId:postId, isLike:isLike}))
+        dispatch(likePhotoRecent(result.data))
       }
     })
   }
 
   const bookmarkPost = (postId) => {
+    if (!currentUser.username) {
+      return alert('로그인 후 좋아요가 가능합니다')
+    }
+
     community.bookmarkPost(postId)
     .then(result => {
-      let isBookmark = false
-      if (result.data===1) {isBookmark = true}
       if (type) {
-        dispatch(bookmarkPhotoLike({postId:postId, isBookmark:isBookmark}))
+        dispatch(bookmarkPhotoLike(result.data))
       } else {
-        dispatch(bookmarkPhotoRecent({postId:postId, isBookmark:isBookmark}))
+        dispatch(bookmarkPhotoRecent(result.data))
       }
     })
   }

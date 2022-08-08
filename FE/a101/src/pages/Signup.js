@@ -132,6 +132,8 @@ export default function Main() {
               <button type="submit">Sign up</button>
             </form>
             { authError ? <p>{authError}</p> : ''}
+
+            <button onClick={() => navigate(-1)}>뒤로가기</button>
         </main>
       </Layout>
     )

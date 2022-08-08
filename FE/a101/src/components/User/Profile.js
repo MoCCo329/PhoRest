@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -6,12 +7,9 @@ import './Profile.css'
 
 export default function Profile(props) {
     const navigate = useNavigate()
-
-    let user = useSelector(state => state.currentUser)
-    if (props.user) {
-        user = props.user
-    }
-
+    
+    const [user, setUser] = useState(props.user)
+    const currentUser = useSelector(state => state.currentUser)
 
     return (
         <div className="profile" onClick={() => {navigate(`/mypage/${user.username}`)}}>

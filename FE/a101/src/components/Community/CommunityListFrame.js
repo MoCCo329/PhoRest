@@ -11,10 +11,11 @@ export default function CommunityListFrame() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  let frameLike = useSelector(state => state.frameLike)
-  let frameRecent = useSelector(state => state.frameRecent)
-
   const [type, setType] = useState(true)  // true면 like, false면 recent
+
+  const frameLike = useSelector(state => state.frameLike)
+  const frameRecent = useSelector(state => state.frameRecent)
+  const currentUser = useSelector(state => state.currentUser)
 
   useEffect(() => {
     community.frameLike({limit: 5, offset: 0})
@@ -56,27 +57,31 @@ export default function CommunityListFrame() {
   // })
 
   const likePost = (postId) => {
+    if (!currentUser.username) {
+      return alert('로그인 후 좋아요가 가능합니다')
+    }
+
     community.likePost(postId)
     .then(result => {
-      let isLike = false
-      if (result.data===1) {isLike = true}
       if (type) {
-        dispatch(likeFrameLike({postId:postId, isLike:isLike}))
+        dispatch(likeFrameLike(result.data))
       } else {
-        dispatch(likeFrameRecent({postId:postId, isLike:isLike}))
+        dispatch(likeFrameRecent(result.data))
       }
     })
   }
 
   const bookmarkPost = (postId) => {
+    if (!currentUser.username) {
+      return alert('로그인 후 북마크가 가능합니다')
+    }
+
     community.bookmarkPost(postId)
     .then(result => {
-      let isBookmark = false
-      if (result.data===1) {isBookmark = true}
       if (type) {
-        dispatch(bookmarkFrameLike({postId:postId, isBookmark:isBookmark}))
+        dispatch(bookmarkFrameLike(result.data))
       } else {
-        dispatch(bookmarkFrameRecent({postId:postId, isBookmark:isBookmark}))
+        dispatch(bookmarkFrameRecent(result.data))
       }
     })
   }

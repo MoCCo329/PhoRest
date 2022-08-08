@@ -59,13 +59,14 @@ export default function Community(props) {
             dispatch(setDetailComment([]))
         }
     }, [])
-
+    console.log(detailPost)
     // 프레임이면 글표시랑 프레임 편집 링크
 
     // community-header 상단에 도착하면 고정시키기
     // community-comment를 style="overflow:scroll"
 
     const clickLike = () => {
+        console.log(currentUser, !currentUser)
         community.likePost(postId)
         .then(result => {
             if (result.data===1) {
