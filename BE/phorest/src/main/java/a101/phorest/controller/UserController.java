@@ -37,17 +37,14 @@ public class UserController {
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("hello");
     }
-
     @PostMapping("/test-redirect")
     public void testRedirect(HttpServletResponse response) throws IOException {
         response.sendRedirect("/api/user");
     }
-
     @PostMapping("/user/signup")
     public ResponseEntity<UserDTO> signup(@Valid @RequestBody UserDTO userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
-
     @PostMapping("/user/login")
     public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginDTO loginDto){
 
@@ -73,7 +70,6 @@ public class UserController {
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return userService.findDtoUsernameOne(username).get();
     }
-
     @PutMapping("user/edit")
     public Long editUser(@RequestBody @Valid UserDTO user, @RequestHeader("Authorization") String token)
     {
@@ -84,10 +80,17 @@ public class UserController {
 
     }
     @RequestMapping(value = "user/kakao", method = RequestMethod.GET)
-    public TokenDTO kakaoLogin(@RequestParam("code") String code) throws IOException {
+    public ResponseEntity<TokenDTO> kakaoLogin(String code) throws IOException {
         List<String> tokens = kakaoService.getToken(code);
         String access_token=tokens.get(0);
         HashMap<String, String> userInfo = (HashMap<String, String>) kakaoService.getUserInfo(access_token);
-        return userService.setKakaoUser(userInfo, tokens);
+        return ResponseEntity.ok(userService.setKakaoUser(userInfo, tokens));
+    }
+    @GetMapping("user/kakaoxp/{code}")
+    public ResponseEntity<TokenDTO> kakaoLoginXp(@PathVariable("code") String code) throws IOException {
+        List<String> tokens = kakaoService.getToken(code);
+        String access_token=tokens.get(0);
+        HashMap<String, String> userInfo = (HashMap<String, String>) kakaoService.getUserInfo(access_token);
+        return ResponseEntity.ok(userService.setKakaoUser(userInfo, tokens));
     }
 }
