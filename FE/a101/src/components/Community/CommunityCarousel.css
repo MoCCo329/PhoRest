@@ -8,18 +8,88 @@
 .community-carousel-select {
   display: flex;
   justify-content: space-between;
+  justify-items: center;
 }
 
-.community-carousel-select-btn{
-  border: 1px solid black;
-  border-radius: 5px;
+.community-carousel-select-btn {
+  font-family: "Pretendard-Regular";
+  border: none;
+  background-color: #fff7e7;
+  border-radius: 15%;
+  padding-left: 5px;
+  padding-right: 5px;
   max-height: 4vh;
   text-align: center;
-  margin: 1px;
+  font-size: 10px;
+  margin-bottom: 15px;
+  margin-right: 3px;
 }
 
 .community-carousel-slider-img {
   width: 30vw;
   min-height: 10vh;
   max-height: 25vh;
+}
+
+h5 {
+  font-family: "LeferiPoint-BlackA";
+  letter-spacing: -1px;
+}
+
+.show-likedCnt {
+  display: flex;
+}
+.show-likedCnt p {
+  font-family: "Pretendard-Regular";
+  margin-left: 4px;
+  line-height: 180%;
+  font-size: 14px;
+}
+
+.swiper-button-next {
+  background: url("../../assets/UI/next-icon.png") no-repeat;
+  background-size: 120% auto;
+  background-position: center;
+}
+
+.swiper-button-prev {
+  background: url("../../assets/UI/previous-icon.png") no-repeat;
+  background-size: 120% auto;
+  background-position: center;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 5px solid  #bebebe;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  width: 40px;
+  transition: width 0.5s;
+  border-radius: 5px;
+  background: transparent;
+  border: 5px solid #ffc036;
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LeferiPoint-BlackA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
