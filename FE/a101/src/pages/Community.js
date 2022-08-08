@@ -119,8 +119,9 @@ export default function Community(props) {
         <Layout>
             <main>
                 <div className="community-header">
-                    { detailPost.category === 'frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
+                    { detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
                     { detailPost.category==='photogroup' ? <div className='human-count'>{detailPost.humanCount}명</div> : null }
+                    { detailPost.category==='frame' ? <div className='frame-id'>프레임 ID : {detailPost.frameId}</div> : null }
                 </div>
                 <hr />
                 <h3>Content</h3>
@@ -143,7 +144,7 @@ export default function Community(props) {
                         <div className='community-delete'>
                             {
                                 isWriter ?
-                                <div onClick={() => deletePost()}>게시글 삭제하기</div> : null
+                                <div onClick={() => deletePost()}>내 게시글에서 삭제하기</div> : null
                             }
                         </div>
                         <div className='community-body-icons'>
@@ -160,10 +161,6 @@ export default function Community(props) {
                             isWriter && detailPost.category==='frame' ?
                             <div onClick={() => navigate(`/community/edit/${btoa((postId) * 73 + 37)}`)}>프레임 편집하기</div> : null
                         }
-                        {/* {
-                            detailPost.category==="photogroup" ?
-                            <button>사진에 쓰인 프레임 보러가기(미완)</button> : null
-                        } */}
                     </div>
                     <div className="community-body-content">
                         <div>
