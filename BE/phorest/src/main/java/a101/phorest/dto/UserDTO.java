@@ -79,6 +79,7 @@ public class UserDTO {
               .phone(user.getPhone())
               .profileURL(user.getProfileUrl())
               .access_token(user.getAccess_token())
+              .refresh_token(user.getRefresh_token())
               .introduce(user.getIntroduce())
               .build();
 

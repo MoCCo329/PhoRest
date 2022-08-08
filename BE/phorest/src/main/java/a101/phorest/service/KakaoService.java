@@ -14,7 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -22,16 +24,16 @@ public class KakaoService {
 
 //    private final UserRepository userRepository;
 
-    //private final String redirect_uri = "http://localhost:8399/api/user/kakao/";
-    private final String redirect_uri = "https://phorest.site/api/user/kakao/";
+    private final String redirect_uri = "http://localhost:8399/api/user/kakao/";
+    //private final String redirect_uri = "https://phorest.site/api/user/kakao/";
 
-    public String getToken(String code,String status) throws IOException {
+    public List<String> getToken(String code, String status) throws IOException {
         //인가코드로 토큰 받기
         String host = "https://kauth.kakao.com/oauth/token";
 
         String uri = redirect_uri + status;
 
-        String token = "";
+        List<String> tokens = new ArrayList<>();
         try {
 
             URL url = new URL(host);
@@ -69,7 +71,8 @@ public class KakaoService {
             System.out.println("refresh_token = " + refresh_token);
             System.out.println("access_token = " + access_token);
 
-            token = access_token;
+            tokens.add(access_token);
+            tokens.add(refresh_token);
 
 
             br.close();
@@ -79,7 +82,8 @@ public class KakaoService {
         } catch (org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
-        return token;
+
+        return tokens;
     }
 
     public Map<String, String> getUserInfo(String access_token) throws IOException {
