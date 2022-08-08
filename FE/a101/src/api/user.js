@@ -41,6 +41,13 @@ const user = {
       url: `${END_POINT}/currentuser/`,
     })
   },
+
+  follow(username) {
+    return api({
+      method: 'post',
+      url: `${END_POINT}/${username}/follow`
+    })
+  },
 }
 
 export default user
