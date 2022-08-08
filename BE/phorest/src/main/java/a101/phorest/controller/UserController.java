@@ -86,11 +86,4 @@ public class UserController {
         HashMap<String, String> userInfo = (HashMap<String, String>) kakaoService.getUserInfo(access_token);
         return ResponseEntity.ok(userService.setKakaoUser(userInfo, tokens));
     }
-    @GetMapping("user/kakaoxp/{code}")
-    public ResponseEntity<TokenDTO> kakaoLoginXp(@PathVariable("code") String code) throws IOException {
-        List<String> tokens = kakaoService.getToken(code);
-        String access_token=tokens.get(0);
-        HashMap<String, String> userInfo = (HashMap<String, String>) kakaoService.getUserInfo(access_token);
-        return ResponseEntity.ok(userService.setKakaoUser(userInfo, tokens));
-    }
 }
