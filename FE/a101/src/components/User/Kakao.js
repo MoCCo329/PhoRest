@@ -19,6 +19,7 @@ export default function Kakao() {
     user.kakaoSignup(code).then((result) => {
       console.log(result.data);
       localStorage.setItem("token", result.data.token);
+      navigate('/')
     });
   };
 
