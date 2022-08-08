@@ -49,7 +49,7 @@ export default function Main() {
 
   // 카카오 로그인
   const url =
-    "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/api/user/kakao";
+    "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/kakao";
 
   function login() {
     window.location.href = url;
