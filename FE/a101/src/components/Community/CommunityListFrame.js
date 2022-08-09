@@ -9,6 +9,13 @@ import { useNavigate } from 'react-router-dom'
 import { setFrameLike, addFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecent } from '../../store/modules/community'
 import community from '../../api/community'
 
+// icons
+import add from '../../assets/UI/add.png'
+import likeFilled from '../../assets/UI/heart_filled.png'
+import likeEmpty from '../../assets/UI/heart_empty.png'
+import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
+import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
+
 export default function CommunityListFrame() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -103,32 +110,41 @@ export default function CommunityListFrame() {
           <div className='sub-tab-btn' onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffd89e' : ''}}>최신순</div>
         </div>
         <div className='create-frame'>
-          <div className='create-frame-btn' onClick={() => navigate('/community/edit/LTM2')} >프레임 생성하러 가기</div>
+          <div className='create-frame-btn'>
+            <img className='icon-img' onClick={() => navigate('/community/edit/LTM2')} src={add} alt='add'></img>
+            <div>프레임 생성하러 가기</div>
+          </div>
         </div>
       </div>
-      <div className='community-list-content'>        
         <div className='community-list-body'>
           {
             type ?
             frameLike.map((post, idx) => (
               <div className='photo-gallery' key={idx}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-                <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-                {post.likeCount}
-                <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+                <div className='photo-info-content'>
+                  <div className='like-cnt-content'>
+                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                    {post.likeCount}
+                  </div>
+                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
+                </div>
               </div>
             )) :
             frameRecent.map((post, idx) => (
               <div className='photo-gallery' key={idx}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-                <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-                {post.likeCount}
-                <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+                <div className='photo-info-content'>
+                  <div className='like-cnt-content'>
+                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                    {post.likeCount}
+                  </div>
+                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
+                </div>
               </div>
             ))
           }
         </div>
-      </div>
     </div>
   )
 }

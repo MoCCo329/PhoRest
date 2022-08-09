@@ -51,12 +51,16 @@ export default function Header(props) {
       <div className="contents">
         <div className="header-logo-box" style={{ marginLeft : props.mypage ? '3vw' : '48vw' }} onClick={() => {navigate('/')}}>
           <img className="header-logo" src={logo} alt="logo" />
-          { props.mypage ? <div>{userDetail.nickname + "'s PhoRest"}</div> : null }
+          { props.mypage ? <div className='user-nickname'>{userDetail.nickname + "'s PhoRest"}</div> : null }
         </div>
         <div className='header-state'>
           {
             isLoggedIn ?
-            <div><Profile user={currentUser}></Profile><button onClick={() => clickLogout()}>로그아웃</button></div> :
+            <div className='profile-info-box'>
+              <div><Profile user={currentUser}></Profile></div>
+              <div><button className='logout-btn' onClick={() => clickLogout()}>로그아웃</button></div>
+            </div>
+             :
             <div><button className='login-btn' onClick={() => navigate('/login')}>Login</button></div>
           }
         </div>

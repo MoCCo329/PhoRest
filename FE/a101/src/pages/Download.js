@@ -94,7 +94,6 @@ export default function Main() {
                     <div>
                         <CommunityCarousel communityType="photogroup" />
                     </div>
-                    <br></br>
                     <div>
                         <CommunityCarousel communityType="frame" />
                     </div>
