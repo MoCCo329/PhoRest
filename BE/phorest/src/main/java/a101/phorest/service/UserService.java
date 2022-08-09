@@ -159,12 +159,13 @@ public class UserService {
 //            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
 //        }
 
+        Double pw = Double.parseDouble(username + "${jwt.secret}" );
 
         User user = User.builder()
                 .username(ud.getUsername())
-                .password(passwordEncoder.encode(username))
+                .password(passwordEncoder.encode(pw.toString()))
                 .nickname(ud.getNickname())
-                //.phone(ud.getPhone())
+                .phone(ud.getPhone())
                 .access_token(ud.getAccess_token())
                 .refresh_token(ud.getRefresh_token())
                 .profileURL(ud.getProfileURL())
