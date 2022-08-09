@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, editCommentId } from './modules/community.js'
 import { token, currentUser, authError } from './modules/user.js'
-import { userDetail } from './modules/mypage.js'
+import { userDetail, viewType } from './modules/mypage.js'
 
 export default configureStore({
   reducer: {
@@ -21,5 +21,6 @@ export default configureStore({
 
     // mypage
     userDetail: userDetail.reducer,
+    viewType: viewType.reducer,
   }
 })

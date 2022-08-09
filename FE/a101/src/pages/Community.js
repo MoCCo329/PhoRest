@@ -59,7 +59,7 @@ export default function Community(props) {
             dispatch(setDetailComment([]))
         }
     }, [])
-    console.log(detailPost)
+    
     // 프레임이면 글표시랑 프레임 편집 링크
 
     // community-header 상단에 도착하면 고정시키기
@@ -122,7 +122,7 @@ export default function Community(props) {
                 <div className="community-header">
                     { detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
                     { detailPost.category==='photogroup' ? <div className='human-count'>{detailPost.humanCount}명</div> : null }
-                    { detailPost.category==='frame' ? <div className='frame-id'>프레임 ID : {detailPost.frameId}</div> : null }
+                    { detailPost.frameId ? <div className='frame-id'>프레임 ID : {detailPost.frameId}</div> : null }
                 </div>
                 <hr />
                 <h3>Content</h3>

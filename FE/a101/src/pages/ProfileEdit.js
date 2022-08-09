@@ -153,6 +153,7 @@ export default function ProfileEdit() {
     }
   }
 
+
   return (
     <Layout>
       <main>
@@ -192,6 +193,8 @@ export default function ProfileEdit() {
           <button type="submit">Edit</button>
           { authError ? <p>{ authError }</p> : '' }
         </form>
+
+        <button onClick={() => navigate(-1)}>뒤로가기</button>
       </main>
     </Layout>
   )

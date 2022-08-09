@@ -48,6 +48,13 @@ const user = {
       url: `${END_POINT}/${username}/follow`
     })
   },
+
+  followingList() {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/following/`
+    })
+  }
 }
 
 export default user

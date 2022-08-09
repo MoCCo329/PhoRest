@@ -36,7 +36,7 @@ export default function CommunityListPhoto() {
         dispatch(setPhotoRecent(result.data))
       })
     }
-  })
+  }, [likeFiltered, recentFiltered])
 
   useEffect(() => {
     setLikeFiltered(photoLike.filter((post, idx) => {
@@ -115,15 +115,15 @@ export default function CommunityListPhoto() {
     <div className="community-list">
 
       <div className="community-list-header">
-        <h3>포즈 게시판</h3>
-          <div className="community-list-select">
-          {[1, 2, 3, 4, 5, 6].map((num, idx) =>
-            (
-              <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
-            )
-          )}
-          </div>
         <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>인기순</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>최신순</div>
+        <h3>포즈 게시판</h3>
+        <div className="community-list-select">
+        {[1, 2, 3, 4, 5, 6].map((num, idx) =>
+          (
+            <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
+          )
+        )}
+        </div>        
       </div>
       <div className='community-list-body'>
         {
