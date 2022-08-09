@@ -142,16 +142,6 @@ export let detailPost = createSlice({
   reducers: {
     setDetailPost (state, action) {
       return action.payload
-    },
-    likeDetailPost (state, action) {
-      const copy = state
-      copy.isLike = action.payload
-      return copy
-    },
-    bookmarkDetailPost (state, action) {
-      const copy = state
-      copy.isBookmark = action.payload
-      return copy
     }
   }
 })
