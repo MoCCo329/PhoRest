@@ -54,7 +54,8 @@ export default function ProfileEdit() {
       username : currentUser.username,
       nickname : form.nickname.value,
       introduce: form.introduce.value || '',
-      profileURL : profileURL
+      profileURL : profileURL,
+      password: 'a1234!@#$',
     }
 
     if (isKakao) {
