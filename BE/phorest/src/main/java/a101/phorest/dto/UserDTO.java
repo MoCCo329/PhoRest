@@ -55,6 +55,7 @@ public class UserDTO {
    private String introduce;
 
    private List<PostDTO> postDTOS;
+   private Boolean isActivated;
 
    private Long followerCount;
 
@@ -81,6 +82,7 @@ public class UserDTO {
               .access_token(user.getAccess_token())
               .refresh_token(user.getRefresh_token())
               .introduce(user.getIntroduce())
+              .isActivated(true)
               .build();
 
       return userDto;

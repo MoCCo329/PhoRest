@@ -131,6 +131,8 @@ public class UserService {
 
         if (userRepository.findByUsername(username) != null){
             //이미 있는 회원
+
+            userRepository.findByUsername(username).setActivated(true);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(username, userRepository.findByUsername(username).getPassword());
 
@@ -144,6 +146,7 @@ public class UserService {
         ud.setRefresh_token(tokens.get(1));
         ud.setNickname(userInfo.get("nickname"));
         ud.setProfileURL(userInfo.get("profile_image"));
+        ud.setIsActivated(true);
 //        if(userInfo.get("phone_number") != null){
 //            ud.setPhone(userInfo.get("phone_number"));
 //            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
