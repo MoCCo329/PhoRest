@@ -59,6 +59,7 @@ export default function ProfileEdit() {
     }
 
     if (isKakao) {
+      console.log(credentials)
       return fetchLogin(credentials)
     }
 
