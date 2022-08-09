@@ -118,4 +118,20 @@ public class MyPageService {
             post.get().setShared(true);
         return 0L;
     }
+
+    public List<PostDTO> findBookmarkPosts(String username){
+        List<Post> posts = postRepository.findPostBookmarked(username);
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for(Post post : posts){
+            List<User> users = userRepository.findPostMyPageSharedUsers(post.getId());
+            List<UserDTO> userDTOS = new ArrayList<>();
+            for(User user : users){
+                UserDTO userDTO = UserDTO.from(user);
+                userDTOS.add(userDTO);
+            }
+            PostDTO postDTO = new PostDTO(post,userDTOS);
+            postDTOS.add(postDTO);
+        }
+        return postDTOS;
+    }
 }

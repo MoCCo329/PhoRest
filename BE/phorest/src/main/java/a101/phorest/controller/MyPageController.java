@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 @Controller
 @RequestMapping("api")
@@ -37,6 +39,12 @@ public class MyPageController {
             return new UserDTO();
         }
         return myPageService.findByUserId(searchUsername, loginUsername);
+    }
+
+    @GetMapping("mypage/{username}/bookmark")
+    @ResponseBody
+    public List<PostDTO> findBookmarkedPost(@PathVariable("username") String username){
+        return myPageService.findBookmarkPosts(username);
     }
 
     @PostMapping("mypage/{postId}/add")
