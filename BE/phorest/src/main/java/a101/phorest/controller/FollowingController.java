@@ -41,7 +41,7 @@ public class FollowingController {
         Long my_id=userRepository.findByUsername(my_username).getUserId();
         Long other_id=userRepository.findByUsername(other_username).getUserId();
 
-        if(my_id == other_id) return 3;
+        if(my_id.equals(other_id)) return 3;
 
         if(followRepository.findByFollowerAndFollowing(other_id,my_id).isEmpty()) {
             followService.join(other_id,my_id);
