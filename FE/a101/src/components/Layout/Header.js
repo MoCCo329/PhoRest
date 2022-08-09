@@ -57,7 +57,7 @@ export default function Header(props) {
           {
             isLoggedIn ?
             <div><Profile user={currentUser}></Profile><button onClick={() => clickLogout()}>로그아웃</button></div> :
-            <div><button onClick={() => navigate('/login')}>로그인</button><button onClick={() => navigate('/signup')}>회원가입</button></div>
+            <div><button className='login-btn' onClick={() => navigate('/login')}>Login</button></div>
           }
         </div>
       </div>
