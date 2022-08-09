@@ -80,7 +80,7 @@ public class UserDTO {
               .nickname(user.getNickname())
               .role(user.getRole())
               .phone(user.getPhone())
-              .profileURL(user.getProfileUrl())
+              .profileURL(user.getProfileURL())
               .access_token(user.getAccess_token())
               .refresh_token(user.getRefresh_token())
               .introduce(user.getIntroduce())

@@ -1,12 +1,10 @@
 package a101.phorest.domain;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -42,7 +40,7 @@ public class User {
    @Column(name = "phone", unique = true)
    private String phone;
 
-   private String profileUrl;
+   private String profileURL;
 
    @Column(name = "iskakao")
    private boolean isKakao;

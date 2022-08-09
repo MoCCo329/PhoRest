@@ -9,7 +9,6 @@ import a101.phorest.dto.UserDTO;
 import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.UserRepository;
-import antlr.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -97,7 +95,7 @@ public class UserService {
         userDto.setNickname(user.getNickname());
         userDto.setPassword(user.getPassword());
         userDto.setPhone(user.getPhone());
-        userDto.setProfileURL(user.getProfileUrl());
+        userDto.setProfileURL(user.getProfileURL());
         userDto.setIntroduce(user.getIntroduce());
         userDto.setKakao(user.isKakao());
         return Optional.of(userDto);
@@ -116,7 +114,7 @@ public class UserService {
             return 4L;
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setNickname(userDto.getNickname());
-        user.setProfileUrl(userDto.getProfileURL());
+        user.setProfileURL(userDto.getProfileURL());
         user.setPhone(userDto.getPhone());
         user.setIntroduce(userDto.getIntroduce());
         return 0L;

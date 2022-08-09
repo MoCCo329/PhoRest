@@ -15,9 +15,9 @@ public class FollowDTO {
     public FollowDTO(Follow follow){
         this.username = follow.getFollowing().getUsername();
         this.nickname = follow.getFollowing().getNickname();
-        this.profileUrl = follow.getFollowing().getProfileUrl();
+        this.profileURL = follow.getFollowing().getProfileURL();
     }
     private String username;
     private String nickname;
-    private String profileUrl;
+    private String profileURL;
 }
