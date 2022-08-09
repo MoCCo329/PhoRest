@@ -643,7 +643,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stack.setCurrentIndex(2)
+        self.stack.setCurrentIndex(3)
         self.TopStack.setCurrentIndex(0)
         self.NextBtn.clicked.connect(MainWindow.NextBottomButton_to_2) # type: ignore
         self.Btn1.clicked.connect(MainWindow.Press_Btn1) # type: ignore
@@ -692,7 +692,7 @@ class Ui_MainWindow(object):
         self.Photo2.setText(_translate("MainWindow", "2"))
         self.Photo4.setText(_translate("MainWindow", "4"))
         self.NextBtn_3.setText(_translate("MainWindow", ">"))
-        self.PhotoPage_Label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">각 사진을 클릭하여 사진을 확대해 보세요!</p></body></html>"))
+        self.PhotoPage_Label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">각 사진을 클릭하여 사진을 확대해 보세요!</span></p></body></html>"))
         self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:26pt;\">사용할 프레임을 선택해주세요</span></p></body></html>"))
         self.PrintBtn.setText(_translate("MainWindow", "다음"))
         self.ApplyBtn.setText(_translate("MainWindow", "적용"))
