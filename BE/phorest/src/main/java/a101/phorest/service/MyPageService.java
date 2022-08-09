@@ -73,7 +73,13 @@ public class MyPageService {
         userDto.setFollowerCount(followRepository.countFollowByFollowing(searchUser));
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : posts) {
-            PostDTO postDto = new PostDTO(post, new ArrayList<>());
+            List<User> users = userRepository.findPostMyPageSharedUsers(post.getId());
+            List<UserDTO> userDTOS = new ArrayList<>();
+            for(User user : users){
+                UserDTO userDTO = UserDTO.from(user);
+                userDTOS.add(userDTO);
+            }
+            PostDTO postDto = new PostDTO(post, userDTOS);
             postDto.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(post.getId(), loginUsername).isPresent());
             postDto.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),loginUsername).isPresent());
             postDTOS.add(postDto);
