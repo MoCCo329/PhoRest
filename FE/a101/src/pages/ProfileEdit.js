@@ -48,33 +48,43 @@ export default function ProfileEdit() {
   const onSubmit = (event) => {
     event.preventDefault()
     setAuthError('')
+
+    let form = document.forms.profileEdit.elements
+    let credentials = {
+      username : currentUser.username,
+      nickname : form.nickname.value,
+      introduce: form.introduce.value || '',
+      profileURL : profileURL
+    }
+
+    if (isKakao) {
+      return fetchLogin(credentials)
+    }
+
     if (phoneValidity) {
       return alert('핸드본번호를 정확히 입력해 주세요')
     }
-    
     if (type && (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다')) {
       return alert('비밀번호를 정확히 입력해 주세요')
     }
-
     if (passwordValidity==='' || type===false) {
-
-      let form = document.forms.profileEdit.elements
-
-      const credentials = {
-        username : currentUser.username,
-        nickname : form.nickname.value,
+      credentials = {
+        ...credentials,
+        phone : form.phone.value || '',
         beforePassword : form.beforePassword.value,
         password : newPassword,
-        phone : form.phone.value,
-        profileURL : profileURL,
-        introduce: form.introduce.value
       }
-
       if (!type) {
         credentials.password = form.beforePassword.value
       }
+      fetchLogin(credentials)
+    } else {
+        alert('비밀번호가 잘못되었습니다')
+    }
+  }
 
-      user.profileEdit(credentials)
+  const fetchLogin = (credentials) => {
+    user.profileEdit(credentials)
       .then((result) => {
         if (result.data===0) {
           dispatch(setCurrentUser(''))
@@ -102,9 +112,6 @@ export default function ProfileEdit() {
           setAuthError(error.response.data.message)
         }
       })
-    } else {
-        alert('비밀번호가 잘못되었습니다')
-    }
   }
 
   const changeImageURL = (e) => {
@@ -192,9 +199,14 @@ export default function ProfileEdit() {
               <input name="password2" onChange={() => {passwordTest(); passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
             </div> : null
           }
-          
-          <label htmlFor="phone">Phone : </label>
-          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ currentUser.phone || '' } required={isKakao ? false : true} placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+          {
+            !isKakao ?
+            <div>
+              <label htmlFor="phone">Phone : </label>
+              <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ currentUser.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+            </div> :
+            null
+          }
 
           <label htmlFor="introduce">Introduce : </label>
           <input name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="Introduce" /><br/>

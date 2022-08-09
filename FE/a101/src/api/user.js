@@ -36,7 +36,6 @@ const user = {
   },
   
   currentUser() {
-    console.log(1)
     return api({
       method: 'get',
       url: `${END_POINT}/currentuser/`,

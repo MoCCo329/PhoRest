@@ -32,7 +32,6 @@ function App() {
   useEffect(() => {
     user.currentUser()
     .then(result => {
-      console.log(reqult.data)
       dispatch(setCurrentUser(result.data))
     })
   })
