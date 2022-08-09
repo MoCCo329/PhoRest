@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 
+import mypage from "../../api/mypage"
+
 import ScrollCalendar from "../ScrollCalendar/ScrollCalendar"
 
 export default function MyGallery(props) {
@@ -13,7 +15,7 @@ export default function MyGallery(props) {
   const userDetail = useSelector(state => state.userDetail)
   const currentUser = useSelector(state => state.currentUser)
   const [isMyMypage, setIsMyMypage] = useState(false)
-
+  console.log(bookmarked)
   useEffect(() => {
     if (props.category==='photogroup') {
       setType('photogroup')
@@ -23,7 +25,8 @@ export default function MyGallery(props) {
     } else {
       setView(true)
       setType('bookmark')
-      setBookmarked(userDetail.postDTOS.filter(post => post.isBookmark))
+      mypage.bookmarked(userDetail.username)
+      .then(result => setBookmarked(result.data))
     }
   }, [props.category])
 
