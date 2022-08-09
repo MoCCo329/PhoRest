@@ -54,29 +54,28 @@ export default function ScrollCalendar() {
   // 데이터 가져오기
   const userDetail = useSelector((state) => state.userDetail);
 
-  console.log(Date(userDetail.postDTOS[0].time))
-  console.log(Date(userDetail.postDTOS[0].time) === Date('2022-08-02'))
+  // 같은 날짜에 사진을 여러번 찍었네?
 
-  // {userDetail
-  //   ? userDetail.postDTOS.filter((item) => item.category === "frame")
-  //       .length
-  //   : 0}
-
-  // let intersection = userDetail.postDTOS.filter((item) => months[Date(item.time)].includes(Date(item.time)))
-  // console.log(intersection)
-
+  console.log(months)
+  console.log(userDetail.postDTOS)
   function calIntersection() {
     for (let time in userDetail.postDTOS) {
-      let date = new Date(time.time);
-      let month = date.getMonth();
-      for (let d in months[month]) {
-        let day = new Date(day)
+      let date = new Date(userDetail.postDTOS[time].time);
+      let m = date.getMonth();
+      let month = months[m].dates
+      for (let d in month) {
+        let day = month[d];
+        if (day === ' ') {
+          continue
+        }
         if (date.getFullYear() ===  day.getFullYear() && date.getDate() === day.getDate()) {
-          
+          console.log('같은 날짜', day)
         }
       } 
     }
   }
+
+  calIntersection();
   return (
     <div>
       {months.map((m) => (
@@ -93,7 +92,7 @@ export default function ScrollCalendar() {
           </div>
           <div className="container">
             {m.dates.map((day, index) => (
-              <div key={index} className="date" style={{backgroundColor :  "red"}}>
+              <div key={index} className="date">
                 {day === " " ? " " : day.getDate()}
               </div>
             ))}
