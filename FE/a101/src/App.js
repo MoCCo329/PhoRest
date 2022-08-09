@@ -14,6 +14,7 @@ import FrameEdit from './pages/FrameEdit'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ProfileEdit from './pages/ProfileEdit'
+import ProfileEditPw from './pages/ProfileEditPw'
 import NotFount404 from './pages/NotFound404'
 
 import Kakao from './components/User/Kakao'
@@ -47,6 +48,7 @@ function App() {
         <Route exact path="/download/:postId" element={<Download/>} />
 
         <Route exact path="/mypage/edit" element={<ProfileEdit/>} />
+        <Route exact path="/mypage/editpw" element={<ProfileEditPw/>} />
         <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/mypage/" element={<Mypage/>} />
 

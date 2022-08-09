@@ -34,6 +34,14 @@ const user = {
       data : data,
     })
   },
+
+  profileEditPw(data) {
+    return api({
+      method: 'put',
+      url: `${END_POINT}/editpw/`,
+      data : data,
+    })
+  },
   
   currentUser() {
     return api({
