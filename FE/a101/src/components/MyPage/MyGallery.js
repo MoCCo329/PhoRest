@@ -15,7 +15,7 @@ export default function MyGallery(props) {
   const userDetail = useSelector(state => state.userDetail)
   const currentUser = useSelector(state => state.currentUser)
   const [isMyMypage, setIsMyMypage] = useState(false)
-  console.log(bookmarked)
+
   useEffect(() => {
     if (props.category==='photogroup') {
       setType('photogroup')
