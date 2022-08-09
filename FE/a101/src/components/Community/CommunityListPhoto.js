@@ -1,3 +1,5 @@
+import './CommunityListPhoto.css'
+
 /* eslint-disable default-case */
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -115,36 +117,49 @@ export default function CommunityListPhoto() {
     <div className="community-list">
 
       <div className="community-list-header">
-        <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>인기순</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>최신순</div>
-        <h3>포즈 게시판</h3>
+        <div className='tab-title'>
+          <h5>포즈 게시판</h5>
+        </div>
+        <div className='sub-tab'>
+          <div className='sub-tab-btn' onClick={() => setType(true)} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
+          <div className='sub-tab-btn' onClick={() => setType(false)} style={{backgroundColor: !type ? '#d8ec84' : ''}}>최신순</div>
+        </div>
         <div className="community-list-select">
         {[1, 2, 3, 4, 5, 6].map((num, idx) =>
           (
-            <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
+            <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffd89e' : ''}} key={idx}>{num}명</div>
           )
         )}
         </div>        
       </div>
-      <div className='community-list-body'>
-        {
-          type ?
-          likeFiltered.map((post, idx) => (
-            <div key={idx}>
-              <img src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-              <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-              {post.likeCount}
-              <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
-            </div>
-          )) :
-          recentFiltered.map((post, idx) => (
-            <div key={idx}>
-              <img src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-              <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-              {post.likeCount}
-              <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
-            </div>
-          ))
-        }
+      <div className='community-list-content'>
+        <div className='community-list-body'>
+          {
+            type ?
+            likeFiltered.map((post, idx) => (
+              <div className='photo-gallery' key={idx}>
+                <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
+                <div className='photo-info-content'>
+                  <div className='like-cnt-content'>
+                    <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
+                    {post.likeCount}
+                  </div>
+                  <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+                </div>
+              </div>
+            )) :
+            recentFiltered.map((post, idx) => (
+              <div className='photo-gallery' key={idx}>
+                <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
+                <div className='photo-info-content'>
+                  <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
+                  {post.likeCount}
+                  <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+                </div>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   )

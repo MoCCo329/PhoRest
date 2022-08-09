@@ -6,14 +6,32 @@
 }
 
 .download-img img {
+  max-width: 50vw;
+  border-radius: 2%;
+}
+/* .download-img img {
   min-width: 50vw;
   max-width: 100vw;
   border-radius: 2%;
+} */
+
+@media only screen and (max-width: 500px) {
+  .download-img img {
+    max-width: 100vw;
+  }
 }
 
 .download-links {
+  margin: auto;
+  max-width: 50vw;
   display: flex;
   justify-content: space-around;
+}
+
+@media only screen and (max-width: 500px) {
+  .download-links {
+    justify-content: space-around;
+  }
 }
 
 .download-links-item {

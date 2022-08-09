@@ -1,3 +1,5 @@
+import './CommunityListFrame.css'
+
 /* eslint-disable default-case */
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -93,30 +95,39 @@ export default function CommunityListFrame() {
     <div className="community-list">
 
       <div className="community-list-header">
-      <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>인기순</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>최신순</div>
-        <h3>프레임 게시판</h3>
-        <div onClick={() => navigate('/community/edit/LTM2')} >프레임 생성하러 가기</div>
+        <div className='tab-title'>
+          <h5>프레임 게시판</h5>
+        </div>
+        <div className='sub-tab'>
+          <div className='sub-tab-btn' onClick={() => setType(true)} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
+          <div className='sub-tab-btn' onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffd89e' : ''}}>최신순</div>
+        </div>
+        <div className='create-frame'>
+          <div className='create-frame-btn' onClick={() => navigate('/community/edit/LTM2')} >프레임 생성하러 가기</div>
+        </div>
       </div>
-      <div className='community-list-body'>
-        {
-          type ?
-          frameLike.map((post, idx) => (
-            <div key={idx}>
-              <img src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-              <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-              {post.likeCount}
-              <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
-            </div>
-          )) :
-          frameRecent.map((post, idx) => (
-            <div key={idx}>
-              <img src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-              <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-              {post.likeCount}
-              <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
-            </div>
-          ))
-        }
+      <div className='community-list-content'>        
+        <div className='community-list-body'>
+          {
+            type ?
+            frameLike.map((post, idx) => (
+              <div className='photo-gallery' key={idx}>
+                <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
+                <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
+                {post.likeCount}
+                <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+              </div>
+            )) :
+            frameRecent.map((post, idx) => (
+              <div className='photo-gallery' key={idx}>
+                <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
+                <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
+                {post.likeCount}
+                <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   )

@@ -1,3 +1,5 @@
+import './Main.css'
+
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,21 +28,20 @@ export default function Main(props) {
     return (
         <Layout>
             <main>
-                <div className="main-calendar">
-                    <Calendar />
-                </div>
-                <hr />
                 <div className="main-community">
-                <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>포즈</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>프레임</div>
-                    {
-                        type ?
-                        <div>
-                            <CommunityListPhoto />
-                        </div> :
-                        <div>
-                            <CommunityListFrame />
-                        </div>
-                    }
+                    <div className='gallery-tab'>
+                        <div className='gallery-tab-btn' onClick={() => setType(true)} style={{backgroundColor: type ? '#f5737f' : ''}}>포즈</div>
+                        <div className='gallery-tab-btn' onClick={() => setType(false)} style={{backgroundColor: !type ? '#f5737f' : ''}}>프레임</div>
+                    </div>
+                        {
+                            type ?
+                            <div>
+                                <CommunityListPhoto />
+                            </div> :
+                            <div>
+                                <CommunityListFrame />
+                            </div>
+                        }
                 </div>
             </main>
         </Layout>
