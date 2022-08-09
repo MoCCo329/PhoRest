@@ -76,6 +76,8 @@ public class UserController {
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        if(user.getPassword() == null)
+            return -1L;
         return userService.updateUser(user, username);
 
     }
