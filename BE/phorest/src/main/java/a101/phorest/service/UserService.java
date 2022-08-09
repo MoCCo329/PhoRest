@@ -55,6 +55,7 @@ public class UserService {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .nickname(userDto.getNickname())
                 .phone(userDto.getPhone())
+                .isKakao(false)
                 .role(Role.USER) // user로 가입
                 .activated(true)
                 .build();
@@ -98,6 +99,7 @@ public class UserService {
         userDto.setPhone(user.getPhone());
         userDto.setProfileURL(user.getProfileUrl());
         userDto.setIntroduce(user.getIntroduce());
+        userDto.setKakao(user.isKakao());
         return Optional.of(userDto);
     }
 
@@ -147,6 +149,7 @@ public class UserService {
         ud.setNickname(userInfo.get("nickname"));
         ud.setProfileURL(userInfo.get("profile_image"));
         ud.setIsActivated(true);
+        ud.setKakao(true);
 //        if(userInfo.get("phone_number") != null){
 //            ud.setPhone(userInfo.get("phone_number"));
 //            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
@@ -163,6 +166,7 @@ public class UserService {
                 .profileUrl(ud.getProfileURL())
                 .role(Role.USER) // user로 가입
                 .activated(true)
+                .isKakao(true)
                 .build();
 
         userRepository.save(user);

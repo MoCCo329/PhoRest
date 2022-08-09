@@ -44,6 +44,9 @@ public class User {
 
    private String profileUrl;
 
+   @Column(name = "iskakao")
+   private boolean isKakao;
+
    private String introduce;
 
    private String refresh_token;

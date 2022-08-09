@@ -66,6 +66,8 @@ public class UserDTO {
    private String refresh_token;
    private String access_token;
 
+   private boolean isKakao;
+
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
@@ -83,6 +85,7 @@ public class UserDTO {
               .refresh_token(user.getRefresh_token())
               .introduce(user.getIntroduce())
               .isActivated(true)
+              .isKakao(user.isKakao())
               .build();
 
       return userDto;
