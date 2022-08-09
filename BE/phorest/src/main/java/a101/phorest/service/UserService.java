@@ -3,9 +3,7 @@ package a101.phorest.service;
 
 import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
-import a101.phorest.dto.LoginDTO;
-import a101.phorest.dto.TokenDTO;
-import a101.phorest.dto.UserDTO;
+import a101.phorest.dto.*;
 import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.UserRepository;
@@ -106,29 +104,37 @@ public class UserService {
     }
 
     @Transactional
-    public Long updateUser(UserDTO userDto, String username){
+    public Long updateUserProfile(ProfileDTO profileDTO, String username){
         User user = userRepository.findByUsername(username);
-        User user1 = userRepository.findByNickname(userDto.getNickname());
-        User user2 = userRepository.findByPhone(userDto.getPhone());
+        User user1 = userRepository.findByNickname(profileDTO.getNickname());
+
         if(user.isKakao()){
-            user.setNickname(userDto.getNickname());
-            user.setProfileURL(userDto.getProfileURL());
-            user.setIntroduce(userDto.getIntroduce());
+            user.setNickname(profileDTO.getNickname());
+            user.setProfileURL(profileDTO.getProfileURL());
+            user.setIntroduce(profileDTO.getIntroduce());
             return 0L;
         }
-        if(!passwordEncoder.matches(userDto.getBeforePassword(), user.getPassword()))
-            return 2L;
         if(user1 != null && !user1.getUsername().equals(user.getUsername()))
-            return 3L;
-        if(user2 != null && !user2.getUsername().equals(user.getUsername()))
-            return 4L;
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setNickname(userDto.getNickname());
-        user.setProfileURL(userDto.getProfileURL());
-        user.setPhone(userDto.getPhone());
-        user.setIntroduce(userDto.getIntroduce());
+            return 2L;
+        if(profileDTO.getPhone() != null){
+            User user2 = userRepository.findByPhone(profileDTO.getPhone());
+            if(user2 != null && !user2.getUsername().equals(user.getUsername()))
+                return 3L;
+        }
+        user.setNickname(profileDTO.getNickname());
+        user.setProfileURL(profileDTO.getProfileURL());
+        user.setPhone(profileDTO.getPhone());
+        user.setIntroduce(profileDTO.getIntroduce());
         return 0L;
 
+    }
+    @Transactional
+    public Long updatePassword(PasswordDTO passwordDTO, String username){
+        User user = userRepository.findByUsername(username);
+        if(!passwordEncoder.matches(passwordDTO.getBeforePassword(), user.getPassword()))
+            return 2L;
+        user.setPassword(passwordDTO.getPassword());
+        return 0L;
     }
 
     @Transactional
