@@ -32,18 +32,12 @@ function App() {
   useEffect(() => {
     user.currentUser()
     .then(result => {
+      console.log(reqult.data)
       dispatch(setCurrentUser(result.data))
     })
   })
 
-  // useEffect(() => {
-  //   return (() => {
-  //     console.log('logout')
-  //     user.logout()
-  //     localStorage.setItem('token', '')
-  //   })
-  // }, [])
-
+  
   return (
     <BrowserRouter>
       <Routes>

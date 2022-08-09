@@ -15,6 +15,7 @@ export default function ProfileEdit() {
   const dispatch = useDispatch()
 
   const currentUser = useSelector(state => state.currentUser)
+  const [isKakao, setIsKakao] = useState(false)
 
   const [type, setType] = useState(false)
   const [newPassword, setNewPassword] = useState('')
@@ -34,7 +35,15 @@ export default function ProfileEdit() {
 
   useEffect(() => {
     user.currentUser()
+    .then(result =>
+      dispatch(setCurrentUser(result.data)))
   }, [])
+
+  useEffect(() => {
+    if (currentUser.kakao) {
+      setIsKakao(true)
+    }
+  }, [currentUser])
 
   const onSubmit = (event) => {
     event.preventDefault()
@@ -169,9 +178,13 @@ export default function ProfileEdit() {
           <label htmlFor="Nickname">Nickname : </label>
           <input name="nickname" type="text" id="Nickname" defaultValue={ currentUser.nickname || '' } required placeholder="Nickname" /><br/>
           
-          <button onClick={(e) => {e.preventDefault(); setType(!type)}}>{ type ? "비밀번호 변경하지 않기" : "비밀번호 변경" }</button><br />
           {
-            type ?
+            !isKakao ? 
+            <button onClick={(e) => {e.preventDefault(); setType(!type)}}>{ type ? "비밀번호 변경하지 않기" : "비밀번호 변경" }</button> :
+            null
+          }
+          {
+            type && !isKakao ?
             <div>
               <label htmlFor="password">New Password : </label>
               <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
@@ -181,14 +194,20 @@ export default function ProfileEdit() {
           }
           
           <label htmlFor="phone">Phone : </label>
-          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ currentUser.phone || '' } required placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ currentUser.phone || '' } required={isKakao ? false : true} placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
 
           <label htmlFor="introduce">Introduce : </label>
           <input name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="Introduce" /><br/>
 
-          기존 비밀번호 입력
-          <label htmlFor="beforePassword">Password : </label>
-          <input name="beforePassword" type="password" id="beforePassword" required placeholder="Password" /><br/>
+          {
+            !isKakao ?
+            <>
+            기존 비밀번호 입력
+            <label htmlFor="beforePassword">Password : </label>
+            <input name="beforePassword" type="password" id="beforePassword" required placeholder="Password" /><br/>
+            </> :
+            null
+          }
 
           <button type="submit">Edit</button>
           { authError ? <p>{ authError }</p> : '' }
