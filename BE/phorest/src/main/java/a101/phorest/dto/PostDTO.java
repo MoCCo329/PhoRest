@@ -23,6 +23,7 @@ public class PostDTO {
             this.humanCount = post.getPhotoGroup().getHumanCount();
             this.photogroupId = post.getPhotoGroup().getId();
             this.videoURL = post.getPhotoGroup().getVideoPath();
+            this.frameId = post.getPhotoGroup().getFrameId();
         }
         else if("frame".equals(this.category))
         {

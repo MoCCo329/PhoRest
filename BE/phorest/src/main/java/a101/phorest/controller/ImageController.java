@@ -30,14 +30,14 @@ public class ImageController {
 
     @PostMapping("upload/photogroup")
     @ResponseBody
-    public Long photoGroupUpload(@RequestPart("image") MultipartFile multipartFile, @RequestParam("humanCount") Long humanCount){
+    public Long photoGroupUpload(@RequestPart("image") MultipartFile multipartFile, @RequestParam("humanCount") Long humanCount, @RequestParam("frameNum") Long frameId){
         String uploadUrl;
         try {
             uploadUrl = s3Uploader.uploadFiles(multipartFile, "photogroup");
         } catch (Exception e) {
             return -1L;
         }
-        Long photogroup_id = photoGroupService.join(uploadUrl, humanCount);
+        Long photogroup_id = photoGroupService.join(uploadUrl, humanCount, frameId);
         return postService.join(photoGroupService.findOne(photogroup_id), "photogroup", "none");
     }
 

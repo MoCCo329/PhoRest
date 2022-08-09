@@ -18,6 +18,7 @@ public class PhotoGroup implements Images{
     private Long id;
 
     private Long humanCount;
+    private Long frameId;
 
     private String photoGroupPath;
 
