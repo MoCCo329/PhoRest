@@ -45,14 +45,21 @@ const user = {
   follow(username) {
     return api({
       method: 'post',
-      url: `${END_POINT}/${username}/follow`
+      url: `${END_POINT}/${username}/follow`,
+    })
+  },
+
+  followingList() {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/following/`,
     })
   },
 
   kakaoSignup(code) {
     return api({
       method: 'get',
-      url: `${END_POINT}/kakao?code=${code}`
+      url: `${END_POINT}/kakao?code=${code}`,
     })
   }
 }

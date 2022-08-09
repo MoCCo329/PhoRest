@@ -19,7 +19,8 @@ export default function MyPage() {
       .then((result) => {
         dispatch(setUserDetail(result.data))
       })
-  }, [])
+  }, [username])
+
 
   return (
     <Layout mypage={true}>

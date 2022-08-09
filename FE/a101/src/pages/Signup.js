@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout/Layout'
 
 import user from '../api/user'
-import { setAuthError } from '../store/modules/user'
+import { setAuthError, setCurrentUser } from '../store/modules/user'
 
 export default function Main() {
     let dispatch = useDispatch()
@@ -23,7 +23,15 @@ export default function Main() {
     const authError = useSelector(state => state.authError)
 
     useEffect(() => {
-        return () => {dispatch(setAuthError(''))}
+      return () => {dispatch(setAuthError(''))}
+    }, [])
+
+    useEffect(() => {  // 로그인 되어있으면 아예 못들어오게 바꿔야함
+      localStorage.setItem('token', '')
+      user.currentUser()
+      .then(result => {
+        dispatch(setCurrentUser(result.data))
+      })
     }, [])
 
     const onSubmit = (e) => {

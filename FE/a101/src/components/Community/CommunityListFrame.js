@@ -60,7 +60,6 @@ export default function CommunityListFrame() {
     if (!currentUser.username) {
       return alert('로그인 후 좋아요가 가능합니다')
     }
-
     community.likePost(postId)
     .then(result => {
       if (type) {
@@ -75,7 +74,6 @@ export default function CommunityListFrame() {
     if (!currentUser.username) {
       return alert('로그인 후 북마크가 가능합니다')
     }
-
     community.bookmarkPost(postId)
     .then(result => {
       if (type) {
@@ -90,12 +88,14 @@ export default function CommunityListFrame() {
     navigate(`/community/${btoa((postId) * 73 + 37)}`)
   }
 
+
   return (
     <div className="community-list">
 
       <div className="community-list-header">
+      <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>인기순</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>최신순</div>
         <h3>프레임 게시판</h3>
-        <div onClick={() => setType(true)} style={{backgroundColor: type ? '#ffc036' : ''}}>인기순</div>/<div onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffc036' : ''}}>최신순</div>
+        <div onClick={() => navigate('/community/edit/LTM2')} >프레임 생성하러 가기</div>
       </div>
       <div className='community-list-body'>
         {
