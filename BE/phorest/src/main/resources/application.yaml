@@ -23,7 +23,7 @@ spring:
     defer-datasource-initialization: true
     open-in-view: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true

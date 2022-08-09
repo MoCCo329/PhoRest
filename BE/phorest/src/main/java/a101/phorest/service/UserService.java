@@ -161,7 +161,7 @@ public class UserService {
                 //.phone(ud.getPhone())
                 .access_token(ud.getAccess_token())
                 .refresh_token(ud.getRefresh_token())
-                .profileUrl(ud.getProfileURL())
+                .profileURL(ud.getProfileURL())
                 .role(Role.USER) // user로 가입
                 .activated(true)
                 .isKakao(true)
