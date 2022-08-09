@@ -130,6 +130,7 @@ public class MyPageService {
                 userDTOS.add(userDTO);
             }
             PostDTO postDTO = new PostDTO(post,userDTOS);
+            postDTO.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),username).isPresent());
             postDTOS.add(postDTO);
         }
         return postDTOS;
