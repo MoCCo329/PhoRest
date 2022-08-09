@@ -10,12 +10,14 @@ import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,8 @@ import java.util.Optional;
 @Transactional(readOnly = true) // 기본은 false
 @RequiredArgsConstructor
 public class UserService {
+
+    @Value("${kakao.password}") String secret;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
@@ -159,7 +163,7 @@ public class UserService {
 //            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
 //        }
 
-        Double pw = Double.parseDouble(username + "${jwt.secret}" );
+        Double pw = Double.parseDouble(username + secret);
 
         User user = User.builder()
                 .username(ud.getUsername())
