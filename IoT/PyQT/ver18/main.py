@@ -641,7 +641,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         writer = cv2.VideoWriter('./video/back.mp4', fourcc, 1, (900, 600))
 
-        for i in range(6):
+        for i in range(8):
             writer.write(back)
 
         writer.release()
