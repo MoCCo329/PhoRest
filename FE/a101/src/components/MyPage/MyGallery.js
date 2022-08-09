@@ -70,7 +70,7 @@ export default function MyGallery(props) {
                     { post.isLike ? '좋아요함' : '좋아요안함' } 
                     { post.isBookmark ? '북마크됨' : '북마크안됨' }
                     {
-                    type==='photogroup' ?
+                    isMyMypage && type==='photogroup' ?
                     (isSharing(post) ?
                     '공유중' : '비공유중'
                     ) :
