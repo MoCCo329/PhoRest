@@ -106,6 +106,12 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         User user1 = userRepository.findByNickname(userDto.getNickname());
         User user2 = userRepository.findByPhone(userDto.getPhone());
+        if(user.isKakao()){
+            user.setNickname(userDto.getNickname());
+            user.setProfileURL(userDto.getProfileURL());
+            user.setIntroduce(userDto.getIntroduce());
+            return 0L;
+        }
         if(!passwordEncoder.matches(userDto.getBeforePassword(), user.getPassword()))
             return 2L;
         if(user1 != null && !user1.getUsername().equals(user.getUsername()))

@@ -70,6 +70,7 @@ export default function ScrollCalendar() {
         }
         if (date.getFullYear() ===  day.getFullYear() && date.getDate() === day.getDate()) {
           console.log('같은 날짜', day)
+          return "hightlight";
         }
       } 
     }
