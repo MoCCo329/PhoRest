@@ -2,10 +2,13 @@ import React from "react";
 // import { useDispatch } from 'react-redux'
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { setToken, setAuthError, setCurrentUser } from "../../store/modules/user";
 import user from "../../api/user";
 
 export default function Kakao() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const href = window.location.href;
@@ -17,10 +20,18 @@ export default function Kakao() {
   //토큰 저장
   const getKakaoToken = () => {
     user.kakaoSignup(code).then((result) => {
-      console.log(result.data);
-      localStorage.setItem("token", result.data.token);
-      navigate('/')
-    });
+        const token = result.data.token;
+        dispatch(setToken(token));
+        localStorage.setItem("token", token);
+        user.currentUser().then((result) => {
+          dispatch(setCurrentUser(result.data));
+        });
+        navigate('/', { replace: true });
+      })
+      .catch((error) => {
+        dispatch(setAuthError(error.response.data.message));
+        console.error(error);
+      });
   };
 
   useEffect(() => {
@@ -28,5 +39,5 @@ export default function Kakao() {
     getKakaoToken();
   }, []);
 
-  return <div>미들웨어입니다</div>;
+  return <div>로그인중입니다</div>;
 }
