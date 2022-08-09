@@ -14,7 +14,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findById(Long id);
     @Query(nativeQuery = true, value = "select distinct * from post p " +
-            "natural join photo_group q " +
+            "join photo_group q on p.photogroup_id = q.photogroup_id " +
             "where q.human_count = :humancount " +
             "and p.category like :category and p.is_shared = true " +
             "order by p.like_count desc , p.time desc LIMIT :limit offset :offset")
@@ -38,7 +38,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUserIdShared(@Param("username") String username);
 
     @Query(nativeQuery = true, value = "select distinct * from post p " +
-            "natural join photo_group q " +
+            "join photo_group q on p.photogroup_id = q.photogroup_id " +
             "where q.human_count = :humancount " +
             "and p.category like :category and p.is_shared = true " +
             "order by  p.time desc , p.like_count desc LIMIT :limit offset :offset")

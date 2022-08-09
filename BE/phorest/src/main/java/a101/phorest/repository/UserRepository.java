@@ -24,7 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
    List<User> findPostMyPageSharedUsers(@Param("postId") Long postId);
 
    @Query(nativeQuery = true, value = "select distinct *" +
-           "from user q natural join my_page p " +
+           "from user q join my_page p on q.user_id = p.user_id " +
            "where p.post_id = :postId")
    List<User> findByPostId(@Param("postId") Long postId);
 }
