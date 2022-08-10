@@ -74,6 +74,7 @@ public class UserService {
                 .isKakao(false)
                 .role(Role.USER) // user로 가입
                 .activated(true)
+                .isMessageSent(false)
                 .build();
 
         return UserDTO.from(userRepository.save(user));
@@ -209,4 +210,23 @@ public class UserService {
 
         return new TokenDTO(jwt);
     }
+
+
+    @Transactional
+    public void setMessageSent(String username){
+        User user = userRepository.findByUsername(username);
+        user.setMessageSent(true);
+    }
+
+    @Transactional
+    public Boolean loginKakaoUser(String snsId){
+        User user = userRepository.findByUsername(snsId);
+        if(user == null){
+            throw new DuplicateMemberException("아이디가 없습니다.");
+        }else{
+            user.setActivated(true);
+return true;
+        }
+    }
+
 }

@@ -37,6 +37,7 @@ public class MyPageService {
         MyPage mypage = new MyPage();
         User user = userRepository.findByUsername(username);
         Post post = postRepository.findById(postId).get();
+        user.setMessageSent(false);
         mypage.setUser(user);
         mypage.setPost(post);
         mypage.setShared(true);
