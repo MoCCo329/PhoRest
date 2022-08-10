@@ -189,6 +189,9 @@ public class PostService {
             String fileName = frame.getFramePath().replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
             s3Uploader.deleteFile(fileName);
             frameRepository.deleteById(frame.getId());
+            myPageRepository.deleteByPostId(postId);
+            bookmarkRepository.deleteByPostId(postId);
+            likeRepository.deleteByPostId(postId);
             postRepository.deleteById(postId);
         }
         return 0L;

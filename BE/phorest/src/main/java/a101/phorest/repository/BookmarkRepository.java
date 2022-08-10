@@ -16,4 +16,7 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
             "and r.username = :username")
     Optional<Bookmark> findByPostIdAndUsername(@Param("postId") Long postId, @Param("username") String username);
 
+    @Query(nativeQuery = true, value = "delete from my_page mp where mp.post_id = :postId ")
+    void deleteByPostId(@Param("postId") Long postId);
+
 }

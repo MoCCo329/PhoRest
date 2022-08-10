@@ -27,5 +27,6 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
             "where mp.post_id = :postId and mp.is_shared = true ")
     List<MyPage> findByPostIdShared(@Param("postId") Long postId);
 
-
+    @Query(nativeQuery = true, value = "delete from my_page mp where mp.post_id = :postId ")
+    void deleteByPostId(@Param("postId") Long postId);
 }
