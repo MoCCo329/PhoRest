@@ -26,6 +26,7 @@ public class MyPageController {
     public UserDTO findByUserId(@PathVariable("username") String searchUsername, @RequestHeader(value = "Authorization", required = false) String token)
     {
         String loginUsername;
+        if(searchUsername.equals("unkn0wnuser")) return null;
         if(token == null || token.equals(""))
         {
             loginUsername = "";

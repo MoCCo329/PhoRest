@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +101,7 @@ public class UserController {
 
     @RequestMapping(value = "user/search", method = RequestMethod.GET, produces = "application/json; charset=utf8")
     public List<UserDTO> search(String nickname){
+        if(nickname.equals("unkn0wnuser")) return Collections.emptyList();
         return userService.findAllByNickname(nickname);
     }
 
