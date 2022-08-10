@@ -12,6 +12,9 @@ import user from './../../api/user'
 import { setCurrentUser } from '../../store/modules/user'
 import { setDetailPost } from '../../store/modules/community' 
 
+// icon
+import logout from '../../assets/UI/logout.png'
+
 // 로고, 로그인 혹은 로그아웃 등
 // 아래로 스크롤시 위로 사라지도록
 
@@ -58,7 +61,7 @@ export default function Header(props) {
             isLoggedIn ?
             <div className='profile-info-box'>
               <div><Profile user={currentUser}></Profile></div>
-              <div><button className='logout-btn' onClick={() => clickLogout()}>로그아웃</button></div>
+              <img className='logout-btn' src={logout} alt='logout' onClick={() => clickLogout()}></img>
             </div>
              :
             <div><button className='login-btn' onClick={() => navigate('/login')}>Login</button></div>
