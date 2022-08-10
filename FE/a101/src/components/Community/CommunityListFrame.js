@@ -111,6 +111,15 @@ export default function CommunityListFrame() {
     navigate(`/community/${btoa((postId) * 73 + 37)}`)
   }
 
+  const clickFrameEdit = () => {
+    if (!currentUser.username) {
+      if (window.confirm('로그인 후 프레임 생성이 가능합니다. 로그인하시겠습니까?')) {
+        return navigate('/login')
+      }
+      return null
+    }
+    return navigate('/community/edit/LTM2')
+  }
 
   return (
     <div className="community-list">
@@ -125,7 +134,7 @@ export default function CommunityListFrame() {
         </div>
         <div className='create-frame'>
           <div className='create-frame-btn'>
-            <div onClick={() => navigate('/community/edit/LTM2')}><img className='icon-img' src={add} alt='add'/> 프레임 생성하러 가기</div>
+            <div onClick={() => clickFrameEdit()}><img className='icon-img' src={add} alt='add'/> 프레임 생성하러 가기</div>
           </div>
         </div>
       </div>

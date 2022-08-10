@@ -56,7 +56,7 @@ export default function MypageProfile(props) {
         <div className="info" onClick={() => dispatch(setViewType(0))}>
           <div className="num">
             {
-            userDetail ?
+            userDetail && userDetail.username ?
             userDetail.postDTOS.filter(item => item.category === "photogroup").length :
             0
             }
@@ -67,7 +67,7 @@ export default function MypageProfile(props) {
         <div className="info" onClick={() => dispatch(setViewType(1))}>
           <div className="num">
             {
-            userDetail ?
+            userDetail && userDetail.username ?
             userDetail.postDTOS.filter(item => item.category === "frame").length :
             0
             }
@@ -77,7 +77,7 @@ export default function MypageProfile(props) {
 
         <div className="info">
           <div className="num">
-            {userDetail.followerCount}
+            {userDetail && userDetail.username ? userDetail.followerCount : null}
           </div>
           <div className="name">팔로워</div>
         </div>
@@ -102,7 +102,7 @@ export default function MypageProfile(props) {
       )}
 
       <div className="modal-button">
-        {currentUser.username ? (
+        {currentUser && currentUser.username ? (
           !isMyMypage ? (userDetail.following ? (
             <button className="button-unfollow" onClick={follow}>
               팔로우 취소하기

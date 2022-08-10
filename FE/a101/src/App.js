@@ -3,7 +3,7 @@
 import './App.css'
 import { React, useEffect } from 'react'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 // pages
 import Main from './pages/Main'
@@ -21,7 +21,7 @@ import Kakao from './components/User/Kakao'
 
 // functions
 import user from './api/user'
-import { setCurrentUser } from './store/modules/user'
+import { currentUser, setCurrentUser } from './store/modules/user'
 
 // bootstrap css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,13 +30,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  const currentUser = useSelector(state => state.currentUser)
+  
+  useEffect(() => {  // 미흡
     user.currentUser()
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
-  })
-
+  }, [])
   
   return (
     <BrowserRouter>
@@ -47,17 +48,28 @@ function App() {
 
         <Route exact path="/download/:postId" element={<Download/>} />
 
-        <Route exact path="/mypage/edit" element={<ProfileEdit/>} />
-        <Route exact path="/mypage/editpw" element={<ProfileEditPw/>} />
-        <Route exact path="/mypage/:username" element={<Mypage/>} />
-        <Route exact path="/mypage/" element={<Mypage/>} />
+        {
+          currentUser && currentUser.username ?
+          <>
+            <Route exact path="/mypage/edit" element={<ProfileEdit/>} />
+            <Route exact path="/mypage/editpw" element={<ProfileEditPw/>} />
+            <Route exact path="/mypage/" element={<Mypage/>} />
+          </> : null
+        }
 
+        <Route exact path="/mypage/:username" element={<Mypage/>} />
         <Route exact path="/community/edit/:postId" element={<FrameEdit/>} />
         <Route exact path="/community/:postId" element={<Community/>} />
 
-        <Route exact path="/signup" element={<Signup/>} />
-        <Route exact path="/login" element={<Login/>} />
-        <Route exact path="/kakao" element={<Kakao/>} />
+        {
+          !currentUser || !currentUser.username ?
+          <>
+            <Route exact path="/signup" element={<Signup/>} />
+            <Route exact path="/login" element={<Login/>} />
+            <Route exact path="/kakao" element={<Kakao/>} />  
+          </> : null
+        }
+        
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>
