@@ -121,6 +121,7 @@ export default function CommunityListFrame() {
     return navigate('/community/edit/LTM2')
   }
 
+  
   return (
     <div className="community-list">
 

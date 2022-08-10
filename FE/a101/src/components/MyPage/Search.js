@@ -5,8 +5,7 @@ import user from './../../api/user'
 import Profile from './../User/Profile'
 
 export default function Search () {
-  const [input, setInput] = useState('')
-  const [result, setResult] = useState()
+  const [result, setResult] = useState('')
 
   const search = (input) => {
     user.search(input)
@@ -21,7 +20,7 @@ export default function Search () {
       {
         result && result.length ?
         result.map(user => {
-          return <><Profile user={ user } key={ user.username }></Profile>{user.nickname}</>  // position absolute같은거 해야할듯
+          return <div key={ user.username }><Profile user={ user } ></Profile>{user.nickname}</div>  // position absolute같은거 해야할듯
         }) :
         null
       }

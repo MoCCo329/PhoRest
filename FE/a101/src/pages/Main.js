@@ -1,6 +1,6 @@
 import './Main.css'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
@@ -17,7 +17,7 @@ export default function Main(props) {
 
     const [typeMain, setTypeMain] = useState(true)  // true면 photo, false면 frame
     
-    useMemo(() => {
+    useEffect(() => {
         if (props.category) {
             if (props.category==='frame') {
                 setTypeMain(false)

@@ -51,7 +51,7 @@ export default function CommentsEdit(props) {
 
     return (
         <div>
-            댓글 작성자 : {props.comment.username} |
+            댓글 작성자 : {props.comment.nickname} |
             댓글 내용 : <input type='text' onChange={(e) => {setContent(e.target.value)}} value={content}></input> | 
             <button onClick={() => clickEditComment()}>수정</button>
             <button onClick={() => props.setEditCommentId(0)}>취소</button>
