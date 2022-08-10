@@ -5,6 +5,7 @@ import a101.phorest.domain.MyPage;
 import a101.phorest.domain.Post;
 import a101.phorest.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,5 +28,6 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
             "where mp.post_id = :postId and mp.is_shared = true ")
     List<MyPage> findByPostIdShared(@Param("postId") Long postId);
 
-
+    @Query(nativeQuery = true, value = "select * from my_page where user_id = :userId")
+    List<MyPage> findAllByUserId(Long userId);
 }

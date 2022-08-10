@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/")
@@ -103,11 +104,11 @@ public class UserController {
     }
 
     @PostMapping("user/delete")
-    public Long deleteUser(@RequestBody @Valid PasswordDTO user, @RequestHeader("Authorization") String token)
+    public Long deleteUser(@RequestBody Map<String,String> password, @RequestHeader("Authorization") String token)
     {
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        return userService.removeUser(user, username);
+        return userService.removeUser(password.get("password"), username);
     }
 }

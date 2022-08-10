@@ -3,6 +3,7 @@ package a101.phorest.repository;
 import a101.phorest.domain.Follow;
 import a101.phorest.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -27,4 +28,12 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     Long countFollowByFollower(User follower);
 
     Long countFollowByFollowing(User following);
+
+    @Modifying
+    @Query(nativeQuery = true,value = "delete from follow where follower_user_id =:userId")
+    void deleteAllByFollowerUserId(Long userId);
+
+    @Modifying
+    @Query(nativeQuery = true,value = "delete from follow where following_user_id =:userId")
+    void deleteAllByFollowingUserId(Long userId);
 }

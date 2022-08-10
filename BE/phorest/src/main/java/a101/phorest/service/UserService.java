@@ -1,12 +1,11 @@
 package a101.phorest.service;
 
 
-import a101.phorest.domain.Role;
-import a101.phorest.domain.User;
+import a101.phorest.domain.*;
 import a101.phorest.dto.*;
 import a101.phorest.exception.DuplicateMemberException;
 import a101.phorest.jwt.TokenProvider;
-import a101.phorest.repository.UserRepository;
+import a101.phorest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,9 +13,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +35,61 @@ public class UserService {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
+    private final MyPageRepository myPageRepository;
+    private final LikeRepository likeRepository;
+    private final BookmarkRepository bookmarkRepository;
+    private final FollowRepository followRepository;
+    private final CommentRepository commentRepository;
+
+    private final EntityManager em;
+
+    @Transactional
+    public Long removeUser(String password, String username){
+        User user = userRepository.findByUsername(username);
+        if(!passwordEncoder.matches(password, user.getPassword()))
+            return 2L;
+
+        List<Comment> comments = user.getComments();
+        List<MyPage> mypages = myPageRepository.findAllByUserId(user.getUserId());
+        //        1. 프레임이랑 코멘트 빼고 다 삭제하기
+        for(int i=0;i<comments.size();i++){
+            comments.get(i).getUser().setUserId(null);
+            commentRepository.save(comments.get(i));
+            em.flush();
+        }
+        // mypage에 frame 옮기기
+        for(int i=0;i<mypages.size();i++){
+            if(mypages.get(i).getCategory().equals("frame")){
+                mypages.get(i).getUser().setUserId(null);
+                myPageRepository.save(mypages.get(i));
+                em.flush();
+            }
+        }
+
+        likeRepository.deleteAllByUserId(user.getUserId());
+        bookmarkRepository.deleteAllByUserId(user.getUserId());
+
+        followRepository.deleteAllByFollowerUserId(user.getUserId());
+        followRepository.deleteAllByFollowingUserId(user.getUserId());
+
+        //        2. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제), like 취소, bookmark 취소, following follow 취소, isactive false 로 만들기
+
+        for(int i=0;i<mypages.size();i++){
+            if(mypages.get(i).getCategory().equals( "photogroup")){
+                likeRepository.deleteAllByPostId(mypages.get(i).getPost().getId());
+                bookmarkRepository.deleteAllbyPostId(mypages.get(i).getPost().getId());
+                myPageRepository.deleteById(mypages.get(i).getId());
+            }
+        }
+
+        List<Like> likes = likeRepository.findAllByUserId(user.getUserId());
+        for(int i=0;i<likes.size();i++){
+            likeRepository.deleteById(likes.get(i).getId());
+        }
+
+        userRepository.deleteById(user.getUserId());
+        return 0L;
+    }
 
     @Transactional
     public List<UserDTO> findAllByNickname(String nickname){
@@ -139,15 +196,6 @@ public class UserService {
         if(!passwordEncoder.matches(passwordDTO.getBeforePassword(), user.getPassword()))
             return 2L;
         user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
-        return 0L;
-    }
-
-    @Transactional
-    public Long removeUser(PasswordDTO passwordDTO, String username){
-        User user = userRepository.findByUsername(username);
-        if(!passwordEncoder.matches(passwordDTO.getBeforePassword(), user.getPassword()))
-            return 2L;
-        userRepository.deleteById(user.getUserId());
         return 0L;
     }
 
