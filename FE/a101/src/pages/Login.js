@@ -10,7 +10,8 @@ import { setToken, setAuthError, setCurrentUser } from "../store/modules/user"
 import user from "../api/user"
 
 // 카카오 로그인 이미지
-import kakaoBtn from "../assets/UI/kakao_login_medium_wide.png"
+// import kakaoBtn from "../assets/UI/kakao_login_medium_wide.png"
+import kakaoSymbol from '../assets/UI/kakao_symbol.png'
 
 export default function Main() {
   let dispatch = useDispatch()
@@ -65,7 +66,10 @@ export default function Main() {
           <div className="login-header">
             <h5>PhoRest 로그인하기</h5>
           </div>
-          <img src={kakaoBtn} alt="카카로 로그인" onClick={login} />
+          <div id='kakao-login-btn'>
+            <img src={kakaoSymbol} alt="카카로 로그인" onClick={login} />
+            <span>카카오 로그인</span>
+          </div>
           <div className='hr-sect'>
             또는
           </div>
