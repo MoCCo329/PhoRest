@@ -1,7 +1,6 @@
 package a101.phorest.controller;
 import a101.phorest.S3Uploader;
 import a101.phorest.domain.Post;
-import a101.phorest.dto.ImageDTO;
 import a101.phorest.dto.OffsetDTO;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.jwt.TokenProvider;
@@ -56,19 +55,19 @@ public class CommunityController {
         return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L);
     }
 
-    @PostMapping("frame/count")
+    @GetMapping("frame/count")
     @ResponseBody
-    public Long frameCount(@RequestBody ImageDTO imageDTO)
+    public Long frameCount()
     {
-        List<Post> posts = postRepository.countFramePostsByCategory(imageDTO.getCategory());
+        List<Post> posts = postRepository.countFramePostsByCategory("image");
         return (long)posts.size();
     }
 
-    @PostMapping("photogroup/count")
+    @GetMapping("photogroup/count")
     @ResponseBody
-    public Long photogroupCount(@RequestBody ImageDTO imageDTO)
+    public Long photogroupCount(@RequestParam("humanCount") Long humanCount)
     {
-        List<Post> posts = postRepository.countPhotogroupPostsByCategory(imageDTO.getCategory(), imageDTO.getHumanCount());
+        List<Post> posts = postRepository.countPhotogroupPostsByCategory("photogroup", humanCount);
         return (long)posts.size();
     }
 
