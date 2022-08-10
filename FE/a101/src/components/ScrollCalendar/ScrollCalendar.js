@@ -2,8 +2,10 @@ import * as React from "react"
 import "./ScrollCalendar.css"
 
 import { useSelector } from "react-redux"
+import {useEffect, useRef} from 'react'
 
 export default function ScrollCalendar() {
+
   // 먼저 올해의 년도를 구한다.
   // 그리고 12월을 구해서 각각에 대해서 days 를 저장한다.
   // let month = [{month: 0, days: [220101, 220102....]}, {month: 0, days: [220101, 220102....]}, ...]
@@ -34,8 +36,13 @@ export default function ScrollCalendar() {
     let monthlyDays = []
     let day = firstDateofMonth
     while (day <= lastDateofMonth) {
+      let days = {
+        date: day, 
+        common: false,
+        url: '',
+      }
       if (day.getMonth() === month) {
-        monthlyDays.push(day)
+        monthlyDays.push(days)
       } else {
         monthlyDays.push(" ")
       }
@@ -54,12 +61,9 @@ export default function ScrollCalendar() {
   // 데이터 가져오기
   const userDetail = useSelector((state) => state.userDetail)
 
-  // 같은 날짜에 사진을 여러번 찍었네?
-
-  let marks = new Map()
-
+  let posts = userDetail.postDTOS.filter(post => post.category === 'photogroup')
   function calIntersection() {
-    for (let time in userDetail.postDTOS) {
+    for (let time in posts) {
       let date = new Date(userDetail.postDTOS[time].time)
       let m = date.getMonth()
       let month = months[m].dates
@@ -68,12 +72,10 @@ export default function ScrollCalendar() {
         if (day === ' ') {
           continue
         }
-        if (date.getFullYear() ===  day.getFullYear() && date.getDate() === day.getDate()) {
-          marks.set('year', year)
-          marks.set('date', day.getDate())
-          marks.set('month', day.getMonth())
-          marks.set('idx', time)
-          // 배경 이미지 넣기
+        if (date.getFullYear() ===  day.date.getFullYear() && date.getDate() === day.date.getDate()) {
+          // common true 로 바꾸고 url 정보 입력해주기
+          month[d].common = true
+          month[d].url = posts[time].url
         }
       } 
     }
@@ -81,16 +83,23 @@ export default function ScrollCalendar() {
 
   calIntersection()
 
-  console.log(marks)
-  const imageStyle={
-    backgroundImage: `url(https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png)`
-  }
+  // console.log(months)
 
+  const monthRef = useRef(null)
+  useEffect(() => {
+    if (monthRef.current) {
+      monthRef.current.scrollIntoView({behavior: 'auto'})
+    }
+  })
+  
+
+
+  let url= "https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png"
   return (
     <div>
       {months.map((m) => (
         <div className="container-row" key={m.month}>
-          <div className="month">{m.month + 1}월</div>
+          <div className="month" ref={today.getMonth() === m.month ? monthRef : null}>{m.month + 1}월</div>
           <div className="container">
             <div className="days">일</div>
             <div className="days">월</div>
@@ -102,9 +111,8 @@ export default function ScrollCalendar() {
           </div>
           <div className="container">
             {m.dates.map((day, index) => (
-              day === " " ? " " : 
-              day.getDate() === marks.get(day.getMonth()) ? <div className="highlight" style={imageStyle} >{day.getDate()}</div> : <div className="date">{day.getDate()}</div>
-            ))}
+              day === " " ? (<div key={index}></div>) : (day.common ? (<div key={index} className="img-common"><img className="img-common-img" src={day.url} alt="이미지"></img></div>) : (<div key={index} className="date">{day.date.getDate()}</div>
+            ))))}
           </div>
         </div>
       ))}
