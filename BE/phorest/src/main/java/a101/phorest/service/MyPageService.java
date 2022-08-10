@@ -132,6 +132,7 @@ public class MyPageService {
             }
             PostDTO postDTO = new PostDTO(post,userDTOS);
             postDTO.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),username).isPresent());
+            postDTO.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(post.getId(), username).isPresent());
             postDTOS.add(postDTO);
         }
         return postDTOS;

@@ -150,7 +150,7 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         if(!passwordEncoder.matches(passwordDTO.getBeforePassword(), user.getPassword()))
             return 2L;
-        user.setPassword(passwordDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(passwordDTO.getPassword()));
         return 0L;
     }
 

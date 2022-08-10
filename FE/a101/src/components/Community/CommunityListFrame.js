@@ -121,7 +121,7 @@ export default function CommunityListFrame() {
         </div>
         <div className='sub-tab'>
           <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(true))} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
-          <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(false))} style={{backgroundColor: !type ? '#ffd89e' : ''}}>최신순</div>
+          <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(false))} style={{backgroundColor: !type ? '#d8ec84' : ''}}>최신순</div>
         </div>
         <div className='create-frame'>
           <div className='create-frame-btn'>
