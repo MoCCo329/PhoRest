@@ -24,7 +24,7 @@ import user from './api/user'
 import { currentUser, setCurrentUser } from './store/modules/user'
 
 // bootstrap css
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function App() {
@@ -73,7 +73,7 @@ function App() {
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

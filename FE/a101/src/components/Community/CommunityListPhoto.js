@@ -111,12 +111,6 @@ export default function CommunityListPhoto() {
     navigate(`/community/${btoa((postId) * 73 + 37)}`)
   }
 
-  const isLiked = (liked) => {
-    if (liked) {
-      return likeFilled
-    }
-    return likeEmpty
-  }
 
   return (
     <div className="community-list">
@@ -145,18 +139,10 @@ export default function CommunityListPhoto() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    {
-                      isLiked(post.isLike) ?
-                      <img className='icon-img' src={ likeFilled } name='like' onClick={() => likePost(post.id)} alt='like' ></img> :
-                      <img className='icon-img' src={ likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
-                    }   
+                    <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
                     {post.likeCount}
-                    </div>
-                    {
-                      post.isBookmark ?
-                      <img className='icon-img' src={ bookmarkFilled } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img> :
-                      <img className='icon-img' src={ bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
-                    }
+                  </div>
+                  <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
                 </div>
               </div>
             )) :
@@ -165,18 +151,10 @@ export default function CommunityListPhoto() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                  {
-                      post.isLike ?
-                      <img className='icon-img' src={ likeFilled } name='like' onClick={() => likePost(post.id)} alt='like' ></img> :
-                      <img className='icon-img' src={ likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
-                    }
+                    <img className='icon-img' src={ post.isLiked ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
                     {post.likeCount}
-                    </div>
-                    {
-                      post.isBookmark ?
-                      <img className='icon-img' src={ bookmarkFilled } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img> :
-                      <img className='icon-img' src={ bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
-                    }   
+                  </div>
+                    <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>  
                 </div>
               </div>
             ))

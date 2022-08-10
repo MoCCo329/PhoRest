@@ -43,7 +43,7 @@ export default function Main() {
     const imageDownload = () => {
         fetch(content.url + '?timestamp=2')
         .then((image) => {
-            return image.blob();
+            return image.blob()
         })
         .then((blob) => {
             const url = window.URL.createObjectURL(blob)
@@ -58,7 +58,7 @@ export default function Main() {
     const videoDownload = () => {
         fetch(content.videoURL + '?timestamp=2')
         .then((image) => {
-            return image.blob();
+            return image.blob()
         })
         .then((blob) => {
             const url = window.URL.createObjectURL(blob)

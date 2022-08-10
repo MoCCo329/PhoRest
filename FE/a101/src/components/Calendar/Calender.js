@@ -5,47 +5,47 @@ export default function Calendar() {
     <div>
       <ThisMonth />
     </div>
-  );
+  )
 }
 
-let months = [];
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth();
+let months = []
+const today = new Date()
+const year = today.getFullYear()
+const month = today.getMonth()
 function calMonth(month) {
   // 달의 시작일 구하기
-  const firstDate = new Date(year, month, 1);
-  const firstDateofWeek = firstDate.getDay();
+  const firstDate = new Date(year, month, 1)
+  const firstDateofWeek = firstDate.getDay()
   // 달의 시작 주차의 일요일 날짜
   const firstDateofMonth = new Date(
     firstDate.getFullYear(),
     firstDate.getMonth(),
     firstDate.getDate() - firstDateofWeek
-  );
+  )
   // 달의 마지막 일
-  const lastDate = new Date(year, month + 1, 0);
-  const lastDateofWeek = lastDate.getDay();
+  const lastDate = new Date(year, month + 1, 0)
+  const lastDateofWeek = lastDate.getDay()
   // 달의 마지막 주차의 토요일 날짜
   const lastDateofMonth = new Date(
     lastDate.getFullYear(),
     lastDate.getMonth(),
     lastDate.getDate() + (6 - lastDateofWeek)
-  );
+  )
 
   let monthlyDays = [];
-  let day = firstDateofMonth;
+  let day = firstDateofMonth
   while (day <= lastDateofMonth) {
-      monthlyDays.push(day);
-    day = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1);
+      monthlyDays.push(day)
+    day = new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1)
   }
   let json = {
     month: month,
     dates: monthlyDays,
-  };
-  return json;
+  }
+  return json
 }
 
-months = calMonth(month);
+months = calMonth(month)
 
 function ThisMonth() {
   return (
@@ -70,5 +70,5 @@ function ThisMonth() {
         </div>
       </div>
     </div>
-  );
+  )
 }
