@@ -1,8 +1,11 @@
 package a101.phorest.controller;
 import a101.phorest.S3Uploader;
+import a101.phorest.domain.Post;
+import a101.phorest.dto.ImageDTO;
 import a101.phorest.dto.OffsetDTO;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.jwt.TokenProvider;
+import a101.phorest.repository.PostRepository;
 import a101.phorest.service.FrameService;
 import a101.phorest.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ public class CommunityController {
     private final S3Uploader s3Uploader;
     private final FrameService frameService;
 
+    private final PostRepository postRepository;
     @PostMapping("photogroup/like")
     @ResponseBody
     public List<PostDTO> photoGroupLikeDownload(@RequestBody OffsetDTO offsetDto)
@@ -50,6 +54,22 @@ public class CommunityController {
     public List<PostDTO> FrameRecentDownload(@RequestBody OffsetDTO offsetDto)
     {
         return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L);
+    }
+
+    @PostMapping("frame/count")
+    @ResponseBody
+    public Long frameCount(@RequestBody ImageDTO imageDTO)
+    {
+        List<Post> posts = postRepository.countFramePostsByCategory(imageDTO.getCategory());
+        return (long)posts.size();
+    }
+
+    @PostMapping("photogroup/count")
+    @ResponseBody
+    public Long photogroupCount(@RequestBody ImageDTO imageDTO)
+    {
+        List<Post> posts = postRepository.countPhotogroupPostsByCategory(imageDTO.getCategory(), imageDTO.getHumanCount());
+        return (long)posts.size();
     }
 
     @GetMapping("{postId}")
