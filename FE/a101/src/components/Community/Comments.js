@@ -22,11 +22,11 @@ export default function Comments(props) {
 
     return (
         <div>
-            작성자 : {props.comment.username} | 
+            작성자 : {props.comment.nickname} | 
             내용 : {props.comment.content} | 
             작성일 : {props.comment.time.slice(0, 10)} {props.comment.time.slice(11, 19)}
             {
-                currentUser.username===props.comment.nickname ?
+                currentUser.nickname===props.comment.nickname ?
                 (<>
                 <button onClick={() => {props.setEditCommentId(props.comment.id)}}>편집</button>
                 <button onClick={() => clickDelete()}>삭제</button>
