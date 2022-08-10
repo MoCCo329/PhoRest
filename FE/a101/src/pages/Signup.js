@@ -57,7 +57,7 @@ export default function Main() {
             username : id,
             nickname : nickname,
             password : password,
-            phone : phone
+            phone : phone.replace(/[^0-9a-zA-Z]/g, '')
         }
         
         user.signup(credentials)
@@ -115,9 +115,19 @@ export default function Main() {
 
     const phoneFilter = (e) => {
       const { value } = e.target
-      const filtered = value.replace(/[^0-9]/g, '')
+      let filtered = value.replace(/[^0-9]/g, '')
+      
+      if (filtered.length===3) {
+        filtered = filtered.slice(0, 3)
+      } else if (filtered.length >= 3 && filtered.length <= 6) {
+        filtered = filtered.slice(0, 3) + '-' + filtered.slice(3)
+      } else if (filtered.length > 6 && filtered.length <= 10) {
+        filtered = filtered.slice(0, 3) + '-' + filtered.slice(3, 6) + '-' + filtered.slice(6)
+      } else if (filtered.length >= 11) {
+        filtered = filtered.slice(0, 3) + '-' + filtered.slice(3, 7) + '-' + filtered.slice(7)
+      }
       e.target.value = filtered
-      if (e.target.value.length === 10 || e.target.value.length === 11) {
+      if (e.target.value.length === 12 || e.target.value.length === 13) {
         setPhoneValidity('')
       } else {
         setPhoneValidity('핸드폰번호는 10자 혹은 11자이여야 합니다')
