@@ -58,17 +58,17 @@ public class CommunityController {
 
     @PostMapping("frame/count")
     @ResponseBody
-    public Long frameCount(@RequestBody ImageDTO imageDTO)
+    public Long frameCount()
     {
-        List<Post> posts = postRepository.countFramePostsByCategory(imageDTO.getCategory());
+        List<Post> posts = postRepository.countFramePostsByCategory("frame");
         return (long)posts.size();
     }
 
     @PostMapping("photogroup/count")
     @ResponseBody
-    public Long photogroupCount(@RequestBody ImageDTO imageDTO)
+    public Long photogroupCount(@RequestParam("humanCount") Long humanCount )
     {
-        List<Post> posts = postRepository.countPhotogroupPostsByCategory(imageDTO.getCategory(), imageDTO.getHumanCount());
+        List<Post> posts = postRepository.countPhotogroupPostsByCategory("photogroup", humanCount);
         return (long)posts.size();
     }
 
