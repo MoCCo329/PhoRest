@@ -44,18 +44,19 @@ header {
 
 .profile-info-box {
   display: flex;
-  gap: 5px;
+  gap: 1em;
   align-items: center;
   justify-content: flex-end;
+  margin-left: 0;
 }
 @media only screen and (max-width: 500px) {
   .profile-info-box {
-gap: 1px;
+    gap: 10px;
   }
 }
 
 .header-state {
-  margin-right: 3vw;
+  margin-right: 2vw;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -84,27 +85,15 @@ gap: 1px;
   }
 }
 .logout-btn {
-  font-family: "Pretendard-Regular";
-  border: none;
-  background-color: #fff7e7;
-  border-radius: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-  line-height: 100%;
-  transition: 0.25s;
-  color: #131312;
+  width: 3vh;
+  height: 3vh;
+  margin: none;
 }
-.logout-btn:hover {
-  font-weight: bold;
-  background-color: #ffc036;
-}
+
 @media only screen and (max-width: 500px) {
   .logout-btn {
-    padding-left: 8px;
-    padding-right: 8px;
-    font-size: small;
+    width: 1em;
+    height: 1em;
   }
 }
 
