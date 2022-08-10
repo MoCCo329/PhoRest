@@ -1,0 +1,137 @@
+.login-content,
+.join-content {
+  height: 100vh;
+}
+@media only screen and (min-width: 500px) {
+  .login-content,
+  .join-content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.login-header {
+  display: flex;
+  justify-content: flex-start;
+  margin: 3em 1em 0 1em;
+}
+
+main img {
+  margin: 1em;
+}
+
+.hr-sect {
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+  margin: 8px 0px;
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+.hr-sect::before,
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.1);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 16px;
+}
+main form {
+  font-family: "Pretendard-Regular";
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin: 1em 1em 2em 1em;
+}
+@media only screen and (min-width: 500px) {
+    main form {
+        width: 30%;
+    }
+}
+main form div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 3px;
+}
+main div label {
+  font-family: "LeferiPoint-BlackA";
+  font-size: small;
+}
+input {
+  width: 100%;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  background-color: #f3f3f4;
+}
+
+main form button {
+  width: 100%;
+  font-family: "Pretendard-Regular";
+  display: flex;
+  justify-content: center;
+  border: none;
+  background-color: #fff7e7;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 140%;
+  transition: 0.25s;
+}
+
+main form button:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.join-paging {
+  font-family: "Pretendard-Regular";
+  display: flex;
+  justify-content: center;
+  font-size: small;
+  gap: 7px;
+}
+
+.back-motion-btn {
+  font-family: "Pretendard-Regular";
+  display: flex;
+  align-items: center;
+}
+.back-motion {
+    margin: 3em 0 0 1em;
+}
+@media only screen and (min-width: 500px) {
+    .back-motion {
+        width: 30%;
+        justify-content: flex-start;
+        margin: 2em 0 0 0em;
+    }
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LeferiBaseType-RegularA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiBaseType-RegularA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LeferiPoint-BlackA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

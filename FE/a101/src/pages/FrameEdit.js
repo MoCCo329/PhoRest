@@ -1,3 +1,5 @@
+import './FrameEdit.css'
+
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -93,7 +95,7 @@ export default function FrameEdit() {
 
     return (
         <Layout>
-            <div>
+            <div className='frame-edit-content'>
                 {
                     frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
                 }
