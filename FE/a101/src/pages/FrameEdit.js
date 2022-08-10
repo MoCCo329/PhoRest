@@ -44,7 +44,6 @@ export default function FrameEdit() {
     const reader = new FileReader()
     const changeImageURL = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            // const reader = new FileReader()
             reader.readAsDataURL(e.target.files[0])
             reader.addEventListener('load', () => {
                 setFrameURL(reader.result)
@@ -56,7 +55,7 @@ export default function FrameEdit() {
         document.querySelector('#frame').value = ''
         setFrameURL('')
     }
-    // console.log(type)
+
     const clickComplete = () => {
         if (!type && !document.querySelector('#frame').files[0]) {
             return alert('이미지를 확인해주세요')
@@ -79,7 +78,6 @@ export default function FrameEdit() {
                 } else {
                     alert('잘못된 접근입니다')
                 }
-                console.log(result.data)
             })
         } else {
             s3.uploadFrame(formdata)

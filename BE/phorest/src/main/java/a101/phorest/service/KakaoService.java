@@ -28,10 +28,6 @@ public class KakaoService {
 
     private final String redirect_uri = "https://phorest.site/kakao";
 
-//    public int sendMsg(){
-//
-//    }
-
 //    public String getTokenFromRefreshToken(String refresh_token) throws IOException{
 //        String host = "https://kauth.kakao.com/oauth/token";
 //
@@ -40,6 +36,14 @@ public class KakaoService {
 //            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 //            urlConnection.setRequestMethod("POST");
 //            urlConnection.setDoOutput(true);
+//
+//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("grant_type=authorization_code");
+//            sb.append("&client_id=4656da19556d6f608f3a297dd7c7b994");
+//            sb.append("&refresh_token=" + refresh_token);
+//
+//
 //        }
 //    }
 
@@ -53,6 +57,7 @@ public class KakaoService {
         try {
             URL url = new URL(host);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
 
