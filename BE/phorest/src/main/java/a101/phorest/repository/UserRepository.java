@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //   Optional<User> findOneWithAuthoritiesByUsername(String username);
 
    User findByUsername(String username);
-   
+
    User findByPhone(String phone);
 
    @Query(nativeQuery = true, value = "select * from user u where u.nickname like %:nickname%")

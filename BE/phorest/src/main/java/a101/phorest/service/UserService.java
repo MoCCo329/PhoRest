@@ -143,6 +143,15 @@ public class UserService {
     }
 
     @Transactional
+    public Long removeUser(PasswordDTO passwordDTO, String username){
+        User user = userRepository.findByUsername(username);
+        if(!passwordEncoder.matches(passwordDTO.getBeforePassword(), user.getPassword()))
+            return 2L;
+        userRepository.deleteById(user.getUserId());
+        return 0L;
+    }
+
+    @Transactional
     public TokenDTO setKakaoUser(HashMap<String, String> userInfo, List<String> tokens){
         /** 회원 정보 카톡으로 받기 */
 
@@ -205,5 +214,6 @@ public class UserService {
         User user = userRepository.findByUsername(username);
         user.setMessageSent(true);
     }
+
 
 }

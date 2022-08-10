@@ -89,7 +89,6 @@ public class UserController {
 
     }
 
-
     @RequestMapping(value = "user/kakao", method = RequestMethod.GET)
     public ResponseEntity<TokenDTO> kakaoLogin(String code) throws IOException {
         List<String> tokens = kakaoService.getToken(code);
@@ -101,5 +100,14 @@ public class UserController {
     @RequestMapping(value = "user/search", method = RequestMethod.GET, produces = "application/json; charset=utf8")
     public List<UserDTO> search(String nickname){
         return userService.findAllByNickname(nickname);
+    }
+
+    @PostMapping("user/delete")
+    public Long deleteUser(@RequestBody @Valid PasswordDTO user, @RequestHeader("Authorization") String token)
+    {
+        if(!tokenProvider.validateToken(token))
+            return 1L;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return userService.removeUser(user, username);
     }
 }
