@@ -59,13 +59,13 @@ public class CommunityController {
     @ResponseBody
     public Long frameCount()
     {
-        List<Post> posts = postRepository.countFramePostsByCategory("image");
+        List<Post> posts = postRepository.countFramePostsByCategory("frame");
         return (long)posts.size();
     }
 
     @GetMapping("photogroup/count")
     @ResponseBody
-    public Long photogroupCount(@RequestParam("humanCount") Long humanCount)
+    public Long photogroupCount(@RequestParam("humanCount") Long humanCount )
     {
         List<Post> posts = postRepository.countPhotogroupPostsByCategory("photogroup", humanCount);
         return (long)posts.size();

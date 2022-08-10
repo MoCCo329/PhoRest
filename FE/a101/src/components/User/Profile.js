@@ -10,7 +10,7 @@ import defaultProfile from '../../assets/defaultProfile.png'
 export default function Profile(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    
+
     const [user, setUser] = useState(props.user)
 
 
