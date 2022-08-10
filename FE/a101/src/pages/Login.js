@@ -66,8 +66,8 @@ export default function Main() {
           <div className="login-header">
             <h5>PhoRest 로그인하기</h5>
           </div>
-          <div id='kakao-login-btn'>
-            <img src={kakaoSymbol} alt="카카로 로그인" onClick={login} />
+          <div id='kakao-login-btn' onClick={login}>
+            <img src={kakaoSymbol} alt="카카로 로그인"/>
             <span>카카오 로그인</span>
           </div>
           <div className='hr-sect'>
