@@ -18,13 +18,13 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     Optional<Bookmark> findByPostIdAndUsername(@Param("postId") Long postId, @Param("username") String username);
 
 
-    @Modifying()
+    @Modifying(clearAutomatically = true)
     @Query(nativeQuery = true, value = "delete from bookmark where user_id =:userId")
-    void deleteAllByUserId(Long userId);
+    void deleteAllByUserId(@Param("userId")Long userId);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "delete from bookmark where post_id =:id")
-    void deleteAllByPostId(Long id);
+    @Modifying(clearAutomatically = true)
+    @Query(nativeQuery = true, value = "delete from bookmark where post_id =:postId")
+    void deleteAllByPostId(@Param("postId") Long PostId);
 
 
 }
