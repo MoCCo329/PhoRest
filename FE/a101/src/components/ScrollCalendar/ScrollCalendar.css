@@ -1,36 +1,37 @@
 .container-row {
+    font-size: large;
     display: grid;
     width: 100%;
-    gap: 15px;
-    padding: 10px;
+    gap: 20px;
+    padding: 20px;
     place-content: space-between center;
 }
 .container {
     display: grid;
     width: 100%;
     place-content: space-between center;
-    gap: 10px;
+    gap: 20px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 
 }
 
 .month {
-    /* font-weight: bolder; */
+    font-size: large;
     font-family: 'LeferiPoint-BlackA';
     justify-self: center;
 }
 .days {
-    font-family: 'LeferiPoint-BlackA';
+    font-size: small;
+    font-family: 'LeferiPoint-WhiteObliqueA';
     box-shadow: 10px;
     justify-self: center;
 }
 .date {
+    font-size: small;
     font-family: 'LeferiPoint-WhiteObliqueA';
     box-shadow: 10px;
     justify-self: center;
 }
 .highlight{
-    /* background-color: greenyellow; */
-    /* background: url("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png"); */
     background-size: cover;
     font-family: 'LeferiPoint-BlackA';
     color : white;

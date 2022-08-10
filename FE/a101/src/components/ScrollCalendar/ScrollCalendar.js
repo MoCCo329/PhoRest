@@ -69,7 +69,10 @@ export default function ScrollCalendar() {
           continue
         }
         if (date.getFullYear() ===  day.getFullYear() && date.getDate() === day.getDate()) {
-          marks.set(day.getMonth(), day.getDate())
+          marks.set('year', year)
+          marks.set('date', day.getDate())
+          marks.set('month', day.getMonth())
+          marks.set('idx', time)
           // 배경 이미지 넣기
         }
       } 
@@ -77,6 +80,8 @@ export default function ScrollCalendar() {
   }
 
   calIntersection()
+
+  console.log(marks)
   const imageStyle={
     backgroundImage: `url(https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png)`
   }
