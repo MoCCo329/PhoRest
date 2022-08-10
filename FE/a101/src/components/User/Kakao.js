@@ -1,15 +1,21 @@
 import React from "react"
 // import { useDispatch } from 'react-redux'
-import { useEffect } from "react"
+import './Kakao.css'
+
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
 import { setToken, setAuthError, setCurrentUser } from "../../store/modules/user"
 import user from "../../api/user"
 
+// spinner
+import spinner from '../../assets/UI/spinner.gif'
+
 export default function Kakao() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
 
   const href = window.location.href
   let params = new URL(window.location.href).searchParams
@@ -26,11 +32,15 @@ export default function Kakao() {
         user.currentUser().then((result) => {
           dispatch(setCurrentUser(result.data));
         })
+        setLoading(false)
         navigate(-2, { replace: true })
       })
       .catch((error) => {
         dispatch(setAuthError(error.response.data.message))
         console.error(error)
+        setLoading(false)
+        alert('로그인에 실패했습니다')
+        navigate('/login')
       })
   }
 
@@ -39,5 +49,9 @@ export default function Kakao() {
     getKakaoToken()
   }, [])
 
-  return <div>로그인중입니다</div>
+  return (
+  <div id="kakao-login">
+    {loading ? <img src={spinner} alt='spinner'></img> : null}
+    <h5>로그인 중입니다</h5>
+  </div>)
 }

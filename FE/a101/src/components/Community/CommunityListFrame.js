@@ -26,6 +26,12 @@ export default function CommunityListFrame() {
   const frameRecent = useSelector(state => state.frameRecent)
   const currentUser = useSelector(state => state.currentUser)
 
+  const [offset, setOffset] = useState(0)
+  const postTotal = 100
+  const pagesNum = parseInt(postTotal / 12) 
+  let pages = Array.from({length: pagesNum}, (v, i) => i+1)
+
+
   useEffect(() => {
     community.frameLike({limit: 5, offset: 0})
     .then(result => {
@@ -121,7 +127,7 @@ export default function CommunityListFrame() {
     return navigate('/community/edit/LTM2')
   }
 
-  
+  console.log(offset)
   return (
     <div className="community-list">
 
@@ -167,6 +173,11 @@ export default function CommunityListFrame() {
               </div>
             ))
           }
+        </div>
+        <div className='main-pagination'>
+          {pages.map((num, idx) => (
+            <div key={idx} onClick={() => setOffset(idx)}>{num}</div>
+          ))}
         </div>
     </div>
   )
