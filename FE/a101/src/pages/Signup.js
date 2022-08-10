@@ -57,7 +57,7 @@ export default function Main() {
             username : id,
             nickname : nickname,
             password : password,
-            phone : phone
+            phone : phone.replace(/[^0-9a-zA-Z]/g, '')
         }
         
         user.signup(credentials)
@@ -123,7 +123,7 @@ export default function Main() {
         filtered = filtered.slice(0, 3) + '-' + filtered.slice(3)
       } else if (filtered.length > 6 && filtered.length <= 10) {
         filtered = filtered.slice(0, 3) + '-' + filtered.slice(3, 6) + '-' + filtered.slice(6)
-      } else if (filtered.length===11) {
+      } else if (filtered.length >= 11) {
         filtered = filtered.slice(0, 3) + '-' + filtered.slice(3, 7) + '-' + filtered.slice(7)
       }
       e.target.value = filtered

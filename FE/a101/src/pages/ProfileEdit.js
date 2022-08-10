@@ -22,6 +22,18 @@ export default function ProfileEdit() {
   const [phoneValidity, setPhoneValidity] = useState('')
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
+  const defaultPhone = () => {
+    const phone = currentUser.phone
+    if (phone) {
+      if (phone.length===10) {
+        return phone.slice(0, 3) + '-' + phone.slice(3, 6) + '-' + phone.slice(6)
+      } else {
+        return phone.slice(0, 3) + '-' + phone.slice(3, 7) + '-' + phone.slice(7)
+      }
+    }
+    return ''
+  }
+
   useEffect(() => {
     setProfileURL(currentUser.profileURL)
     setBeforeProfileURL(currentUser.profileURL)
@@ -49,7 +61,7 @@ export default function ProfileEdit() {
     let form = document.forms.profileEdit.elements
     let credentials = {
       nickname : form.nickname.value,
-      phone: form.phone.value || '',
+      phone: form.phone.value.replace(/[^0-9a-zA-Z]/g, '') || '',
       introduce: form.introduce.value || '',
       profileURL : profileURL
     }
@@ -113,7 +125,7 @@ export default function ProfileEdit() {
       filtered = filtered.slice(0, 3) + '-' + filtered.slice(3)
     } else if (filtered.length > 6 && filtered.length <= 10) {
       filtered = filtered.slice(0, 3) + '-' + filtered.slice(3, 6) + '-' + filtered.slice(6)
-    } else if (filtered.length===11) {
+    } else if (filtered.length >= 11) {
       filtered = filtered.slice(0, 3) + '-' + filtered.slice(3, 7) + '-' + filtered.slice(7)
     }
     e.target.value = filtered
@@ -141,7 +153,7 @@ export default function ProfileEdit() {
           <input name="nickname" type="text" id="Nickname" defaultValue={ currentUser.nickname || '' } required placeholder="Nickname" /><br/>
             
           <label htmlFor="phone">Phone : </label>
-          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ currentUser.phone || '' } required={ isKakao ? false : true } placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ defaultPhone() || '' } required={ isKakao ? false : true } placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
 
           <label htmlFor="introduce">Introduce : </label>
           <input name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="Introduce" /><br/>
