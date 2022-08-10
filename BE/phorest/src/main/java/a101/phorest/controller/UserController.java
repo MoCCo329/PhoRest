@@ -101,7 +101,7 @@ public class UserController {
 
     @RequestMapping(value = "user/search", method = RequestMethod.GET, produces = "application/json; charset=utf8")
     public List<UserDTO> search(String nickname){
-        if(nickname.equals("unkn0wnuser")) return Collections.emptyList();
+//        if(nickname.equals()) return Collections.emptyList();
         return userService.findAllByNickname(nickname);
     }
 

@@ -19,10 +19,7 @@ import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.Null;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true) // 기본은 false
@@ -95,7 +92,6 @@ public class UserService {
     @Transactional
     public List<UserDTO> findAllByNickname(String nickname){
         List<User> users = userRepository.findAllByNickname(nickname);
-
         List<UserDTO> userDTOS = new ArrayList<>();
 
         for(int i=0;i<users.size();i++){

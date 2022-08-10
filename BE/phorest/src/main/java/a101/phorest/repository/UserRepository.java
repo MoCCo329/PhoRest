@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
    User findByPhone(String phone);
 
-   @Query(nativeQuery = true, value = "select * from user u where u.nickname like %:nickname%")
+   @Query(nativeQuery = true, value = "select * from user u where u.nickname like %:nickname% and u.username != 'unkn0wnuser'")
    List<User> findAllByNickname(@Param("nickname") String nickname);
 
    @Query(nativeQuery = true, value = "select distinct * " +
