@@ -6,14 +6,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 // functions
-import { setFrameLike, addFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecent } from '../../store/modules/community'
+import { setFrameLike, addFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecent, setLikeRecent } from '../../store/modules/community'
 import community from '../../api/community'
 
 export default function CommunityListFrame() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [type, setType] = useState(true)  // true면 like, false면 recent
+  const type = useSelector(state => state.likeRecent)  // true면 like, false면 recent
 
   const frameLike = useSelector(state => state.frameLike)
   const frameRecent = useSelector(state => state.frameRecent)
@@ -29,6 +29,20 @@ export default function CommunityListFrame() {
       dispatch(setFrameRecent(result.data))
     })
   }, [])
+
+  useEffect(() => {
+    if (type) {
+      community.frameLike({limit: 5, offset: 0})
+      .then(result => {
+        dispatch(setFrameLike(result.data))
+      })
+    } else {
+      community.frameRecent({limit: 5, offset: 0})
+      .then(result => {
+        dispatch(setFrameRecent(result.data))
+      })
+    }
+  }, [type])
 
   // infinite scroll
   // useEffect(() => {
@@ -99,8 +113,8 @@ export default function CommunityListFrame() {
           <h5>프레임 게시판</h5>
         </div>
         <div className='sub-tab'>
-          <div className='sub-tab-btn' onClick={() => setType(true)} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
-          <div className='sub-tab-btn' onClick={() => setType(false)} style={{backgroundColor: !type ? '#ffd89e' : ''}}>최신순</div>
+          <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(true))} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
+          <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(false))} style={{backgroundColor: !type ? '#ffd89e' : ''}}>최신순</div>
         </div>
         <div className='create-frame'>
           <div className='create-frame-btn' onClick={() => navigate('/community/edit/LTM2')} >프레임 생성하러 가기</div>
@@ -119,7 +133,7 @@ export default function CommunityListFrame() {
               </div>
             )) :
             frameRecent.map((post, idx) => (
-              <div className='photo-gallery' key={idx}>
+              <div className='photo-gallery' key={post.id}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
                 {post.likeCount}

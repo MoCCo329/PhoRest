@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, editCommentId } from './modules/community.js'
+import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, likeRecent } from './modules/community.js'
 import { token, currentUser, authError } from './modules/user.js'
 import { userDetail, viewType } from './modules/mypage.js'
 
@@ -13,6 +13,8 @@ export default configureStore({
     
     detailPost: detailPost.reducer,
     detailComments: detailComments.reducer,
+
+    likeRecent: likeRecent.reducer,
 
     // member
     token: token.reducer,

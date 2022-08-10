@@ -6,50 +6,44 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 // functions
-import { setPhotoLike, addPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent } from '../../store/modules/community'
+import { setPhotoLike, addPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent } from '../../store/modules/community'
 import community from '../../api/community'
 
 export default function CommunityListPhoto() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const [humanCount, setHumanCount] = useState(1)
+  const type = useSelector(state => state.likeRecent)  // true면 like, false면 recent
+
+  const currentUser = useSelector(state => state.currentUser)
   const photoLike = useSelector(state => state.photoLike)
   const photoRecent = useSelector(state => state.photoRecent)
-  const currentUser = useSelector(state => state.currentUser)
 
-  const [humanCount, setHumanCount] = useState(1)
-  const [type, setType] = useState(true)  // true면 like, false면 recent
-
-  const [likeFiltered, setLikeFiltered] = useState([])
-  const [recentFiltered, setRecentFiltered] = useState([])
   // const [likeFilteredEnd, setLikeFilteredEnd] = useState(false)
   // const [recentFilteredEnd, setRecentFilteredEnd] = useState(false)
 
   useEffect(() => {
-    if (likeFiltered.length===0) {
-      community.photoLike({limit: 5, offset: 0, humanCount: humanCount})
-      .then(result => {
-        dispatch(setPhotoLike(result.data))
-      })
-    }
-    if (recentFiltered.length===0) {
-      community.photoRecent({limit: 5, offset: 0, humanCount: humanCount})
-      .then(result => {
-        dispatch(setPhotoRecent(result.data))
-      })
-    }
-  }, [likeFiltered, recentFiltered])
+    community.photoLike({limit: 5, offset: 0, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoLike(result.data))
+    })
+    community.photoRecent({limit: 5, offset: 0, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoRecent(result.data))
+    })
+  }, [])
 
   useEffect(() => {
-    setLikeFiltered(photoLike.filter((post, idx) => {
-      return post.humanCount===humanCount
-      }
-    ))
-    setRecentFiltered(photoRecent.filter((post, idx) => {
-      return post.humanCount===humanCount
-      }
-    ))
-  }, [photoLike, photoRecent, humanCount])
+    community.photoLike({limit: 5, offset: 0, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoLike(result.data))
+    })
+    community.photoRecent({limit: 5, offset: 0, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoRecent(result.data))
+    })
+  }, [type, humanCount])
 
   // infinite scroll
   // useEffect(() => {
@@ -83,7 +77,6 @@ export default function CommunityListPhoto() {
     if (!currentUser.username) {
       return alert('로그인 후 좋아요가 가능합니다')
     }
-
     community.likePost(postId)
     .then(result => {
       if (type) {
@@ -98,7 +91,6 @@ export default function CommunityListPhoto() {
     if (!currentUser.username) {
       return alert('로그인 후 좋아요가 가능합니다')
     }
-
     community.bookmarkPost(postId)
     .then(result => {
       if (type) {
@@ -121,8 +113,8 @@ export default function CommunityListPhoto() {
           <h5>포즈 게시판</h5>
         </div>
         <div className='sub-tab'>
-          <div className='sub-tab-btn' onClick={() => setType(true)} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
-          <div className='sub-tab-btn' onClick={() => setType(false)} style={{backgroundColor: !type ? '#d8ec84' : ''}}>최신순</div>
+          <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(true))} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
+          <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(false))} style={{backgroundColor: !type ? '#d8ec84' : ''}}>최신순</div>
         </div>
         <div className="community-list-select">
         {[1, 2, 3, 4, 5, 6].map((num, idx) =>
@@ -136,7 +128,7 @@ export default function CommunityListPhoto() {
         <div className='community-list-body'>
           {
             type ?
-            likeFiltered.map((post, idx) => (
+            photoLike.map((post, idx) => (
               <div className='photo-gallery' key={idx}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
@@ -148,7 +140,7 @@ export default function CommunityListPhoto() {
                 </div>
               </div>
             )) :
-            recentFiltered.map((post, idx) => (
+            photoRecent.map((post, idx) => (
               <div className='photo-gallery' key={idx}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
