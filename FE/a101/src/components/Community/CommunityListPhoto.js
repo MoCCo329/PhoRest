@@ -20,8 +20,8 @@ export default function CommunityListPhoto() {
   const navigate = useNavigate()
 
   const [humanCount, setHumanCount] = useState(1)
-  const type = useSelector(state => state.likeRecent)  // true면 like, false면 recent
 
+  const type = useSelector(state => state.likeRecent)  // true면 like, false면 recent
   const currentUser = useSelector(state => state.currentUser)
   const photoLike = useSelector(state => state.photoLike)
   const photoRecent = useSelector(state => state.photoRecent)
@@ -111,6 +111,13 @@ export default function CommunityListPhoto() {
     navigate(`/community/${btoa((postId) * 73 + 37)}`)
   }
 
+  const isLiked = (liked) => {
+    if (liked) {
+      return likeFilled
+    }
+    return likeEmpty
+  }
+
   return (
     <div className="community-list">
 
@@ -138,10 +145,18 @@ export default function CommunityListPhoto() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                    {
+                      isLiked(post.isLike) ?
+                      <img className='icon-img' src={ likeFilled } name='like' onClick={() => likePost(post.id)} alt='like' ></img> :
+                      <img className='icon-img' src={ likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                    }   
                     {post.likeCount}
-                  </div>
-                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
+                    </div>
+                    {
+                      post.isBookmark ?
+                      <img className='icon-img' src={ bookmarkFilled } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img> :
+                      <img className='icon-img' src={ bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+                    }
                 </div>
               </div>
             )) :
@@ -150,10 +165,18 @@ export default function CommunityListPhoto() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                  {
+                      post.isLike ?
+                      <img className='icon-img' src={ likeFilled } name='like' onClick={() => likePost(post.id)} alt='like' ></img> :
+                      <img className='icon-img' src={ likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                    }
                     {post.likeCount}
-                  </div>
-                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
+                    </div>
+                    {
+                      post.isBookmark ?
+                      <img className='icon-img' src={ bookmarkFilled } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img> :
+                      <img className='icon-img' src={ bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+                    }   
                 </div>
               </div>
             ))
