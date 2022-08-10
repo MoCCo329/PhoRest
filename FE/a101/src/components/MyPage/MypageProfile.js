@@ -21,8 +21,8 @@ export default function MypageProfile(props) {
   const [isMyMypage, setIsMyMypage] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
 
-  const userDetail = useSelector((state) => state.userDetail)
-  const currentUser = useSelector((state) => state.currentUser)
+  const userDetail = useSelector(state => state.userDetail)
+  const currentUser = useSelector(state => state.currentUser)
 
   useEffect(() => {
     if (userDetail.username===currentUser.username) {
@@ -44,10 +44,6 @@ export default function MypageProfile(props) {
     .then((result) => {
       dispatch(setIsFollowing(result.data))
     })
-  }
-
-  const clickSearch = () => {
-    setIsSearching(!isSearching)
   }
 
   return (
@@ -94,7 +90,7 @@ export default function MypageProfile(props) {
           isMyMypage ?
           <div className="info" onClick={() => dispatch(setViewType(3))}>
             <div className="num">
-              {userDetail.followerCount}
+              {userDetail.followingCount}
             </div>
             <div className="name">팔로우</div>
           </div> :
@@ -150,7 +146,7 @@ export default function MypageProfile(props) {
       </div>
 
       <div>
-        <button onClick={clickSearch} style={{ backgroundColor : isSearching ? '#fff7e7' : null }} >검색</button>
+        <button onClick={() => setIsSearching(!isSearching)} style={{ backgroundColor : isSearching ? '#fff7e7' : null }} >검색</button>
         {
           isSearching ?
           <Search></Search> :

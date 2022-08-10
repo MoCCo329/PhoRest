@@ -3,7 +3,7 @@ import ActivityTabs from "../components/MyPage/ActivityTabs"
 import MypageProfile from "../components/MyPage/MypageProfile"
 
 import { useNavigate, useParams } from "react-router-dom"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { useDispatch } from "react-redux"
 
 import mypage from "../api/mypage"
@@ -15,16 +15,20 @@ export default function MyPage() {
 
   const { username } = useParams()
 
-  useEffect(() => {
+  useMemo(() => {
     mypage
       .userDetail(username)
       .then((result) => {
-        if (!result.data.username) {
+        if (!result.data || !result.data.username) {
           return navigate('/')
         }
         dispatch(setUserDetail(result.data))
       })
   }, [username])
+
+  useEffect(() => {
+    dispatch(setUserDetail(''))
+  }, [])
 
 
   return (

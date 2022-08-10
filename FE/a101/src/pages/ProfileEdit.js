@@ -166,6 +166,7 @@ export default function ProfileEdit() {
           null
         }
         
+        <button onClick={() => navigate('/mypage/delete')}>회원 탈퇴하기</button>
         <button onClick={() => navigate(-1)}>뒤로가기</button>
       </main>
     </Layout>

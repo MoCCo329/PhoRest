@@ -98,7 +98,7 @@ export default function ScrollCalendar() {
           <div className="container">
             {m.dates.map((day, index) => (
               day === " " ? " " : 
-              day.getDate() === marks.get(day.getMonth()) ? <div className="highlight" style={imageStyle} >{day.getDate()}</div> : <div className="date">{day.getDate()}</div>
+              day.getDate() === marks.get(day.getMonth()) ? <div className="highlight" style={imageStyle} key={day}>{day.getDate()}</div> : <div className="date" key={day}>{day.getDate()}</div>
             ))}
           </div>
         </div>

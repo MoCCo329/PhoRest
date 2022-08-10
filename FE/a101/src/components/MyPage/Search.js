@@ -1,10 +1,14 @@
 import { useState } from "react"
+import { useDispatch } from 'react-redux'
 
 import user from './../../api/user'
+import { setUserDetail } from './../../store/modules/community'
 
 import Profile from './../User/Profile'
 
+
 export default function Search () {
+  const dispatch = useDispatch()
   const [result, setResult] = useState('')
 
   const search = (input) => {
