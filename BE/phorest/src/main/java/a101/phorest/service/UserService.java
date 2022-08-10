@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,21 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+
+    @Transactional
+    public List<UserDTO> findAllByNickname(String nickname){
+        List<User> users = userRepository.findAllByNickname(nickname);
+        if(users.isEmpty()) throw new ValidationException("닉네임을 다시 입력해주세요");
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+
+        for(int i=0;i<users.size();i++){
+            UserDTO userDTO = new UserDTO(users.get(i));
+            userDTOS.add(userDTO);
+        }
+        return userDTOS;
+    }
 
     @Transactional
     public UserDTO signup(UserDTO userDto) {
@@ -192,17 +209,5 @@ public class UserService {
         String jwt = tokenProvider.createToken(authenticationToken);
 
         return new TokenDTO(jwt);
-    }
-
-
-    @Transactional
-    public Boolean loginKakaoUser(String snsId){
-        User user = userRepository.findByUsername(snsId);
-        if(user == null){
-            throw new DuplicateMemberException("아이디가 없습니다.");
-        }else{
-            user.setActivated(true);
-return true;
-        }
     }
 }

@@ -72,6 +72,13 @@ public class UserDTO {
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
 
+   public UserDTO(User user){
+      this.username = user.getUsername();
+      this.nickname = user.getNickname();
+      this.profileURL = user.getProfileURL();
+      this.introduce = user.getIntroduce();
+   }
+
    public static UserDTO from(User user) {
       if(user == null) return null;
 

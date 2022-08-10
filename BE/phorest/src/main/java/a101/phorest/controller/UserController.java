@@ -7,6 +7,7 @@ import a101.phorest.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -95,5 +96,10 @@ public class UserController {
         String access_token=tokens.get(0);
         HashMap<String, String> userInfo = (HashMap<String, String>) kakaoService.getUserInfo(access_token);
         return ResponseEntity.ok(userService.setKakaoUser(userInfo, tokens));
+    }
+
+    @RequestMapping(value = "user/search", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public List<UserDTO> search(String nickname){
+        return userService.findAllByNickname(nickname);
     }
 }
