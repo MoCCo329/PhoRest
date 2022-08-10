@@ -110,8 +110,8 @@ export default function ScrollCalendar() {
             <div className="days">토</div>
           </div>
           <div className="container">
-            {m.dates.map((day, index) => (
-              day === " " ? (<div key={index}></div>) : (day.common ? (<div key={index} className="img-common"><img className="img-common-img" src={day.url} alt="이미지"></img></div>) : (<div key={index} className="date">{day.date.getDate()}</div>
+            {m.dates.map(day => (
+              day === " " ? (<div key={day}></div>) : (day.common ? (<div key={day} className="img-common"><img className="img-common-img" src={day.url} alt="이미지"></img></div>) : (<div key={day} className="date">{day.date.getDate()}</div>
             ))))}
           </div>
         </div>

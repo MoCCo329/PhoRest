@@ -27,8 +27,9 @@ export default function Community(props) {
 
     useEffect(() => {
         community.detailPost(postId)
-        .then(result => 
+        .then(result => {
             dispatch(setDetailPost(result.data))
+        }            
         )
         community.getComments(postId)
         .then(result => {

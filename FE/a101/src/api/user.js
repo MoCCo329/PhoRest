@@ -42,6 +42,14 @@ const user = {
       data : data,
     })
   },
+
+  userDelete(data) {
+    return api({
+      method: 'post',
+      url: `${END_POINT}/delete/`,
+      data: data
+    })
+  },
   
   currentUser() {
     return api({

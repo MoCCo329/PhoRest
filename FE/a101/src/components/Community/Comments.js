@@ -19,7 +19,8 @@ export default function Comments(props) {
             }
         })
     }
-
+    
+    console.log(props.comment)
     return (
         <div>
             작성자 : {props.comment.nickname} | 
