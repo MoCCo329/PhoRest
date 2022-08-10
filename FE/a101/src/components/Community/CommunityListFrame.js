@@ -137,10 +137,10 @@ export default function CommunityListFrame() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
                     {post.likeCount}
                   </div>
-                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
+                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)} alt='like' ></img>
                 </div>
               </div>
             )) :
@@ -149,10 +149,10 @@ export default function CommunityListFrame() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='bookmark' ></img>
                     {post.likeCount}
                   </div>
-                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
+                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
                 </div>
               </div>
             ))

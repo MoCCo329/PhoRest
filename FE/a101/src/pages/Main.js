@@ -1,6 +1,6 @@
 import './Main.css'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
@@ -15,17 +15,17 @@ export default function Main(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const [type, setType] = useState(true)  // true면 photo, false면 frame
+    const [typeMain, setTypeMain] = useState(true)  // true면 photo, false면 frame
     
     useMemo(() => {
         if (props.category) {
             if (props.category==='frame') {
-                setType(false)
+                setTypeMain(false)
             } else if (props.category==='photogroup') {
-                setType(true)
+                setTypeMain(true)
             }
         } else {
-            setType(true)
+            setTypeMain(true)
             dispatch(setLikeRecent(true))
         }
     }, [props.category])
@@ -36,11 +36,11 @@ export default function Main(props) {
             <main>
                 <div className="main-community">
                     <div className='gallery-tab'>
-                        <div className='gallery-tab-btn' onClick={() => navigate("/photogroup")} style={{backgroundColor: type ? '#f5737f' : ''}}>포즈</div>
-                        <div className='gallery-tab-btn' onClick={() => navigate("/frame")} style={{backgroundColor: !type ? '#f5737f' : ''}}>프레임</div>
+                        <div className='gallery-tab-btn' onClick={() => navigate("/photogroup")} style={{backgroundColor: typeMain ? '#f5737f' : ''}}>포즈</div>
+                        <div className='gallery-tab-btn' onClick={() => navigate("/frame")} style={{backgroundColor: !typeMain ? '#f5737f' : ''}}>프레임</div>
                     </div>
                         {
-                            type ?
+                            typeMain ?
                             <div>
                                 <CommunityListPhoto />
                             </div> :
