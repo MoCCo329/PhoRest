@@ -37,7 +37,6 @@ public class UserService {
     @Transactional
     public List<UserDTO> findAllByNickname(String nickname){
         List<User> users = userRepository.findAllByNickname(nickname);
-        if(users.isEmpty()) throw new ValidationException("닉네임을 다시 입력해주세요");
 
         List<UserDTO> userDTOS = new ArrayList<>();
 
