@@ -19,6 +19,7 @@ public class CommentDTO {
         this.postId = comment.getPost().getId();
         this.username = comment.getUser().getUsername();
         this.nickname = comment.getUser().getNickname();
+        this.profileURL = comment.getUser().getProfileURL();
 //        this.userId = comment.getUser().getUserId();
         this.content = comment.getContent();
         this.time = comment.getTime();
@@ -28,6 +29,7 @@ public class CommentDTO {
 //    private Long userId;
     private String username;
 
+    private String profileURL;
     private String nickname;
     private String content;
     private LocalDateTime time;
