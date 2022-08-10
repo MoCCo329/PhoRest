@@ -9,6 +9,12 @@ import { useNavigate } from 'react-router-dom'
 import { setPhotoLike, addPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent } from '../../store/modules/community'
 import community from '../../api/community'
 
+// icons
+import likeFilled from '../../assets/UI/heart_filled.png'
+import likeEmpty from '../../assets/UI/heart_empty.png'
+import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
+import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
+
 export default function CommunityListPhoto() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -124,7 +130,6 @@ export default function CommunityListPhoto() {
         )}
         </div>        
       </div>
-      <div className='community-list-content'>
         <div className='community-list-body'>
           {
             type ?
@@ -133,10 +138,10 @@ export default function CommunityListPhoto() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
+                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
                     {post.likeCount}
                   </div>
-                  <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
                 </div>
               </div>
             )) :
@@ -144,15 +149,16 @@ export default function CommunityListPhoto() {
               <div className='photo-gallery' key={idx}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
-                  <box-icon type={post.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(post.id)}></box-icon>
-                  {post.likeCount}
-                  <box-icon type={post.isBookmark ? 'solid' : 'regular'} name='bookmark' onClick={() => bookmarkPost(post.id)}></box-icon>
+                  <div className='like-cnt-content'>
+                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)}></img>
+                    {post.likeCount}
+                  </div>
+                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)}></img>
                 </div>
               </div>
             ))
           }
         </div>
-      </div>
     </div>
   )
 }

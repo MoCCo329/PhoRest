@@ -1,11 +1,44 @@
-.profile img {
-  height: 3.5vh;
-  width: 3.5vh;
+.profile-header {
+  height: 5vh;
+  width: 5vh;
   border-radius: 100%;
 }
 
-.profile .profile-header {
-  height: 3.5vh;
-  width: 3.5vh;
-  border-radius: 100%;
+@media only screen and (max-width: 500px) {
+  .profile-header {
+    height: 4vh;
+    width: 4vh;
+    border-radius: 100%;
+  }
+}
+
+.profile {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}
+/* 일단 유저이름 안 보이게 하긴 했는데, 다시 바꿀수도 있음 display 만 지우면 됨*/
+.profile-nickname {
+  font-family: "Pretendard-Regular";
+  display: none;
+}
+@media only screen and (max-width: 500px) {
+  .profile-nickname {
+    display: none;
+  }
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LeferiPoint-BlackA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }

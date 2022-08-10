@@ -30,15 +30,13 @@
 
 @media only screen and (max-width: 500px) {
   .download-links {
-    justify-content: space-around;
+    max-width: 100vw;
   }
 }
 
 .download-links-item {
   font-family: 'Pretendard-Regular';
   display: flex;
-  /* flex-direction: column; */
-  /* align-items: center; */
   justify-content: center;
   border: none;
   background-color: #fff7e7;
@@ -47,13 +45,17 @@
   padding-right: 15px;
   padding-left: 15px;
   margin: 5px;
-  z-index: 10;
   line-height: 140%;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
 }
 .download-links-item:hover {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+@media only screen and (max-width: 500px) {
+  .download-links-item {
+    padding: 5px 10px 5px 10px;
+  }
 }
 
 .download-links-item p {
