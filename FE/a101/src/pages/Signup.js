@@ -154,7 +154,11 @@ export default function Main() {
 
               <div>
                 <label htmlFor="phoneNumber">Phone Number</label>
-                <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="핸드폰 번호를 입력해주세요" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}
+                <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="핸드폰 번호를 입력해주세요" />
+                <div className='phone-guide'>
+                  <div>01로 시작하는 숫자만 입력해 주세요 </div>
+                  <div>{phoneValidity}</div>
+                </div>
               </div>
 
               <button type="submit">Sign up</button>
