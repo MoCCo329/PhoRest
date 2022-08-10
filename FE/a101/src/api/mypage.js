@@ -27,7 +27,7 @@ const mypage = {
       method: 'get',
       url: `${END_POINT}/${username}/bookmark`
     })
-  }
+  },
 }
 
 export default mypage;
