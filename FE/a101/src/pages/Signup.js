@@ -1,3 +1,5 @@
+import './Login.css'
+
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +8,9 @@ import Layout from '../components/Layout/Layout'
 
 import user from '../api/user'
 import { setAuthError, setCurrentUser } from '../store/modules/user'
+
+// icon
+import back from '../assets/UI/back.png'
 
 export default function Main() {
     let dispatch = useDispatch()
@@ -132,26 +137,43 @@ export default function Main() {
     return (
       <Layout>
         <main>
+          <div className='join-content'>
+          <div className="login-header">
+            <h5>PhoRest 회원가입하기</h5>
+          </div>
             <form onSubmit={(e) => {onSubmit(e)}}>
-              <label htmlFor="username">ID : </label>
-              <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="ID" /> {idValidity}<br/>
+              <div>
+                <label htmlFor="username">ID</label>
+                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" /> {idValidity}
+              </div>
 
-              <label htmlFor="password">Password : </label>
-              <input onChange={(e)=>{setPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="Password" /> {passwordValidity}<br/>
-              <label htmlFor="password2">Password Again : </label>
-              <input onChange={(e)=>{passwordTest()}} type="password" id="password2" required placeholder="Password Again" /> {passwordMatch}<br/>
+              <div>
+                <label htmlFor="password">Password</label>
+                <input onChange={(e)=>{setPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="비밀번호를 입력해주세요" /> {passwordValidity}
+              </div>
 
-              <label htmlFor="nickname">Nickname : </label>
-              <input onChange={(e)=>{setNickname(e.target.value)}} type="text" id="nickname" required placeholder="Nickname" /><br/>
+              <div>
+                <label htmlFor="password2">Password Again</label>
+                <input onChange={(e)=>{passwordTest()}} type="password" id="password2" required placeholder="비밀번호를 다시 입력해주세요" /> {passwordMatch}
+              </div>
 
-              <label htmlFor="phoneNumber">Phone Number : </label>
-              <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="PhoneNumber" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+              <div>
+                <label htmlFor="nickname">Nickname</label>
+                <input onChange={(e)=>{setNickname(e.target.value)}} type="text" id="nickname" required placeholder="별명을 입력해주세요" />
+              </div>
+
+              <div>
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="핸드폰 번호를 입력해주세요" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}
+              </div>
 
               <button type="submit">Sign up</button>
             </form>
             { authError ? <p>{authError}</p> : ''}
-
-            <button onClick={() => navigate(-1)}>뒤로가기</button>
+            <div className='back-motion'>
+              <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+            </div>
+          </div>
         </main>
       </Layout>
     )

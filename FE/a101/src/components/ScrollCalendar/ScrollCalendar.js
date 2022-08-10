@@ -56,6 +56,8 @@ export default function ScrollCalendar() {
 
   // 같은 날짜에 사진을 여러번 찍었네?
 
+  let marks = new Map();
+
   console.log(months)
   console.log(userDetail.postDTOS)
   function calIntersection() {
@@ -69,14 +71,18 @@ export default function ScrollCalendar() {
           continue
         }
         if (date.getFullYear() ===  day.getFullYear() && date.getDate() === day.getDate()) {
-          console.log('같은 날짜', day)
-          return "hightlight";
+          marks.set(day.getMonth(), day.getDate())
+          console.log(marks)
+          // 배경 이미지 넣기
         }
       } 
     }
   }
 
   calIntersection();
+  const imageStyle={
+    backgroundImage: `url(https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png)`
+    }
   return (
     <div>
       {months.map((m) => (
@@ -93,9 +99,8 @@ export default function ScrollCalendar() {
           </div>
           <div className="container">
             {m.dates.map((day, index) => (
-              <div key={index} className="date">
-                {day === " " ? " " : day.getDate()}
-              </div>
+              day === " " ? " " : 
+              day.getDate() === marks.get(day.getMonth()) ? <div className="highlight" style={imageStyle}>{day.getDate()}</div> : <div className="date">{day.getDate()}</div>
             ))}
           </div>
         </div>

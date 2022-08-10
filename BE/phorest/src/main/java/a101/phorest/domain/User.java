@@ -45,6 +45,8 @@ public class User {
    @Column(name = "iskakao")
    private boolean isKakao;
 
+   private boolean isMessageSent;
+
    private String introduce;
 
    private String refresh_token;

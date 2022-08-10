@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,20 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+
+    @Transactional
+    public List<UserDTO> findAllByNickname(String nickname){
+        List<User> users = userRepository.findAllByNickname(nickname);
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+
+        for(int i=0;i<users.size();i++){
+            UserDTO userDTO = new UserDTO(users.get(i));
+            userDTOS.add(userDTO);
+        }
+        return userDTOS;
+    }
 
     @Transactional
     public UserDTO signup(UserDTO userDto) {
@@ -58,6 +74,7 @@ public class UserService {
                 .isKakao(false)
                 .role(Role.USER) // user로 가입
                 .activated(true)
+                .isMessageSent(false)
                 .build();
 
         return UserDTO.from(userRepository.save(user));
@@ -196,6 +213,12 @@ public class UserService {
 
 
     @Transactional
+    public void setMessageSent(String username){
+        User user = userRepository.findByUsername(username);
+        user.setMessageSent(true);
+    }
+
+    @Transactional
     public Boolean loginKakaoUser(String snsId){
         User user = userRepository.findByUsername(snsId);
         if(user == null){
@@ -205,4 +228,5 @@ public class UserService {
 return true;
         }
     }
+
 }

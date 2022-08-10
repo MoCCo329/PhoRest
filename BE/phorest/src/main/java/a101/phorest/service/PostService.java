@@ -7,9 +7,15 @@ import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.*;
 import lombok.RequiredArgsConstructor;
+import net.nurigo.sdk.message.model.Message;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -71,6 +77,23 @@ public class PostService {
         if(!post.get().isShared() && mode == 1L && !postDto.getIsWriter())
             return Optional.empty();
         return Optional.of(postDto);
+    }
+
+    public List<PostDTO> findMessagePosts(){
+
+        List<Post> posts = postRepository.findMessagePost(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for(Post post : posts){
+            List<User> users = userRepository.findByPostId(post.getId());
+            List<UserDTO> userDTOS = new ArrayList<>();
+            for (User user : users) {
+                UserDTO userDto = UserDTO.from(user);
+                userDTOS.add(userDto);
+            }
+            PostDTO postDTO = new PostDTO(post, userDTOS);
+            postDTOS.add(postDTO);
+        }
+        return postDTOS;
     }
 
     public Optional<Post> findOne(Long postId){

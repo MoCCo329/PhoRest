@@ -37,6 +37,7 @@ public class MyPageService {
         MyPage mypage = new MyPage();
         User user = userRepository.findByUsername(username);
         Post post = postRepository.findById(postId).get();
+        user.setMessageSent(false);
         mypage.setUser(user);
         mypage.setPost(post);
         mypage.setShared(true);
@@ -131,6 +132,7 @@ public class MyPageService {
             }
             PostDTO postDTO = new PostDTO(post,userDTOS);
             postDTO.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),username).isPresent());
+            postDTO.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(post.getId(), username).isPresent());
             postDTOS.add(postDTO);
         }
         return postDTOS;

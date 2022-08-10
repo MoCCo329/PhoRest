@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,5 +55,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "from post p join bookmark b on p.post_id = b.post_id join user r on b.user_id = r.user_id " +
             "where r.username = :username and p.is_shared = true ")
     List<Post> findPostBookmarked(@Param("username") String username);
+
+    @Query(nativeQuery = true, value = "select distinct *" +
+            "from post p " +
+            "where datediff(:now, p.time) > 7 ")
+    List<Post> findMessagePost(@Param("now")LocalDateTime now);
 
 }

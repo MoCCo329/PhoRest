@@ -47,7 +47,7 @@ public class UserDTO {
    private Role role;
 
    //@NotNull(message = "phone은 필수값입니다.")
-   //@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "제대로 된 휴대폰 번호를 입력해주세요")
+   @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "제대로 된 휴대폰 번호를 입력해주세요")
    private String phone;
 
    private String profileURL;
@@ -68,9 +68,17 @@ public class UserDTO {
 
    private boolean isKakao;
 
+   private boolean isMessageSent;
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
+
+   public UserDTO(User user){
+      this.username = user.getUsername();
+      this.nickname = user.getNickname();
+      this.profileURL = user.getProfileURL();
+      this.introduce = user.getIntroduce();
+   }
 
    public static UserDTO from(User user) {
       if(user == null) return null;
@@ -86,6 +94,7 @@ public class UserDTO {
               .introduce(user.getIntroduce())
               .isActivated(true)
               .isKakao(user.isKakao())
+              .isMessageSent(false)
               .build();
 
       return userDto;
