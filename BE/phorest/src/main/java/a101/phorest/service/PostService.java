@@ -7,15 +7,10 @@ import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.repository.*;
 import lombok.RequiredArgsConstructor;
-import net.nurigo.sdk.message.model.Message;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -189,11 +184,10 @@ public class PostService {
             String fileName = frame.getFramePath().replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
             s3Uploader.deleteFile(fileName);
             myPageRepository.deleteByPostId(postId);
-            frameRepository.deleteById(frame.getId());
-            myPageRepository.deleteByPostId(postId);
-            bookmarkRepository.deleteByPostId(postId);
-            likeRepository.deleteByPostId(postId);
+            bookmarkRepository.deleteAllByPostId(postId);
+            likeRepository.deleteAllByPostId(postId);
             postRepository.deleteById(postId);
+            frameRepository.deleteById(frame.getId());
         }
         return 0L;
     }

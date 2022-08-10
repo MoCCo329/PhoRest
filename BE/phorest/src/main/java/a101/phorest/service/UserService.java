@@ -77,7 +77,7 @@ public class UserService {
         for(int i=0;i<mypages.size();i++){
             if(mypages.get(i).getCategory().equals( "photogroup")){
                 likeRepository.deleteAllByPostId(mypages.get(i).getPost().getId());
-                bookmarkRepository.deleteAllbyPostId(mypages.get(i).getPost().getId());
+                bookmarkRepository.deleteAllByPostId(mypages.get(i).getPost().getId());
                 myPageRepository.deleteById(mypages.get(i).getId());
             }
         }

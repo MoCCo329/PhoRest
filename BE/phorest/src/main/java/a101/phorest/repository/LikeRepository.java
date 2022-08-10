@@ -18,6 +18,10 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
             "and r.username = :username")
     Optional<Like> findByPostIdAndUsername(@Param("postId") Long postId, @Param("username") String username);
 
+
+    @Query(nativeQuery = true, value = "select * from postlike where user_id =:userId")
+    List<Like> findAllByUserId(Long userId);
+
     @Modifying
     @Query(nativeQuery = true, value = "delete from postlike where user_id =:userId")
     void deleteAllByUserId(Long userId);
@@ -26,10 +30,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     @Query(nativeQuery = true, value = "delete from postlike where post_id =:id")
     void deleteAllByPostId(Long id);
 
-    @Modifying
-    @Query(nativeQuery = true, value = "select * from postlike where user_id =:userId")
-    List<Like> findAllByUserId(Long userId);
-    @Modifying
-    @Query(nativeQuery = true, value = "delete from my_page mp where mp.post_id = :postId ")
-    void deleteByPostId(@Param("postId") Long postId);
+
+
 }
