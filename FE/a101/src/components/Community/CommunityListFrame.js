@@ -111,8 +111,7 @@ export default function CommunityListFrame() {
         </div>
         <div className='create-frame'>
           <div className='create-frame-btn'>
-            <img className='icon-img' onClick={() => navigate('/community/edit/LTM2')} src={add} alt='add'></img>
-            <div>프레임 생성하러 가기</div>
+            <div onClick={() => navigate('/community/edit/LTM2')}><img className='icon-img' src={add} alt='add'/> 프레임 생성하러 가기</div>
           </div>
         </div>
       </div>
