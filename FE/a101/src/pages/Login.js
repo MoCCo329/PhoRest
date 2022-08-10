@@ -1,3 +1,5 @@
+import './Login.css'
+
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -8,7 +10,8 @@ import { setToken, setAuthError, setCurrentUser } from "../store/modules/user"
 import user from "../api/user"
 
 // 카카오 로그인 이미지
-import kakaoBtn from "../assets/UI/kakao_login_medium_narrow.png"
+import kakaoBtn from "../assets/UI/kakao_login_medium_wide.png"
+
 export default function Main() {
   let dispatch = useDispatch()
   let navigate = useNavigate()
@@ -58,43 +61,54 @@ export default function Main() {
   return (
     <Layout>
       <main>
-        <form
-          onSubmit={(e) => {
-            onSubmit(e)
-          }}
-        >
-          <label htmlFor="username">ID : </label>
-          <input
-            onChange={(e) => {
-              setId(e.target.value)
+        <div className='login-content'>
+          <div className="login-header">
+            <h5>PhoRest 로그인하기</h5>
+          </div>
+          <img src={kakaoBtn} alt="카카로 로그인" onClick={login} />
+          <div className='hr-sect'>
+            또는
+          </div>
+          <form
+            onSubmit={(e) => {
+              onSubmit(e)
             }}
-            type="text"
-            id="username"
-            required
-            autoFocus
-            placeholder="ID"
-          />
-          <br />
-          <label htmlFor="password">Password : </label>
-          <input
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-            type="password"
-            id="password"
-            required
-            placeholder="Password"
-          />
-          <br />
-          <button type="submit">login</button>
-        </form>
-        {authError ? <p>{authError}</p> : ""}
-
-        <button onClick={() => navigate("/signup", { replace: true })}>
-          회원가입
-        </button>
-        
-        <img src={kakaoBtn} alt="카카로 로그인" onClick={login} />
+          >
+            <div>
+              <label htmlFor="username">ID</label>
+              <input
+                onChange={(e) => {
+                  setId(e.target.value)
+                }}
+                type="text"
+                id="username"
+                required
+                autoFocus
+                placeholder="아이디를 입력해주세요"
+              />
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <input
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
+                type="password"
+                id="password"
+                required
+                placeholder="비밀번호를 입력해주세요"
+              />
+              {authError ? <p>{authError}</p> : ""}
+            </div>
+            <button type="submit">login</button>
+          </form>
+          <div className='join-paging'>
+            <span>아직 회원이 아니신가요?</span>
+            <span onClick={() => navigate("/signup", { replace: true })} style={{color: '#4646CD'}}>
+              회원가입
+            </span>
+          </div>
+        </div>
       </main>
     </Layout>
   )
