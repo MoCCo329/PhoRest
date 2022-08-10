@@ -16,10 +16,8 @@ export default function ProfileEditPw() {
   const currentUser = useSelector(state => state.currentUser)
 
   const [newPassword, setNewPassword] = useState('')
-
   const [passwordValidity, setPasswordValidity] = useState('')
   const [passwordMatch, setPasswordMatch] = useState('')
-
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
   useEffect(() => {

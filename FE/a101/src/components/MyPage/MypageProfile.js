@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
+import Search from "./Search"
+
 import user from "../../api/user"
 import { setIsFollowing } from "../../store/modules/mypage"
 import { setViewType } from "../../store/modules/mypage"
@@ -16,9 +18,11 @@ export default function MypageProfile(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [isMyMypage, setIsMyMypage] = useState(false)
+  const [isSearching, setIsSearching] = useState(false)
+
   const userDetail = useSelector((state) => state.userDetail)
   const currentUser = useSelector((state) => state.currentUser)
-  const [isMyMypage, setIsMyMypage] = useState(false)
 
   useEffect(() => {
     if (userDetail.username===currentUser.username) {
@@ -40,6 +44,10 @@ export default function MypageProfile(props) {
     .then((result) => {
       dispatch(setIsFollowing(result.data))
     })
+  }
+
+  const clickSearch = () => {
+    setIsSearching(!isSearching)
   }
 
   return (
@@ -139,6 +147,15 @@ export default function MypageProfile(props) {
             </button>
           </Modal.Footer>
         </Modal>
+      </div>
+
+      <div>
+        <button onClick={clickSearch} style={{ backgroundColor : isSearching ? '#fff7e7' : null }} >검색</button>
+        {
+          isSearching ?
+          <Search></Search> :
+          null
+        }
       </div>
     </div>
   )

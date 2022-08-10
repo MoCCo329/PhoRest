@@ -69,6 +69,14 @@ const user = {
       method: 'get',
       url: `${END_POINT}/kakao?code=${code}`,
     })
+  },
+
+  search (nickname) {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/search`,
+      params: { nickname }
+    })
   }
 }
 
