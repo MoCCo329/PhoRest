@@ -1,9 +1,6 @@
 main {
     height: auto;
     padding-bottom: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .layout {
