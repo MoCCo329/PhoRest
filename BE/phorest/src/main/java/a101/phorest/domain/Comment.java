@@ -28,6 +28,8 @@ public class Comment {
     @Column(name = "content")
     private String content;
 
+    private String profileURL;
+
     @Column(name = "time")
     private LocalDateTime time;
 }
