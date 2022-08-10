@@ -31,6 +31,7 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
     @Query(nativeQuery = true, value = "select * from my_page where user_id = :userId")
     List<MyPage> findAllByUserId(Long userId);
 
+    @Modifying
     @Query(nativeQuery = true, value = "delete from my_page where post_id =:postId")
     void deleteByPostId(Long postId);
 }

@@ -24,4 +24,8 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     @Modifying
     @Query(nativeQuery = true, value = "delete from bookmark where post_id =:id")
     void deleteAllbyPostId(Long id);
+
+    @Modifying
+    @Query(nativeQuery = true, value = "delete from my_page mp where mp.post_id = :postId ")
+    void deleteByPostId(@Param("postId") Long postId);
 }

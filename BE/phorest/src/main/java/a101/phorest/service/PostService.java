@@ -190,6 +190,9 @@ public class PostService {
             s3Uploader.deleteFile(fileName);
             myPageRepository.deleteByPostId(postId);
             frameRepository.deleteById(frame.getId());
+            myPageRepository.deleteByPostId(postId);
+            bookmarkRepository.deleteByPostId(postId);
+            likeRepository.deleteByPostId(postId);
             postRepository.deleteById(postId);
         }
         return 0L;
