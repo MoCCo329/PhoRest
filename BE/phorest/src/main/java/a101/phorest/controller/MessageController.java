@@ -42,6 +42,14 @@ public class MessageController {
 
     private final UserService userService;
 
+    //https://data-make.tistory.com/699
+    @Scheduled(cron = "0 9 0 * * *")
+    public void sendMsg() throws Exception {
+        //refresh token 받아서 accesstoken받기
+
+        //메세지 보내기
+    }
+
     //@Scheduled(cron = "0 0 9 * * ?")
     public void sendMessages() throws MalformedURLException, IOException {
         List<Message> messageList = new ArrayList<>();

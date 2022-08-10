@@ -186,7 +186,7 @@ public class UserService {
 //            //국내 번호인 경우 +82 00-0000-0000 또는 +82 00 0000 0000 형식
 //        }
 
-        Double pw = Double.parseDouble(username + secret);
+        String pw = username + secret;
 
         User user = User.builder()
                 .username(ud.getUsername())

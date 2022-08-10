@@ -1,12 +1,6 @@
 spring:
   config:
     import: aws.yaml
-  datasource:
-    url: jdbc:mysql://i7a101.p.ssafy.io:3306/admin
-    username: admin
-    password: fN0uC7TNNY?kr&gV]
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
 
   mvc:
     pathmatch:
