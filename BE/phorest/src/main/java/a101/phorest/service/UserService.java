@@ -52,9 +52,6 @@ public class UserService {
         if (userRepository.findByUsername(userDto.getUsername()) != null){
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
-        if (userRepository.findByNickname(userDto.getNickname()) != null){
-            throw new DuplicateMemberException("이미 사용 중인 닉네임 입니다.");
-        }
         if (userRepository.findByPhone(userDto.getPhone()) != null){
             throw new DuplicateMemberException("핸드폰 번호가 이미 있습니다.");
         }
@@ -123,20 +120,11 @@ public class UserService {
     @Transactional
     public Long updateUserProfile(ProfileDTO profileDTO, String username){
         User user = userRepository.findByUsername(username);
-        User user1 = userRepository.findByNickname(profileDTO.getNickname());
 
-        if(user.isKakao()){
-            user.setNickname(profileDTO.getNickname());
-            user.setProfileURL(profileDTO.getProfileURL());
-            user.setIntroduce(profileDTO.getIntroduce());
-            return 0L;
-        }
-        if(user1 != null && !user1.getUsername().equals(user.getUsername()))
-            return 2L;
         if(profileDTO.getPhone() != null){
             User user2 = userRepository.findByPhone(profileDTO.getPhone());
             if(user2 != null && !user2.getUsername().equals(user.getUsername()))
-                return 3L;
+                return 2L;
         }
         user.setNickname(profileDTO.getNickname());
         user.setProfileURL(profileDTO.getProfileURL());
@@ -216,17 +204,6 @@ public class UserService {
     public void setMessageSent(String username){
         User user = userRepository.findByUsername(username);
         user.setMessageSent(true);
-    }
-
-    @Transactional
-    public Boolean loginKakaoUser(String snsId){
-        User user = userRepository.findByUsername(snsId);
-        if(user == null){
-            throw new DuplicateMemberException("아이디가 없습니다.");
-        }else{
-            user.setActivated(true);
-return true;
-        }
     }
 
 }
