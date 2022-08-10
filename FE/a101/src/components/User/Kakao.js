@@ -26,7 +26,7 @@ export default function Kakao() {
         user.currentUser().then((result) => {
           dispatch(setCurrentUser(result.data));
         })
-        navigate('/', { replace: true })
+        navigate(-2, { replace: true })
       })
       .catch((error) => {
         dispatch(setAuthError(error.response.data.message))
