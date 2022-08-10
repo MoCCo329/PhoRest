@@ -5,8 +5,8 @@ export let token = createSlice({
   name: 'token',
   initialState: '',
   reducers: {
-    setToken (state, value) {
-      return value.payload
+    setToken (state, action) {
+      return action.payload
     }
   }
 })
@@ -22,8 +22,8 @@ export let currentUser = createSlice({
     introduce: '',
   },
   reducers: {
-    setCurrentUser (state, value) {
-      return value.payload
+    setCurrentUser (state, action) {
+      return action.payload
     }
   }
 })
@@ -33,8 +33,8 @@ export let authError = createSlice({
   name: 'authError',
   initialState: '',
   reducers: {
-    setAuthError (state, value) {
-      return value.payload
+    setAuthError (state, action) {
+      return action.payload
     }
   }
 })

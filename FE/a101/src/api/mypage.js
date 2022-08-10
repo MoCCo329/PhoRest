@@ -7,7 +7,7 @@ const mypage = {
   sharePost(postId) {
     return api({
       method: "post",
-      url: `mypage/${btoa(postId * 73 + 37)}/share/`,
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/share/`,
     });
   },
   userDetail(username) {
@@ -19,7 +19,13 @@ const mypage = {
   ownPost (postId) {
     return api({
       method: 'post',
-      url: `mypage/${btoa(postId * 73 + 37)}/add`
+      url: `${END_POINT}/${btoa(postId * 73 + 37)}/add`
+    })
+  },
+  bookmarked (username) {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/${username}/bookmark`
     })
   }
 }

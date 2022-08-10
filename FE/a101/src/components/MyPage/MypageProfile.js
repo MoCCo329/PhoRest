@@ -1,21 +1,24 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
-import "./MypageProfile.css";
-import defaultProfile from "../../assets/defaultProfile.png";
+import user from "../../api/user"
+import { setIsFollowing } from "../../store/modules/mypage"
+import { setViewType } from "../../store/modules/mypage"
 
-// 팔로우 활성/비활성 설정하기
-import user from "../../api/user";
-import { setIsFollowing } from "../../store/modules/mypage";
-import Modal from "react-bootstrap/Modal";
+import Modal from "react-bootstrap/Modal"
+
+import "./MypageProfile.css"
+import defaultProfile from "../../assets/defaultProfile.png"
+
 
 export default function MypageProfile(props) {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const userDetail = useSelector((state) => state.userDetail);
-  const currentUser = useSelector((state) => state.currentUser);
-  const [isMyMypage, setIsMyMypage] = useState(false);
+  const userDetail = useSelector((state) => state.userDetail)
+  const currentUser = useSelector((state) => state.currentUser)
+  const [isMyMypage, setIsMyMypage] = useState(false)
 
   useEffect(() => {
     if (userDetail.username===currentUser.username) {
@@ -23,25 +26,20 @@ export default function MypageProfile(props) {
     } else {
       setIsMyMypage(false)
     }
-  }, [userDetail, currentUser]);
-
-  // 프로필 이미지 없을 때 대체 이미지 나오게 하는 함수
-  const handleImgError = (e) => {
-    e.target.src = defaultProfile;
-  };
+  }, [userDetail, currentUser])
 
   // 로그인 안되어있는채로 팔로우버튼을 누르면 로그인창으로 안내하는 모달창 나옴
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
   // 모달
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   // 팔로우 버튼 누르면 신청 / 다시 누르면 언팔
-  const dispatch = useDispatch();
   function follow() {
-    user.follow(userDetail.username).then((result) => {
-      dispatch(setIsFollowing(result.data));
-    });
+    user.follow(userDetail.username)
+    .then((result) => {
+      dispatch(setIsFollowing(result.data))
+    })
   }
 
   return (
@@ -50,44 +48,59 @@ export default function MypageProfile(props) {
         <div className="profile-state">
           <img
             className="profile-img"
-            src={userDetail.profileURL}
+            src={userDetail.profileURL || defaultProfile}
             alt="profileImage"
-            onError={handleImgError}
           />
         </div>
 
-        <div className="info">
+        <div className="info" onClick={() => dispatch(setViewType(0))}>
           <div className="num">
-            {userDetail
-              ? userDetail.postDTOS.filter(
-                (item) => item.category === "photogroup"
-                ).length
-                : 0}
+            {
+            userDetail ?
+            userDetail.postDTOS.filter(item => item.category === "photogroup").length :
+            0
+            }
           </div>
           <div className="name">게시글</div>
         </div>
 
-        <div className="info">
+        <div className="info" onClick={() => dispatch(setViewType(1))}>
           <div className="num">
-            {userDetail
-              ? userDetail.postDTOS.filter((item) => item.category === "frame")
-                  .length
-              : 0}
+            {
+            userDetail ?
+            userDetail.postDTOS.filter(item => item.category === "frame").length :
+            0
+            }
           </div>
           <div className="name">프레임</div>
         </div>
 
         <div className="info">
-          <div className="num">{userDetail.followerCount}</div>
+          <div className="num">
+            {userDetail.followerCount}
+          </div>
           <div className="name">팔로워</div>
         </div>
+
+        {
+          isMyMypage ?
+          <div className="info" onClick={() => dispatch(setViewType(3))}>
+            <div className="num">
+              {userDetail.followerCount}
+            </div>
+            <div className="name">팔로우</div>
+          </div> :
+          null
+        }
       </div>
-                <div className="profile-introduce">{userDetail.introduce}</div>
+      
+      <div className="profile-introduce">{userDetail.introduce}</div>
       {isMyMypage && (
         <button onClick={() => navigate("/mypage/edit")}>
           회원정보 수정하기
         </button>
       )}
+
       <div className="modal-button">
         {currentUser.username ? (
           !isMyMypage ? (userDetail.following ? (
@@ -128,5 +141,5 @@ export default function MypageProfile(props) {
         </Modal>
       </div>
     </div>
-  );
+  )
 }

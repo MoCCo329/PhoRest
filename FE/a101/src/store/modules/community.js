@@ -4,14 +4,14 @@ export let photoLike = createSlice({
   name: 'photoLike',
   initialState: [],
   reducers: {
-    setPhotoLike (state, actions) {
-      return actions.payload
+    setPhotoLike (state, action) {
+      return action.payload
     },
-    addPhotoLike (state, actions) {
-      return [...new Set([...state, ...actions.payload])]
+    addPhotoLike (state, action) {
+      return [...new Set([...state, ...action.payload])]
     },
-    likePhotoLike (state, actions) {
-      const newPost = actions.payload
+    likePhotoLike (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -20,8 +20,8 @@ export let photoLike = createSlice({
       })
       return copy
     },
-    bookmarkPhotoLike (state, actions) {
-      const newPost = actions.payload
+    bookmarkPhotoLike (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -38,14 +38,14 @@ export let photoRecent = createSlice({
   name: 'photoRecent',
   initialState: [],
   reducers: {
-    setPhotoRecent (state, actions) {
-      return actions.payload
+    setPhotoRecent (state, action) {
+      return action.payload
     },
-    addPhotoRecent (state, actions) {
-      return [...state, ...actions.payload]
+    addPhotoRecent (state, action) {
+      return [...state, ...action.payload]
     },
-    likePhotoRecent (state, actions) {
-      const newPost = actions.payload
+    likePhotoRecent (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -54,8 +54,8 @@ export let photoRecent = createSlice({
       })
       return copy
     },
-    bookmarkPhotoRecent (state, actions) {
-      const newPost = actions.payload
+    bookmarkPhotoRecent (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -72,14 +72,14 @@ export let frameLike = createSlice({
   name: 'frameLike',
   initialState: [],
   reducers: {
-    setFrameLike (state, actions) {
-      return actions.payload
+    setFrameLike (state, action) {
+      return action.payload
     },
-    addFrameLike (state, actions) {
-      return [...state, ...actions.payload]
+    addFrameLike (state, action) {
+      return [...state, ...action.payload]
     },
-    likeFrameLike (state, actions) {
-      const newPost = actions.payload
+    likeFrameLike (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -88,8 +88,8 @@ export let frameLike = createSlice({
       })
       return copy
     },
-    bookmarkFrameLike (state, actions) {
-      const newPost = actions.payload
+    bookmarkFrameLike (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -106,14 +106,14 @@ export let frameRecent = createSlice({
   name: 'frameRecent',
   initialState: [],
   reducers: {
-    setFrameRecent (state, actions) {
-      return actions.payload
+    setFrameRecent (state, action) {
+      return action.payload
     },
-    addFrameRecent (state, actions) {
-      return [...state, ...actions.payload]
+    addFrameRecent (state, action) {
+      return [...state, ...action.payload]
     },
-    likeFrameRecent (state, actions) {
-      const newPost = actions.payload
+    likeFrameRecent (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -122,8 +122,8 @@ export let frameRecent = createSlice({
       })
       return copy
     },
-    bookmarkFrameRecent (state, actions) {
-      const newPost = actions.payload
+    bookmarkFrameRecent (state, action) {
+      const newPost = action.payload
       const copy = state.map((post, idx) => {
         if (post.id===newPost.id) {
           return newPost
@@ -140,18 +140,8 @@ export let detailPost = createSlice({
   name: 'detailPost',
   initialState: '',
   reducers: {
-    setDetailPost (state, actions) {
-      return actions.payload
-    },
-    likeDetailPost (state, actions) {
-      const copy = state
-      copy.isLike = actions.payload
-      return copy
-    },
-    bookmarkDetailPost (state, actions) {
-      const copy = state
-      copy.isBookmark = actions.payload
-      return copy
+    setDetailPost (state, action) {
+      return action.payload
     }
   }
 })
@@ -161,11 +151,11 @@ export let detailComments = createSlice({
   name: 'detailComments',
   initialState: [],
   reducers: {
-    setDetailComment (state, actions) {
-      return actions.payload
+    setDetailComment (state, action) {
+      return action.payload
     },
-    editComment (state, actions) {
-      const {comment, idx} = actions.payload
+    editComment (state, action) {
+      const {comment, idx} = action.payload
       state[idx] = comment
     },
     deleteComment (state, id) {
@@ -180,3 +170,14 @@ export let detailComments = createSlice({
   }
 })
 export let { setDetailComment } = detailComments.actions
+
+export let likeRecent = createSlice({
+  name: 'likeRecent',
+  initialState: true,
+  reducers: {
+    setLikeRecent (state, action) {
+      return action.payload
+    }
+  }
+})
+export let { setLikeRecent } = likeRecent.actions

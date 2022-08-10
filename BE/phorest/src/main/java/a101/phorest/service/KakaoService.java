@@ -32,6 +32,17 @@ public class KakaoService {
 //
 //    }
 
+//    public String getTokenFromRefreshToken(String refresh_token) throws IOException{
+//        String host = "https://kauth.kakao.com/oauth/token";
+//
+//        try{
+//            URL url = new URL(host);
+//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//            urlConnection.setRequestMethod("POST");
+//            urlConnection.setDoOutput(true);
+//        }
+//    }
+
     public List<String> getToken(String code) throws IOException {
         //인가코드로 토큰 받기
         String host = "https://kauth.kakao.com/oauth/token";

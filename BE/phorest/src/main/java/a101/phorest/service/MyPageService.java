@@ -73,7 +73,13 @@ public class MyPageService {
         userDto.setFollowerCount(followRepository.countFollowByFollowing(searchUser));
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : posts) {
-            PostDTO postDto = new PostDTO(post, new ArrayList<>());
+            List<User> users = userRepository.findPostMyPageSharedUsers(post.getId());
+            List<UserDTO> userDTOS = new ArrayList<>();
+            for(User user : users){
+                UserDTO userDTO = UserDTO.from(user);
+                userDTOS.add(userDTO);
+            }
+            PostDTO postDto = new PostDTO(post, userDTOS);
             postDto.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(post.getId(), loginUsername).isPresent());
             postDto.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),loginUsername).isPresent());
             postDTOS.add(postDto);
@@ -111,5 +117,22 @@ public class MyPageService {
         if(!post.get().isShared())
             post.get().setShared(true);
         return 0L;
+    }
+
+    public List<PostDTO> findBookmarkPosts(String username){
+        List<Post> posts = postRepository.findPostBookmarked(username);
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for(Post post : posts){
+            List<User> users = userRepository.findPostMyPageSharedUsers(post.getId());
+            List<UserDTO> userDTOS = new ArrayList<>();
+            for(User user : users){
+                UserDTO userDTO = UserDTO.from(user);
+                userDTOS.add(userDTO);
+            }
+            PostDTO postDTO = new PostDTO(post,userDTOS);
+            postDTO.setIsLike(likeRepository.findByPostIdAndUsername(post.getId(),username).isPresent());
+            postDTOS.add(postDTO);
+        }
+        return postDTOS;
     }
 }

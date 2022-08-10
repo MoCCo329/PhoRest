@@ -9,7 +9,7 @@ import CommentsList from '../components/Community/CommentsList'
 import SharePost from '../components/Community/SharePost'
 
 // functions
-import { setDetailPost, setDetailComment, likeDetailPost, bookmarkDetailPost } from '../store/modules/community'
+import { setDetailPost, setDetailComment } from '../store/modules/community'
 import community from './../api/community'
 
 export default function Community(props) {
@@ -59,38 +59,31 @@ export default function Community(props) {
             dispatch(setDetailComment([]))
         }
     }, [])
-    console.log(detailPost)
+    
     // 프레임이면 글표시랑 프레임 편집 링크
 
     // community-header 상단에 도착하면 고정시키기
     // community-comment를 style="overflow:scroll"
 
-    const clickLike = () => {
-        console.log(currentUser, !currentUser)
+    const likePost = (postId) => {
+        if (!currentUser.username) {
+          return alert('로그인 후 좋아요가 가능합니다')
+        }
         community.likePost(postId)
         .then(result => {
-            if (result.data===1) {
-                dispatch(likeDetailPost(true))
-            } else if (result.data===0) {
-                dispatch(likeDetailPost(false))
-            } else {
-                alert('로그인 후 좋아요가 가능합니다')
-            }
+            dispatch(setDetailPost(result.data))
         })
-    }
-
-    const clickBookmark = () => {
+      }
+    
+      const bookmarkPost = (postId) => {
+        if (!currentUser.username) {
+          return alert('로그인 후 좋아요가 가능합니다')
+        }
         community.bookmarkPost(postId)
         .then(result => {
-            if (result.data===1) {
-                dispatch(bookmarkDetailPost(true))
-            } else if (result.data===0) {
-                dispatch(bookmarkDetailPost(false))
-            } else {
-                alert('로그인 후 북마크가 가능합니다')
-            }
+            dispatch(setDetailPost(result.data))
         })
-    }
+      }
 
     const deletePost = () => {
         let confirmResult = false
@@ -115,14 +108,14 @@ export default function Community(props) {
         }
 
     }
-
+    console.log(detailPost.users)
     return (
         <Layout>
             <main>
                 <div className="community-header">
                     { detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
                     { detailPost.category==='photogroup' ? <div className='human-count'>{detailPost.humanCount}명</div> : null }
-                    { detailPost.category==='frame' ? <div className='frame-id'>프레임 ID : {detailPost.frameId}</div> : null }
+                    { detailPost.frameId ? <div className='frame-id'>프레임 ID : {detailPost.frameId}</div> : null }
                 </div>
                 <hr />
                 <h3>Content</h3>
@@ -149,13 +142,9 @@ export default function Community(props) {
                             }
                         </div>
                         <div className='community-body-icons'>
-                            {
-                                !isWriter ?
-                                <div>
-                                    <box-icon type={detailPost.isLike ? 'solid' : 'regular' } name='like' onClick={() => clickLike()}></box-icon>
-                                    <box-icon type={detailPost.isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => clickBookmark()}></box-icon>
-                                </div> : null
-                            }
+                            <box-icon type={detailPost.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(postId)}></box-icon>
+                            {detailPost.likeCount}
+                            <box-icon type={detailPost.isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => bookmarkPost(postId)}></box-icon>
                             <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
                         </div>
                         {

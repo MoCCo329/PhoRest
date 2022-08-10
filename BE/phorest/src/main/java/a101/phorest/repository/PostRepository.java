@@ -50,5 +50,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "order by p.time desc ,p.like_count desc LIMIT :limit offset :offset")
     List<Post> findFrameByRecent(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset);
 
+    @Query(nativeQuery = true, value = "select distinct *" +
+            "from post p join bookmark b on p.post_id = b.post_id join user r on b.user_id = r.user_id " +
+            "where r.username = :username and p.is_shared = true ")
+    List<Post> findPostBookmarked(@Param("username") String username);
 
 }

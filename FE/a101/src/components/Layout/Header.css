@@ -7,28 +7,105 @@ header {
 
 .contents {
   width: 100vw;
-  height: 6vh;
+  height: 8vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "LeferiPoint-BlackA";
+}
+
+@media only screen and (max-width: 500px) {
+  .contents {
+    height: 7vh;
+  }
 }
 
 .header-logo-box {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
 }
 
 .header-logo {
-  height: 4vh;
-  width: 4vh;
+  height: 5vh;
+  width: 5vh;
+}
+
+@media only screen and (max-width: 500px) {
+  .header-logo {
+    height: 4vh;
+    width: 4vh;
+  }
+}
+.user-nickname {
+  line-height: 60%;
+  font-family: "LeferiPoint-BlackA";
+}
+
+.profile-info-box {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media only screen and (max-width: 500px) {
+  .profile-info-box {
+gap: 1px;
+  }
 }
 
 .header-state {
-  margin-top: 1vw;
   margin-right: 3vw;
-    display: flex;
-  justify-content: center;
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
+}
+
+.login-btn {
+  font-family: "Pretendard-Regular";
+  border: none;
+  background-color: #fff7e7;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  line-height: 100%;
+  transition: 0.25s;
+  color: #131312;
+}
+.login-btn:hover {
+  font-weight: bold;
+  background-color: #ffc036;
+}
+@media only screen and (max-width: 500px) {
+  .login-btn {
+    font-size: medium;
+  }
+}
+.logout-btn {
+  font-family: "Pretendard-Regular";
+  border: none;
+  background-color: #fff7e7;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  line-height: 100%;
+  transition: 0.25s;
+  color: #131312;
+}
+.logout-btn:hover {
+  font-weight: bold;
+  background-color: #ffc036;
+}
+@media only screen and (max-width: 500px) {
+  .logout-btn {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: small;
+  }
 }
 
 @font-face {
@@ -36,5 +113,13 @@ header {
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
     format("woff");
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
   font-style: normal;
 }
