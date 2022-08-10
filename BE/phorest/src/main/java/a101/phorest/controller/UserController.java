@@ -1,7 +1,5 @@
 package a101.phorest.controller;
-import a101.phorest.dto.LoginDTO;
-import a101.phorest.dto.TokenDTO;
-import a101.phorest.dto.UserDTO;
+import a101.phorest.dto.*;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.FollowService;
 import a101.phorest.service.KakaoService;
@@ -71,14 +69,26 @@ public class UserController {
         return userService.findDtoUsernameOne(username).get();
     }
     @PutMapping("user/edit")
-    public Long editUser(@RequestBody @Valid UserDTO user, @RequestHeader("Authorization") String token)
+    public Long editUser(@RequestBody @Valid ProfileDTO user, @RequestHeader("Authorization") String token)
     {
         if(!tokenProvider.validateToken(token))
             return 1L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        return userService.updateUser(user, username);
+        return userService.updateUserProfile(user, username);
 
     }
+
+    @PutMapping("user/editpw")
+    public Long editPassword(@RequestBody @Valid PasswordDTO user, @RequestHeader("Authorization") String token)
+    {
+        if(!tokenProvider.validateToken(token))
+            return 1L;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return userService.updatePassword(user, username);
+
+    }
+
+
     @RequestMapping(value = "user/kakao", method = RequestMethod.GET)
     public ResponseEntity<TokenDTO> kakaoLogin(String code) throws IOException {
         List<String> tokens = kakaoService.getToken(code);

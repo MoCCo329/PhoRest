@@ -108,7 +108,7 @@ export default function Community(props) {
         }
 
     }
-
+    console.log(detailPost.users)
     return (
         <Layout>
             <main>

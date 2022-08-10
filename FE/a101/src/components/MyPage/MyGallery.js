@@ -15,7 +15,7 @@ export default function MyGallery(props) {
   const userDetail = useSelector(state => state.userDetail)
   const currentUser = useSelector(state => state.currentUser)
   const [isMyMypage, setIsMyMypage] = useState(false)
-  console.log(bookmarked)
+
   useEffect(() => {
     if (props.category==='photogroup') {
       setType('photogroup')
@@ -97,6 +97,7 @@ export default function MyGallery(props) {
             <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
               <img className="post-image" src={ post.url } alt='post' />
               { post.isLike ? '좋아요함' : '좋아요안함' }
+              { !isMyMypage && post.isBookmark ? '북마크됨' : '북마크안됨' }
             </div>
           )) :
           (

@@ -170,3 +170,14 @@ export let detailComments = createSlice({
   }
 })
 export let { setDetailComment } = detailComments.actions
+
+export let likeRecent = createSlice({
+  name: 'likeRecent',
+  initialState: true,
+  reducers: {
+    setLikeRecent (state, action) {
+      return action.payload
+    }
+  }
+})
+export let { setLikeRecent } = likeRecent.actions

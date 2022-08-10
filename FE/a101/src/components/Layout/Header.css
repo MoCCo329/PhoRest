@@ -11,7 +11,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: "LeferiPoint-BlackA";
 }
 
 @media only screen and (max-width: 500px) {
@@ -22,6 +21,9 @@ header {
 
 .header-logo-box {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
 }
 
 .header-logo {
@@ -35,11 +37,27 @@ header {
     width: 4vh;
   }
 }
+.user-nickname {
+  line-height: 60%;
+  font-family: "LeferiPoint-BlackA";
+}
+
+.profile-info-box {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media only screen and (max-width: 500px) {
+  .profile-info-box {
+gap: 1px;
+  }
+}
 
 .header-state {
   margin-right: 3vw;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -53,18 +71,40 @@ header {
   padding-left: 15px;
   padding-right: 15px;
   line-height: 100%;
-  transition: 0.5s;
+  transition: 0.25s;
   color: #131312;
 }
 .login-btn:hover {
   font-weight: bold;
-  box-shadow: 0 1px 5px #ffc036;
-  /* background-color: #ffc036; */
+  background-color: #ffc036;
 }
-
 @media only screen and (max-width: 500px) {
   .login-btn {
     font-size: medium;
+  }
+}
+.logout-btn {
+  font-family: "Pretendard-Regular";
+  border: none;
+  background-color: #fff7e7;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  line-height: 100%;
+  transition: 0.25s;
+  color: #131312;
+}
+.logout-btn:hover {
+  font-weight: bold;
+  background-color: #ffc036;
+}
+@media only screen and (max-width: 500px) {
+  .logout-btn {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: small;
   }
 }
 
