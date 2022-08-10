@@ -12,14 +12,6 @@
     gap: 10px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 
 }
-.high{
-    background-color: blue;
-    display: grid;
-    width: 100%;
-    place-content: space-between center;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 
-}
 
 .month {
     /* font-weight: bolder; */
