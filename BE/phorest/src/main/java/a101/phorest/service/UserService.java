@@ -46,6 +46,7 @@ public class UserService {
     @Transactional
     public Long removeUser(String password, String username){
         User user = userRepository.findByUsername(username);
+        User admin = userRepository.findByUsername("unkn0wnuser");
         if(!passwordEncoder.matches(password, user.getPassword()))
             return 2L;
 
@@ -53,14 +54,14 @@ public class UserService {
         List<MyPage> mypages = myPageRepository.findAllByUserId(user.getUserId());
         //        1. 프레임이랑 코멘트 빼고 다 삭제하기
         for(int i=0;i<comments.size();i++){
-            comments.get(i).getUser().setUserId(null);
+            comments.get(i).setUser(admin);
             commentRepository.save(comments.get(i));
             em.flush();
         }
         // mypage에 frame 옮기기
         for(int i=0;i<mypages.size();i++){
             if(mypages.get(i).getCategory().equals("frame")){
-                mypages.get(i).getUser().setUserId(null);
+                mypages.get(i).setUser(admin);
                 myPageRepository.save(mypages.get(i));
                 em.flush();
             }
