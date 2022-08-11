@@ -108,7 +108,6 @@ export default function CommunityListPhoto() {
 
   return (
     <div className="community-list">
-
       <div className="community-list-header">
         <div className='sub-tab'>
           <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(true))} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
@@ -122,43 +121,43 @@ export default function CommunityListPhoto() {
         )}
         </div>        
       </div>
-        <div className='community-list-body'>
-          {
-            type ?
-            photoLike.map((post, idx) => (
-              <div className='photo-gallery' key={idx}>
-                <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-                <div className='photo-info-content'>
-                  <div className='like-cnt-content'>
-                    <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
-                    {post.likeCount}
-                  </div>
-                  <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+      <div className='community-list-body'>
+        {
+          type ?
+          photoLike.map((post, idx) => (
+            <div className='photo-gallery' key={idx}>
+              <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
+              <div className='photo-info-content'>
+                <div className='like-cnt-content'>
+                  <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                  {post.likeCount}
                 </div>
+                <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
               </div>
-            )) :
-            photoRecent.map((post, idx) => (
-              <div className='photo-gallery' key={idx}>
-                <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
-                <div className='photo-info-content'>
-                  <div className='like-cnt-content'>
-                    <img className='icon-img' src={ post.isLiked ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
-                    {post.likeCount}
-                  </div>
-                    <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>  
+            </div>
+          )) :
+          photoRecent.map((post, idx) => (
+            <div className='photo-gallery' key={idx}>
+              <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
+              <div className='photo-info-content'>
+                <div className='like-cnt-content'>
+                  <img className='icon-img' src={ post.isLiked ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                  {post.likeCount}
                 </div>
+                  <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>  
               </div>
-            ))
-          }
-        </div>
-        <div className='main-pagination'>
-           <Pagination
-            total={photoCnt}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-          />
-        </div>
+            </div>
+          ))
+        }
+      </div>
+      <div className='main-pagination'>
+          <Pagination
+          total={photoCnt}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
+      </div>
     </div>
   )
 }

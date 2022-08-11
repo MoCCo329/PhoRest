@@ -97,10 +97,14 @@
   align-items: center;
   margin: auto;
 }
-
+@media only screen and (max-width: 500px) {
+  .community-content {
+    width: 92vw;
+  }
+}
 .community-body-content img {
   /* max-height: 50vh; */
-  max-width: 40vw;
+  max-width: 100%;
 }
 h6 {
   font-family: "LeferiPoint-BlackA";
