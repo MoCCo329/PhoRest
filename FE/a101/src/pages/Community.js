@@ -17,6 +17,7 @@ import likeFilled from '../assets/UI/heart_filled.png'
 import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
+import 'boxicons'
 
 export default function Community(props) {
     const postId = (Number(atob(useParams().postId)) - 37) / 73
