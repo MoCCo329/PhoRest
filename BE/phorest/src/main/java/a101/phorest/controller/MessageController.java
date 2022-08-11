@@ -35,6 +35,7 @@ import java.util.Base64;
 import java.util.List;
 
 
+@RestController
 @Component
 @RequiredArgsConstructor
 public class MessageController {
@@ -42,39 +43,35 @@ public class MessageController {
     private final DefaultMessageService messageService;
     private final PostService postService;
     private final UserService userService;
-//
-//    private KakaoService kakaoService;
-//    private PhotoGroupService photoGroupService;
-//
-//    //https://data-make.tistory.com/699
-////    @Scheduled(cron = "0 9 0 * * *")
-//    public void sendMsg() throws Exception {
-//        //refresh token 받아서 accesstoken받기
-//        //메세지 보내기
-//        List<KakaoDTO> kakaoDTOList = new ArrayList<>();
-//        List<PostDTO> postDTOS = postService.findMessagePosts();
-//
-//        for(PostDTO postDTO : postDTOS){
-//            long postId = postDTO.getId() * 73 + 37;
-//            String encodedPostId = Base64.getEncoder().encodeToString(Long.toString(postId).getBytes());
-//            for(UserDTO userDTO : postDTO.getUsers()){
-//                if(userDTO.isKakao()){
-//                    String refresh_token = userDTO.getRefresh_token();
-//                    String accessToken = kakaoService.getAccessToken(refresh_token);
-//                    String path = photoGroupService.findOne(postDTO.getPhotogroupId()).getPhotoGroupPath();
-//
-//                    KakaoDTO kakaoDTO = new KakaoDTO();
-//                    kakaoDTO.setPath(path);
-//                    kakaoDTO.setAccessToken(accessToken);
-//                    kakaoDTO.setEncodedPostId(encodedPostId);
+
+    private final KakaoService kakaoService;
+    private final PhotoGroupService photoGroupService;
+
+    @Scheduled(cron = "0 0 9 * * *")
+    public void sendMsg() throws Exception {
+        List<PostDTO> postDTOS = postService.findMessagePosts();
+
+        for(PostDTO postDTO : postDTOS){
+            long postId = postDTO.getId() * 73 + 37;
+            String encodedPostId = Base64.getEncoder().encodeToString(Long.toString(postId).getBytes());
+            for(UserDTO userDTO : postDTO.getUsers()){
+                if(userDTO.isKakao()){
+                    String refresh_token = userDTO.getRefresh_token();
+                    String accessToken = kakaoService.getAccessToken(refresh_token);
+//                    String accessToken = userDTO.getAccess_token();
+                    String path = photoGroupService.findOne(postDTO.getPhotogroupId()).getPhotoGroupPath();
+
+                    KakaoDTO kakaoDTO = new KakaoDTO();
+                    kakaoDTO.setPath(path);
+                    kakaoDTO.setAccessToken(accessToken);
+                    kakaoDTO.setEncodedPostId(encodedPostId);
+                    kakaoService.sendMessage(kakaoDTO);
 //                    kakaoDTOList.add(kakaoDTO);
-//                }
-////            }
-////            try{
-////
-////            }
-//        }
-//    }
+                }
+            }
+
+        }
+    }
 
     //@Scheduled(cron = "0 0 9 * * ?")
     public void sendMessages() throws MalformedURLException, IOException {

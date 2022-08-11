@@ -5,6 +5,11 @@ import a101.phorest.domain.User;
 import a101.phorest.dto.KakaoDTO;
 import a101.phorest.dto.UserDTO;
 import a101.phorest.repository.UserRepository;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -56,34 +61,24 @@ public class KakaoService {
 
     public String sendMessage(KakaoDTO kakaoDTO) throws IOException{
         String host="https://kapi.kakao.com/v2/api/talk/memo/default/send";
+        HttpClient httpClient = HttpClientBuilder.create().build();
         try{
-            URL url = new URL(host);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Authorization", "Bearer "+kakaoDTO.getAccessToken());
-            urlConnection.setRequestMethod("POST");
-            urlConnection.setDoOutput(true);
+            HttpPost request = new HttpPost(host);
 
-            JSONArray content = new JSONArray();
-            content.add("'title' : '일주일전에 찍은 PhoR");
+            String path = kakaoDTO.getPath();
+            String access = kakaoDTO.getAccessToken();
+            String id = kakaoDTO.getEncodedPostId();
 
-            JSONArray template = new JSONArray();
-            template.add("'object_type' : 'feed'");
-            template.add("'content' : 'feed'");
+            StringEntity params = new StringEntity(
+                    "template_object={\"object_type\": \"feed\",\"content\":{\"title\": \"일주일전에 찍은 PhoRest 을 확인해보세요!\",\"image_url\": \""+path+"\",\"link\":{ \"mobile_web_url\": \""+id+"\" }}}"
+            ,"UTF-8");
 
-            Map<String,Object> params = new LinkedHashMap<>();
-//            params.put("template_object",)
-
-//            String text = '{
-//            "object_type" : "text",
-//                    "text" : "이거 정말 더럽게 어렵다!!",
-//                    "link" : {
-//                "web_url" : "https://mrkevinna.github.io",
-//                        "mobile_web_url" : "https://mrkevinna.github.io"
-//            },
-//            "button_title" : "Check it out!"
-//        }'
-
-        } catch (IOException e) {
+            request.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            request.addHeader("Authorization", "Bearer "+access);
+            request.setEntity(params);
+            HttpResponse response = httpClient.execute(request);
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return "hi";

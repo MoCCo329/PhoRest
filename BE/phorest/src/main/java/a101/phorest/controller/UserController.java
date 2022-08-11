@@ -1,4 +1,5 @@
 package a101.phorest.controller;
+import a101.phorest.domain.User;
 import a101.phorest.dto.*;
 import a101.phorest.jwt.TokenProvider;
 import a101.phorest.service.FollowService;
@@ -113,4 +114,14 @@ public class UserController {
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return userService.removeUser(password.get("password"), username);
     }
+
+//      TEST
+//    @PostMapping("user/send")
+//    public String send() throws IOException {
+//        KakaoDTO kakaoDTO = new KakaoDTO();
+//        kakaoDTO.setPath("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png");
+//        kakaoDTO.setAccessToken("Udb3BV-nvl0wtpgUpuIPa_ozxI3UxaISCgUXbSCkCilwFAAAAYKLs_dL");
+//        kakaoDTO.setEncodedPostId("MTEw");
+//        return kakaoService.sendMessage(kakaoDTO);
+//    }
 }
