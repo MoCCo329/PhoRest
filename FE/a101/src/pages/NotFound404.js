@@ -8,11 +8,10 @@ export default function NotFound404() {
     const location = useLocation()
     
     useEffect(() => {
-        console.log(location)
         if (location.pathname==='/login') {
-            return navigate(-1)
+            return navigate(-2)
         }
-    }, [])
+    }, [location])
 
     return (
         <Layout>

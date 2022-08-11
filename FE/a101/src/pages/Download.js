@@ -75,6 +75,7 @@ export default function Main() {
     return (
         <Layout>
             <main>
+                <p>로그인시 찍은 사진들을 관리하실 수 있습니다.</p>
                 <div className="download-img">
                     <img src={content.url} alt={content.content} /><br />
                 </div>
