@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
 
 import user from '../api/user'
-import { currentUser, setCurrentUser } from '../store/modules/user'
-import { current } from '@reduxjs/toolkit'
+import { setCurrentUser } from '../store/modules/user'
 
 export default function ProfileDelete () {
   let dispatch = useDispatch()
@@ -16,6 +15,7 @@ export default function ProfileDelete () {
   const [passwordValidity, setPasswordValidity] = useState('')
   const [passwordMatch, setPasswordMatch] = useState('')
   const [authError, setAuthError] = useState('')
+  const currentUser = useSelector(state => state.currentUser)
 
   useEffect(() => {
     if (currentUser.kakao) {
