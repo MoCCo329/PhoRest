@@ -18,6 +18,7 @@ import likeFilled from '../assets/UI/heart_filled.png'
 import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
+import defaultProfile from '../assets/defaultProfile.png'
 
 export default function Community(props) {
     const postId = (Number(atob(useParams().postId)) - 37) / 73
@@ -120,59 +121,66 @@ export default function Community(props) {
     return (
         <Layout>
             <main>
-                <div className="community-header">
-                    { detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판
-                    { detailPost.category==='photogroup' ? <div className='human-count'>{detailPost.humanCount}명</div> : null }
-                    { detailPost.frameId ? <div className='frame-id'>프레임 ID : {detailPost.frameId}</div> : null }
-                </div>
-                <hr />
-                <h3>Content</h3>
-                <div className="community-body">
-                    <div className="community-body-meta">
-                        <div className='community-body-profiles'>
-                        {
-                            detailPost.users ?
-                            detailPost.users.map((user) => 
-                                <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
-                            ) : <div>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
-                        }
-                        </div>
-                        <div className='community-share'>
+                <div className='community-content'>
+                    <div className="community-header">
+                        <h5>{ detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판</h5>
+                        { detailPost.category==='photogroup' ? <div className='post-division'>{detailPost.humanCount}명</div> : null }
+                        { detailPost.frameId ? <div className='post-division'>프레임 ID {detailPost.frameId}</div> : null }
+                    </div>
+                    <div className="community-body">
+                        <div className="community-body-meta">
+                            <div className='community-body-profiles'>
                             {
-                                isWriter && detailPost.category!=='frame' ?
-                                <SharePost isSharing={isSharing} postId={detailPost.id} ></SharePost> : null
+                                detailPost.users ?
+                                detailPost.users.map((user) => 
+                                <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
+                                // <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
+                                ) : <div>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
                             }
+                            </div>
+                            <div className='user-post-edit'>
+                                <div className='community-share'>
+                                    {
+                                        isWriter && detailPost.category!=='frame' ?
+                                        <SharePost isSharing={isSharing} postId={detailPost.id} ></SharePost> : null
+                                    }
+                                </div>
+                                <div>
+                                    {
+                                        isWriter && detailPost.category==='frame' ?
+                                        <div className='community-frame-edit' onClick={() => navigate(`/community/edit/${btoa((postId) * 73 + 37)}`)}>프레임 편집하기</div> : null
+                                    }
+                                </div>
+                                <div>
+                                    {
+                                        isWriter ?
+                                        <div className='community-delete' onClick={() => deletePost()}>삭제하기</div> : null
+                                    }
+                                </div>
+                            </div>
                         </div>
-                        <div className='community-delete'>
-                            {
-                                isWriter ?
-                                <div onClick={() => deletePost()}>내 게시글에서 삭제하기</div> : null
-                            }
+                        
+                        <div className="community-body-content">
+                            <div>
+                                <img src={detailPost.url} alt={detailPost.content} />
+                            </div>
+                            <div className='community-body-icons'>
+                                <img className='icon-img' src={detailPost.isLike ? likeFilled : likeEmpty } alt='like' name='like' onClick={() => likePost(postId)}></img>
+                                {detailPost.likeCount}
+                                <img className='icon-img' src={detailPost.isBookmark ? bookmarkFilled : bookmarkEmpty} alt='bookmark' name='bookmark-alt' onClick={() => bookmarkPost(postId)}></img>
+                                
+                            </div>
+                            <div>
+                                { detailPost.category === "frame" ? detailPost.content : null }
+                            </div>
                         </div>
-                        <div className='community-body-icons'>
-                            <img className='icon-img' src={detailPost.isLike ? likeFilled : likeEmpty } alt='like' name='like' onClick={() => likePost(postId)}></img>
-                            {detailPost.likeCount}
-                            <img className='icon-img' src={detailPost.isBookmark ? bookmarkFilled : bookmarkEmpty} alt='bookmark' name='bookmark-alt' onClick={() => bookmarkPost(postId)}></img>
+                        
+                        <div className="community-comment">
+                            <h6>댓글</h6>
                             <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
+                            <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                         </div>
-                        {
-                            isWriter && detailPost.category==='frame' ?
-                            <div onClick={() => navigate(`/community/edit/${btoa((postId) * 73 + 37)}`)}>프레임 편집하기</div> : null
-                        }
-                    </div>
-                    <div className="community-body-content">
-                        <div>
-                            <img src={detailPost.url} alt={detailPost.content} />
-                        </div>
-                        <div>
-                            { detailPost.category === "frame" ? detailPost.content : null }
-                        </div>
-                    </div>
                 </div>
-                <hr />
-                <div className="community-comment">
-                    <h3>Comments</h3>
-                    <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                 </div>
             </main>
         </Layout>

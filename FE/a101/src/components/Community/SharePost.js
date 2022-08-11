@@ -1,3 +1,5 @@
+import './SharePost.css'
+
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -36,7 +38,7 @@ export default function Comments(props) {
   }
 
   return (
-      <div>
+      <div className='share-post-edit'>
         <div style={{backgroundColor: isSharing ? '#ffc036' : ''}} onClick={() => clickSharing(1)}>공유</div>
         <div style={{backgroundColor: !isSharing ? '#ffc036' : ''}} onClick={() => clickSharing(2)}>비공유</div>          
       </div>
