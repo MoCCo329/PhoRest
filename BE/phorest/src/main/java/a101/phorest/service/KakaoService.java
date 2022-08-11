@@ -6,6 +6,7 @@ import a101.phorest.dto.UserDTO;
 import a101.phorest.repository.UserRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import springfox.documentation.spring.web.json.Json;
 
@@ -28,24 +29,54 @@ public class KakaoService {
 
     private final String redirect_uri = "https://phorest.site/kakao";
 
-//    public String getTokenFromRefreshToken(String refresh_token) throws IOException{
-//        String host = "https://kauth.kakao.com/oauth/token";
-//
-//        try{
-//            URL url = new URL(host);
-//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//            urlConnection.setRequestMethod("POST");
-//            urlConnection.setDoOutput(true);
-//
-//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("grant_type=authorization_code");
-//            sb.append("&client_id=4656da19556d6f608f3a297dd7c7b994");
-//            sb.append("&refresh_token=" + refresh_token);
-//
-//
-//        }
-//    }
+    public String getAccessToken(String refresh_token) throws IOException{
+        String host = "https://kauth.kakao.com/oauth/token";
+        String access_token = null;
+
+        try{
+            URL url = new URL(host);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=refresh_token");
+            sb.append("&client_id=4656da19556d6f608f3a297dd7c7b994");
+            sb.append("&refresh_token=" + refresh_token);
+
+            bw.write(sb.toString());
+            bw.flush();
+
+            int responseCode = urlConnection.getResponseCode();
+            System.out.println("responseCode = " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line = "";
+            String result = "";
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("result = " + result);
+
+            // json parsing
+            JSONParser parser = new JSONParser();
+            JSONObject elem = (JSONObject) parser.parse(result);
+
+            access_token = elem.get("access_token").toString();
+            System.out.println("access_token = " + access_token);
+
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return access_token;
+    }
 
     public List<String> getToken(String code) throws IOException {
         //인가코드로 토큰 받기
