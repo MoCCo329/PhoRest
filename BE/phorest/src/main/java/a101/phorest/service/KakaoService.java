@@ -25,13 +25,12 @@ public class KakaoService {
 
     private final String redirect_uri = "https://phorest.site/kakao";
 
-    public void unlinkKakao(String refresh_token) throws IOException{
+    public void unlinkKakao(String access) throws IOException{
         String host = "https://kapi.kakao.com/v1/user/unlink";
-        String access_token = getAccessToken(refresh_token);
         try{
             URL url = new URL(host);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("Authorization", "Bearer "+access_token);
+            urlConnection.setRequestProperty("Authorization", "Bearer "+access);
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
 
