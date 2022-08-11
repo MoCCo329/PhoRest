@@ -82,7 +82,7 @@ public class PostService {
 
     public List<PostDTO> findMessagePosts(){
 
-        List<Post> posts = postRepository.findMessagePost(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+        List<Post> posts = postRepository.findMessagePost(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "photogroup");
         List<PostDTO> postDTOS = new ArrayList<>();
         for(Post post : posts){
             List<User> users = userRepository.findByPostId(post.getId());
