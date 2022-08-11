@@ -78,6 +78,12 @@ const community = {
       data: data
     })
   },
+  photoCount (humanCount) {
+    return api({
+      method: 'post',
+      url: `${END_POINT}/photogroup/count?humanCount=${humanCount}`,
+    })
+  },
   frameLike (data) {
     return api({
       method: 'post',
@@ -90,6 +96,12 @@ const community = {
       method: 'post',
       url: `${END_POINT}/frame/recent/`,
       data: data
+    })
+  },
+  frameCount () {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/frame/count/`,
     })
   }
 }

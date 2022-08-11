@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 // functions
-import { setFrameLike, addFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecent, setLikeRecent } from '../../store/modules/community'
+import { setFrameLike, addFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecent, setLikeRecent, setFrameCnt } from '../../store/modules/community'
 import community from '../../api/community'
+
+import Pagination from './Pagination'
 
 // icons
 import add from '../../assets/UI/add.png'
@@ -25,41 +27,56 @@ export default function CommunityListFrame() {
   const frameLike = useSelector(state => state.frameLike)
   const frameRecent = useSelector(state => state.frameRecent)
   const currentUser = useSelector(state => state.currentUser)
+  const frameCnt = useSelector(state => state.frameCnt)
 
-  const [offset, setOffset] = useState(0)
-  const postTotal = 100
-  const pagesNum = parseInt(postTotal / 12) 
-  let pages = Array.from({length: pagesNum}, (v, i) => i+1)
-
+  const limit = 6
+  const [page, setPage] = useState(0)
 
   useEffect(() => {
-    community.frameLike({limit: 5, offset: 0})
+    community.frameLike({limit: limit, offset: page * limit})
     .then(result => {
       dispatch(setFrameLike(result.data))
     })
-    community.frameRecent({limit: 5, offset: 0})
+    community.frameRecent({limit: limit, offset: page * limit})
     .then(result => {
       dispatch(setFrameRecent(result.data))
     })
+    community.frameCount().then(result => {
+      dispatch(setFrameCnt(result.data))
+    })
+    .catch((error) => {
+      console.error(error)
+    })
   }, [])
-
+  
   useEffect(() => {
     if (type) {
-      community.frameLike({limit: 5, offset: 0})
+      community.frameLike({limit: limit, offset: page * limit})
       .then(result => {
         dispatch(setFrameLike(result.data))
       })
     } else {
-      community.frameRecent({limit: 5, offset: 0})
+      community.frameRecent({limit: limit, offset: page * limit})
       .then(result => {
         dispatch(setFrameRecent(result.data))
       })
     }
   }, [type])
+  
+  useEffect(() => {
+    community.frameLike({limit: limit, offset: page * limit})
+    .then(result => {
+      dispatch(setFrameLike(result.data))
+    })
+    community.frameRecent({limit: limit, offset: page * limit})
+    .then(result => {
+      dispatch(setFrameRecent(result.data))
+    })
+  }, [page])
 
   // infinite scroll
   // useEffect(() => {
-  //   document.addEventListener('scroll', function (event) {
+    //   document.addEventListener('scroll', function (event) {
   //     const { scrollTop, clientHeight, scrollHeight } = document.documentElement
   //     if (scrollTop + clientHeight >= scrollHeight - 10) {
   //       if (!likeFilteredEnd && type) {
@@ -127,7 +144,6 @@ export default function CommunityListFrame() {
     return navigate('/community/edit/LTM2')
   }
 
-  console.log(offset)
   return (
     <div className="community-list">
 
@@ -175,9 +191,12 @@ export default function CommunityListFrame() {
           }
         </div>
         <div className='main-pagination'>
-          {pages.map((num, idx) => (
-            <div key={idx} onClick={() => setOffset(idx)}>{num}</div>
-          ))}
+           <Pagination
+            total={frameCnt}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
         </div>
     </div>
   )
