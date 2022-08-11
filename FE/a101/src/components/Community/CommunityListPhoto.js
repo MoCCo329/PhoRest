@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 // functions
-import { setPhotoLike, addPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt } from '../../store/modules/community'
+import { setPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt } from '../../store/modules/community'
 import community from '../../api/community'
 
 import Pagination from './Pagination'
@@ -16,6 +16,7 @@ import likeFilled from '../../assets/UI/heart_filled.png'
 import likeEmpty from '../../assets/UI/heart_empty.png'
 import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
+
 
 export default function CommunityListPhoto() {
   const dispatch = useDispatch()
@@ -71,34 +72,6 @@ export default function CommunityListPhoto() {
       dispatch(setPhotoRecent(result.data))
     })
   }, [page])
-
-  // infinite scroll
-  // useEffect(() => {
-  //   document.addEventListener('scroll', function (event) {
-  //     const { scrollTop, clientHeight, scrollHeight } = document.documentElement
-  //     if (scrollTop + clientHeight >= scrollHeight - 10) {
-  //       if (!likeFilteredEnd && type) {
-  //         community.photoLike({limit: 5, offset: likeFiltered.length, humanCount: humanCount})
-  //         .then(result => {
-  //           if (!!result.data) {
-  //             dispatch(addPhotoLike([...new Set([...likeFiltered, ...result.data])]))
-  //           } else {
-  //             setLikeFilteredEnd(true)
-  //           }
-  //         })
-  //       } else if (!recentFilteredEnd && !type) {
-  //         community.photoRecent({limit: 5, offset: recentFiltered.length, humanCount: humanCount})
-  //         .then(result => {
-  //           if (!!result.data) {
-  //             dispatch(addPhotoRecent(result.data))
-  //           } else {
-  //             setRecentFilteredEnd(true)
-  //           }
-  //         })
-  //       }
-  //     }
-  //   })
-  // })
 
   const likePost = (postId) => {
     if (!currentUser.username) {
