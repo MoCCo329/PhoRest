@@ -1,5 +1,6 @@
 .each-comment {
   display: flex;
+  width: 100%;
   margin-bottom: 2vh;
   align-items: flex-start;
 }
@@ -29,7 +30,6 @@
 
 .comments {
   margin-top: 1em;
-  width: 39vw;
 }
 .comment-new button {
     font-family: "Pretendard-Regular";

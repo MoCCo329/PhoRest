@@ -38,7 +38,7 @@ const Nav = styled.nav`
 
 const Button = styled.button`
   border: none;
-  border-radius: 12px;
+  border-radius: 50px;
   height: 2em;
   width: 2em;
   margin: 0;
@@ -53,13 +53,14 @@ const Button = styled.button`
   }
 
   &[disabled] {
-    background: #bebebe;
+    background: transparent;
     cursor: revert;
     transform: revert;
+    color: #c8c8c8;
   }
 
   &[aria-current] {
-    background: #ffc036;
+    background: #ffd89e;
     cursor: revert;
     transform: revert;
   }
