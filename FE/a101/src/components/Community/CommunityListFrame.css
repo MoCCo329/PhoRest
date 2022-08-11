@@ -30,9 +30,7 @@ h5 {
   border: none;
   background-color: #fff7e7;
   border-radius: 50px;
-  padding: 5px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding: 5px, 15px;
   margin: 5px;
   z-index: 10;
   line-height: 140%;
@@ -55,7 +53,7 @@ h5 {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
   margin: 10px;
-  padding: 10px 15px 10px 15px;
+  padding: 10px 15px;
 }
 .create-frame-btn:hover {
   background-color: #ffd89e;
