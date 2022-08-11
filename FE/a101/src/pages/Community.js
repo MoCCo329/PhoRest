@@ -13,6 +13,12 @@ import 'boxicons'
 import { setDetailPost, setDetailComment } from '../store/modules/community'
 import community from './../api/community'
 
+// icons
+import likeFilled from '../assets/UI/heart_filled.png'
+import likeEmpty from '../assets/UI/heart_empty.png'
+import bookmarkFilled from '../assets/UI/bookmark_filled.png'
+import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
+
 export default function Community(props) {
     const postId = (Number(atob(useParams().postId)) - 37) / 73
     const navigate = useNavigate()
@@ -144,9 +150,9 @@ export default function Community(props) {
                             }
                         </div>
                         <div className='community-body-icons'>
-                            <box-icon type={detailPost.isLike ? 'solid' : 'regular' } name='like' onClick={() => likePost(postId)}></box-icon>
+                            <img className='icon-img' src={detailPost.isLike ? likeFilled : likeEmpty } alt='like' name='like' onClick={() => likePost(postId)}></img>
                             {detailPost.likeCount}
-                            <box-icon type={detailPost.isBookmark ? 'solid' : 'regular'} name='bookmark-alt' onClick={() => bookmarkPost(postId)}></box-icon>
+                            <img className='icon-img' src={detailPost.isBookmark ? bookmarkFilled : bookmarkEmpty} alt='bookmark' name='bookmark-alt' onClick={() => bookmarkPost(postId)}></img>
                             <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
                         </div>
                         {
