@@ -34,6 +34,18 @@ public class KakaoService {
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoOutput(true);
 
+            int responseCode = urlConnection.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            String result = "";
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
             bw.flush();
             bw.close();

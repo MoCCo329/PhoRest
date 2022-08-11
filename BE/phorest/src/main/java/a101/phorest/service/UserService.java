@@ -55,6 +55,7 @@ public class UserService {
                 String access = kakaoService.getAccessToken(user.getRefresh_token());
                 user.setAccess_token(access);
                 kakaoService.unlinkKakao(access);
+                kakaoService.unlinkKakao(user.getAccess_token());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
