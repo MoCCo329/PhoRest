@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.Null;
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -37,16 +38,27 @@ public class UserService {
     private final BookmarkRepository bookmarkRepository;
     private final FollowRepository followRepository;
     private final CommentRepository commentRepository;
+    private final KakaoService kakaoService;
 
     private final EntityManager em;
 
     @Transactional
-    public Long removeUser(String password, String username){
+    public Long removeUser(String password, String username) {
         User user = userRepository.findByUsername(username);
         User admin = userRepository.findByUsername("unkn0wnuser");
 
         if( !user.isKakao() && !passwordEncoder.matches(password, user.getPassword()))
             return 2L;
+
+        if(user.isKakao()){
+            try {
+                String access = kakaoService.getAccessToken(user.getRefresh_token());
+                user.setAccess_token(access);
+                kakaoService.unlinkKakao(access);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         List<Comment> comments = user.getComments();
         List<MyPage> mypages = myPageRepository.findAllByUserId(user.getUserId());

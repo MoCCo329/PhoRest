@@ -2,32 +2,81 @@ package a101.phorest.service;
 
 import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
+import a101.phorest.dto.KakaoDTO;
 import a101.phorest.dto.UserDTO;
 import a101.phorest.repository.UserRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 import springfox.documentation.spring.web.json.Json;
 
+import javax.swing.text.AbstractDocument;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class KakaoService {
 
-//    private final UserRepository userRepository;
-
-    //private final String redirect_uri = "http://localhost:8399/api/user/kakao";
-
     private final String redirect_uri = "https://phorest.site/kakao";
+
+    public void unlinkKakao(String refresh_token) throws IOException{
+        String host = "https://kapi.kakao.com/v1/user/unlink";
+        String access_token = getAccessToken(refresh_token);
+        try{
+            URL url = new URL(host);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Authorization", "Bearer "+access_token);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String sendMessage(KakaoDTO kakaoDTO) throws IOException{
+        String host="https://kapi.kakao.com/v2/api/talk/memo/default/send";
+        try{
+            URL url = new URL(host);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Authorization", "Bearer "+kakaoDTO.getAccessToken());
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true);
+
+            JSONArray content = new JSONArray();
+            content.add("'title' : '일주일전에 찍은 PhoR");
+
+            JSONArray template = new JSONArray();
+            template.add("'object_type' : 'feed'");
+            template.add("'content' : 'feed'");
+
+            Map<String,Object> params = new LinkedHashMap<>();
+//            params.put("template_object",)
+
+//            String text = '{
+//            "object_type" : "text",
+//                    "text" : "이거 정말 더럽게 어렵다!!",
+//                    "link" : {
+//                "web_url" : "https://mrkevinna.github.io",
+//                        "mobile_web_url" : "https://mrkevinna.github.io"
+//            },
+//            "button_title" : "Check it out!"
+//        }'
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "hi";
+    }
 
     public String getAccessToken(String refresh_token) throws IOException{
         String host = "https://kauth.kakao.com/oauth/token";
