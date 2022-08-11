@@ -75,7 +75,8 @@ const user = {
   kakaoSignup(code) {
     return api({
       method: 'get',
-      url: `${END_POINT}/kakao?code=${code}`,
+      url: `${END_POINT}/kakao`,
+      params: { code }
     })
   },
 

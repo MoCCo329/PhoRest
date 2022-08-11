@@ -1,20 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
 
 import user from '../api/user'
-import { setCurrentUser } from '../store/modules/user'
+import { currentUser, setCurrentUser } from '../store/modules/user'
+import { current } from '@reduxjs/toolkit'
 
 export default function ProfileDelete () {
   let dispatch = useDispatch()
   let navigate = useNavigate()
 
+  const [isKakao, setIsKakao] = useState(false)
   const [passwordValidity, setPasswordValidity] = useState('')
   const [passwordMatch, setPasswordMatch] = useState('')
   const [authError, setAuthError] = useState('')
 
+  useEffect(() => {
+    if (currentUser.kakao) {
+      setIsKakao(true)
+    }
+  }, [currentUser])
+  
   const passwordFilter = (e) => {
     const { value } = e.target
     const filtered = value.replace(/[^0-9a-zA-Z~!@#$%^&*()=|+]/g, '')
@@ -42,12 +50,15 @@ export default function ProfileDelete () {
     event.preventDefault()
     setAuthError('')
 
-    if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
+    if (!isKakao && (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다')) {
       return alert('비밀번호를 정확히 입력해 주세요')
     }
 
-    let credentials = {
-      password : document.querySelector('#password').value
+    let credentials = {}
+    if (!isKakao) {
+      credentials = {
+        password : document.querySelector('#password').value
+      }
     }
 
     if (!window.confirm('정말 회원을 탈퇴하시겠습니까?')) {return}
@@ -83,11 +94,15 @@ export default function ProfileDelete () {
     <Layout>
       <main>
         <form name="profileDelete" onSubmit={onSubmit} >
-          <label htmlFor="password">Password : </label>
-          <input name="Password" onChange={(e) => {passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="Password" /> {passwordValidity}<br/>
-          <label htmlFor="password2">Password Again : </label>
-          <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="Password Again" /> {passwordMatch}<br/>
-
+          {
+            !isKakao &&
+            <div>
+              <label htmlFor="password">Password : </label>
+              <input name="Password" onChange={(e) => {passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="Password" /> {passwordValidity}<br/>
+              <label htmlFor="password2">Password Again : </label>
+              <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="Password Again" /> {passwordMatch}<br/>
+            </div>
+          }
           <button type="submit">회원 탈퇴</button>
           { authError ? <p>{ authError }</p> : '' }
         </form>
