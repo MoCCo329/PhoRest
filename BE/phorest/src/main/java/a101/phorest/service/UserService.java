@@ -44,7 +44,8 @@ public class UserService {
     public Long removeUser(String password, String username){
         User user = userRepository.findByUsername(username);
         User admin = userRepository.findByUsername("unkn0wnuser");
-        if(!passwordEncoder.matches(password, user.getPassword()))
+
+        if( !user.isKakao() && !passwordEncoder.matches(password, user.getPassword()))
             return 2L;
 
         List<Comment> comments = user.getComments();
