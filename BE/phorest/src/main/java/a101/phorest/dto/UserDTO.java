@@ -65,7 +65,6 @@ public class UserDTO {
 
    private boolean isKakao;
 
-   private boolean isMessageSent;
    //private String token;
 
 //   private Set<a101.phorest.dto.AuthorityDto> authorityDtoSet;
@@ -91,7 +90,6 @@ public class UserDTO {
               .introduce(user.getIntroduce())
               .isActivated(true)
               .isKakao(user.isKakao())
-              .isMessageSent(false)
               .build();
 
       return userDto;
