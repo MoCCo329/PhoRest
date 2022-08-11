@@ -1,7 +1,7 @@
 import './Main.css'
 
 import { useMemo, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import CommunityListPhoto from '../components/Community/CommunityListPhoto'
@@ -16,7 +16,7 @@ export default function Main(props) {
     const dispatch = useDispatch()
 
     const [typeMain, setTypeMain] = useState(true)  // true면 photo, false면 frame
-    
+
     useEffect(() => {
         if (props.category) {
             if (props.category==='frame') {
@@ -30,14 +30,14 @@ export default function Main(props) {
         }
     }, [props.category])
 
-    
     return (
         <Layout>
             <main>
                 <div className="main-community">
+                    <h3>{typeMain ? '포즈' : '프레임'} 게시판</h3>
                     <div className='gallery-tab'>
-                        <div className='gallery-tab-btn' onClick={() => navigate("/photogroup")} style={{backgroundColor: typeMain ? '#f5737f' : ''}}>포즈</div>
-                        <div className='gallery-tab-btn' onClick={() => navigate("/frame")} style={{backgroundColor: !typeMain ? '#f5737f' : ''}}>프레임</div>
+                        <div className='gallery-tab-btn' onClick={() => navigate('/photogroup')} style={{backgroundColor: typeMain ? '#f5737f' : ''}}>포즈</div>
+                        <div className='gallery-tab-btn' onClick={() => navigate('/frame')} style={{backgroundColor: !typeMain ? '#f5737f' : ''}}>프레임</div>
                     </div>
                         {
                             typeMain ?

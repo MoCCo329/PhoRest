@@ -117,7 +117,12 @@ h5 {
   -webkit-animation: flash 1.5s;
   animation: flash 1.5s;
 }
-
+h3 {
+  font-family: "LeferiPoint-BlackA";
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 5px;
+}
 @font-face {
   font-family: "LeferiPoint-BlackA";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")

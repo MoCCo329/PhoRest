@@ -83,9 +83,6 @@ public class MessageController {
             for(UserDTO userDTO : postDTO.getUsers()){
                 if(userDTO.getPhone() == null)
                     continue;
-                if(userDTO.isMessageSent())
-                    return;
-                userService.setMessageSent(userDTO.getUsername());
 //                File f = new File(System.getProperty("user.dir") + "/imagefiles/tempfiles/" + userDTO.getPhone());
 //                FileUtils.copyURLToFile(new URL(postDTO.getUrl()), f);
 //                String imageId = this.messageService.uploadFile(f, StorageType.MMS, null);

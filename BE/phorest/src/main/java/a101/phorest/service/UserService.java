@@ -139,7 +139,6 @@ public class UserService {
                 .isKakao(false)
                 .role(Role.USER) // user로 가입
                 .activated(true)
-                .isMessageSent(false)
                 .build();
 
         return UserDTO.from(userRepository.save(user));
@@ -268,11 +267,6 @@ public class UserService {
     }
 
 
-    @Transactional
-    public void setMessageSent(String username){
-        User user = userRepository.findByUsername(username);
-        user.setMessageSent(true);
-    }
 
 
 }
