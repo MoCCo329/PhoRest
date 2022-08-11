@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 @Transactional(readOnly = true) // 기본은 false
@@ -36,6 +38,9 @@ public class PostService {
     private final FrameRepository frameRepository;
 
     private final S3Uploader s3Uploader;
+    private final PhotoGroupRepository photoGroupRepository;
+
+    private final EntityManager em;
 
     @Transactional
     public Long join(Images images, String category, String content){
@@ -169,15 +174,34 @@ public class PostService {
         Optional<Post> post = postRepository.findById(postId);
         if(post.isEmpty())
             return 2L;
-        Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
-        if(myPage.isEmpty())
+
+        List<MyPage> myPages = new ArrayList<>();
+        if(userRepository.findByUsername(username).getRole() == Role.ADMIN){
+           myPages = myPageRepository.findAllByPostId(postId);
+        }else{
+            Optional <MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
+            if(myPage.isEmpty())
+                return 3L;
+        }
+        if(myPages.isEmpty())
             return 3L;
+
         if(post.get().getCategory().equals("photogroup")){
-            post.get().getMypages().removeIf(myPage1 -> myPage1.getId().equals(myPage.get().getId()));
-            myPageRepository.deleteById(myPage.get().getId());
-            List<MyPage> myPages = myPageRepository.findByPostIdShared(postId);
-            if(myPages.size() == 0)
+//            post.get().getMypages().removeIf(myPage1 -> myPage1.getId().equals(myPage.get().getId()));
+
+            if(userRepository.findByUsername(username).getRole() == Role.ADMIN) {
+                myPageRepository.deleteByPostId(post.get().getId());
+            }else{
+                myPageRepository.deleteByPostIdAndUsername(post.get().getId(),username);
+            }
+
+            List<MyPage> mp = myPageRepository.findByPostIdShared(postId);
+            if(mp.size() == 0) // shared 된 사람이 없으면 false
                 post.get().setShared(false);
+            if(userRepository.findByUsername(username).getRole() == Role.ADMIN){
+                photoGroupRepository.deleteAllById(post.get().getPhotoGroup().getId());
+                postRepository.deleteById(post.get().getId());
+            }
         }
         else if(post.get().getCategory().equals("frame")){
             Frame frame = post.get().getFrame();

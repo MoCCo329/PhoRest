@@ -70,7 +70,7 @@ public class UserService {
         followRepository.deleteAllByFollowerUserId(user.getUserId());
         followRepository.deleteAllByFollowingUserId(user.getUserId());
 
-        //        2. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제), like 취소, bookmark 취소, following follow 취소, isactive false 로 만들기
+        // 2. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제), like 취소, bookmark 취소, following follow 취소, isactive false 로 만들기
 
         for(int i=0;i<mypages.size();i++){
             if(mypages.get(i).getCategory().equals( "photogroup")){

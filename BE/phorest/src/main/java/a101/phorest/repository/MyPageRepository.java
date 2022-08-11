@@ -23,6 +23,13 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
             "and r.username = :username")
     Optional<MyPage> findByPostIdAndUsername(@Param("postId") Long postId, @Param("username") String username);
 
+
+    @Query(nativeQuery = true, value ="select distinct * " +
+            "from my_page pl join user r on pl.user_id = r.user_id " +
+            "where pl.post_id = :postId " +
+            "and r.username = :username")
+    List<MyPage> findAllByPostIdAndUsername(@Param("postId") Long postId, @Param("username") String username);
+
     @Query(nativeQuery = true, value = "select distinct * " +
             "from my_page mp " +
             "where mp.post_id = :postId and mp.is_shared = true ")
@@ -39,5 +46,16 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
     void deleteByPostId(@Param("postId") Long postId);
 
 
+    @Query(nativeQuery = true, value = "select * from my_page where post_id = :postId")
+    List<MyPage> findAllByPostId(@Param("postId") Long postId);
 
+    @Modifying(clearAutomatically = true)
+    @Query(nativeQuery = true, value = "delete from my_page where post_id = :postId")
+    void deleteAllByPostId(@Param("postId") Long id);
+
+    @Modifying(clearAutomatically = true)@Query(nativeQuery = true,
+            value = "delete from my_page pl join user r on pl.user_id = r.user_id " +
+            "where pl.post_id = :postId " +
+            "and r.username = :username")
+    void deleteByPostIdAndUsername(@Param("postId") Long id, @Param("username") String username);
 }
