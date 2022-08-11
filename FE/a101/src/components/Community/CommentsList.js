@@ -1,3 +1,5 @@
+import './Comments.css'
+
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -15,6 +17,13 @@ export default function CommentsList(props) {
 
     return (
         <div>
+            <div className='comments-new'>
+                {
+                    isEditing ?
+                    <CommentsNew setIsEditing={setIsEditing} setEditCommentId={setEditCommentId} ></CommentsNew>
+                    : null
+                }
+            </div>
             <div className='comments'>
                 { 
                     comments && comments.length ?
@@ -25,13 +34,6 @@ export default function CommentsList(props) {
                         return <Comments comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
                     })
                     : <div>댓글이 없습니다</div>
-                }
-            </div>
-            <div className='comments-new'>
-                {
-                    isEditing ?
-                    <CommentsNew setIsEditing={setIsEditing} setEditCommentId={setEditCommentId} ></CommentsNew>
-                    : null
                 }
             </div>
         </div>
