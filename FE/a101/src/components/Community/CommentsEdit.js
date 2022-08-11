@@ -1,3 +1,5 @@
+import './Comments.css'
+
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -50,9 +52,9 @@ export default function CommentsEdit(props) {
     }
 
     return (
-        <div>
+        <div className='comment-edit'>
             댓글 작성자 : {props.comment.nickname} |
-            댓글 내용 : <input type='text' onChange={(e) => {setContent(e.target.value)}} value={content}></input> | 
+            댓글 내용 : <textarea type='text' onChange={(e) => {setContent(e.target.value)}} value={content}></textarea> 
             <button onClick={() => clickEditComment()}>수정</button>
             <button onClick={() => props.setEditCommentId(0)}>취소</button>
         </div>
