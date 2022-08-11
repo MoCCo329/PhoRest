@@ -34,17 +34,19 @@ public class CommentController {
     }
     
     @PostMapping("{postId}/comment") // 댓글 생성
-    public Boolean newComment(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content) {
+    public Long newComment(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
+        String ct = content.get("content");
+        if(ct.isEmpty() || ct==null) return 5L;
         if(postId - decodedNumber != 0)
-            return false;
-        if(!tokenProvider.validateToken(token)) return false;
+            return 4L;
+        if(!tokenProvider.validateToken(token)) return 3L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
-        return commentService.join(postId,username,content.get("content"));
+        return commentService.join(postId,username,ct);
     }
     
     @DeleteMapping("{postId}/comment/{commentId}") //댓글 삭제
@@ -67,13 +69,15 @@ public class CommentController {
         String decodedString = new String(decodedBytes);
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
+        String ct = content.get("content");
+        if(ct.isEmpty() || ct == null) return 5;
         if(postId - decodedNumber != 0)
             return 4;
         //수정완료 0 수정못함 1
         if(!tokenProvider.validateToken(token)) return 3;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
 
-        return commentService.change(postId,commentId,username,content.get("content"));
+        return commentService.change(postId,commentId,username,ct);
 
     }
 

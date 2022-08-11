@@ -43,7 +43,7 @@ public class CommentService {
 //    }
 
     @Transactional
-    public Boolean join(Long postId, String username, String content){
+    public Long join(Long postId, String username, String content){
         Comment comment = new Comment();
 
            User user = userRepository.findByUsername(username);
@@ -55,7 +55,7 @@ public class CommentService {
         comment.setTime(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
         commentRepository.save(comment);
-        return true;
+        return 0L;
     }
 
     @Transactional
