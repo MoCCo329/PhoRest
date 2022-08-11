@@ -22,7 +22,7 @@ import Kakao from './components/User/Kakao'
 
 // functions
 import user from './api/user'
-import { currentUser, setCurrentUser } from './store/modules/user'
+import { setCurrentUser } from './store/modules/user'
 
 // bootstrap css
 import 'bootstrap/dist/css/bootstrap.min.css'

@@ -55,6 +55,7 @@ export default function Main() {
             window.URL.revokeObjectURL(url)
         })
     }
+
     const videoDownload = () => {
         fetch(content.videoURL + '?timestamp=2')
         .then((image) => {
