@@ -24,6 +24,7 @@ header {
   justify-content: flex-start;
   align-items: center;
   gap: 1em;
+  margin-left: 3vw;
 }
 
 .header-logo {
@@ -36,6 +37,11 @@ header {
     height: 4vh;
     width: 4vh;
   }
+}
+.header-logo-phorest {
+  font-family: 'establishRoomNo703OTF';
+  font-size: 30px;
+  line-height: 10%;
 }
 .user-nickname {
   line-height: 60%;
@@ -110,5 +116,12 @@ header {
   src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
     format("woff");
   font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'establishRoomNo703OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRoomNo703OTF.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
 }

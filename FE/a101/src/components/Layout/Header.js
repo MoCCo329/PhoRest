@@ -52,8 +52,9 @@ export default function Header(props) {
   return (
     <header>
       <div className="contents">
-        <div className="header-logo-box" style={{ marginLeft : props.mypage ? '3vw' : '48vw' }} onClick={() => {navigate('/')}}>
+        <div className="header-logo-box" onClick={() => {navigate('/')}}>
           <img className="header-logo" src={logo} alt="logo" />
+          { props.mypage ? null : <div className='header-logo-phorest'>PhoRest</div> }
           { props.mypage ? <div className='user-nickname'>{userDetail.nickname + "'s PhoRest"}</div> : null }
         </div>
         <div className='header-state'>

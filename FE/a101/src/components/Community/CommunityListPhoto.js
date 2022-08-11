@@ -110,9 +110,6 @@ export default function CommunityListPhoto() {
     <div className="community-list">
 
       <div className="community-list-header">
-        <div className='tab-title'>
-          <h5>포즈 게시판</h5>
-        </div>
         <div className='sub-tab'>
           <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(true))} style={{backgroundColor: type ? '#d8ec84' : ''}}>인기순</div>
           <div className='sub-tab-btn' onClick={() => dispatch(setLikeRecent(false))} style={{backgroundColor: !type ? '#d8ec84' : ''}}>최신순</div>

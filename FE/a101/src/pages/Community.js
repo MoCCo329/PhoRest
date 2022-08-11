@@ -135,8 +135,8 @@ export default function Community(props) {
                             {
                                 detailPost.users ?
                                 detailPost.users.map((user) => 
-                                <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
-                                // <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
+                                // <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
+                                <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
                                 ) : <div className='normal-text'>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
                             }
                             </div>
