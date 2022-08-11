@@ -46,6 +46,7 @@ header {
 .user-nickname {
   line-height: 60%;
   font-family: "LeferiPoint-BlackA";
+  padding-top: 7px;
 }
 
 .profile-info-box {
@@ -100,6 +101,7 @@ header {
   .logout-btn {
     width: 1.5em;
     height: 1.5em;
+    margin-left: 0.5em;
   }
 }
 

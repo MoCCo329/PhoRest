@@ -35,7 +35,7 @@ h5 {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
   margin: 5px;
-  padding: 10px 15px;
+  padding: 10px 15px 7px;
 }
 .create-frame-btn:hover {
   background-color: #ffd89e;
@@ -44,7 +44,7 @@ h5 {
 @media only screen and (max-width: 500px) {
   .create-frame-btn {
     font-size: smaller;
-    padding: 8px;
+    padding: 10px 7px 8px;
     padding-right: 15px;
     padding-left: 15px;
   }

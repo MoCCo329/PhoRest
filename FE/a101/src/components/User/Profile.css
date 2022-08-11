@@ -1,6 +1,7 @@
 .profile-header {
-  height: 2em;
-  width: 2em;
+  width: 5vh;
+  height: 5vh;
+  margin: none;
   border-radius: 100%;
 }
 
