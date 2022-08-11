@@ -175,23 +175,25 @@ public class PostService {
         Optional<Post> post = postRepository.findById(postId);
         if(post.isEmpty())
             return 2L;
-
-        List<MyPage> myPages = new ArrayList<>();
-        if(userRepository.findByUsername(username).getRole() == Role.ADMIN){
-           myPages = myPageRepository.findAllByPostId(postId);
-        }else{
-            Optional <MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
-            if(myPage.isEmpty())
-                return 3L;
+        if(userRepository.findByUsername(username).getRole() == Role.ADMIN) {
+            if(myPageRepository.findAllByPostId(postId).isEmpty()) return 3L;
         }
-        if(myPages.isEmpty())
-            return 3L;
+        else{
+                if(myPageRepository.findByPostIdAndUsername(postId, username).isEmpty()) return 3L;
+            }
 
         if(post.get().getCategory().equals("photogroup")){
-//            post.get().getMypages().removeIf(myPage1 -> myPage1.getId().equals(myPage.get().getId()));
 
             if(userRepository.findByUsername(username).getRole() == Role.ADMIN) {
+                PhotoGroup pg = post.get().getPhotoGroup();
+//                String fileName = pg.getPhotoGroupPath().replace("https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/", "");
+//                s3Uploader.deleteFile(fileName);
                 myPageRepository.deleteByPostId(post.get().getId());
+                bookmarkRepository.deleteAllByPostId(postId);
+                commentRepository.deleteAllByPostId(postId);
+                likeRepository.deleteAllByPostId(postId);
+                postRepository.deleteById(post.get().getId());
+                photoGroupRepository.deleteAllById(post.get().getPhotoGroup().getId());
             }else{
                 myPageRepository.deleteByPostIdAndUsername(post.get().getId(),username);
             }
@@ -199,10 +201,6 @@ public class PostService {
             List<MyPage> mp = myPageRepository.findByPostIdShared(postId);
             if(mp.size() == 0) // shared 된 사람이 없으면 false
                 post.get().setShared(false);
-            if(userRepository.findByUsername(username).getRole() == Role.ADMIN){
-                photoGroupRepository.deleteAllById(post.get().getPhotoGroup().getId());
-                postRepository.deleteById(post.get().getId());
-            }
         }
         else if(post.get().getCategory().equals("frame")){
             Frame frame = post.get().getFrame();
