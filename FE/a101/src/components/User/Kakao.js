@@ -17,31 +17,30 @@ export default function Kakao() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
 
-  const href = window.location.href
   let params = new URL(window.location.href).searchParams
-  let code = params.get("code")
+    let code = params.get("code")
 
-  // console.log(code);
 
   //토큰 저장
   const getKakaoToken = () => {
-    user.kakaoSignup(code).then((result) => {
-        const token = result.data.token
-        dispatch(setToken(token))
-        localStorage.setItem("token", token)
-        user.currentUser().then((result) => {
-          dispatch(setCurrentUser(result.data));
-        })
-        setLoading(false)
-        navigate(-2, { replace: true })
+    user.kakaoSignup(code)
+    .then((result) => {
+      const token = result.data.token
+      dispatch(setToken(token))
+      localStorage.setItem("token", token)
+      user.currentUser()
+      .then(result => {
+        dispatch(setCurrentUser(result.data));
       })
-      .catch((error) => {
-        dispatch(setAuthError(error.response.data.message))
-        console.error(error)
-        setLoading(false)
-        alert('로그인에 실패했습니다')
-        navigate('/login')
-      })
+      setLoading(false)
+      navigate(-2, { replace: true })
+    })
+    .catch((error) => {
+      dispatch(setAuthError(error.response.data.message))
+      setLoading(false)
+      alert('로그인에 실패했습니다')
+      navigate('/login')
+    })
   }
 
   useEffect(() => {
