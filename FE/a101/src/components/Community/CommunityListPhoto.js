@@ -32,7 +32,7 @@ export default function CommunityListPhoto() {
   // const [likeFilteredEnd, setLikeFilteredEnd] = useState(false)
   // const [recentFilteredEnd, setRecentFilteredEnd] = useState(false)
 
-  const limit = 6
+  const limit = 8
   const [page, setPage] = useState(0)
 
   useEffect(() => {

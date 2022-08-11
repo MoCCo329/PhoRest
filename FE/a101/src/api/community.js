@@ -80,7 +80,7 @@ const community = {
   },
   photoCount (humanCount) {
     return api({
-      method: 'post',
+      method: 'get',
       url: `${END_POINT}/photogroup/count?humanCount=${humanCount}`,
     })
   },
