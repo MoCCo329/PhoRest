@@ -7,7 +7,7 @@ import Layout from '../components/Layout/Layout'
 import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import SharePost from '../components/Community/SharePost'
-// import 'boxicons'
+import 'boxicons'
 
 // functions
 import { setDetailPost, setDetailComment } from '../store/modules/community'
@@ -27,8 +27,9 @@ export default function Community(props) {
 
     useEffect(() => {
         community.detailPost(postId)
-        .then(result => 
+        .then(result => {
             dispatch(setDetailPost(result.data))
+        }            
         )
         community.getComments(postId)
         .then(result => {
@@ -60,7 +61,7 @@ export default function Community(props) {
             dispatch(setDetailComment([]))
         }
     }, [])
-    
+
     // 프레임이면 글표시랑 프레임 편집 링크
 
     // community-header 상단에 도착하면 고정시키기
@@ -75,7 +76,7 @@ export default function Community(props) {
             dispatch(setDetailPost(result.data))
         })
       }
-    
+
       const bookmarkPost = (postId) => {
         if (!currentUser.username) {
           return alert('로그인 후 좋아요가 가능합니다')
@@ -107,7 +108,6 @@ export default function Community(props) {
                 }
             })
         }
-
     }
 
     

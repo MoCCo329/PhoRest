@@ -536,6 +536,9 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
 
                 # 프레임이미지 리사이즈
                 frame_img = Image.open('./Frame/Frame_{}.png'.format(self.frame_id))
+                frame_size = frame_img.size
+                if frame_size[0] < frame_size[1]:
+                    frame_img = frame_img.transpose(Image.ROTATE_90)
                 frame_img = frame_img.resize((1500, 1000))
                 frame_img.save('./Frame/Frame_{}.png'.format(self.frame_id))
 

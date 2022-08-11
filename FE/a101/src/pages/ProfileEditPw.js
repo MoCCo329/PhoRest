@@ -107,7 +107,7 @@ export default function ProfileEditPw() {
           <label htmlFor="password">New Password : </label>
           <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
           <label htmlFor="password2">New Password Again : </label>
-          <input name="password2" onChange={() => {passwordTest(); passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
+          <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
           
           기존 비밀번호 입력
           <label htmlFor="beforePassword">Password : </label>

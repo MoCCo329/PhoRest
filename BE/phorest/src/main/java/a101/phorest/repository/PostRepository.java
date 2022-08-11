@@ -1,6 +1,7 @@
 package a101.phorest.repository;
 import a101.phorest.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -50,6 +51,16 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "where p.category like :category and p.is_shared = true " +
             "order by p.time desc ,p.like_count desc LIMIT :limit offset :offset")
     List<Post> findFrameByRecent(@Param("category") String category, @Param("limit") Long limit, @Param("offset") Long offset);
+
+    @Query(nativeQuery = true, value = "select distinct * " +
+            "from post p " +
+            "where p.category = :category ")
+    List<Post> countFramePostsByCategory(@Param("category") String category);
+
+    @Query(nativeQuery = true, value = "select distinct * " +
+            "from post p join photo_group q on p.photogroup_id = q.photogroup_id " +
+            "where p.category = :category and q.human_count = :humanCount ")
+    List<Post> countPhotogroupPostsByCategory(@Param("category") String category, @Param("humanCount") Long humanCount);
 
     @Query(nativeQuery = true, value = "select distinct *" +
             "from post p join bookmark b on p.post_id = b.post_id join user r on b.user_id = r.user_id " +

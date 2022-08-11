@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 // functions
-import { setPhotoLike, addPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent } from '../../store/modules/community'
+import { setPhotoLike, addPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt } from '../../store/modules/community'
 import community from '../../api/community'
+
+import Pagination from './Pagination'
 
 // icons
 import likeFilled from '../../assets/UI/heart_filled.png'
@@ -25,31 +27,50 @@ export default function CommunityListPhoto() {
   const currentUser = useSelector(state => state.currentUser)
   const photoLike = useSelector(state => state.photoLike)
   const photoRecent = useSelector(state => state.photoRecent)
+  const photoCnt = useSelector(state => state.photoCnt)
 
   // const [likeFilteredEnd, setLikeFilteredEnd] = useState(false)
   // const [recentFilteredEnd, setRecentFilteredEnd] = useState(false)
 
+  const limit = 6
+  const [page, setPage] = useState(0)
+
   useEffect(() => {
-    community.photoLike({limit: 5, offset: 0, humanCount: humanCount})
+    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
     .then(result => {
       dispatch(setPhotoLike(result.data))
     })
-    community.photoRecent({limit: 5, offset: 0, humanCount: humanCount})
+    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
     .then(result => {
       dispatch(setPhotoRecent(result.data))
+    })
+    community.photoCount(humanCount)
+    .then(result => {
+      dispatch(setPhotoCnt(result.data))
     })
   }, [])
 
   useEffect(() => {
-    community.photoLike({limit: 5, offset: 0, humanCount: humanCount})
+    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
     .then(result => {
       dispatch(setPhotoLike(result.data))
     })
-    community.photoRecent({limit: 5, offset: 0, humanCount: humanCount})
+    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
     .then(result => {
       dispatch(setPhotoRecent(result.data))
     })
   }, [type, humanCount])
+
+  useEffect(() => {
+    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoLike(result.data))
+    })
+    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
+    .then(result => {
+      dispatch(setPhotoRecent(result.data))
+    })
+  }, [page])
 
   // infinite scroll
   // useEffect(() => {
@@ -159,6 +180,14 @@ export default function CommunityListPhoto() {
               </div>
             ))
           }
+        </div>
+        <div className='main-pagination'>
+           <Pagination
+            total={photoCnt}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
         </div>
     </div>
   )

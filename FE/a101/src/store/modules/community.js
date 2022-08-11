@@ -1,3 +1,4 @@
+import { create } from '@mui/material/styles/createTransitions'
 import { createSlice } from '@reduxjs/toolkit'
 
 export let photoLike = createSlice({
@@ -68,6 +69,17 @@ export let photoRecent = createSlice({
 })
 export let { setPhotoRecent, addPhotoRecent, likePhotoRecent, bookmarkPhotoRecent } = photoRecent.actions
 
+export let photoCnt = createSlice({
+  name: 'photoCnt',
+  initialState: 0,
+  reducers: {
+    setPhotoCnt (state, action) {
+      return action.payload
+    }
+  }
+})
+export let { setPhotoCnt } = photoCnt.actions
+
 export let frameLike = createSlice({
   name: 'frameLike',
   initialState: [],
@@ -135,6 +147,17 @@ export let frameRecent = createSlice({
   }
 })
 export let { setFrameRecent, addFrameRecent, likeFrameRecent, bookmarkFrameRecent } = frameRecent.actions
+
+export let frameCnt = createSlice({
+  name: 'frameCnt',
+  initialState: 0,
+  reducers: {
+    setFrameCnt (state, action) {
+      return action.payload
+    }
+  }
+})
+export let { setFrameCnt } = frameCnt.actions
 
 export let detailPost = createSlice({
   name: 'detailPost',

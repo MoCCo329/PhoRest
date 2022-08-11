@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import community from '../../api/community'
 import { setDetailComment } from '../../store/modules/community'
 
+import Profile from '../User/Profile'
+
 
 export default function Comments(props) {
     const currentUser = useSelector(state => state.currentUser)
@@ -19,12 +21,12 @@ export default function Comments(props) {
             }
         })
     }
-
+    
+    
     return (
         <div>
-            작성자 : {props.comment.nickname} | 
-            내용 : {props.comment.content} | 
-            작성일 : {props.comment.time.slice(0, 10)} {props.comment.time.slice(11, 19)}
+            <Profile user={props.comment} /> {props.comment.nickname} |
+            {props.comment.content} | {props.comment.time.slice(0, 10)} {props.comment.time.slice(11, 19)}
             {
                 currentUser.nickname===props.comment.nickname ?
                 (<>
