@@ -7,7 +7,6 @@ import Layout from '../components/Layout/Layout'
 import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import SharePost from '../components/Community/SharePost'
-import 'boxicons'
 
 // functions
 import { setDetailPost, setDetailComment } from '../store/modules/community'
@@ -18,6 +17,7 @@ import likeFilled from '../assets/UI/heart_filled.png'
 import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
+import 'boxicons'
 
 export default function Community(props) {
     const postId = (Number(atob(useParams().postId)) - 37) / 73
