@@ -7,7 +7,6 @@ import Layout from '../components/Layout/Layout'
 import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import SharePost from '../components/Community/SharePost'
-import 'boxicons'
 
 // functions
 import { setDetailPost, setDetailComment } from '../store/modules/community'
