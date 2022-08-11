@@ -35,6 +35,7 @@ public class PostService {
 
     private final FrameRepository frameRepository;
 
+    private final CommentRepository commentRepository;
     private final S3Uploader s3Uploader;
 
     @Transactional
@@ -185,6 +186,7 @@ public class PostService {
             s3Uploader.deleteFile(fileName);
             myPageRepository.deleteByPostId(postId);
             bookmarkRepository.deleteAllByPostId(postId);
+            commentRepository.deleteAllByPostId(postId);
             likeRepository.deleteAllByPostId(postId);
             postRepository.deleteById(postId);
             frameRepository.deleteById(frame.getId());
