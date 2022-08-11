@@ -1,0 +1,34 @@
+.each-comment {
+    display: flex;
+    margin-bottom: 2vh;
+    align-items: flex-start;
+}
+
+.each-comment-content {
+    font-family: "Pretendard-Regular";
+    display: flex;
+    flex-direction: column;
+    margin-left: 2vh;
+}
+
+.each-comment-content-info  {
+    font-size: smaller;
+    line-height: 80%;
+}
+#comment-edit-buttons {
+    margin-left: 10vh;
+}
+.each-comment-content-info span {
+    width: 3vh;
+}
+.each-comment-content-info button {
+    border: none;
+    background-color: transparent;
+}
+.each-comment-content-content {
+    flex-basis: content;
+   white-space: wrap;
+}
+.comments {
+    width: 39vw;
+}
