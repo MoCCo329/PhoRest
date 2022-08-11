@@ -1,8 +1,11 @@
 package a101.phorest.controller;
 
 import a101.phorest.domain.Post;
+import a101.phorest.dto.KakaoDTO;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
+import a101.phorest.service.KakaoService;
+import a101.phorest.service.PhotoGroupService;
 import a101.phorest.service.PostService;
 import a101.phorest.service.UserService;
 import lombok.NoArgsConstructor;
@@ -37,18 +40,41 @@ import java.util.List;
 public class MessageController {
 
     private final DefaultMessageService messageService;
-
     private final PostService postService;
-
     private final UserService userService;
-
-    //https://data-make.tistory.com/699
-    @Scheduled(cron = "0 9 0 * * *")
-    public void sendMsg() throws Exception {
-        //refresh token 받아서 accesstoken받기
-
-        //메세지 보내기
-    }
+//
+//    private KakaoService kakaoService;
+//    private PhotoGroupService photoGroupService;
+//
+//    //https://data-make.tistory.com/699
+////    @Scheduled(cron = "0 9 0 * * *")
+//    public void sendMsg() throws Exception {
+//        //refresh token 받아서 accesstoken받기
+//        //메세지 보내기
+//        List<KakaoDTO> kakaoDTOList = new ArrayList<>();
+//        List<PostDTO> postDTOS = postService.findMessagePosts();
+//
+//        for(PostDTO postDTO : postDTOS){
+//            long postId = postDTO.getId() * 73 + 37;
+//            String encodedPostId = Base64.getEncoder().encodeToString(Long.toString(postId).getBytes());
+//            for(UserDTO userDTO : postDTO.getUsers()){
+//                if(userDTO.isKakao()){
+//                    String refresh_token = userDTO.getRefresh_token();
+//                    String accessToken = kakaoService.getAccessToken(refresh_token);
+//                    String path = photoGroupService.findOne(postDTO.getPhotogroupId()).getPhotoGroupPath();
+//
+//                    KakaoDTO kakaoDTO = new KakaoDTO();
+//                    kakaoDTO.setPath(path);
+//                    kakaoDTO.setAccessToken(accessToken);
+//                    kakaoDTO.setEncodedPostId(encodedPostId);
+//                    kakaoDTOList.add(kakaoDTO);
+//                }
+////            }
+////            try{
+////
+////            }
+//        }
+//    }
 
     //@Scheduled(cron = "0 0 9 * * ?")
     public void sendMessages() throws MalformedURLException, IOException {
