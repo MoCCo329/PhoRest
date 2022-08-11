@@ -1,34 +1,87 @@
 .each-comment {
-    display: flex;
-    margin-bottom: 2vh;
-    align-items: flex-start;
+  display: flex;
+  margin-bottom: 2vh;
+  align-items: flex-start;
 }
 
 .each-comment-content {
-    font-family: "Pretendard-Regular";
-    display: flex;
-    flex-direction: column;
-    margin-left: 2vh;
+  font-family: "Pretendard-Regular";
+  display: flex;
+  flex-direction: column;
+  margin-left: 2vh;
+  gap: 5px;
 }
 
-.each-comment-content-info  {
-    font-size: smaller;
-    line-height: 80%;
+.each-comment-content-info {
+  font-size: smaller;
+  line-height: 80%;
 }
 #comment-edit-buttons {
-    margin-left: 10vh;
+  margin-left: 10vh;
 }
 .each-comment-content-info span {
-    width: 3vh;
+  width: 3vh;
 }
 .each-comment-content-info button {
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 }
-.each-comment-content-content {
-    flex-basis: content;
-   white-space: wrap;
-}
+
 .comments {
-    width: 39vw;
+  margin-top: 1em;
+  width: 39vw;
+}
+.comment-new button {
+    font-family: "Pretendard-Regular";
+    border: none;
+    background-color: #fff7e7;
+    border-radius: 50px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 0.5em;
+    margin-left: 3px;
+    margin-right: 5px;
+}
+.comment-new button:hover {
+    background-color: #d8ec84;
+}
+textarea {
+    font-family: "LeferiPoint-BlackA";
+    width: 100%;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background-color: #f3f3f4;
+}
+.community-comment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Pretendard-Regular";
+    margin-bottom: 5px;
+}
+.normal-text {
+  font-family: "Pretendard-Regular";
+}
+
+.photo-info-content-left {
+  font-family: "Pretendard-Regular";
+  line-height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
 }

@@ -42,7 +42,7 @@ export default function Comments(props) {
                         : null
                     }
                 </div>
-                <div className='each-comment-content-content'>
+                <div className='normal-text'>
                     {props.comment.content}
                 </div>
             </div>

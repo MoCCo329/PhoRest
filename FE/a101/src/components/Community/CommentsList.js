@@ -33,7 +33,7 @@ export default function CommentsList(props) {
                         }
                         return <Comments comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
                     })
-                    : <div>댓글이 없습니다</div>
+                    : <div className='normal-text'>댓글이 없습니다</div>
                 }
             </div>
         </div>

@@ -137,7 +137,7 @@ export default function Community(props) {
                                 detailPost.users.map((user) => 
                                 <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
                                 // <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
-                                ) : <div>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
+                                ) : <div className='normal-text'>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
                             }
                             </div>
                             <div className='user-post-edit'>
@@ -166,20 +166,24 @@ export default function Community(props) {
                             <div>
                                 <img src={detailPost.url} alt={detailPost.content} />
                             </div>
-                            <div className='community-body-icons'>
-                                <img className='icon-img' src={detailPost.isLike ? likeFilled : likeEmpty } alt='like' name='like' onClick={() => likePost(postId)}></img>
-                                {detailPost.likeCount}
+                            <div className='photo-info-content-left'>
+                                <div className='like-cont-content'>
+                                    <img className='icon-img' src={detailPost.isLike ? likeFilled : likeEmpty } alt='like' name='like' onClick={() => likePost(postId)}></img>
+                                    {detailPost.likeCount}
+                                </div>
                                 <img className='icon-img' src={detailPost.isBookmark ? bookmarkFilled : bookmarkEmpty} alt='bookmark' name='bookmark-alt' onClick={() => bookmarkPost(postId)}></img>
                                 
                             </div>
-                            <div>
+                            <div className='normal-text'>
                                 { detailPost.category === "frame" ? detailPost.content : null }
                             </div>
                         </div>
                         
-                        <div className="community-comment">
+                        <div>
                             <h6>댓글</h6>
-                            <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots' onClick={() => {setIsEditing(!isEditing)}}></box-icon>
+                            <div className="community-comment" onClick={() => {setIsEditing(!isEditing)}}>
+                                <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots'></box-icon><span>댓글 추가하기</span>
+                            </div>
                             <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                         </div>
                 </div>
