@@ -1,3 +1,5 @@
+import './Comments.css'
+
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -38,9 +40,9 @@ export default function CommentsNew(props) {
     }
 
     return (
-        <div>
-            <input type='text' onChange={(e) => {setContent(e.target.value)}}></input> | 
-            <button onClick={() => {clickAddComment()}}>작성</button> |
+        <div className='comment-new'>
+            <textarea type='text' onChange={(e) => {setContent(e.target.value)}}></textarea>
+            <button onClick={() => {clickAddComment()}}>작성</button>
             <button onClick={() => {props.setIsEditing(false)}}>취소</button>
         </div>
     )
