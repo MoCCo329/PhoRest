@@ -100,10 +100,7 @@ export default function ProfileEditPw() {
   return (
     <Layout>
       <main>
-        <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
-          <label htmlFor="Nickname">Nickname : </label>
-          <input name="nickname" type="text" id="Nickname" defaultValue={ currentUser.nickname || '' } required placeholder="Nickname" /><br/>
-          
+        <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>          
           <label htmlFor="password">New Password : </label>
           <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
           <label htmlFor="password2">New Password Again : </label>

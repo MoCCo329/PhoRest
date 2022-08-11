@@ -1,14 +1,12 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useDispatch } from 'react-redux'
 
 import user from './../../api/user'
-import { setUserDetail } from './../../store/modules/community'
 
 import Profile from './../User/Profile'
 
 
-export default function Search () {
-  const dispatch = useDispatch()
+export default function Search (props) {
   const [result, setResult] = useState('')
 
   const search = (input) => {
@@ -18,16 +16,25 @@ export default function Search () {
     })
   }
 
+  const resultBox = useRef(null)
+  useEffect(() => {
+    if (resultBox.current) {
+      resultBox.current.scrollIntoView({ behavior: 'auto' })
+    }
+  }, [resultBox.current])
+
   return (
-    <div>
+    <div className="search-box" ref={ resultBox }>
       <input type="text" onChange={(e) => search(e.target.value)} placeholder="찾고싶은 유저명을 검색해주세요"/>
-      {
-        result && result.length ?
-        result.map(user => {
-          return <div key={ user.username }><Profile user={ user } ></Profile>{user.nickname}</div>  // position absolute같은거 해야할듯
-        }) :
-        null
-      }
+      <div className="result-box">
+        {
+          result && result.length ?
+          result.map(user => {
+            return <div key={ user.username } onClick={() => {props.setIsSearching(false)}} ><Profile user={ user } ></Profile></div>
+          }) :
+          null
+        }
+      </div>
     </div>
   )
 }

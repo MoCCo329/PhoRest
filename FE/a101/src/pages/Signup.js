@@ -31,7 +31,7 @@ export default function Main() {
       return () => {dispatch(setAuthError(''))}
     }, [])
 
-    useEffect(() => {  // 로그인 되어있으면 아예 못들어오게 바꿔야함
+    useEffect(() => {
       localStorage.setItem('token', '')
       user.currentUser()
       .then(result => {
@@ -138,9 +138,9 @@ export default function Main() {
       <Layout>
         <main>
           <div className='join-content'>
-          <div className="login-header">
-            <h5>PhoRest 회원가입하기</h5>
-          </div>
+            <div className="login-header">
+              <h5>PhoRest 회원가입하기</h5>
+            </div>
             <form onSubmit={(e) => {onSubmit(e)}}>
               <div>
                 <label htmlFor="username">ID</label>

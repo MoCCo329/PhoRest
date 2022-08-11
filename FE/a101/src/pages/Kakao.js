@@ -6,11 +6,11 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
-import { setToken, setAuthError, setCurrentUser } from "../../store/modules/user"
-import user from "../../api/user"
+import { setToken, setAuthError, setCurrentUser } from "../store/modules/user"
+import user from "../api/user"
 
 // spinner
-import spinner from '../../assets/UI/spinner.gif'
+import spinner from '../assets/UI/spinner.gif'
 
 export default function Kakao() {
   const dispatch = useDispatch()

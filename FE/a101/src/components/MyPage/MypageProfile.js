@@ -46,6 +46,7 @@ export default function MypageProfile(props) {
     })
   }
 
+
   return (
     <div>
       <div className="profile-box">
@@ -55,103 +56,108 @@ export default function MypageProfile(props) {
             src={userDetail.profileURL || defaultProfile}
             alt="profileImage"
           />
-        </div>
+          
+          <div className="profile-introduce">{userDetail.introduce}</div>
 
-        <div className="info" onClick={() => dispatch(setViewType(0))}>
-          <div className="num">
-            {
-            userDetail && userDetail.username ?
-            userDetail.postDTOS.filter(item => item.category === "photogroup").length :
-            0
-            }
-          </div>
-          <div className="name">게시글</div>
-        </div>
-
-        <div className="info" onClick={() => dispatch(setViewType(1))}>
-          <div className="num">
-            {
-            userDetail && userDetail.username ?
-            userDetail.postDTOS.filter(item => item.category === "frame").length :
-            0
-            }
-          </div>
-          <div className="name">프레임</div>
-        </div>
-
-        <div className="info">
-          <div className="num">
-            {userDetail && userDetail.username ? userDetail.followerCount : null}
-          </div>
-          <div className="name">팔로워</div>
-        </div>
-
-        {
-          isMyMypage ?
-          <div className="info" onClick={() => dispatch(setViewType(3))}>
-            <div className="num">
-              {userDetail.followingCount}
+          {isMyMypage && (
+            <div className="modal-button">
+              <button onClick={() => navigate("/mypage/edit")}>
+                회원정보 수정하기
+              </button>
             </div>
-            <div className="name">팔로우</div>
-          </div> :
-          null
-        }
-      </div>
-      
-      <div className="profile-introduce">{userDetail.introduce}</div>
-      {isMyMypage && (
-        <button onClick={() => navigate("/mypage/edit")}>
-          회원정보 수정하기
-        </button>
-      )}
+          )}
 
-      <div className="modal-button">
-        {currentUser && currentUser.username ? (
-          !isMyMypage ? (userDetail.following ? (
-            <button className="button-unfollow" onClick={follow}>
-              팔로우 취소하기
+          <div className="modal-button">
+            {currentUser && currentUser.username ? (
+              !isMyMypage ? (userDetail.following ? (
+                <button className="button-unfollow" onClick={follow}>
+                  팔로우 취소하기
+                </button>
+              ) : (
+                <button className="button-follow" onClick={follow}>
+                  팔로우 하기
+                </button>
+              )) : (null)
+            ) : (
+              <button variant="primary" onClick={handleShow}>
+              팔로우하기
             </button>
-          ) : (
-            <button className="button-follow" onClick={follow}>
-              팔로우 하기
-            </button>
-          )) : (null)
-        ) : (
-          <button variant="primary" onClick={handleShow}>
-          팔로우하기
-        </button>
-        )}
+            )}
 
-        <Modal
-          show={show}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={true}
-          className="modal"
-        >
-          <Modal.Body>
-            로그인이 필요한 기능입니다.
-            <br></br>
-            로그인 하시겠습니까?
-          </Modal.Body>
-          <Modal.Footer>
-            <button variant="secondary" onClick={handleClose}>
-              다음에 할게요
-            </button>
-            <button variant="primary" onClick={() => navigate("/login")}>
-              로그인 할래요
-            </button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+            <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={true}
+              className="modal"
+            >
+              <Modal.Body>
+                로그인이 필요한 기능입니다.
+                <br></br>
+                로그인 하시겠습니까?
+              </Modal.Body>
+              <Modal.Footer>
+                <button variant="secondary" onClick={handleClose}>
+                  다음에 할게요
+                </button>
+                <button variant="primary" onClick={() => navigate("/login")}>
+                  로그인 할래요
+                </button>
+              </Modal.Footer>
+            </Modal>
+          </div>
 
-      <div>
-        <button onClick={() => setIsSearching(!isSearching)} style={{ backgroundColor : isSearching ? '#fff7e7' : null }} >검색</button>
-        {
-          isSearching ?
-          <Search></Search> :
-          null
-        }
+          <div className="search-button">
+            <button onClick={() => setIsSearching(!isSearching)} >유저 검색</button>
+            {
+              isSearching ?
+              <Search setIsSearching={setIsSearching}></Search> :
+              null
+            }
+          </div>
+        </div>
+        
+        <div className="list-container">
+          <div className="info" onClick={() => dispatch(setViewType(0))}>
+            <div className="num">
+              {
+              userDetail && userDetail.username ?
+              userDetail.postDTOS.filter(item => item.category === "photogroup").length :
+              0
+              }
+            </div>
+            <div className="name">게시글</div>
+          </div>
+
+          <div className="info" onClick={() => dispatch(setViewType(1))}>
+            <div className="num">
+              {
+              userDetail && userDetail.username ?
+              userDetail.postDTOS.filter(item => item.category === "frame").length :
+              0
+              }
+            </div>
+            <div className="name">프레임</div>
+          </div>
+
+          <div className="info">
+            <div className="num">
+              {userDetail && userDetail.username ? userDetail.followerCount : null}
+            </div>
+            <div className="name">팔로워</div>
+          </div>
+
+          {
+            isMyMypage ?
+            <div className="info" onClick={() => dispatch(setViewType(3))}>
+              <div className="num">
+                {userDetail.followingCount}
+              </div>
+              <div className="name">팔로우</div>
+            </div> :
+            null
+          }
+        </div>
       </div>
     </div>
   )

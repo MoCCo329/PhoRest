@@ -24,7 +24,7 @@ export default function CommentsNew(props) {
 
         community.createComment(postId, comment)
         .then(result => {
-            if (result.data) {
+            if (!result.data) {
                 community.getComments(postId)
                 .then(result => {
                     dispatch(setDetailComment(result.data))
@@ -33,7 +33,6 @@ export default function CommentsNew(props) {
                 alert('잘못된 접근입니다')
             }
         })
-
         return props.setIsEditing(false)
     }
 

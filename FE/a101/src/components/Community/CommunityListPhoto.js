@@ -30,9 +30,6 @@ export default function CommunityListPhoto() {
   const photoRecent = useSelector(state => state.photoRecent)
   const photoCnt = useSelector(state => state.photoCnt)
 
-  // const [likeFilteredEnd, setLikeFilteredEnd] = useState(false)
-  // const [recentFilteredEnd, setRecentFilteredEnd] = useState(false)
-
   const limit = 8
   const [page, setPage] = useState(0)
 
@@ -89,7 +86,7 @@ export default function CommunityListPhoto() {
 
   const bookmarkPost = (postId) => {
     if (!currentUser.username) {
-      return alert('로그인 후 좋아요가 가능합니다')
+      return alert('로그인 후 북마크가 가능합니다')
     }
     community.bookmarkPost(postId)
     .then(result => {

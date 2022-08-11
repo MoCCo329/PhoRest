@@ -55,9 +55,9 @@ export default function MyGallery(props) {
     <div>
       {
         type==='photogroup' &&
-        <div>
-          <div onClick={() => setView(true)} style={{ backgroundColor : view ? '#fff7e7' : '' }} >갤러리</div>
-          <div onClick={() => setView(false)} style={{ backgroundColor : !view ? '#fff7e7' : '' }}  >달력</div>
+        <div className="gallery-type-container">
+          <div className="gallery-type" onClick={() => setView(true)} style={{ backgroundColor : view ? '#f5737f' : '' }} >갤러리</div>
+          <div className="gallery-type" onClick={() => setView(false)} style={{ backgroundColor : !view ? '#f5737f' : '' }}  >달력</div>
         </div>
       }
 

@@ -40,6 +40,7 @@ header {
 .user-nickname {
   line-height: 60%;
   font-family: "LeferiPoint-BlackA";
+  margin-top: 1vh;
 }
 
 .profile-info-box {
