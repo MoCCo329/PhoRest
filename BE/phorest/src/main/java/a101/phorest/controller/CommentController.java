@@ -40,7 +40,7 @@ public class CommentController {
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
         String ct = content.get("content");
-        if(ct.isEmpty() || ct==null) return 5L;
+        if(ct.trim().isEmpty() || ct==null) return 5L;
         if(postId - decodedNumber != 0)
             return 4L;
         if(!tokenProvider.validateToken(token)) return 3L;
@@ -70,7 +70,7 @@ public class CommentController {
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
         String ct = content.get("content");
-        if(ct.isEmpty() || ct == null) return 5;
+        if(ct.trim().isEmpty() || ct == null) return 5;
         if(postId - decodedNumber != 0)
             return 4;
         //수정완료 0 수정못함 1
