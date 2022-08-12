@@ -2,6 +2,7 @@ package a101.phorest.service;
 
 import a101.phorest.domain.Comment;
 import a101.phorest.domain.Post;
+import a101.phorest.domain.Role;
 import a101.phorest.domain.User;
 import a101.phorest.dto.CommentDTO;
 import a101.phorest.repository.CommentRepository;
@@ -60,12 +61,26 @@ public class CommentService {
 
     @Transactional
     public Boolean remove(Long PostId, Long CommentId, String username){
-        if(commentRepository.findById(CommentId).isPresent()){
-            Comment comment = commentRepository.findById(CommentId).get();
-            if (comment.getUser().getUsername().equals(username) && comment.getPost().getId().equals(PostId)) {
-                commentRepository.deleteById(comment.getId());
-                return true;
+        User user = userRepository.findByUsername(username);
+        if(user.getRole().equals(Role.ADMIN))
+        {
+            if(commentRepository.findById(CommentId).isPresent()){
+                Comment comment = commentRepository.findById(CommentId).get();
+                if (comment.getPost().getId().equals(PostId)) {
+                    commentRepository.deleteById(comment.getId());
+                    return true;
+                }
             }
+        }
+        else if (user.getRole().equals(Role.USER)){
+            if(commentRepository.findById(CommentId).isPresent()){
+                Comment comment = commentRepository.findById(CommentId).get();
+                if (comment.getUser().getUsername().equals(username) && comment.getPost().getId().equals(PostId)) {
+                    commentRepository.deleteById(comment.getId());
+                    return true;
+                }
+            }
+
         }
         return false;
     }
