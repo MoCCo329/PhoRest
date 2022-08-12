@@ -8,7 +8,6 @@ const ModalBasic = (props) => {
 
   // const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
-  console.log(props.show)
   useEffect(() => {
     setShow(props.show)
   }, [props.show])

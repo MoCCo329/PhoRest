@@ -17,6 +17,7 @@ import likeFilled from '../../assets/UI/heart_filled.png'
 import likeEmpty from '../../assets/UI/heart_empty.png'
 import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
+import comment from '../../assets/UI/comment.png'
 
 
 export default function CommunityListFrame() {
@@ -34,19 +35,8 @@ export default function CommunityListFrame() {
   const [page, setPage] = useState(0)
 
   useEffect(() => {
-    community.frameLike({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameLike(result.data))
-    })
-    community.frameRecent({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameRecent(result.data))
-    })
     community.frameCount().then(result => {
       dispatch(setFrameCnt(result.data))
-    })
-    .catch((error) => {
-      console.error(error)
     })
   }, [])
   
@@ -62,18 +52,7 @@ export default function CommunityListFrame() {
         dispatch(setFrameRecent(result.data))
       })
     }
-  }, [type])
-  
-  useEffect(() => {
-    community.frameLike({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameLike(result.data))
-    })
-    community.frameRecent({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameRecent(result.data))
-    })
-  }, [page])
+  }, [type, page])
 
 
   const likePost = (postId) => {
@@ -140,22 +119,30 @@ export default function CommunityListFrame() {
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                    <img id='icon-btn' className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
                     {post.likeCount}
                   </div>
-                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)} alt='like' ></img>
+                  <img id='icon-btn' className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)} alt='like' ></img>
+                  <div className='comment-cnt-content'>
+                    <img className='icon-img' src={comment} alt='chat'></img>
+                    {post.messageCnt}
+                  </div>
                 </div>
               </div>
             )) :
             frameRecent.map((post, idx) => (
-              <div className='photo-gallery' key={post.id}>
+              <div className='photo-gallery' key={idx}>
                 <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
                 <div className='photo-info-content'>
                   <div className='like-cnt-content'>
-                    <img className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='bookmark' ></img>
+                    <img id='icon-btn' className='icon-img' src={post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='bookmark' ></img>
                     {post.likeCount}
                   </div>
-                  <img className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+                  <img id='icon-btn' className='icon-img' src={post.isBookmark ? bookmarkFilled : bookmarkEmpty} name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+                  <div className='comment-cnt-content'>
+                    <img className='icon-img' src={comment} alt='chat'></img>
+                    {post.messageCnt}
+                  </div>
                 </div>
               </div>
             ))

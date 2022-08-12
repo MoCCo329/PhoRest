@@ -16,6 +16,7 @@ import likeFilled from '../../assets/UI/heart_filled.png'
 import likeEmpty from '../../assets/UI/heart_empty.png'
 import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
+import comment from '../../assets/UI/comment.png'
 
 
 export default function CommunityListPhoto() {
@@ -34,14 +35,6 @@ export default function CommunityListPhoto() {
   const [page, setPage] = useState(0)
 
   useEffect(() => {
-    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoLike(result.data))
-    })
-    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoRecent(result.data))
-    })
     community.photoCount(humanCount)
     .then(result => {
       dispatch(setPhotoCnt(result.data))
@@ -57,19 +50,21 @@ export default function CommunityListPhoto() {
     .then(result => {
       dispatch(setPhotoRecent(result.data))
     })
-  }, [type, humanCount])
+  }, [type, humanCount, page])
 
-  useEffect(() => {
-    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoLike(result.data))
-    })
-    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoRecent(result.data))
-    })
-  }, [page])
-
+  // const likePost = (postId) => {
+  //   if (!currentUser.username) {
+  //     return alert('로그인 후 좋아요가 가능합니다')
+  //   }
+  //   community.likePost(postId)
+  //   .then(result => {
+  //     if (type) {
+  //       dispatch(likePhotoLike(result.data))
+  //     } else {
+  //       dispatch(likePhotoRecent(result.data))
+  //     }
+  //   })
+  // }
   const likePost = (postId) => {
     if (!currentUser.username) {
       return alert('로그인 후 좋아요가 가능합니다')
@@ -126,10 +121,14 @@ export default function CommunityListPhoto() {
               <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
               <div className='photo-info-content'>
                 <div className='like-cnt-content'>
-                  <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                  <img id='icon-btn' className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
                   {post.likeCount}
                 </div>
-                <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+                <img id='icon-btn' className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>
+                <div className='comment-cnt-content'>
+                  <img className='icon-img' src={comment} alt='chat'></img>
+                  {post.messageCnt}
+                </div>
               </div>
             </div>
           )) :
@@ -138,10 +137,14 @@ export default function CommunityListPhoto() {
               <img className='photo-img' src={post.url} alt={post.id} onClick={() => {move(post.id)}}/>
               <div className='photo-info-content'>
                 <div className='like-cnt-content'>
-                  <img className='icon-img' src={ post.isLiked ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
+                  <img id='icon-btn' className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' onClick={() => likePost(post.id)} alt='like' ></img>
                   {post.likeCount}
                 </div>
-                  <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>  
+                <img id='icon-btn' className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' onClick={() => bookmarkPost(post.id)} alt='bookmark' ></img>  
+                <div className='comment-cnt-content'>
+                  <img className='icon-img' src={comment} alt='chat'></img>
+                  {post.messageCnt}
+                </div>
               </div>
             </div>
           ))

@@ -43,9 +43,9 @@ export default function Comments(props) {
                     }
                 </div>
                 <div className='normal-text'>
-                    {props.comment.content}
+                    <p style={{"whiteSpace": "pre-line"}}>{props.comment.content}</p>
                 </div>
             </div>
         </div>
     )
-  }
+  }  // .replaceAll(/<br>|<brV>|<br V>/g, '\r\n')

@@ -94,7 +94,7 @@ h5 {
   justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(300px, max-content));
   grid-gap: 5px;
-  /* margin: 1em 3em 1em 3em; */
+  margin: 1em 0 1em 0;
 }
 
 @media only screen and (max-width: 500px) {
@@ -131,13 +131,25 @@ h5 {
   align-items: center;
   gap: 5px;
 }
+.comment-cnt-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
 .icon-img {
   width: 1em;
   height: 1em;
+  margin: 0 5px 0 0;
+  /* cursor: pointer; */
+}
+#icon-btn {
+  cursor: pointer;
 }
 .photo-img {
   border-radius: 2%;
   width: 100%;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 500px) {
