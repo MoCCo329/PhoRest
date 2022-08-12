@@ -30,9 +30,6 @@ export default function CommunityListPhoto() {
   const photoRecent = useSelector(state => state.photoRecent)
   const photoCnt = useSelector(state => state.photoCnt)
 
-  // const [likeFilteredEnd, setLikeFilteredEnd] = useState(false)
-  // const [recentFilteredEnd, setRecentFilteredEnd] = useState(false)
-
   const limit = 8
   const [page, setPage] = useState(0)
 

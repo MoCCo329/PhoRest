@@ -8,6 +8,7 @@ import FollowingList from './FollowingList'
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined"
 import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined"
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded"
+import './ActivityTabs.css'
 
 
 export default function ActivityTabs(props) {
@@ -25,11 +26,12 @@ export default function ActivityTabs(props) {
 
   return (
     <div>
-      { props.photos || null }
-      <CameraAltOutlinedIcon onClick={() => dispatch(setViewType(0))} />
-      <CropFreeOutlinedIcon onClick={() => dispatch(setViewType(1))} />
-      <StarBorderRoundedIcon onClick={() => dispatch(setViewType(2))} />
-
+      <div className='icon-container'>
+        <CameraAltOutlinedIcon style={{borderBottom: viewType===0 ? "3px solid" : ''}} fontSize="xlarge" className="mypage-icon" onClick={() => dispatch(setViewType(0))} />
+        <CropFreeOutlinedIcon style={{borderBottom: viewType===1 ? "3px solid" : ''}} fontSize="xlarge" className="mypage-icon" onClick={() => dispatch(setViewType(1))} />
+        <StarBorderRoundedIcon style={{borderBottom: viewType===2 ? "3px solid" : ''}} fontSize="xlarge" className="mypage-icon" onClick={() => dispatch(setViewType(2))} />
+      </div>
+      
       <div>
         { menus[viewType] }
       </div>
