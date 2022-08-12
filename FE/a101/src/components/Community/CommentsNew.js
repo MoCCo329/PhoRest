@@ -42,8 +42,7 @@ export default function CommentsNew(props) {
                     dispatch(setDetailComment(result.data))
                 })
             } else {
-                switch ( result.data )
-                {
+                switch ( result.data ) {
                   case 3 :     
                     alert('로그인 에러')
                     break    
@@ -52,10 +51,9 @@ export default function CommentsNew(props) {
                     break     
                 
                   default :    
-                    // alert('내용을 적어야만 작성가능합니다')
-                    console.log('에러 반환')
+                    alert('작성한 내용이 없습니다')
                     changeShow()
-                    console.log('뭐가 나오나', show)
+                    break
                 }
             }
         })

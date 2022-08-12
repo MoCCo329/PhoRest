@@ -35,14 +35,6 @@ export default function CommunityListPhoto() {
   const [page, setPage] = useState(0)
 
   useEffect(() => {
-    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoLike(result.data))
-    })
-    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoRecent(result.data))
-    })
     community.photoCount(humanCount)
     .then(result => {
       dispatch(setPhotoCnt(result.data))
@@ -58,18 +50,7 @@ export default function CommunityListPhoto() {
     .then(result => {
       dispatch(setPhotoRecent(result.data))
     })
-  }, [type, humanCount])
-
-  useEffect(() => {
-    community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoLike(result.data))
-    })
-    community.photoRecent({limit: limit, offset: page * limit, humanCount: humanCount})
-    .then(result => {
-      dispatch(setPhotoRecent(result.data))
-    })
-  }, [page])
+  }, [type, humanCount, page])
 
   // const likePost = (postId) => {
   //   if (!currentUser.username) {
