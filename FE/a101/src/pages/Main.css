@@ -26,3 +26,7 @@
     transition: 0.25s;
     cursor: pointer;
 }
+
+.gallery-tab-btn:hover {
+    background-color: #f5737f
+}
