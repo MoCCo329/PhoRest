@@ -140,7 +140,7 @@ export default function MypageProfile(props) {
             <div className="name">프레임</div>
           </div>
 
-          <div className="info">
+          <div className="info" onClick={() => dispatch(setViewType(4))}>
             <div className="num">
               {userDetail && userDetail.username ? userDetail.followerCount : null}
             </div>

@@ -1,9 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux/es/exports'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { setViewType } from '../../store/modules/mypage'
 
 import MyGallery from "./MyGallery"
 import FollowingList from './FollowingList'
+import FollowerList from './FollowerList'
 
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined"
 import CropFreeOutlinedIcon from "@mui/icons-material/CropFreeOutlined"
@@ -21,6 +22,7 @@ export default function ActivityTabs(props) {
     1: <MyGallery category='frame' />,
     2: <MyGallery category='bookmark' />,
     3: <FollowingList />,
+    4: <FollowerList />,
   }
 
 
