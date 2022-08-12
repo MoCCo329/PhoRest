@@ -29,7 +29,7 @@ public class FollowService {
         List<FollowDTO> followDTOS = new ArrayList<>();
 
         for(int i=0;i<follows.size();i++){
-            FollowDTO followDto = new FollowDTO(follows.get(i));
+            FollowDTO followDto = new FollowDTO(follows.get(i), "following");
             followDTOS.add(followDto);
         }
         return followDTOS;
@@ -44,7 +44,7 @@ public class FollowService {
         List<FollowDTO> followDTOS = new ArrayList<>();
 
         for(int i=0;i<follows.size();i++){
-            FollowDTO followDto = new FollowDTO(follows.get(i));
+            FollowDTO followDto = new FollowDTO(follows.get(i), "follower");
             followDTOS.add(followDto);
         }
         return followDTOS;

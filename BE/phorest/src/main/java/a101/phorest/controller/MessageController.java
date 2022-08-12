@@ -1,38 +1,23 @@
 package a101.phorest.controller;
 
-import a101.phorest.domain.Post;
+import a101.phorest.domain.User;
 import a101.phorest.dto.KakaoDTO;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
-import a101.phorest.service.KakaoService;
-import a101.phorest.service.PhotoGroupService;
-import a101.phorest.service.PostService;
-import a101.phorest.service.UserService;
-import lombok.NoArgsConstructor;
+import a101.phorest.jwt.TokenProvider;
+import a101.phorest.service.*;
 import lombok.RequiredArgsConstructor;
-import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
 import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.model.StorageType;
 import net.nurigo.sdk.message.response.MultipleDetailMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
-import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 
 
 @RestController
@@ -42,10 +27,13 @@ public class MessageController {
 
     private final DefaultMessageService messageService;
     private final PostService postService;
-    private final UserService userService;
 
+    public final TokenProvider tokenProvider;
+
+    public final UserService userService;
     private final KakaoService kakaoService;
     private final PhotoGroupService photoGroupService;
+
 
     @Scheduled(cron = "0 0 9 * * *")
     public void sendMsg() throws Exception {
@@ -109,5 +97,41 @@ public class MessageController {
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
+    }
+    @GetMapping("api/user/sendsms")
+    @ResponseBody
+    public String sendSMS(@RequestBody HashMap<String, String> input, @RequestHeader(value = "Authorization") String token) {
+        if(!tokenProvider.validateToken(token))
+            return "1";
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        Optional<UserDTO> userDTO = userService.findDtoUsernameOne(username);
+        if(userDTO.isEmpty())
+            return "2";
+        else if(userDTO.get().getPhone()== null || !userDTO.get().getPhone().equals(input.get("phone")))
+            return "3";
+        Random rand  = new Random();
+        String numStr = "";
+        for(int i=0; i<4; i++) {
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr+=ran;
+        }
+        Message message = new Message();
+        message.setFrom("01040563512");
+        message.setTo(userDTO.get().getPhone());
+        message.setText("Phorest 휴대폰 인증 메시지 : 인증번호는 " + "[" + numStr + "]" + "입니다");
+        try {
+            // send 메소드로 단일 Message 객체를 넣어도 동작합니다!
+            MultipleDetailMessageSentResponse response = this.messageService.send(message);
+
+            // 중복 수신번호를 허용하고 싶으실 경우 위 코드 대신 아래코드로 대체해 사용해보세요!
+            //MultipleDetailMessageSentResponse response = this.messageService.send(messageList, true);
+            System.out.println(response);
+        } catch (NurigoMessageNotReceivedException exception) {
+            System.out.println(exception.getFailedMessageList());
+            System.out.println(exception.getMessage());
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+        return numStr;
     }
 }
