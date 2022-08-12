@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user/")
@@ -29,11 +31,9 @@ public class FollowingController {
         return followService.getFollowingsof(username);
     }
 
-    @GetMapping("follower")
-    public List<FollowDTO> getFollower(@RequestHeader("Authorization") String token){
-        if(!tokenProvider.validateToken(token))
-            throw new ValidationException("Invalid Token");
-        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+    @PostMapping("follower")
+    public List<FollowDTO> getFollower( @RequestBody Map<String, String> input){
+        String username = input.get("username");
         return followService.getFollowerof(username);
     }
 

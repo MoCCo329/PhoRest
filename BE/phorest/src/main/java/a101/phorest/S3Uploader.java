@@ -74,7 +74,7 @@ public class S3Uploader {
     // 로컬에 파일 업로드 하기
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(System.getProperty("user.dir") + "/imagefiles/" + file.getOriginalFilename());
-        final String[] PERMISSION_FILE_EXT_ARR = {"GIF", "JPEG", "JPG", "PNG", "BMP", "MP4"};
+        final String[] PERMISSION_FILE_EXT_ARR = {"GIF", "JPEG", "JPG", "PNG", "BMP", "MP4, FSET, ISET, FSET3"};
         boolean flag = false;
         String ext = FilenameUtils.getExtension(convertFile.getName()).toUpperCase();
         for(String allowedExt : PERMISSION_FILE_EXT_ARR){
