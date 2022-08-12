@@ -219,7 +219,8 @@ public class PostService {
                 postRepository.deleteById(post.get().getId());
                 photoGroupRepository.deleteAllById(post.get().getPhotoGroup().getId());
             }else{
-                myPageRepository.deleteByPostIdAndUsername(post.get().getId(),username);
+                User user = userRepository.findByUsername(username);
+                myPageRepository.deleteByPostIdAndUserId(post.get().getId(),user.getUserId());
             }
 
             List<MyPage> mp = myPageRepository.findByPostIdShared(postId);

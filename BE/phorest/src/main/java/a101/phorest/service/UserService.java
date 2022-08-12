@@ -74,10 +74,18 @@ public class UserService {
                 myPageRepository.save(mypages.get(i));
                 em.flush();
             }
+            if(mypages.get(i).getCategory().equals( "photogroup")){
+                //2. phorogroup인 경우 user의 소유권 삭제 후, post를 공유하는 user가 없을 경우 isShared를 false로
+                myPageRepository.deleteById(mypages.get(i).getId());
+                Post post = postRepository.findById(mypages.get(i).getPost().getId()).get();
+                List<User> users = userRepository.findPostMyPageSharedUsers(post.getId());
+                if(users.isEmpty())
+                    post.setShared(false);
+            }
         }
 
 
-        //2. user의 like 취소, bookmark 취소, following follow 취소
+        //3. user의 like 취소, bookmark 취소, following follow 취소
 
         likeRepository.deleteAllByUserId(user.getUserId());
         bookmarkRepository.deleteAllByUserId(user.getUserId());
@@ -86,23 +94,8 @@ public class UserService {
         followRepository.deleteAllByFollowingUserId(user.getUserId());
 
 
+        //4. user 삭제
 
-        // 4. mypage봐서 isShared 되어있는지 확인 후 0 으로 바꾸기
-        // 4-1 삭제된 회원이 소유하고 있던 post list로 받기
-        List<Post> posts = postRepository.findByUserId(username);
-        for(int i=0;i<posts.size();i++){
-            // 해당 post id로 mypage를 찾고 그중 shared = 1 이 있는 postid를 찾기. size체크 해서 이게 없으면 해당 post is shared false
-            if(postRepository.findPostIdByMyPageShared(posts.get(i).getId()).size() == 0){
-                posts.get(i).setShared(false);
-            }
-        }
-
-        // 3. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제),
-        for(int i=0;i<mypages.size();i++){
-            if(mypages.get(i).getCategory().equals("photogroup")){
-                myPageRepository.deleteById(mypages.get(i).getId());
-            }
-        }
 
         userRepository.deleteById(user.getUserId());
         return 0L;

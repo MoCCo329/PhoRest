@@ -36,9 +36,9 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
 
     @Modifying
     @Query(nativeQuery = true,value = "delete from follow where follower_user_id =:userId")
-    void deleteAllByFollowerUserId(Long userId);
+    void deleteAllByFollowerUserId(@Param("userId") Long userId);
 
     @Modifying
     @Query(nativeQuery = true,value = "delete from follow where following_user_id =:userId")
-    void deleteAllByFollowingUserId(Long userId);
+    void deleteAllByFollowingUserId(@Param("userId") Long userId);
 }

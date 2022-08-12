@@ -20,7 +20,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
 
     @Query(nativeQuery = true, value = "select * from postlike where user_id =:userId")
-    List<Like> findAllByUserId(Long userId);
+    List<Like> findAllByUserId(@Param("userId") Long userId);
 
     @Modifying(clearAutomatically = true)
     @Query(nativeQuery = true, value = "delete from postlike where user_id =:userId")
