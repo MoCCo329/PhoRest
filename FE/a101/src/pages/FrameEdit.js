@@ -94,6 +94,7 @@ export default function FrameEdit() {
     return (
         <Layout>
             <div className='frame-edit-content'>
+                <p className='notice-frame'>※ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
                 {
                     frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
                 }

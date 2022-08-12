@@ -75,7 +75,7 @@ export default function Main() {
     return (
         <Layout>
             <main>
-                <p>로그인시 찍은 사진들을 관리하실 수 있습니다.</p>
+                <h5 className='notice'>로그인 하시면 마이페이지에 사진을 추가할 수 있습니다 ✨</h5>
                 <div className="download-img">
                     <img src={content.url} alt={content.content} /><br />
                 </div>
