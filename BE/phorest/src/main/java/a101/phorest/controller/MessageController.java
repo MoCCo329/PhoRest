@@ -100,15 +100,9 @@ public class MessageController {
     }
     @PostMapping("api/user/sendsms")
     @ResponseBody
-    public String sendSMS(@RequestBody HashMap<String, String> input, @RequestHeader(value = "Authorization") String token) {
-        if(!tokenProvider.validateToken(token))
+    public String sendSMS(@RequestBody HashMap<String, String> input) {
+        if(input.get("phone") == null)
             return "1";
-        String username = (String)tokenProvider.getTokenBody(token).get("sub");
-        Optional<UserDTO> userDTO = userService.findDtoUsernameOne(username);
-        if(userDTO.isEmpty())
-            return "2";
-        else if(input.get("phone") == null || userDTO.get().getPhone() == null || !userDTO.get().getPhone().equals(input.get("phone")))
-            return "3";
         Random rand  = new Random();
         String numStr = "";
         for(int i=0; i<4; i++) {
@@ -117,7 +111,7 @@ public class MessageController {
         }
         Message message = new Message();
         message.setFrom("01040563512");
-        message.setTo(userDTO.get().getPhone());
+        message.setTo(input.get("phone"));
         message.setText("Phorest 휴대폰 인증 메시지 : 인증번호는 " + "[" + numStr + "]" + "입니다");
         try {
             // send 메소드로 단일 Message 객체를 넣어도 동작합니다!
