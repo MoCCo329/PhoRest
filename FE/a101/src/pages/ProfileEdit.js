@@ -138,12 +138,16 @@ export default function ProfileEdit() {
   return (
     <Layout>
       <main>
-        { profileURL ? <img src={ profileURL } alt="profileImg"></img> : null }
-        {
-          profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
-        }
-        <label htmlFor="profileURL">Profile Image : </label>
-        <input name="profileURL" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="profileURL" />
+        <div className='form'>
+          { profileURL ? <img src={ profileURL } alt="profileImg"></img> : null }
+          {
+            profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
+          }
+          <div>
+            <label htmlFor="profileURL">Profile Image : </label>
+            <input name="profileURL" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="profileURL" />
+          </div>
+        </div>
         <br/>
 
         <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>

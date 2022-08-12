@@ -51,6 +51,7 @@ header {
   font-family: "LeferiPoint-BlackA";
   padding-top: 7px;
   cursor: default;
+  margin-top: 1vh;
 }
 
 .profile-info-box {

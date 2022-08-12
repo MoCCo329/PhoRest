@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom"
 import mypage from "../../api/mypage"
 
 import ScrollCalendar from "../ScrollCalendar/ScrollCalendar"
+import likeFilled from '../../assets/UI/heart_filled.png'
+import likeEmpty from '../../assets/UI/heart_empty.png'
+import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
+import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
+import lock from '../../assets/UI/lock.png'
+
 
 export default function MyGallery(props) {
   const navigate = useNavigate()
@@ -52,12 +58,12 @@ export default function MyGallery(props) {
 
 
   return (
-    <div>
+    <div className="mygallery">
       {
         type==='photogroup' &&
-        <div>
-          <div onClick={() => setView(true)} style={{ backgroundColor : view ? '#fff7e7' : '' }} >갤러리</div>
-          <div onClick={() => setView(false)} style={{ backgroundColor : !view ? '#fff7e7' : '' }}  >달력</div>
+        <div className="gallery-type-container">
+          <div className="gallery-type" onClick={() => setView(true)} style={{ backgroundColor : view ? '#f5737f' : '' }} >갤러리</div>
+          <div className="gallery-type" onClick={() => setView(false)} style={{ backgroundColor : !view ? '#f5737f' : '' }}  >달력</div>
         </div>
       }
 
@@ -74,11 +80,11 @@ export default function MyGallery(props) {
                 .map((post, idx) => (
                   <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
                     <img className="post-image" src={ post.url } alt='post' />
-                    { post.isLike ? '좋아요함' : '좋아요안함' }
-                    { post.isBookmark ? '북마크됨' : '북마크안됨' }
+                    <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' alt='like' ></img>{String(post.likeCount)+' '}
+                    <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' alt='bookmark' ></img>
                     {
                     isMyMypage && type==='photogroup' ?
-                    (isSharing(post) ? '공유중' : '비공유중') : null
+                    (isSharing(post) ? '' : <img className='icon-img' src={ lock } name='lock' alt='lock' ></img>) : null
                     }
                   </div>
                 ))
@@ -91,15 +97,16 @@ export default function MyGallery(props) {
         }
       </div>
 
-      <div className="view-wrapper">
+      <div className="container-gallery">
         {
           type==='bookmark' && bookmarked.length ?
           bookmarked.map((post, idx) => (
             <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
               <img className="post-image" src={ post.url } alt='post' />
-              { post.isLike ? '좋아요함' : '좋아요안함' }
+              <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' alt='like' ></img>
+
               { !isMyMypage ? 
-                (post.isBookmark ? '북마크됨' : '북마크 안됨') :
+                <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' alt='bookmark' ></img> :
                 null
               }
             </div>
