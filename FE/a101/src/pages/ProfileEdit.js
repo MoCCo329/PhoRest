@@ -78,7 +78,7 @@ export default function ProfileEdit() {
         navigate(`/mypage/${currentUser.username}`)
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다. (로그인 되어있지 않음)')
-      } else if (result.data===3) {
+      } else if (result.data===2) {
         setAuthError('중복된 핸드폰번호가 존재합니다.')
       }
     })
