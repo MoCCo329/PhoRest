@@ -98,7 +98,7 @@ public class MessageController {
             System.out.println(exception.getMessage());
         }
     }
-    @GetMapping("api/user/sendsms")
+    @PostMapping("api/user/sendsms")
     @ResponseBody
     public String sendSMS(@RequestBody HashMap<String, String> input, @RequestHeader(value = "Authorization") String token) {
         if(!tokenProvider.validateToken(token))
@@ -107,7 +107,7 @@ public class MessageController {
         Optional<UserDTO> userDTO = userService.findDtoUsernameOne(username);
         if(userDTO.isEmpty())
             return "2";
-        else if(userDTO.get().getPhone()== null || !userDTO.get().getPhone().equals(input.get("phone")))
+        else if(input.get("phone") == null || userDTO.get().getPhone() == null || !userDTO.get().getPhone().equals(input.get("phone")))
             return "3";
         Random rand  = new Random();
         String numStr = "";
