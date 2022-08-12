@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { setPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt } from '../../store/modules/community'
 import community from '../../api/community'
 
-import Pagination from './Pagination'
+import Pagination from '../Utils/Pagination'
 
 // icons
 import likeFilled from '../../assets/UI/heart_filled.png'
@@ -116,7 +116,7 @@ export default function CommunityListPhoto() {
         <div className="community-list-select">
         {[1, 2, 3, 4, 5, 6].map((num, idx) =>
           (
-            <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffd89e' : ''}} key={idx}>{num}명</div>
+            <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
           )
         )}
         </div>        
