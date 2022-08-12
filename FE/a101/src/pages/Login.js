@@ -108,7 +108,7 @@ export default function Main() {
           </form>
           <div className='join-paging'>
             <span>아직 회원이 아니신가요?</span>
-            <span onClick={() => navigate("/signup", { replace: true })} style={{color: '#4646CD'}}>
+            <span className='join-paging-btn' onClick={() => navigate("/signup", { replace: true })} style={{color: '#4646CD'}}>
               회원가입
             </span>
           </div>

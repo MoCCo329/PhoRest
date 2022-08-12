@@ -81,10 +81,21 @@ textarea {
 }
 .community-comment {
     display: flex;
+    width: 8em;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    font-family: "Pretendard-Regular";
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.community-comment:hover {
+    display: flex;
     align-items: center;
     gap: 8px;
     font-family: "Pretendard-Regular";
     margin-bottom: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 .normal-text {
   font-family: "Pretendard-Regular";
