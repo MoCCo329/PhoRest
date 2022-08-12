@@ -109,7 +109,6 @@ public class PostService {
         if(category.equals("photogroup"))
         {
             posts.addAll(postRepository.findPhotogroupByLikeCount("photogroup", limit, offset, humancount));
-
         }
         else if(category.equals("frame"))
         {
@@ -124,6 +123,8 @@ public class PostService {
                 userDTOS.add(userDto);
             }
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
+            List<Comment> comments = commentRepository.findAllByPostId(posts.get(i).getId());
+            postDto.setMessageCnt(comments.size());
             postDTOS.add(postDto);
         }
         return postDTOS;
@@ -147,6 +148,8 @@ public class PostService {
                 userDTOS.add(userDto);
             }
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
+            List<Comment> comments = commentRepository.findAllByPostId(posts.get(i).getId());
+            postDto.setMessageCnt(comments.size());
             postDTOS.add(postDto);
         }
         return postDTOS;
