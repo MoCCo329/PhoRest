@@ -64,5 +64,7 @@ public class PostDTO {
     private Boolean isWriter;
 
     private Boolean isShared;
+
+    private int messageCnt;
     private List<UserDTO> users;
 }

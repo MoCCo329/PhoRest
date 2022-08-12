@@ -74,6 +74,8 @@ public class PostService {
         postDto.setIsLike(likeRepository.findByPostIdAndUsername(postId, username).isPresent());
         postDto.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(postId,username).isPresent());
         postDto.setIsWriter(myPageRepository.findByPostIdAndUsername(postId, username).isPresent());
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+        postDto.setMessageCnt(comments.size());
 
         if(!post.get().isShared() && mode == 1L && !postDto.getIsWriter())
             return Optional.empty();
