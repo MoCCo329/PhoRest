@@ -126,11 +126,11 @@ public class PostService {
             List<Comment> comments = commentRepository.findAllByPostId(posts.get(i).getId());
             postDto.setMessageCnt(comments.size());
 
-            if(likeRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+            if(username.equals("") && likeRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
                 postDto.setIsLike(false);
             else postDto.setIsLike(true);
 
-            if(bookmarkRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+            if(username.equals("") && bookmarkRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
                 postDto.setIsBookmark(false);
             else postDto.setIsBookmark(true);
 
@@ -161,11 +161,11 @@ public class PostService {
             List<Comment> comments = commentRepository.findAllByPostId(posts.get(i).getId());
             postDto.setMessageCnt(comments.size());
 
-            if(likeRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+            if(username.equals("") && likeRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
                 postDto.setIsLike(false);
             else postDto.setIsLike(true);
 
-            if(bookmarkRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+            if(username.equals("") && bookmarkRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
                 postDto.setIsBookmark(false);
             else postDto.setIsBookmark(true);
 

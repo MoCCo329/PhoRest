@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +32,12 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> photoGroupLikeDownload(@RequestBody OffsetDTO offsetDto,@RequestHeader(value = "Authorization", required = false) String token)
     {
+        if(token == null || token.equals(""))
+        {
+            return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),"");
+        }
         if(!tokenProvider.validateToken(token))
-            return null;
+            return new ArrayList<>();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
     }
@@ -41,8 +46,12 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> photoGroupRecentDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
+        if(token == null || token.equals(""))
+        {
+            return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),"");
+        }
         if(!tokenProvider.validateToken(token))
-            return null;
+            return new ArrayList<>();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
     }
@@ -51,8 +60,12 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> frameLikeDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
+        if(token == null || token.equals(""))
+        {
+            return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,"");
+        }
         if(!tokenProvider.validateToken(token))
-            return null;
+            return new ArrayList<>();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,username);
     }
@@ -61,8 +74,12 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> FrameRecentDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
+        if(token == null || token.equals(""))
+        {
+            postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,"");
+        }
         if(!tokenProvider.validateToken(token))
-            return null;
+            return new ArrayList<>();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,username);
     }
