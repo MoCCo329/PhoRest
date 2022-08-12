@@ -5,7 +5,7 @@ import CopyrightIcon from "@mui/icons-material/Copyright";
 export default function Footer() {
   return (
     <footer className="footer">
-      <h3>PHOREST {<CopyrightIcon />}</h3>
+      <div>PHOREST {<CopyrightIcon />}</div>
     </footer>
   );
 }

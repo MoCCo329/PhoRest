@@ -41,11 +41,12 @@ header {
 .header-logo-phorest {
   font-family: 'establishRoomNo703OTF';
   font-size: 30px;
-  line-height: 10%;
+  padding-top: 10px;
 }
 .user-nickname {
   line-height: 60%;
   font-family: "LeferiPoint-BlackA";
+  padding-top: 7px;
 }
 
 .profile-info-box {
@@ -98,8 +99,9 @@ header {
 
 @media only screen and (max-width: 500px) {
   .logout-btn {
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    margin-left: 0.5em;
   }
 }
 

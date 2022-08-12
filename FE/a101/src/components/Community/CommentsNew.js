@@ -26,13 +26,24 @@ export default function CommentsNew(props) {
 
         community.createComment(postId, comment)
         .then(result => {
-            if (result.data) {
+            if (!result.data) {
                 community.getComments(postId)
                 .then(result => {
                     dispatch(setDetailComment(result.data))
                 })
             } else {
-                alert('잘못된 접근입니다')
+                switch ( result.data )
+                {
+                  case 3 :     
+                    alert('로그인 에러')
+                    break;     
+                  case 4 :     
+                    alert('삭제하려는 댓글은 존재하지 않는 댓글입니다')
+                    break;     
+                
+                  default :    
+                    alert('내용을 적어야만 작성가능합니다')
+                }
             }
         })
 
