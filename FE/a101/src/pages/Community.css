@@ -37,6 +37,7 @@
   font-size: 15px;
   margin-left: 3px;
   margin-right: 5px;
+  cursor: pointer;
 }
 .community-frame-edit:hover {
   border-radius: 10px;
@@ -56,6 +57,7 @@
   font-size: 15px;
   margin-left: 3px;
   margin-right: 5px;
+  cursor: pointer;
 }
 .community-delete:hover {
   background-color: #f5737f;

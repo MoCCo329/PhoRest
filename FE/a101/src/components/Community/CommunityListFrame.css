@@ -18,8 +18,11 @@ h5 {
   line-height: 140%;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
+  cursor: pointer;
 }
-
+.sub-tab-btn:hover {
+  background-color: #d8ec84;
+}
 .create-frame {
   display: flex;
   justify-content: center;
@@ -36,6 +39,7 @@ h5 {
   transition: 0.25s;
   margin: 5px;
   padding: 10px 15px 7px;
+  cursor: pointer;
 }
 .create-frame-btn:hover {
   background-color: #ffd89e;
@@ -64,6 +68,7 @@ h5 {
   display: flex;
   flex-direction: column;
   border-radius: 5px;
+  cursor: pointer;
 }
 .photo-gallery:hover {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
@@ -98,6 +103,7 @@ h3 {
   text-align: center;
   padding-top: 1em;
   padding-bottom: 5px;
+  cursor: default;
 }
 @font-face {
   font-family: "LeferiPoint-BlackA";

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { setFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, likeFrameRecent, bookmarkFrameRecent, setLikeRecent, setFrameCnt } from '../../store/modules/community'
 import community from '../../api/community'
 
-import Pagination from './Pagination'
+import Pagination from '../Utils/Pagination'
 
 // icons
 import add from '../../assets/UI/add.png'

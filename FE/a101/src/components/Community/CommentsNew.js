@@ -1,18 +1,28 @@
 import './Comments.css'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import community from './../../api/community'
 import { setDetailComment } from './../../store/modules/community'
 
+import ModalBasic from '../Utils/ModalBasic'
+
 export default function CommentsNew(props) {
+    // 모달용
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+
     let dispatch = useDispatch()
 
     const [content, setContent] = useState('')
     const currentUser = useSelector(state => state.currentUser)
     const postId = useSelector(state => state.detailPost).id
 
+    const changeShow = () => {
+        setShow((show) => !show)
+    }
+    
     const clickAddComment = () => {
         props.setEditCommentId(0)
 
@@ -36,13 +46,16 @@ export default function CommentsNew(props) {
                 {
                   case 3 :     
                     alert('로그인 에러')
-                    break;     
+                    break    
                   case 4 :     
                     alert('삭제하려는 댓글은 존재하지 않는 댓글입니다')
-                    break;     
+                    break     
                 
                   default :    
-                    alert('내용을 적어야만 작성가능합니다')
+                    // alert('내용을 적어야만 작성가능합니다')
+                    console.log('에러 반환')
+                    changeShow()
+                    console.log('뭐가 나오나', show)
                 }
             }
         })
@@ -55,6 +68,9 @@ export default function CommentsNew(props) {
             <textarea type='text' onChange={(e) => {setContent(e.target.value)}}></textarea>
             <button onClick={() => {clickAddComment()}}>작성</button>
             <button onClick={() => {props.setIsEditing(false)}}>취소</button>
+            <ModalBasic
+                show={show}
+            />
         </div>
     )
 }

@@ -18,8 +18,9 @@
     font-size: 15px;
     /* margin-left: 3px;
     margin-right: 3px; */
+    cursor: pointer;
 }
 
 .share-post-edit div:hover {
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    background-color: #ffd89e;
 }

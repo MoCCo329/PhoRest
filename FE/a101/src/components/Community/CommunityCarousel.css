@@ -29,8 +29,11 @@
   margin-left: 3px;
   margin-right: 5px;
   margin-bottom: 1em;
+  cursor: pointer;
 }
-
+.community-carousel-select-btn:hover {
+  background-color: #fff7e7;
+}
 .community-carousel-slider {
   margin: 0 2em 1em 2em;
 }
