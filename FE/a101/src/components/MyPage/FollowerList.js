@@ -9,8 +9,9 @@ export default function FollowerList() {
   const userDetail = useSelector(state => state.userDetail)
 
   useEffect(() => {
-    user.followerList(userDetail.username)
+    user.followerList({ username : userDetail.username })
     .then(result => {
+      console.log(result.data)
       setFollowerList(result.data)
     })
   }, [])
