@@ -34,19 +34,8 @@ export default function CommunityListFrame() {
   const [page, setPage] = useState(0)
 
   useEffect(() => {
-    community.frameLike({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameLike(result.data))
-    })
-    community.frameRecent({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameRecent(result.data))
-    })
     community.frameCount().then(result => {
       dispatch(setFrameCnt(result.data))
-    })
-    .catch((error) => {
-      console.error(error)
     })
   }, [])
   
@@ -62,18 +51,7 @@ export default function CommunityListFrame() {
         dispatch(setFrameRecent(result.data))
       })
     }
-  }, [type])
-  
-  useEffect(() => {
-    community.frameLike({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameLike(result.data))
-    })
-    community.frameRecent({limit: limit, offset: page * limit})
-    .then(result => {
-      dispatch(setFrameRecent(result.data))
-    })
-  }, [page])
+  }, [type, page])
 
 
   const likePost = (postId) => {

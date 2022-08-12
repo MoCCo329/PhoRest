@@ -94,7 +94,14 @@ const user = {
       url: `${END_POINT}/search`,
       params: { nickname }
     })
-  }
+  },
+
+  phoneTest () {
+    return api({
+      method: 'post',
+      url: `${END_POINT}/sendsms`,
+    })
+  },
 }
 
 export default user

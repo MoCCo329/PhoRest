@@ -88,7 +88,7 @@ export default function Community(props) {
 
       const bookmarkPost = (postId) => {
         if (!currentUser.username) {
-          return alert('로그인 후 좋아요가 가능합니다')
+          return alert('로그인 후 북마크가 가능합니다')
         }
         community.bookmarkPost(postId)
         .then(result => {
