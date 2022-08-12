@@ -14,12 +14,12 @@ import java.util.Optional;
 @Repository
 public interface FollowRepository extends JpaRepository<Follow, Long> {
 
-    @Query(nativeQuery = true, value = "select * " +
+    @Query(nativeQuery = true, value = "select distinct * " +
             "from follow f " +
             "where f.follower_user_id = :userId")
     List<Follow> findAllByFollower(@Param("userId") Long userId);
 
-    @Query(nativeQuery = true, value = "select * " +
+    @Query(nativeQuery = true, value = "select distinct * " +
             "from follow f " +
             "where f.following_user_id = :userId")
     List<Follow> findAllByFollowing(@Param("userId") Long userId);
