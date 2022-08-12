@@ -82,19 +82,14 @@
   gap: 5px;
   margin-left: 2vw;
 }
-.community-body-for-test {
-  width: 2em;
-  height: 2em;
-  border-radius: 50%;
-}
+
 .community-body-for-test:nth-child(1) {
   z-index: 1;
-  transform: scale(1.8);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  transform: scale(1.5);
 }
 .community-content {
   display: flex;
-  width: 40vw;
+  width: 50vw;
   flex-direction: column;
   align-items: center;
   margin: auto;
