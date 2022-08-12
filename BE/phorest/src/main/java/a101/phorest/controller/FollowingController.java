@@ -32,9 +32,7 @@ public class FollowingController {
     }
 
     @PostMapping("follower")
-    public List<FollowDTO> getFollower(@RequestHeader("Authorization") String token, @RequestBody Map<String, String> input){
-        if(!tokenProvider.validateToken(token))
-            throw new ValidationException("Invalid Token");
+    public List<FollowDTO> getFollower( @RequestBody Map<String, String> input){
         String username = input.get("username");
         return followService.getFollowerof(username);
     }
