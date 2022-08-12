@@ -103,7 +103,7 @@ public class PostService {
         return postRepository.findById(postId);
     }
 
-    public List<PostDTO> findByLikeCount(String category, Long limit, Long offset, Long humancount) {
+    public List<PostDTO> findByLikeCount(String category, Long limit, Long offset, Long humancount, String username) {
         List<PostDTO> postDTOS = new ArrayList<>();
         List<Post> posts = new ArrayList<>();
         if(category.equals("photogroup"))
@@ -125,13 +125,22 @@ public class PostService {
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
             List<Comment> comments = commentRepository.findAllByPostId(posts.get(i).getId());
             postDto.setMessageCnt(comments.size());
+
+            if(username.equals("") || likeRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+                postDto.setIsLike(false);
+            else postDto.setIsLike(true);
+
+            if(username.equals("") || bookmarkRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+                postDto.setIsBookmark(false);
+            else postDto.setIsBookmark(true);
+
             postDTOS.add(postDto);
         }
         return postDTOS;
 
 
     }
-    public List<PostDTO> findByRecent(String category, Long limit, Long offset, Long humancount) {
+    public List<PostDTO> findByRecent(String category, Long limit, Long offset, Long humancount, String username) {
         List<PostDTO> postDTOS = new ArrayList<>();
         List<Post> posts = new ArrayList<>();
         if (category.equals("photogroup")) {
@@ -148,8 +157,18 @@ public class PostService {
                 userDTOS.add(userDto);
             }
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
+
             List<Comment> comments = commentRepository.findAllByPostId(posts.get(i).getId());
             postDto.setMessageCnt(comments.size());
+
+            if(username.equals("") || likeRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+                postDto.setIsLike(false);
+            else postDto.setIsLike(true);
+
+            if(username.equals("") || bookmarkRepository.findByPostIdAndUsername(posts.get(i).getId(),username).isEmpty())
+                postDto.setIsBookmark(false);
+            else postDto.setIsBookmark(true);
+
             postDTOS.add(postDto);
         }
         return postDTOS;
@@ -200,7 +219,8 @@ public class PostService {
                 postRepository.deleteById(post.get().getId());
                 photoGroupRepository.deleteAllById(post.get().getPhotoGroup().getId());
             }else{
-                myPageRepository.deleteByPostIdAndUsername(post.get().getId(),username);
+                User user = userRepository.findByUsername(username);
+                myPageRepository.deleteByPostIdAndUserId(post.get().getId(),user.getUserId());
             }
 
             List<MyPage> mp = myPageRepository.findByPostIdShared(postId);
