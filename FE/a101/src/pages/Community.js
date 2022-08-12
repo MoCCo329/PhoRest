@@ -109,9 +109,10 @@ export default function Community(props) {
             .then(result => {
                 if (result.data===0) {
                     community.detailPost(postId)
-                    .then(result => 
+                    .then(result => {
                         dispatch(setDetailPost(result.data))
-                    )
+                        navigate('/')
+                    })
                 } else {
                     alert('잘못된 접근입니다.')
                 }

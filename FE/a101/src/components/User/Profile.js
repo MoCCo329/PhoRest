@@ -13,7 +13,6 @@ export default function Profile(props) {
 
     const [user, setUser] = useState(props.user)
 
-
     return (
         <div className="profile" onClick={() => {dispatch(setViewType(0)); navigate(`/mypage/${user.username}`)}}>
            {

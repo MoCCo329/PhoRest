@@ -12,10 +12,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FollowDTO {
 
-    public FollowDTO(Follow follow){
-        this.username = follow.getFollowing().getUsername();
-        this.nickname = follow.getFollowing().getNickname();
-        this.profileURL = follow.getFollowing().getProfileURL();
+    public FollowDTO(Follow follow, String category){
+        if(category.equals("following")){
+            this.username = follow.getFollowing().getUsername();
+            this.nickname = follow.getFollowing().getNickname();
+            this.profileURL = follow.getFollowing().getProfileURL();
+        }
+        else if(category.equals("follower")){
+            this.username = follow.getFollower().getUsername();
+            this.nickname = follow.getFollower().getNickname();
+            this.profileURL = follow.getFollower().getProfileURL();
+        }
+
     }
     private String username;
     private String nickname;

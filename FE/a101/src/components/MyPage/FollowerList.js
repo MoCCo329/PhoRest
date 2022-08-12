@@ -11,17 +11,16 @@ export default function FollowerList() {
   useEffect(() => {
     user.followerList({ username : userDetail.username })
     .then(result => {
-      console.log(result.data)
       setFollowerList(result.data)
     })
   }, [])
 
 
   return (
-    <div>
+    <div className='follow-container'>
         {
           followerList && followerList.length ?
-          followerList.map(user => <Profile user={user} key={user.username}/>) :
+          followerList.map(user => <div key={user.username}><Profile user={user} /></div>) :
           <p>팔로워가 없습니다</p>
         }
     </div>
