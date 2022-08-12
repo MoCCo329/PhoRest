@@ -104,12 +104,11 @@
   width: 37vw;
   max-height: 50vh;
   padding: 1vw;
-  margin-bottom: 5px;
   border: none;
-  /* border-radius: 50px; */
 }
 .search-box input {
   border-radius: 50px;
+  margin-bottom: 5px;
 }
 
 .result-box {
@@ -125,6 +124,6 @@
 
 .result-box div {
   display: flex;
-  /* max-width: 37vw;a */
+  /* max-width: 37vw; */
   margin: 5px 0px;
 }

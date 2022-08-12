@@ -70,28 +70,26 @@ export default function MyGallery(props) {
       <div className="view-wrapper">
         {
           view ?
-          <div>
-            <div className="container-gallery">
-              { userDetail && !(type==='bookmark') ? 
-                (
-                userDetail.postDTOS.filter(post => post.category===type).length===0 ?
-                <p>등록된 게시물이 없습니다</p> :
-                userDetail.postDTOS.filter(post => post.category===type)
-                .map((post, idx) => (
-                  <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
-                    <img className="post-image" src={ post.url } alt='post' />
-                    <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' alt='like' ></img>{String(post.likeCount)+' '}
-                    <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' alt='bookmark' ></img>
-                    {
-                    isMyMypage && type==='photogroup' ?
-                    (isSharing(post) ? '' : <img className='icon-img' src={ lock } name='lock' alt='lock' ></img>) : null
-                    }
-                  </div>
-                ))
-                ) :
-                null
-              }
-            </div>
+          <div className="container-gallery">
+            { userDetail && !(type==='bookmark') ? 
+              (
+              userDetail.postDTOS.filter(post => post.category===type).length===0 ?
+              <p>등록된 게시물이 없습니다</p> :
+              userDetail.postDTOS.filter(post => post.category===type)
+              .map((post, idx) => (
+                <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
+                  <img className="post-image" src={ post.url } alt='post' />
+                  <img className='icon-img' src={ post.isLike ? likeFilled : likeEmpty } name='like' alt='like' ></img>{String(post.likeCount)+' '}
+                  <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' alt='bookmark' ></img>
+                  {
+                  isMyMypage && type==='photogroup' ?
+                  (isSharing(post) ? '' : <img className='icon-img' src={ lock } name='lock' alt='lock' ></img>) : null
+                  }
+                </div>
+              ))
+              ) :
+              null
+            }
           </div> :
           <ScrollCalendar />
         }

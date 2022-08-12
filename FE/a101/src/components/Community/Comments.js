@@ -33,7 +33,7 @@ export default function Comments(props) {
                     {props.comment.nickname} | {props.comment.time.slice(0, 10)} {props.comment.time.slice(11, 19)}
                     <span></span>
                     {
-                        currentUser.nickname===props.comment.nickname ?
+                        currentUser.username===props.comment.username ?
                         (<>
                         <button onClick={() => {props.setEditCommentId(props.comment.id)}}>편집</button>
                         |
