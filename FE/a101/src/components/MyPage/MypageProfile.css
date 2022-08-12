@@ -29,6 +29,14 @@
   flex-direction: column;
   align-items: center;
 }
+.info:hover {
+  box-shadow: 0 5px 2px -2px rgba(0, 0, 0, 0.2);
+}
+.info:active {
+  margin-left: 2.5vw;
+  margin-top: 1px;
+}
+
 .num {
   font-family: 'LeferiPoint-BlackA';
   font-size: 18px;

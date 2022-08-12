@@ -98,7 +98,7 @@ export default function ScrollCalendar() {
 
   let url= "https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png"
   return (
-    <div>
+    <div className="calendar-container">
       {months.map((m) => (
         <div className="container-row" key={m.month}>
           <div className="month" ref={today.getMonth() === m.month ? monthRef : null}>{m.month + 1}월</div>
