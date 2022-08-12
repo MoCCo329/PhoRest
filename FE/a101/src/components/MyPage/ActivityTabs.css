@@ -38,6 +38,9 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
 }
+.gallery-type:hover {
+  background-color: #f5737f;
+}
 
 .view-wrapper {
   width: 100vw;
@@ -75,6 +78,7 @@
 .img-board .post-image {
   width: 100%;
   aspect-ratio: 3 / 2;
+  margin-bottom: 1vh;
 }
 
 .mygallery {
@@ -101,3 +105,21 @@
     margin: 1em 5px 1em 5px;
   }
 }
+
+.follow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 80vh;
+  overflow: auto;
+  border-radius: 20px;
+  z-index: 20;
+  padding: 1vw;
+}
+
+.follow-container div {
+  display: flex;
+  /* max-width: 37vw; */
+  margin: 5px 0px;
+}
+

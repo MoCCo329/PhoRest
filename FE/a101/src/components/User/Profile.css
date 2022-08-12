@@ -24,6 +24,7 @@
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 50%;
 }
+
 /* 일단 유저이름 안 보이게 하긴 했는데, 다시 바꿀수도 있음 display 만 지우면 됨*/
 .profile-nickname {
   font-family: "Pretendard-Regular";
@@ -31,6 +32,7 @@
 }
 @media only screen and (max-width: 500px) {
   .profile-nickname {
+    font-family: "Pretendard-Regular";
     display: none;
   }
 }

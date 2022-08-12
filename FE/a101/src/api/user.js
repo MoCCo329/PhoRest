@@ -72,6 +72,14 @@ const user = {
     })
   },
 
+  followerList(data) {
+    return api({
+      method: 'post',
+      url: `${END_POINT}/follower/`,
+      data: data,
+    })
+  },
+
   kakaoSignup(code) {
     return api({
       method: 'get',

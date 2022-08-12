@@ -36,7 +36,7 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
     List<MyPage> findByPostIdShared(@Param("postId") Long postId);
 
     @Query(nativeQuery = true, value = "select * from my_page where user_id = :userId")
-    List<MyPage> findAllByUserId(Long userId);
+    List<MyPage> findAllByUserId(@Param("userId") Long userId);
 
 
     @Query(nativeQuery = true, value = "delete from my_page where user_id =:userId")
@@ -54,8 +54,8 @@ public interface MyPageRepository extends JpaRepository<MyPage, Long> {
     void deleteAllByPostId(@Param("postId") Long id);
 
     @Modifying(clearAutomatically = true)@Query(nativeQuery = true,
-            value = "delete from my_page pl join user r on pl.user_id = r.user_id " +
+            value = "delete from my_page pl " +
             "where pl.post_id = :postId " +
-            "and r.username = :username")
-    void deleteByPostIdAndUsername(@Param("postId") Long id, @Param("username") String username);
+            "and pl.user_id = :userId")
+    void deleteByPostIdAndUserId(@Param("postId") Long postId, @Param("userId") Long userId);
 }

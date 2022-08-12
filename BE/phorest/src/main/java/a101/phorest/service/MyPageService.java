@@ -64,7 +64,7 @@ public class MyPageService {
         }
         else
         {
-            posts = postRepository.findByUserIdShared(searchUsername);
+            posts = postRepository.findByUsernameShared(searchUsername);
             Optional<Follow> follow = Optional.empty();
             if(!loginUsername.equals(""))
                 follow = followRepository.findByFollowerAndFollowing(searchUser.getUserId(), loginUser.getUserId());

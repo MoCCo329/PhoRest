@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -132,6 +134,25 @@ public class ImageController {
         return postDto.get();
     }
 
+    @PostMapping("upload/AR")
+    @ResponseBody
+    public Map<String, String> uploadAR(@RequestPart("file1") MultipartFile file1, @RequestPart("file2") MultipartFile file2, @RequestPart("file3") MultipartFile file3){
+        String uploadUrl1;
+        String uploadUrl2;
+        String uploadUrl3;
+        Map<String, String> urls = new HashMap<>();
+        try {
+            uploadUrl1 = s3Uploader.uploadFiles(file1, "AR");
+            uploadUrl2 = s3Uploader.uploadFiles(file2, "AR");
+            uploadUrl3 = s3Uploader.uploadFiles(file3, "AR");
+        } catch (Exception e) {
+            return new HashMap<String,String>();
+        }
+        urls.put("url1", uploadUrl1);
+        urls.put("url2", uploadUrl2);
+        urls.put("url3", uploadUrl3);
+        return urls;
+    }
 
 
 
