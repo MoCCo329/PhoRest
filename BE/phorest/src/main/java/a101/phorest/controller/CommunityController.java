@@ -76,7 +76,7 @@ public class CommunityController {
     {
         if(token == null || token.equals(""))
         {
-            postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,"");
+            return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,"");
         }
         if(!tokenProvider.validateToken(token))
             return new ArrayList<>();
