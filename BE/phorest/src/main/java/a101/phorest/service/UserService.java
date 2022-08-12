@@ -99,7 +99,7 @@ public class UserService {
 
         // 3. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제),
         for(int i=0;i<mypages.size();i++){
-            if(mypages.get(i).getCategory().equals( "photogroup")){
+            if(mypages.get(i).getCategory().equals("photogroup")){
                 myPageRepository.deleteById(mypages.get(i).getId());
             }
         }

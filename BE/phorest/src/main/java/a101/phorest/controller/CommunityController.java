@@ -29,30 +29,42 @@ public class CommunityController {
     private final PostRepository postRepository;
     @PostMapping("photogroup/like")
     @ResponseBody
-    public List<PostDTO> photoGroupLikeDownload(@RequestBody OffsetDTO offsetDto)
+    public List<PostDTO> photoGroupLikeDownload(@RequestBody OffsetDTO offsetDto,@RequestHeader(value = "Authorization", required = false) String token)
     {
-        return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount());
+        if(!tokenProvider.validateToken(token))
+            return null;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
     }
 
     @PostMapping("photogroup/recent")
     @ResponseBody
-    public List<PostDTO> photoGroupRecentDownload(@RequestBody OffsetDTO offsetDto)
+    public List<PostDTO> photoGroupRecentDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount());
+        if(!tokenProvider.validateToken(token))
+            return null;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
     }
 
     @PostMapping("frame/like")
     @ResponseBody
-    public List<PostDTO> frameLikeDownload(@RequestBody OffsetDTO offsetDto)
+    public List<PostDTO> frameLikeDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L);
+        if(!tokenProvider.validateToken(token))
+            return null;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,username);
     }
 
     @PostMapping("frame/recent")
     @ResponseBody
-    public List<PostDTO> FrameRecentDownload(@RequestBody OffsetDTO offsetDto)
+    public List<PostDTO> FrameRecentDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L);
+        if(!tokenProvider.validateToken(token))
+            return null;
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,username);
     }
 
     @GetMapping("frame/count")
