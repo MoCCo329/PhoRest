@@ -36,6 +36,21 @@ public class FollowService {
     }
 
     @Transactional
+    public List<FollowDTO> getFollowerof(String username){
+
+        Long userId = userRepository.findByUsername(username).getUserId();
+
+        List<Follow> follows = followRepository.findAllByFollowing(userId);
+        List<FollowDTO> followDTOS = new ArrayList<>();
+
+        for(int i=0;i<follows.size();i++){
+            FollowDTO followDto = new FollowDTO(follows.get(i));
+            followDTOS.add(followDto);
+        }
+        return followDTOS;
+    }
+
+    @Transactional
     public Long join(Long other_id, Long my_id){
         Follow follow = new Follow();
         User other_user = userRepository.findById(other_id).get();
