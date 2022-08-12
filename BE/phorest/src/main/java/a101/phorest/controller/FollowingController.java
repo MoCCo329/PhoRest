@@ -29,6 +29,14 @@ public class FollowingController {
         return followService.getFollowingsof(username);
     }
 
+    @GetMapping("follower")
+    public List<FollowDTO> getFollower(@RequestHeader("Authorization") String token){
+        if(!tokenProvider.validateToken(token))
+            throw new ValidationException("Invalid Token");
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+        return followService.getFollowerof(username);
+    }
+
     @PostMapping("{username}/follow")
     @ResponseBody
     public int addFollow(@PathVariable("username") String other_username, @RequestHeader("Authorization") String token){
