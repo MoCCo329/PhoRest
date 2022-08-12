@@ -34,6 +34,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "where r.username like :username")
     List<Post> findByUserId(@Param("username") String username);
 
+    // 해당 post id로 mypage를 찾고 그중 shared = 1 이 있는 postid를 찾기.
+    @Query(nativeQuery = true, value = "select * from my_page mp where mp.post_id = :postId and mp.is_shared = true")
+    List<Post> findPostIdByMyPageShared(@Param ("postId") Long postId);
+
+
     @Query(nativeQuery = true, value = "select * " +
             "from (post p join my_page q on p.post_id = q.post_id) join user r on q.user_id = r.user_id " +
             "where r.username = :username and q.is_shared = true")

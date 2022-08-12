@@ -13,12 +13,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
-import javax.validation.ValidationException;
-import javax.validation.constraints.Null;
 import java.io.IOException;
 import java.util.*;
 
@@ -39,6 +35,8 @@ public class UserService {
     private final FollowRepository followRepository;
     private final CommentRepository commentRepository;
     private final KakaoService kakaoService;
+
+    private final PostRepository postRepository;
 
     private final EntityManager em;
 
@@ -63,13 +61,13 @@ public class UserService {
 
         List<Comment> comments = user.getComments();
         List<MyPage> mypages = myPageRepository.findAllByUserId(user.getUserId());
-        //        1. 프레임이랑 코멘트 빼고 다 삭제하기
+
+        //        1. 프레임이랑 코멘트 빼고 다 삭제하기 =  unknownuser로 옮기기
         for(int i=0;i<comments.size();i++){
             comments.get(i).setUser(admin);
             commentRepository.save(comments.get(i));
             em.flush();
         }
-        // mypage에 frame 옮기기
         for(int i=0;i<mypages.size();i++){
             if(mypages.get(i).getCategory().equals("frame")){
                 mypages.get(i).setUser(admin);
@@ -78,25 +76,32 @@ public class UserService {
             }
         }
 
+
+        //2. user의 like 취소, bookmark 취소, following follow 취소
+
         likeRepository.deleteAllByUserId(user.getUserId());
         bookmarkRepository.deleteAllByUserId(user.getUserId());
 
         followRepository.deleteAllByFollowerUserId(user.getUserId());
         followRepository.deleteAllByFollowingUserId(user.getUserId());
 
-        // 2. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제), like 취소, bookmark 취소, following follow 취소, isactive false 로 만들기
 
-        for(int i=0;i<mypages.size();i++){
-            if(mypages.get(i).getCategory().equals( "photogroup")){
-                likeRepository.deleteAllByPostId(mypages.get(i).getPost().getId());
-                bookmarkRepository.deleteAllByPostId(mypages.get(i).getPost().getId());
-                myPageRepository.deleteById(mypages.get(i).getId());
+
+        // 4. mypage봐서 isShared 되어있는지 확인 후 0 으로 바꾸기
+        // 4-1 삭제된 회원이 소유하고 있던 post list로 받기
+        List<Post> posts = postRepository.findByUserId(username);
+        for(int i=0;i<posts.size();i++){
+            // 해당 post id로 mypage를 찾고 그중 shared = 1 이 있는 postid를 찾기. size체크 해서 이게 없으면 해당 post is shared false
+            if(postRepository.findPostIdByMyPageShared(posts.get(i).getId()).size() == 0){
+                posts.get(i).setShared(false);
             }
         }
 
-        List<Like> likes = likeRepository.findAllByUserId(user.getUserId());
-        for(int i=0;i<likes.size();i++){
-            likeRepository.deleteById(likes.get(i).getId());
+        // 3. 삭제되는 회원의 post에 소유권 없애기(mypage에 photogroup 삭제),
+        for(int i=0;i<mypages.size();i++){
+            if(mypages.get(i).getCategory().equals( "photogroup")){
+                myPageRepository.deleteById(mypages.get(i).getId());
+            }
         }
 
         userRepository.deleteById(user.getUserId());
