@@ -12,6 +12,7 @@ import user from "../api/user"
 // 카카오 로그인 이미지
 // import kakaoBtn from "../assets/UI/kakao_login_medium_wide.png"
 import kakaoSymbol from '../assets/UI/kakao_symbol.png'
+import { REST_API_KEY, REDIRECT_URI } from '../components/User/KakaoData'
 
 export default function Main() {
   let dispatch = useDispatch()
@@ -54,7 +55,7 @@ export default function Main() {
 
   // 카카오 로그인
   const url =
-    "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=4656da19556d6f608f3a297dd7c7b994&redirect_uri=https://phorest.site/kakao"
+    `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
 
   function login() {
     window.location.href = url
