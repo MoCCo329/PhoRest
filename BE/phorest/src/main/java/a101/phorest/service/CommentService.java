@@ -62,9 +62,10 @@ public class CommentService {
     public Boolean remove(Long PostId, Long CommentId, String username){
         if(commentRepository.findById(CommentId).isPresent()){
             Comment comment = commentRepository.findById(CommentId).get();
-            if (comment.getUser().getUsername().equals(username) && comment.getPost().getId().equals(PostId))
+            if (comment.getUser().getUsername().equals(username) && comment.getPost().getId().equals(PostId)) {
                 commentRepository.deleteById(comment.getId());
-            return true;
+                return true;
+            }
         }
         return false;
     }
