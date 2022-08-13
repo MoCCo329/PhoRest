@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
@@ -18,6 +18,7 @@ export default function MypageProfile(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const searchBox = useRef('')
   const [isMyMypage, setIsMyMypage] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
 
@@ -31,6 +32,17 @@ export default function MypageProfile(props) {
       setIsMyMypage(false)
     }
   }, [userDetail, currentUser])
+
+  const handleSearchBox = (e) => {
+    if (searchBox.current && !searchBox.current.contains(e.target)) {
+      setIsSearching(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', handleSearchBox)
+    return (() => {window.removeEventListener('click', handleSearchBox)})
+  }, [])
 
   // 로그인 안되어있는채로 팔로우버튼을 누르면 로그인창으로 안내하는 모달창 나옴
   const [show, setShow] = useState(false)
@@ -107,7 +119,7 @@ export default function MypageProfile(props) {
             </Modal>
           </div>
 
-          <div className="search-button">
+          <div className="search-button" ref={searchBox}>
             <button onClick={() => setIsSearching(!isSearching)} >유저 검색</button>
             {
               isSearching ?

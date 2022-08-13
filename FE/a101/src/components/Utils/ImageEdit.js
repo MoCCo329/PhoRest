@@ -79,7 +79,7 @@ export default function ImageEdit() {
   const clickComplete = () => {
     setClickWell(true)
     setTimeout(() => {
-      const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 fFhGIW FIE_topbar-save-button SfxButton-root')[0]
+      const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
       btn.click()
       setClickWell(false)
     }, 1)

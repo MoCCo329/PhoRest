@@ -14,8 +14,8 @@ export default function Search (props) {
     .then(result => {
       setResult(result.data)
     })
-  }
-
+  }  
+  
   const resultBox = useRef(null)
   useEffect(() => {
     if (resultBox.current) {
@@ -23,15 +23,10 @@ export default function Search (props) {
     }
   }, [resultBox.current])
 
-  // const loseFocus = () => {
-  //   setResult('')
-  //   props.setIsSearching(false)
-  // }  onBlur={loseFocus}
-
-
+  
   return (
     <div className="search-box" ref={ resultBox }>
-      <input type="text" onChange={(e) => search(e.target.value)} placeholder="찾고싶은 유저명을 검색해주세요"/>
+      <input type="text" onChange={(e) => search(e.target.value)} placeholder="찾고싶은 유저명을 검색해주세요" autoFocus />
 
       {
         result && result.length ?
