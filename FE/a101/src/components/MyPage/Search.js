@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react"
-import { useDispatch } from 'react-redux'
 
 import user from './../../api/user'
 
