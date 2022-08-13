@@ -1,4 +1,3 @@
-import { create } from '@mui/material/styles/createTransitions'
 import { createSlice } from '@reduxjs/toolkit'
 
 export let photoLike = createSlice({
@@ -182,8 +181,8 @@ export let detailComments = createSlice({
       state[idx] = comment
     },
     deleteComment (state, id) {
-      const copy = state.map((comment) => {
-        if (comment.id!==id) return comment
+      const copy = state.filter(comment => {
+        return comment.id!==id
       })
       return copy
     },
