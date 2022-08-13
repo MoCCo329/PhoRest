@@ -1,7 +1,7 @@
 import './Main.css'
 
-import { useMemo, useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import CommunityListPhoto from '../components/Community/CommunityListPhoto'

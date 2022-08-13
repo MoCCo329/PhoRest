@@ -23,25 +23,25 @@ export default function Search (props) {
     }
   }, [resultBox.current])
 
-  const loseFocus = () => {
-    setResult('')
-    props.setIsSearching(false)
-  }
+  // const loseFocus = () => {
+  //   setResult('')
+  //   props.setIsSearching(false)
+  // }  onBlur={loseFocus}
 
 
   return (
     <div className="search-box" ref={ resultBox }>
-      <input type="text" onChange={(e) => search(e.target.value)} onBlur={loseFocus} placeholder="찾고싶은 유저명을 검색해주세요"/>
+      <input type="text" onChange={(e) => search(e.target.value)} placeholder="찾고싶은 유저명을 검색해주세요"/>
 
-        {
-          result && result.length ?
-          <div className="result-box">
-          {result.map(user => {
-            return <div key={ user.username } onClick={() => {props.setIsSearching(false)}} ><Profile user={ user } ></Profile></div>
-          })}
-          </div> :
-          null
-        }
+      {
+        result && result.length ?
+        <div className="result-box">
+        {result.map(user => {
+          return <div key={ user.username } onClick={() => {props.setIsSearching(false)}} ><Profile user={ user } ></Profile></div>
+        })}
+        </div> :
+        null
+      }
 
     </div>
   )

@@ -8,8 +8,6 @@ import ImageEdit from '../components/Utils/ImageEdit'
 import Layout from '../components/Layout/Layout'
 
 import community from '../api/community'
-import s3 from '../api/s3'
-import mypage from '../api/mypage'
 import { setDetailPost } from '../store/modules/community'
 
 export default function FrameEdit() {

@@ -81,12 +81,10 @@ export default function Main() {
                 </div>
                 <div className="download-links">
                     <div className="download-links-item download-picture" onClick={() => imageDownload()}>
-                        {/* <box-icon type='solid' name='camera'></box-icon> */}
                         <p>📷</p>
                         <p>사진 다운로드</p>
                     </div>
                     <div className="download-links-item download-video" onClick={() => videoDownload()}>
-                        {/* <box-icon type='solid' name='camera-movie'></box-icon> */}
                         <p>🎥</p>
                         <p>동영상 다운로드</p>
                     </div>
