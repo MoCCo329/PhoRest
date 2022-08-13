@@ -18,9 +18,8 @@ export default function ImageEdit() {
   const [clickWell, setClickWell] = useState(false)
 
   useEffect(() => {
-    const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 fFhGIW FIE_topbar-save-button SfxButton-root')[0]
-    console.log(btn)
-    // btn.style.visibility = "hidden"
+    const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
+    btn.style.visibility = "hidden"
   }, [])
 
   const dataURLtoFile = (dataurl) => {
