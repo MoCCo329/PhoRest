@@ -30,8 +30,15 @@ export default function Search (props) {
 
 
   return (
-    <div className="search-box" ref={ resultBox }>
-      <input type="text" onChange={(e) => search(e.target.value)} onBlur={loseFocus} placeholder="찾고싶은 유저명을 검색해주세요"/>
+    <div className="search-box" ref={ resultBox }
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          loseFocus();
+        }
+      }}
+    >
+      <input type="text" onChange={(e) => search(e.target.value)} placeholder="찾고싶은 유저명을 검색해주세요"/>
+      {/* <input type="text" onChange={(e) => search(e.target.value)} onBlur={loseFocus} placeholder="찾고싶은 유저명을 검색해주세요"/> */}
 
         {
           result && result.length ?

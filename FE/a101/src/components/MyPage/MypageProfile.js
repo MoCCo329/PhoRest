@@ -46,7 +46,6 @@ export default function MypageProfile(props) {
     })
   }
 
-
   return (
     <div>
       <div className="profile-box">
@@ -106,7 +105,6 @@ export default function MypageProfile(props) {
               </Modal.Footer>
             </Modal>
           </div>
-
           <div className="search-button">
             <button onClick={() => setIsSearching(!isSearching)} >유저 검색</button>
             {
