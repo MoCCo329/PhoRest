@@ -27,7 +27,6 @@ export default function Search (props) {
   return (
     <div className="search-box" ref={ resultBox }>
       <input type="text" onChange={(e) => search(e.target.value)} placeholder="찾고싶은 유저명을 검색해주세요" autoFocus />
-
       {
         result && result.length ?
         <div className="result-box">

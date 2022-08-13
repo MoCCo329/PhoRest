@@ -8,13 +8,13 @@ const ModalBasic = (props) => {
 
   // const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
-  useEffect(() => {
-    setShow(props.show)
-  }, [props.show])
+  // useEffect(() => {
+  //   setShow(props.show)
+  // }, [props.show])
 
   return (
     <>
-      <Modal show={show}>
+      <Modal show={props.show}>
         <Modal.Body>{props.text}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary">

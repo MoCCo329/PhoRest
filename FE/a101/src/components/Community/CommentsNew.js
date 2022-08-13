@@ -20,9 +20,12 @@ export default function CommentsNew(props) {
     const postId = useSelector(state => state.detailPost).id
 
     const changeShow = () => {
-        setShow((show) => !show)
+        setShow((show) => {
+            console.log('show', show)
+            return !show
+        })
     }
-    
+    console.log('show',show)
     const clickAddComment = () => {
         props.setEditCommentId(0)
 
@@ -40,24 +43,26 @@ export default function CommentsNew(props) {
                 community.getComments(postId)
                 .then(result => {
                     dispatch(setDetailComment(result.data))
+                    props.setIsEditing(false)
                 })
             } else {
                 switch ( result.data ) {
-                  case 3 :     
-                    alert('로그인 에러')
-                    break    
-                  case 4 :     
-                    alert('삭제하려는 댓글은 존재하지 않는 댓글입니다')
-                    break     
-                
-                  default :    
-                    alert('작성한 내용이 없습니다')
-                    changeShow()
-                    break
+                    case 3 :     
+                        alert('로그인 에러')
+                        break    
+                    case 4 :     
+                        alert('삭제하려는 댓글은 존재하지 않는 댓글입니다')
+                        break     
+                    case 5:
+                        // alert('작성한 내용이 없습니다')
+                        changeShow()
+                        break
+                    default :    
+                        break
                 }
             }
         })
-        return props.setIsEditing(false)
+        // return props.setIsEditing(false)
     }
 
     return (
