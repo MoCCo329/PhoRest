@@ -102,13 +102,11 @@ public class CommunityController {
         if(postId - decodedNumber != 0)
             return new PostDTO();
         Optional<PostDTO> postDto;
-        if(token == null || token.equals(""))
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
         {
             postDto = postService.findDtoOne(1L, postId, "");
             return postDto.orElseGet(PostDTO::new);
         }
-        if(!tokenProvider.validateToken(token))
-            return new PostDTO();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         postDto = postService.findDtoOne(1L, postId, username);
         return postDto.orElseGet(PostDTO::new);
