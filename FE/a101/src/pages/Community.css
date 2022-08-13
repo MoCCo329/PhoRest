@@ -40,8 +40,7 @@
   cursor: pointer;
 }
 .community-frame-edit:hover {
-  border-radius: 10px;
-  padding: 3px 5px 3px 5px;
+  background-color: #f5737f;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 .community-delete {

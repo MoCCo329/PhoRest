@@ -18,7 +18,6 @@ import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
 
-// import 'boxicons'
 import defaultProfile from '../assets/defaultProfile.png'
 
 
