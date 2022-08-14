@@ -82,6 +82,13 @@ public class PostService {
         return Optional.of(postDto);
     }
 
+    public Long findPostByFrameId(Long frameId){
+        Optional<Post> post = postRepository.findByFrameId(frameId);
+        if(post.isEmpty())
+            return -1L;
+        return post.get().getId();
+    }
+
     public List<PostDTO> findMessagePosts(){
 
         List<Post> posts = postRepository.findMessagePost(LocalDateTime.now(ZoneId.of("Asia/Seoul")), "photogroup");

@@ -25,7 +25,6 @@ export default function ImageEdit() {
       btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
       btn.style.visibility = "hidden"
     }
-
   }, [])
 
   const dataURLtoFile = (dataurl) => {
@@ -98,6 +97,7 @@ export default function ImageEdit() {
 
   return (
     <div>
+       <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
       {(
         <FilerobotImageEditor
           source={frameURL || defaultProfile}

@@ -14,7 +14,10 @@ const ModalBasic = (props) => {
         <Modal.Body>{props.text}</Modal.Body>
         <Modal.Footer style={noLine}>
           <Button variant="secondary" onClick={props.onHide}>
-            확인
+            취소
+          </Button>
+          <Button variant="secondary" onClick={props.action}>
+            {props.todo}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -31,7 +31,7 @@ export default function CommunityListFrame() {
   const currentUser = useSelector(state => state.currentUser)
   const frameCnt = useSelector(state => state.frameCnt)
 
-  const limit = 8
+  const limit = 12
   const [page, setPage] = useState(0)
 
   useEffect(() => {

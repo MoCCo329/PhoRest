@@ -76,4 +76,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "where datediff(:now, p.time) = 7 and p.category = :category ")
     List<Post> findMessagePost(@Param("now")LocalDateTime now, @Param("category") String category);
 
+    @Query(nativeQuery = true, value = "select distinct * from post p where p.frame_id = :frameId ")
+    Optional<Post> findByFrameId(@Param("frameId") Long frameId);
+
 }
