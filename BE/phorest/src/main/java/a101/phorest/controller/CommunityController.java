@@ -52,6 +52,18 @@ public class CommunityController {
         return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
     }
 
+    @GetMapping("frame/{frameId}")
+    @ResponseBody
+    public Long findFramePostId(@PathVariable("frameId") String frameIdEncoded){
+        byte[] decodedBytes = Base64.getDecoder().decode(frameIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long frameId = decodedNumber.longValue();
+        if(frameId - decodedNumber != 0)
+            return -1L;
+        return postService.findPostByFrameId(frameId);
+    }
+
     @PostMapping("frame/like")
     @ResponseBody
     public List<PostDTO> frameLikeDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
