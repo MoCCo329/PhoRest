@@ -103,6 +103,12 @@ const community = {
       method: 'get',
       url: `${END_POINT}/frame/count/`,
     })
+  },
+  framePost (frameId) {
+    return api({
+      method: 'get',
+      url: `${END_POINT}/frame/${frameId}/`
+    })
   }
 }
 
