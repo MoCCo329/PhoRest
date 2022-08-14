@@ -18,8 +18,6 @@ import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
 
-import defaultProfile from '../assets/defaultProfile.png'
-
 
 export default function Community(props) {
     const postId = (Number(atob(useParams().postId)) - 37) / 73
@@ -43,7 +41,7 @@ export default function Community(props) {
         .then(result => {
             dispatch(setDetailComment(result.data))
         })
-    }, [])
+    }, [postId])
 
     useEffect(() => {
         community.detailPost(postId)
@@ -117,6 +115,13 @@ export default function Community(props) {
         }
     }
 
+    const clickFrameId = () => {
+        community.framePost(detailPost.frameId)
+        .then(result => {
+            navigate(`/community/${btoa((result.data) * 73 + 37)}`)
+        })
+    }
+
     
     return (
         <Layout>
@@ -125,7 +130,7 @@ export default function Community(props) {
                     <div className="community-header">
                         <h5>{ detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판</h5>
                         { detailPost.category==='photogroup' ? <div className='post-division'>{detailPost.humanCount}명</div> : null }
-                        { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={() => navigate(`/community/${btoa((postId) * 73 + 37)}`)} >프레임 ID {detailPost.frameId}</div> : null }
+                        { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={clickFrameId} >프레임 ID {detailPost.frameId}</div> : null }
                         { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
                     <div className="community-body">
