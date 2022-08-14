@@ -40,8 +40,8 @@ export default function Main() {
       .then(result => {
         dispatch(setCurrentUser(result.data))
       })
-      setPhoneTestNumber('')
-      setTested(false)
+      // setPhoneTestNumber('')
+      // setTested(false)
     }, [])
 
     const onSubmit = (e) => {
@@ -177,7 +177,7 @@ export default function Main() {
             <form name="signup" onSubmit={(e) => {onSubmit(e)}}>
               <div>
                 <label htmlFor="username">ID</label>
-                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" /> {idValidity}
+                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
               </div>
 
               <div>
