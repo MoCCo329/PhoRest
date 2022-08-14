@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux'
 
 import community from '../../api/community'
 import ModalConfirm from '../Utils/ModalConfirm'
+import ModalBasic from '../Utils/ModalBasic'
+
 import { setDetailComment} from '../../store/modules/community'
 
 export default function CommentsEdit(props) {
@@ -13,20 +15,30 @@ export default function CommentsEdit(props) {
     const [content, setContent] = useState(props.comment.content)
     const { comment } = props
     
-    // 모달용 변수
+    // 모달용 변수 - confirm
     const [show, setShow] = useState(false)
     let msg = ''
     const [message, setMessage] = useState('')
     let todo = ''
     const [toDo, setToDo] = useState('')
+    // 모달용 함수 - confirm
     const handleClose = () => setShow(false)
-    // 모달용 함수
     const setModal = (msg, todo) => {
         setShow((show) => {
             return !show
         })
         setMessage(msg)
         setToDo(todo)
+    }
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+        setShowBasic((showBasic) => {
+            return !showBasic
+        })
+        setMessage(msg)
     }
     const deleteConfirmed = () => {
         community.deleteComment(comment.postId, comment.id)
@@ -37,7 +49,8 @@ export default function CommentsEdit(props) {
                     dispatch(setDetailComment(result.data))
                 })
             } else {
-                alert('잘못된 접근입니다')
+                msg = '잘못된 접근입니다'
+                setModalBasic(msg)
             }
         })
 
@@ -51,25 +64,6 @@ export default function CommentsEdit(props) {
             todo = '삭제'
             setModal(msg, todo)
             return
-
-            // const confirmResult = confirm
-            // if (confirmResult) {
-            //     community.deleteComment(comment.postId, comment.id)
-            //     .then(result => {
-            //         if (result.data) {
-            //             community.getComments(comment.postId)
-            //             .then(result => {
-            //                 dispatch(setDetailComment(result.data))
-            //             })
-            //         } else {
-            //             alert('잘못된 접근입니다')
-            //         }
-            //     })
-
-            //     return props.setEditCommentId(0)
-            // } else {
-            //     return
-            // }
         }
 
         const newComment = {
@@ -99,6 +93,11 @@ export default function CommentsEdit(props) {
                 text={message}
                 action={deleteConfirmed}
                 todo={toDo}
+            />
+            <ModalBasic
+                show={showBasic}
+                onHide={handleCloseBasic}
+                text={message}
             />
         </div>
     )

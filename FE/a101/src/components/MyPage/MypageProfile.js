@@ -1,3 +1,5 @@
+import './MypageProfile.css'
+
 import { useState, useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -8,9 +10,7 @@ import user from "../../api/user"
 import { setIsFollowing } from "../../store/modules/mypage"
 import { setViewType } from "../../store/modules/mypage"
 
-import Modal from "react-bootstrap/Modal"
-
-import "./MypageProfile.css"
+import ModalConfirm from '../Utils/ModalConfirm'
 import defaultProfile from "../../assets/defaultProfile.png"
 
 
@@ -24,6 +24,19 @@ export default function MypageProfile(props) {
 
   const userDetail = useSelector(state => state.userDetail)
   const currentUser = useSelector(state => state.currentUser)
+
+  // 로그인 안되어있는채로 팔로우버튼을 누르면 로그인창으로 안내하는 모달창 나옴
+  // 모달용 변수
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  let msg = '로그인이 필요한 기능입니다. \n 로그인하시겠습니까?'
+  let todo = '로그인'
+  // 모달용 함수
+  const setModal = () => {
+      setShow((show) => {
+          return !show
+      })
+  }
 
   useEffect(() => {
     if (userDetail.username===currentUser.username) {
@@ -44,11 +57,6 @@ export default function MypageProfile(props) {
     return (() => {window.removeEventListener('click', handleSearchBox)})
   }, [])
 
-  // 로그인 안되어있는채로 팔로우버튼을 누르면 로그인창으로 안내하는 모달창 나옴
-  const [show, setShow] = useState(false)
-  // 모달
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
 
   // 팔로우 버튼 누르면 신청 / 다시 누르면 언팔
   function follow() {
@@ -90,32 +98,17 @@ export default function MypageProfile(props) {
                 </button>
               )) : (null)
             ) : (
-              <button variant="primary" onClick={handleShow}>
+              <button variant="primary" onClick={setModal}>
               팔로우하기
             </button>
             )}
-
-            <Modal
-              show={show}
-              onHide={handleClose}
-              backdrop="static"
-              keyboard={true}
-              className="modal"
-            >
-              <Modal.Body>
-                로그인이 필요한 기능입니다.
-                <br></br>
-                로그인 하시겠습니까?
-              </Modal.Body>
-              <Modal.Footer>
-                <button variant="secondary" onClick={handleClose}>
-                  다음에 할게요
-                </button>
-                <button variant="primary" onClick={() => navigate("/login")}>
-                  로그인 할래요
-                </button>
-              </Modal.Footer>
-            </Modal>
+            <ModalConfirm
+                show={show}
+                onHide={handleClose}
+                text={msg}
+                action={() => navigate("/login")}
+                todo={todo}
+            />
           </div>
           <div className="search-button" ref={searchBox}>
             <button onClick={() => setIsSearching(!isSearching)} >유저 검색</button>

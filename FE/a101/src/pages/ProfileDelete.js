@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
+import ModalConfirm from '../components/Utils/ModalConfirm'
 
 import user from '../api/user'
 import { setCurrentUser } from '../store/modules/user'
@@ -21,6 +23,32 @@ export default function ProfileDelete () {
   const [passwordMatch, setPasswordMatch] = useState('')
   const [authError, setAuthError] = useState('')
   const currentUser = useSelector(state => state.currentUser)
+
+  // 모달용 변수 - basic
+  const [showBasic, setShowBasic] = useState(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  // 모달용 함수 - basic
+  const handleCloseBasic = () => setShowBasic(false)
+  const setModalBasic = (msg) => {
+      setShowBasic((showBasic) => {
+          return !showBasic
+      })
+      setMessage(msg)
+  }
+  // 모달용 변수 - confirm
+  const [show, setShow] = useState(false)
+  let todo = ''
+  const [toDo, setToDo] = useState('')
+  // 모달용 함수 - confirm
+  const handleClose = () => setShow(false)
+  const setModal = (msg, todo) => {
+      setShow((show) => {
+          return !show
+      })
+      setMessage(msg)
+      setToDo(todo)
+  }
 
   useEffect(() => {
     if (currentUser.kakao) {
@@ -56,9 +84,23 @@ export default function ProfileDelete () {
     setAuthError('')
 
     if (!isKakao && (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다')) {
-      return alert('비밀번호를 정확히 입력해 주세요')
+      msg = '비밀번호를 정확히 입력해 주세요'
+      setModalBasic(msg)
+      return
     }
 
+    // let credentials = {}
+    // if (!isKakao) {
+    //   credentials = {
+    //     password : document.querySelector('#password').value
+    //   }
+    // }
+    msg = '정말 회원을 탈퇴하시겠습니까?'
+    todo = '탈퇴'
+    setModal(msg, todo)
+  }
+
+  const userDeleteConfirmed = () => {
     let credentials = {}
     if (!isKakao) {
       credentials = {
@@ -66,8 +108,6 @@ export default function ProfileDelete () {
       }
     }
 
-    if (!window.confirm('정말 회원을 탈퇴하시겠습니까?')) {return}
-    
     user.userDelete(credentials)
     .then((result) => {
       if (result.data===0) {
@@ -77,8 +117,7 @@ export default function ProfileDelete () {
         .then(result => {
           dispatch(setCurrentUser(result.data))
         })
-        alert('성공적으로 탈퇴되었습니다.')
-        navigate('/')
+        alert('탈퇴가 완료되었습니다')
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다.')
       } else if (result.data===2) {
@@ -120,6 +159,18 @@ export default function ProfileDelete () {
               <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
             </div>
         </div>
+        <ModalBasic
+          show={showBasic}
+          onHide={handleCloseBasic}
+          text={message}
+        /> 
+        <ModalConfirm
+          show={show}
+          onHide={handleClose}
+          text={message}
+          action={userDeleteConfirmed}
+          todo={toDo}
+        />
       </main>
     </Layout>
   )

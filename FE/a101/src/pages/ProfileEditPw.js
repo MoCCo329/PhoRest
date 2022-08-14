@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 // functions
 import user from '../api/user'
@@ -24,6 +25,19 @@ export default function ProfileEditPw() {
   const [passwordMatch, setPasswordMatch] = useState('')
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
+  // 모달용 변수 - basic
+  const [showBasic, setShowBasic] = useState(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  // 모달용 함수 - basic
+  const handleCloseBasic = () => setShowBasic(false)
+  const setModalBasic = (msg) => {
+      setShowBasic((showBasic) => {
+          return !showBasic
+      })
+      setMessage(msg)
+  }
+
   useEffect(() => {
     if (currentUser.kakao) {
       navigate('/')
@@ -41,7 +55,9 @@ export default function ProfileEditPw() {
     setAuthError('')
 
     if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
-      return alert('비밀번호를 정확히 입력해 주세요')
+      msg = '비밀번호를 정확히 입력해 주세요'
+      setModalBasic(msg)
+      return
     }
 
     let form = document.forms.profileEdit.elements
@@ -135,6 +151,11 @@ export default function ProfileEditPw() {
           <div className='back-motion'>
             <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
           </div>
+          <ModalBasic
+          show={showBasic}
+          onHide={handleCloseBasic}
+          text={message}
+        />  
         </div>
       </main>
     </Layout>

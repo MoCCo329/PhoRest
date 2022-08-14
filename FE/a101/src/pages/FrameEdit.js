@@ -8,6 +8,7 @@ import ImageEdit from '../components/Utils/ImageEdit'
 import Layout from '../components/Layout/Layout'
 
 import community from '../api/community'
+import ModalBasic from '../components/Utils/ModalBasic'
 import { setDetailPost } from '../store/modules/community'
 
 export default function FrameEdit() {
@@ -18,6 +19,19 @@ export default function FrameEdit() {
     const [type, setType] = useState(false)
     const [frameURL, setFrameURL] = useState('')
     const [content, setContent] = useState('')
+
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+    setShowBasic((showBasic) => {
+    return !showBasic
+    })
+    setMessage(msg)
+    }
 
     useEffect(() => {  // LTM2이면 new frame
         if (postId!==-1) {  // true 면 수정, false면 생성
@@ -51,7 +65,8 @@ export default function FrameEdit() {
             if (result.data===0) {
                 navigate(`/community/${btoa(postId * 73 + 37)}`)
             } else {
-                alert('잘못된 접근입니다')
+                msg = '잘못된 접근입니다'
+                setModalBasic(msg)
             }
         })
     }
@@ -75,6 +90,11 @@ export default function FrameEdit() {
                 </div> :
                 <ImageEdit></ImageEdit>
             }
+            <ModalBasic
+                show={showBasic}
+                onHide={handleCloseBasic}
+                text={message}
+            />  
         </Layout>
     )
   }

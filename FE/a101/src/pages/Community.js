@@ -11,6 +11,8 @@ import SharePost from '../components/Community/SharePost'
 // functions
 import { setDetailPost, setDetailComment } from '../store/modules/community'
 import community from './../api/community'
+import ModalConfirm from '../components/Utils/ModalConfirm'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 // icons
 import likeFilled from '../assets/UI/heart_filled.png'
@@ -30,6 +32,43 @@ export default function Community(props) {
 
     const detailPost = useSelector(state => state.detailPost)
     const currentUser = useSelector(state => state.currentUser)
+
+    // 모달용 변수 - confirm
+    const [show, setShow] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    let todo = ''
+    const [toDo, setToDo] = useState('')
+    // 모달용 함수 - confirm
+    const handleClose = () => setShow(false)
+    const setModal = (msg, todo) => {
+        setShow((show) => {
+            return !show
+        })
+        setMessage(msg)
+        setToDo(todo)
+    }
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+        setShowBasic((showBasic) => {
+            return !showBasic
+        })
+        setMessage(msg)
+    }
+    // 모달용 변수 - confirm 로그인
+    const [showLogin, setShowLogin] = useState(false)
+    // 모달용 함수 - confirm 로그인
+    const handleCloseLogin = () => setShowLogin(false)
+    const setModalLogin = (msg) => {
+        setShowLogin((showLogin) => {
+            return !showLogin
+        })
+        setMessage(msg)
+        setToDo(todo)
+    }
 
     useEffect(() => {
         community.detailPost(postId)
@@ -73,7 +112,10 @@ export default function Community(props) {
 
     const likePost = (postId) => {
         if (!currentUser.username) {
-          return alert('로그인 후 좋아요가 가능합니다')
+            msg = '로그인 후 좋아요가 가능합니다. 로그인 하시겠습니까?'
+            todo = '로그인'
+            setModalLogin(msg, todo)
+            return
         }
         community.likePost(postId)
         .then(result => {
@@ -83,35 +125,44 @@ export default function Community(props) {
 
       const bookmarkPost = (postId) => {
         if (!currentUser.username) {
-          return alert('로그인 후 북마크가 가능합니다')
+            msg = '로그인 후 북마크가 가능합니다. 로그인 하시겠습니까?'
+            todo = '로그인'
+            setModalLogin(msg, todo)
+            return
         }
         community.bookmarkPost(postId)
         .then(result => {
             dispatch(setDetailPost(result.data))
         })
       }
-
+    
+    const deleteConfirmed = () => {
+        community.deletePost(postId)
+        .then(result => {
+            if (result.data===0) {
+                community.detailPost(postId)
+                .then(result => {
+                    dispatch(setDetailPost(result.data))
+                    navigate('/')
+                })
+            } else {
+                msg = '잘못된 접근입니다'
+                setModalBasic(msg)
+            }
+        })
+    }
     const deletePost = () => {
-        let confirmResult = false
+        // let confirmResult = false
         if (detailPost.category==='photogroup') {
-            confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
+            msg = '포즈게시글 소유권을 삭제합니다.'
+            todo = '삭제'
+            setModal(msg, todo)
+            // confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
         } else {
-            confirmResult = window.confirm('프레임게시글을 삭제합니다.')
-        }
-
-        if (confirmResult) {
-            community.deletePost(postId)
-            .then(result => {
-                if (result.data===0) {
-                    community.detailPost(postId)
-                    .then(result => {
-                        dispatch(setDetailPost(result.data))
-                        navigate('/')
-                    })
-                } else {
-                    alert('잘못된 접근입니다.')
-                }
-            })
+            msg = '프레임게시글을 삭제합니다.'
+            todo = '삭제'
+            setModal(msg, todo)
+            // confirmResult = window.confirm('프레임게시글을 삭제합니다.')
         }
     }
 
@@ -192,6 +243,25 @@ export default function Community(props) {
                         </div>
                 </div>
                 </div>
+                <ModalConfirm
+                    show={show}
+                    onHide={handleClose}
+                    text={message}
+                    action={deleteConfirmed}
+                    todo={toDo}
+                />
+                <ModalConfirm
+                    show={showLogin}
+                    onHide={handleCloseLogin}
+                    text={message}
+                    action={() => navigate('/login')}
+                    todo={toDo}
+                />
+                <ModalBasic
+                    show={showBasic}
+                    onHide={handleCloseBasic}
+                    text={message}
+                />
             </main>
         </Layout>
     )

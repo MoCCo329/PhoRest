@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
 // functions
 import { setPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt } from '../../store/modules/community'
 import community from '../../api/community'
-
 import Pagination from '../Utils/Pagination'
+import ModalConfirm from '../Utils/ModalConfirm'
 
 // icons
 import likeFilled from '../../assets/UI/heart_filled.png'
@@ -34,6 +34,22 @@ export default function CommunityListPhoto() {
   const limit = 12
   const [page, setPage] = useState(0)
 
+  // 모달용 변수
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  let todo = ''
+  const [toDo, setToDo] = useState('')
+  // 모달용 함수
+  const setModal = (msg, todo) => {
+    setShow((show) => {
+        return !show
+    })
+    setMessage(msg)
+    setToDo(todo)
+  }
+
   useEffect(() => {
     community.photoCount(humanCount)
     .then(result => {
@@ -52,22 +68,12 @@ export default function CommunityListPhoto() {
     })
   }, [type, humanCount, page])
 
-  // const likePost = (postId) => {
-  //   if (!currentUser.username) {
-  //     return alert('로그인 후 좋아요가 가능합니다')
-  //   }
-  //   community.likePost(postId)
-  //   .then(result => {
-  //     if (type) {
-  //       dispatch(likePhotoLike(result.data))
-  //     } else {
-  //       dispatch(likePhotoRecent(result.data))
-  //     }
-  //   })
-  // }
   const likePost = (postId) => {
     if (!currentUser.username) {
-      return alert('로그인 후 좋아요가 가능합니다')
+      msg = '로그인 후 좋아요가 가능합니다. 로그인 하시겠습니까?'
+      todo = '로그인'
+      setModal(msg, todo)
+      return
     }
     community.likePost(postId)
     .then(result => {
@@ -81,7 +87,10 @@ export default function CommunityListPhoto() {
 
   const bookmarkPost = (postId) => {
     if (!currentUser.username) {
-      return alert('로그인 후 북마크가 가능합니다')
+      msg = '로그인 후 북마크가 가능합니다. 로그인 하시겠습니까?'
+      todo = '로그인'
+      setModal(msg, todo)
+      return
     }
     community.bookmarkPost(postId)
     .then(result => {
@@ -156,8 +165,15 @@ export default function CommunityListPhoto() {
           limit={limit}
           page={page}
           setPage={setPage}
-        />
+          />
       </div>
+      <ModalConfirm
+          show={show}
+          onHide={handleClose}
+          text={message}
+          action={() => navigate('/login')}
+          todo={toDo}
+        />
     </div>
   )
 }

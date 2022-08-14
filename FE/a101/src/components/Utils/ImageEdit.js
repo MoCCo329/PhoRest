@@ -7,7 +7,7 @@ import FilerobotImageEditor, {
 
 import s3 from '../../api/s3'
 import mypage from '../../api/mypage'
-
+import ModalBasic from '../Utils/ModalConfirm'
 import defaultProfile from '../../assets/defaultProfile.png'
 
 export default function ImageEdit() {
@@ -16,6 +16,19 @@ export default function ImageEdit() {
   const [frameURL, setFrameURL] = useState('')
   const [content, setContent] = useState('')
   const [clickWell, setClickWell] = useState(false)
+
+  // 모달용 변수 - basic
+  const [showBasic, setShowBasic] = useState(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  // 모달용 함수 - basic
+  const handleCloseBasic = () => setShowBasic(false)
+  const setModalBasic = (msg) => {
+      setShowBasic((showBasic) => {
+          return !showBasic
+      })
+      setMessage(msg)
+  }
 
   useEffect(() => {
     let btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 fFhGIW FIE_topbar-save-button SfxButton-root')[0]  // fFhGIW 로컬 , kjdjJl 배포
@@ -65,7 +78,9 @@ export default function ImageEdit() {
 
   const onSave = (editedImageObject, designState) => {
     if (!document.querySelector('#frame').files[0]) {
-      return alert('이미지를 확인해주세요')
+      msg = '이미지를 확인해주세요'
+      setModalBasic(msg)
+      return
     }
     const imgFile = dataURLtoFile(editedImageObject.imageBase64)
     let formdata = new FormData()
@@ -137,6 +152,11 @@ export default function ImageEdit() {
 
       <button onClick={clickComplete}>게시글 등록</button>
       <button onClick={() => navigate(-1)}>뒤로가기</button>
+      <ModalBasic
+          show={showBasic}
+          onHide={handleCloseBasic}
+          text={message}
+        />  
     </div>
   )
 }

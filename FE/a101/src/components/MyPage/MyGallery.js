@@ -94,10 +94,11 @@ export default function MyGallery(props) {
           <ScrollCalendar />
         }
       </div>
-
-      <div className="container-gallery">
+      {
+        type==='bookmark' && bookmarked.length ?
+        
+        <div className="container-gallery">
         {
-          type==='bookmark' && bookmarked.length ?
           bookmarked.map((post, idx) => (
             <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
               <img className="post-image" src={ post.url } alt='post' />
@@ -108,14 +109,16 @@ export default function MyGallery(props) {
                 null
               }
             </div>
-          )) :
-          (
-          type==='bookmark' ?
-          <p>북마크한 게시물이 없습니다</p> :
-          null
-          )
-        }
-      </div>
+            
+            ))} 
+        </div>
+        :
+        (
+        type==='bookmark' ?
+        <p>북마크한 게시물이 없습니다</p> :
+        null
+        )
+      }
     </div>
   )
 }

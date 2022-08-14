@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 import user from '../api/user'
 import { setAuthError, setCurrentUser } from '../store/modules/user'
@@ -30,6 +31,19 @@ export default function Main() {
     const [phoneValidity, setPhoneValidity] = useState('')
     const authError = useSelector(state => state.authError)
 
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+        setShowBasic((showBasic) => {
+            return !showBasic
+        })
+        setMessage(msg)
+    }
+
     useEffect(() => {
       return () => {dispatch(setAuthError(''))}
     }, [])
@@ -49,13 +63,19 @@ export default function Main() {
         dispatch(setAuthError(''))
 
         if (idValidity) {
-          return alert('아이디를 정확히 입력해 주세요')
+          msg = '아이디를 정확히 입력해 주세요'
+          setModalBasic(msg)
+          return
         }
         if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
-          return alert('비밀번호를 정확히 입력해 주세요')
+          msg = '비밀번호를 정확히 입력해 주세요'
+          setModalBasic(msg)
+          return
         }
         if (phoneValidity) {
-          return alert('핸드본번호를 정확히 입력해 주세요')
+          msg = '핸드폰번호를 정확히 입력해 주세요'
+          setModalBasic(msg)
+          return
         }
 
         const credentials = {
@@ -67,6 +87,8 @@ export default function Main() {
         
         user.signup(credentials)
         .then((result) => {
+          // msg = '회원가입이 완료되었습니다'
+          // setModalBasic(msg)
           alert('회원가입이 완료되었습니다')
           navigate("/login", { replace: true })
         })
@@ -215,6 +237,11 @@ export default function Main() {
             <div className='back-motion'>
               <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
             </div>
+            <ModalBasic
+              show={showBasic}
+              onHide={handleCloseBasic}
+              text={message}
+            />  
           </div>
         </main>
       </Layout>

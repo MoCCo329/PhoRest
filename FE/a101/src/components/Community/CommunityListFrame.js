@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
 // functions
 import { setFrameLike, likeFrameLike, bookmarkFrameLike, setFrameRecent, likeFrameRecent, bookmarkFrameRecent, setLikeRecent, setFrameCnt } from '../../store/modules/community'
 import community from '../../api/community'
-
 import Pagination from '../Utils/Pagination'
+import ModalConfirm from '../Utils/ModalConfirm'
 
 // icons
 import add from '../../assets/UI/add.png'
@@ -34,6 +34,22 @@ export default function CommunityListFrame() {
   const limit = 12
   const [page, setPage] = useState(0)
 
+  // 모달용 변수
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  let todo = ''
+  const [toDo, setToDo] = useState('')
+  // 모달용 함수
+  const setModal = (msg, todo) => {
+    setShow((show) => {
+        return !show
+    })
+    setMessage(msg)
+    setToDo(todo)
+  }
+
   useEffect(() => {
     community.frameCount().then(result => {
       dispatch(setFrameCnt(result.data))
@@ -57,7 +73,10 @@ export default function CommunityListFrame() {
 
   const likePost = (postId) => {
     if (!currentUser.username) {
-      return alert('로그인 후 좋아요가 가능합니다')
+      msg = '로그인 후 좋아요가 가능합니다. 로그인 하시겠습니까?'
+      todo = '로그인'
+      setModal(msg, todo)
+      return
     }
     community.likePost(postId)
     .then(result => {
@@ -71,7 +90,10 @@ export default function CommunityListFrame() {
 
   const bookmarkPost = (postId) => {
     if (!currentUser.username) {
-      return alert('로그인 후 북마크가 가능합니다')
+      msg = '로그인 후 북마크가 가능합니다. 로그인 하시겠습니까?'
+      todo = '로그인'
+      setModal(msg, todo)
+      return
     }
     community.bookmarkPost(postId)
     .then(result => {
@@ -89,10 +111,10 @@ export default function CommunityListFrame() {
 
   const clickFrameEdit = () => {
     if (!currentUser.username) {
-      if (window.confirm('로그인 후 프레임 생성이 가능합니다. 로그인하시겠습니까?')) {
-        return navigate('/login')
-      }
-      return null
+      msg = '로그인 후 프레임 생성이 가능합니다. 로그인하시겠습니까?'
+      todo = '로그인'
+      setModal(msg, todo)
+      return
     }
     return navigate('/community/edit/LTM2')
   }
@@ -156,6 +178,13 @@ export default function CommunityListFrame() {
             setPage={setPage}
           />
         </div>
+        <ModalConfirm
+          show={show}
+          onHide={handleClose}
+          text={message}
+          action={() => navigate('/login')}
+          todo={toDo}
+        />
     </div>
   )
 }

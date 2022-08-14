@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 // functions
 import user from '../api/user'
@@ -25,6 +26,19 @@ export default function ProfileEdit() {
   const [beforeProfileURL, setBeforeProfileURL] = useState('')
   const [phoneValidity, setPhoneValidity] = useState('')
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
+
+  // 모달용 변수 - basic
+  const [showBasic, setShowBasic] = useState(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  // 모달용 함수 - basic
+  const handleCloseBasic = () => setShowBasic(false)
+  const setModalBasic = (msg) => {
+      setShowBasic((showBasic) => {
+          return !showBasic
+      })
+      setMessage(msg)
+  }
 
   const defaultPhone = () => {
     const phone = currentUser.phone
@@ -59,7 +73,9 @@ export default function ProfileEdit() {
     setAuthError('')
 
     if (phoneValidity) {
-      return alert('핸드본번호를 정확히 입력해 주세요')
+      msg = '핸드본번호를 정확히 입력해 주세요'
+      setModalBasic(msg)
+      return 
     }
 
     let form = document.forms.profileEdit.elements
@@ -78,8 +94,11 @@ export default function ProfileEdit() {
         .then(result => {
           dispatch(setCurrentUser(result.data))
         })
+        // msg = '회원정보가 변경되었습니다.'
+        // setModalBasic(msg)
         alert('회원정보가 변경되었습니다.')
-        navigate(`/mypage/${currentUser.username}`)
+        // navigate(`/mypage/${currentUser.username}`)
+        // return
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다. (로그인 되어있지 않음)')
       } else if (result.data===2) {
@@ -195,6 +214,11 @@ export default function ProfileEdit() {
           <div className='back-motion'>
             <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
           </div>
+          <ModalBasic
+          show={showBasic}
+          onHide={handleCloseBasic}
+          text={message}
+        />   
         </div>
       </main>
     </Layout>
