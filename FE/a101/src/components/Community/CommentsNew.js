@@ -22,7 +22,6 @@ export default function CommentsNew(props) {
 
     const changeShow = (msg) => {
         setShow((show) => {
-            console.log('show', show)
             return !show
         })
         setMessage((message) => {

@@ -70,8 +70,6 @@ export default function Community(props) {
         }
     }, [])
 
-    // 프레임이면 글표시랑 프레임 편집 링크
-
     // community-header 상단에 도착하면 고정시키기
     // community-comment를 style="overflow:scroll"
 
@@ -127,7 +125,8 @@ export default function Community(props) {
                     <div className="community-header">
                         <h5>{ detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판</h5>
                         { detailPost.category==='photogroup' ? <div className='post-division'>{detailPost.humanCount}명</div> : null }
-                        { detailPost.frameId ? <div className='post-division'>프레임 ID {detailPost.frameId}</div> : null }
+                        { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={() => navigate(`/community/${btoa((postId) * 73 + 37)}`)} >프레임 ID {detailPost.frameId}</div> : null }
+                        { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
                     <div className="community-body">
                         <div className="community-body-meta">
@@ -182,7 +181,7 @@ export default function Community(props) {
                         <div>
                             <h6>댓글</h6>
                             <div className="community-comment" onClick={() => {setIsEditing(!isEditing)}}>
-                                <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots'></box-icon><span>댓글 추가하기</span>
+                                <span>✍ 댓글 추가하기</span>
                             </div>
                             <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                         </div>

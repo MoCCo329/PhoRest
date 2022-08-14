@@ -5,7 +5,7 @@
   margin-top: 3em;
   gap: 2vh;
 }
-.post-division {
+.post-division, .post-division-click {
   height: 2em;
   font-family: "Pretendard-Regular";
   border: none;
@@ -39,7 +39,7 @@
   margin-right: 5px;
   cursor: pointer;
 }
-.community-frame-edit:hover {
+.community-frame-edit:hover, .post-division-click:hover {
   background-color: #f5737f;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }

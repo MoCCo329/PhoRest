@@ -40,8 +40,8 @@ export default function Main() {
       .then(result => {
         dispatch(setCurrentUser(result.data))
       })
-      setPhoneTestNumber('')
-      setTested(false)
+      // setPhoneTestNumber('')
+      // setTested(false)
     }, [])
 
     const onSubmit = (e) => {
@@ -139,32 +139,32 @@ export default function Main() {
       }
     }
 
-    const phoneTestFilter = (e) => {
-      e.target.value = e.target.value.replace(/[^0-9]/g, '')
-    }
+    // const phoneTestFilter = (e) => {
+    //   e.target.value = e.target.value.replace(/[^0-9]/g, '')
+    // }
 
-    const phoneTestStart = (e) => {
-      e.preventDefault()
-      setIsTesting(true)
-      user.phoneTest()
-      .then(result => {
-        setPhoneTestNumber(result.data)
-        alert('메시지가 전송되었습니다')
-      })
-    }
+    // const phoneTestStart = (e) => {
+    //   e.preventDefault()
+    //   setIsTesting(true)
+    //   user.phoneTest()
+    //   .then(result => {
+    //     setPhoneTestNumber(result.data)
+    //     alert('메시지가 전송되었습니다')
+    //   })
+    // }
 
-    const phoneTestEnd = (e) => {
-      e.preventDefault()
-      let form = document.forms.signup.elements
-      if (!!phoneTestNumber && form.phoneTestNumber.value===phoneTestNumber) {
-        setTested(true)
-        setIsTesting(false)
-        alert('확인되었습니다')
-      } else {
-        setTested(false)
-        alert('잘못된 인증번호입니다')
-      }
-    }
+    // const phoneTestEnd = (e) => {
+    //   e.preventDefault()
+    //   let form = document.forms.signup.elements
+    //   if (!!phoneTestNumber && form.phoneTestNumber.value===phoneTestNumber) {
+    //     setTested(true)
+    //     setIsTesting(false)
+    //     alert('확인되었습니다')
+    //   } else {
+    //     setTested(false)
+    //     alert('잘못된 인증번호입니다')
+    //   }
+    // }
 
 
     return (
@@ -177,7 +177,7 @@ export default function Main() {
             <form name="signup" onSubmit={(e) => {onSubmit(e)}}>
               <div>
                 <label htmlFor="username">ID</label>
-                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" /> {idValidity}
+                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
               </div>
 
               <div>
@@ -198,16 +198,15 @@ export default function Main() {
               <div>
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="핸드폰 번호를 입력해주세요" />
-                <div className='phone-guide'>
+                {/* <div className='phone-guide'>
                   {
                     isTesting ? 
                     <div><input id="phoneTestNumber" type="text" onChange={(e)=>{phoneTestFilter(e)}} placeholder='Certification Number'/><button onClick={(e) => phoneTestEnd(e)}>확인</button>
                     <button onClick={(e) => phoneTestStart(e)}>다시 보내기</button></div> : <button onClick={(e) => phoneTestStart(e)}>인증하기</button>
                   }
-
-                  <div>01로 시작하는 숫자만 입력해 주세요 </div>
-                  <div>{phoneValidity}</div>
-                </div>
+                </div> */}
+                <div>01로 시작하는 숫자만 입력해 주세요 </div>
+                <div>{phoneValidity}</div>
               </div>
 
               <button type="submit">Sign up</button>
