@@ -75,7 +75,11 @@ export default function Main() {
     return (
         <Layout>
             <main>
-                <h5 className='notice'>🌳 로그인 하시면 마이페이지에 사진을 추가할 수 있습니다 ✨</h5>
+                {
+                    !currentUser.username ?
+                    <h5 className='notice'>🌳 로그인 하시면 마이페이지에 사진을 추가할 수 있습니다 ✨</h5> :
+                    null
+                }
                 <div className="download-img">
                     <img src={content.url} alt={content.content} /><br />
                 </div>

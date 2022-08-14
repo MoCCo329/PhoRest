@@ -21,11 +21,10 @@ export default function CommentsNew(props) {
 
     const changeShow = () => {
         setShow((show) => {
-            console.log('show', show)
             return !show
         })
     }
-    console.log('show',show)
+    
     const clickAddComment = () => {
         props.setEditCommentId(0)
 
