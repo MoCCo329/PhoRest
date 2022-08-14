@@ -31,7 +31,7 @@ export default function CommunityListPhoto() {
   const photoRecent = useSelector(state => state.photoRecent)
   const photoCnt = useSelector(state => state.photoCnt)
 
-  const limit = 8
+  const limit = 12
   const [page, setPage] = useState(0)
 
   useEffect(() => {
