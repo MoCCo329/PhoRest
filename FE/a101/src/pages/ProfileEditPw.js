@@ -1,3 +1,5 @@
+import './ProfileEdit.css'
+
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +10,8 @@ import Layout from '../components/Layout/Layout'
 import user from '../api/user'
 import { setCurrentUser } from '../store/modules/user'
 
+// icon
+import back from '../assets/UI/back.png'
 
 export default function ProfileEditPw() {
   const navigate = useNavigate()
@@ -100,21 +104,38 @@ export default function ProfileEditPw() {
   return (
     <Layout>
       <main>
-        <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>          
-          <label htmlFor="password">New Password : </label>
-          <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="New Password" /> {passwordValidity}<br/>
-          <label htmlFor="password2">New Password Again : </label>
-          <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="New Password Again" /> {passwordMatch}<br/>
-          
-          기존 비밀번호 입력
-          <label htmlFor="beforePassword">Password : </label>
-          <input name="beforePassword" type="password" id="beforePassword" required placeholder="Password" /><br/>
+        <div className='pw-edit-content'>
+          <div className="login-header">
+            <h5>비밀번호 변경하기</h5>
+          </div>
+          <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
+            <div>
+              기존 비밀번호 입력
+              <label htmlFor="beforePassword">Password : </label>
+              <input name="beforePassword" type="password" id="beforePassword" required placeholder="기존 비밀번호를 입력해주세요" />
+            </div>
 
-          <button type="submit">Edit</button>
-          { authError ? <p>{ authError }</p> : '' }
-        </form>
+            <div>  
+              <label htmlFor="password">New Password</label>
+              <input name="Password" onChange={(e) => {setNewPassword(e.target.value); passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="새로운 비밀번호를 입력해주세요" />
+              {passwordValidity}
+            </div>
 
-        <button onClick={() => navigate(-1)}>뒤로가기</button>
+            <div>
+              <label htmlFor="password2">New Password Again</label>
+              <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="비밀번호를 다시 입력해주세요" />
+              {passwordMatch}
+            </div>     
+            
+
+            <button type="submit">Edit</button>
+            { authError ? <p>{ authError }</p> : '' }
+          </form>
+
+          <div className='back-motion'>
+            <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+          </div>
+        </div>
       </main>
     </Layout>
   )

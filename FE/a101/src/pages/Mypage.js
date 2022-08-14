@@ -33,11 +33,9 @@ export default function MyPage() {
 
   return (
     <Layout mypage={true}>
-      <main>
         <MypageProfile></MypageProfile>
         <hr />
         <ActivityTabs></ActivityTabs>
-      </main>
     </Layout>
   )
 }

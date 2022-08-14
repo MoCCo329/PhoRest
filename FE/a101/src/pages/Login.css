@@ -8,7 +8,7 @@
 @media only screen and (min-width: 500px) {
   .login-content,
   .join-content {
-    height: 100vh;
+    /* height: 100vh; */
     width: 100vw;
   }
 }
@@ -129,7 +129,7 @@ main form button, main .form button {
   transition: 0.25s;
 }
 
-main form button, main .form button:hover {
+main form button:hover, main .form button:hover {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 

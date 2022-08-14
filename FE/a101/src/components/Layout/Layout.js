@@ -5,10 +5,10 @@ import './Layout.css'
 export default function Layout(props) {
     return (
         <div className="layout">
-            <Header mypage={props.mypage} />
-            <main>
+            <div id="wrapper">
+                <Header mypage={props.mypage} />
                 {props.children}
-            </main>
+            </div>
             <Footer/>
         </div>
     )

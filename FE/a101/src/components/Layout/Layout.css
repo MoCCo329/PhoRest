@@ -1,8 +1,16 @@
-main {
+#wrapper {
     height: auto;
+    min-height: 100%;
     padding-bottom: 10vh;
 }
-
+main {
+    height: auto;
+    /* min-height: 100%; */
+    /* padding-bottom: 15vh; */
+}
 .layout {
     width: 100vw;
+    height: auto;
+    min-height: 100%;
+    /* padding-bottom: 10vh; */
 }

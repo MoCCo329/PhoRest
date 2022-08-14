@@ -1,3 +1,5 @@
+import './ProfileEdit.css'
+
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +8,9 @@ import Layout from '../components/Layout/Layout'
 
 import user from '../api/user'
 import { setCurrentUser } from '../store/modules/user'
+
+// icon
+import back from '../assets/UI/back.png'
 
 export default function ProfileDelete () {
   let dispatch = useDispatch()
@@ -93,21 +98,28 @@ export default function ProfileDelete () {
   return (
     <Layout>
       <main>
-        <form name="profileDelete" onSubmit={onSubmit} >
-          {
-            !isKakao &&
-            <div>
-              <label htmlFor="password">Password : </label>
-              <input name="Password" onChange={(e) => {passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="Password" /> {passwordValidity}<br/>
-              <label htmlFor="password2">Password Again : </label>
-              <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="Password Again" /> {passwordMatch}<br/>
-            </div>
-          }
-          <button type="submit">회원 탈퇴</button>
-          { authError ? <p>{ authError }</p> : '' }
-        </form>
+        <div className='profile-delete-content'>
+          <div className="login-header">
+            <h5>회원 탈퇴하기</h5>
+          </div>
+          <form name="profileDelete" onSubmit={onSubmit} >
+            {
+              !isKakao &&
+              <div>
+                <label htmlFor="password">Password</label>
+                <input name="Password" onChange={(e) => {passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="비밀번호를 입력해주세요" /> {passwordValidity}<br/>
+                <label htmlFor="password2">Password Again</label>
+                <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="비밀번호를 다시 입력해주세요" /> {passwordMatch}<br/>
+              </div>
+            }
+            <button type="submit">회원 탈퇴</button>
+            { authError ? <p>{ authError }</p> : '' }
+          </form>
 
-        <button onClick={() => navigate(-1)}>뒤로가기</button>
+          <div className='back-motion'>
+              <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+            </div>
+        </div>
       </main>
     </Layout>
   )
