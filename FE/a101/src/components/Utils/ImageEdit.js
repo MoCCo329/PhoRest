@@ -18,7 +18,7 @@ export default function ImageEdit() {
   const [clickWell, setClickWell] = useState(false)
 
   useEffect(() => {
-    const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
+    const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 fFhGIW FIE_topbar-save-button SfxButton-root')[0]
     btn.style.visibility = "hidden"
   }, [])
 
@@ -79,7 +79,7 @@ export default function ImageEdit() {
   const clickComplete = () => {
     setClickWell(true)
     setTimeout(() => {
-      const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
+      const btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 fFhGIW FIE_topbar-save-button SfxButton-root')[0]
       btn.click()
       setClickWell(false)
     }, 1)
@@ -87,6 +87,7 @@ export default function ImageEdit() {
 
   return (
     <div>
+       <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
       {(
         <FilerobotImageEditor
           source={frameURL || defaultProfile}

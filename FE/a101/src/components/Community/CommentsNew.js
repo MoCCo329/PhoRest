@@ -10,8 +10,9 @@ import ModalBasic from '../Utils/ModalBasic'
 
 export default function CommentsNew(props) {
     // 모달용
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const [show, setShow] = useState(false)
+    const [message, setMessage] = useState('')
+    const handleClose = () => setShow(false)
 
     let dispatch = useDispatch()
 
@@ -19,13 +20,16 @@ export default function CommentsNew(props) {
     const currentUser = useSelector(state => state.currentUser)
     const postId = useSelector(state => state.detailPost).id
 
-    const changeShow = () => {
+    const changeShow = (msg) => {
         setShow((show) => {
             console.log('show', show)
             return !show
         })
+        setMessage((message) => {
+            return msg
+        })
     }
-    console.log('show',show)
+    let msg = ''
     const clickAddComment = () => {
         props.setEditCommentId(0)
 
@@ -55,7 +59,8 @@ export default function CommentsNew(props) {
                         break     
                     case 5:
                         // alert('작성한 내용이 없습니다')
-                        changeShow()
+                        msg = '작성한 내용이 없습니다'
+                        changeShow(msg)
                         break
                     default :    
                         break
@@ -72,6 +77,8 @@ export default function CommentsNew(props) {
             <button onClick={() => {props.setIsEditing(false)}}>취소</button>
             <ModalBasic
                 show={show}
+                onHide={handleClose}
+                text={message}
             />
         </div>
     )
