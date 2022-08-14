@@ -85,7 +85,7 @@ public class PostService {
     public Long findPostByFrameId(Long frameId){
         Optional<Post> post = postRepository.findByFrameId(frameId);
         if(post.isEmpty())
-            return -2L;
+            return -1L;
         return post.get().getId();
     }
 
