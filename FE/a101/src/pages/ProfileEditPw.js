@@ -9,7 +9,7 @@ import ModalBasic from '../components/Utils/ModalBasic'
 
 // functions
 import user from '../api/user'
-import { setCurrentUser } from '../store/modules/user'
+import { setCurrentUser, updateCurrentUser } from '../store/modules/user'
 
 // icon
 import back from '../assets/UI/back.png'
@@ -29,6 +29,7 @@ export default function ProfileEditPw() {
   const [showBasic, setShowBasic] = useState(false)
   let msg = ''
   const [message, setMessage] = useState('')
+  const [onExit, setOnExit] = useState(false)
   // 모달용 함수 - basic
   const handleCloseBasic = () => setShowBasic(false)
   const setModalBasic = (msg) => {
@@ -37,6 +38,12 @@ export default function ProfileEditPw() {
       })
       setMessage(msg)
   }
+  const setOnExitBasic = () => {
+      setOnExit((onExit) => {
+          return !onExit
+      })
+  }
+
 
   useEffect(() => {
     if (currentUser.kakao) {
@@ -69,13 +76,14 @@ export default function ProfileEditPw() {
     user.profileEditPw(credentials)
     .then((result) => {
       if (result.data===0) {
-        dispatch(setCurrentUser(''))
+        // dispatch(setCurrentUser(''))
         user.currentUser()
         .then(result => {
-          dispatch(setCurrentUser(result.data))
+          dispatch(updateCurrentUser(result.data))
+          msg = '비밀번호가 변경되었습니다'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
-        alert('회원정보가 변경되었습니다.')
-        navigate(`/mypage/${currentUser.username}`)
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다.')
       } else if (result.data===2) {
@@ -155,6 +163,7 @@ export default function ProfileEditPw() {
           show={showBasic}
           onHide={handleCloseBasic}
           text={message}
+          onExit={onExit ? () => {navigate(`/mypage/${currentUser.username}`)} : null}
         />  
         </div>
       </main>

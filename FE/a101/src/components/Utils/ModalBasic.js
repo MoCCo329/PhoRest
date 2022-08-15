@@ -14,7 +14,7 @@ const ModalBasic = (props) => {
 
   return (
     <>
-      <Modal show={props.show} onHide={props.onHide}>
+      <Modal show={props.show} onHide={props.onHide} onExit={props.onExit}>
         <Modal.Body style={modalBody}>{props.text}</Modal.Body>
         <Modal.Footer style={noLine}>
           <Button variant="secondary" onClick={props.onHide}>

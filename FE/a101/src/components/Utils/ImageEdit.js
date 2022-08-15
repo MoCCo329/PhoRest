@@ -7,7 +7,7 @@ import FilerobotImageEditor, {
 
 import s3 from '../../api/s3'
 import mypage from '../../api/mypage'
-import ModalBasic from '../Utils/ModalConfirm'
+import ModalBasic from '../Utils/ModalBasic'
 import defaultProfile from '../../assets/defaultProfile.png'
 
 export default function ImageEdit() {

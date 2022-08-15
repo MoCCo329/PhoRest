@@ -28,6 +28,7 @@ export default function ProfileDelete () {
   const [showBasic, setShowBasic] = useState(false)
   let msg = ''
   const [message, setMessage] = useState('')
+  const [onExit, setOnExit] = useState(false)
   // 모달용 함수 - basic
   const handleCloseBasic = () => setShowBasic(false)
   const setModalBasic = (msg) => {
@@ -36,6 +37,12 @@ export default function ProfileDelete () {
       })
       setMessage(msg)
   }
+  const setOnExitBasic = () => {
+    setOnExit((onExit) => {
+        return !onExit
+    })
+  }
+
   // 모달용 변수 - confirm
   const [show, setShow] = useState(false)
   let todo = ''
@@ -116,8 +123,11 @@ export default function ProfileDelete () {
         user.currentUser()
         .then(result => {
           dispatch(setCurrentUser(result.data))
+          msg = '탈퇴가 완료되었습니다'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
-        alert('탈퇴가 완료되었습니다')
+        // alert('탈퇴가 완료되었습니다')
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다.')
       } else if (result.data===2) {
@@ -163,6 +173,7 @@ export default function ProfileDelete () {
           show={showBasic}
           onHide={handleCloseBasic}
           text={message}
+          onExit={onExit ? () => {navigate('/')} : null}
         /> 
         <ModalConfirm
           show={show}

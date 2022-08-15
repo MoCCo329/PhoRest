@@ -35,6 +35,7 @@ export default function Main() {
     const [showBasic, setShowBasic] = useState(false)
     let msg = ''
     const [message, setMessage] = useState('')
+    const [onExit, setOnExit] = useState(false)
     // 모달용 함수 - basic
     const handleCloseBasic = () => setShowBasic(false)
     const setModalBasic = (msg) => {
@@ -43,6 +44,12 @@ export default function Main() {
         })
         setMessage(msg)
     }
+    const setOnExitBasic = () => {
+      setOnExit((onExit) => {
+          return !onExit
+      })
+    }
+
 
     useEffect(() => {
       return () => {dispatch(setAuthError(''))}
@@ -87,10 +94,9 @@ export default function Main() {
         
         user.signup(credentials)
         .then((result) => {
-          // msg = '회원가입이 완료되었습니다'
-          // setModalBasic(msg)
-          alert('회원가입이 완료되었습니다')
-          navigate("/login", { replace: true })
+          msg = '회원가입이 완료되었습니다'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
         .catch((error) => {
           if (error.response.data.message==='@Valid Error') {
@@ -241,6 +247,7 @@ export default function Main() {
               show={showBasic}
               onHide={handleCloseBasic}
               text={message}
+              onExit={onExit ? () => {navigate("/login", { replace: true })} : null}
             />  
           </div>
         </main>

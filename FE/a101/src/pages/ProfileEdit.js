@@ -31,6 +31,7 @@ export default function ProfileEdit() {
   const [showBasic, setShowBasic] = useState(false)
   let msg = ''
   const [message, setMessage] = useState('')
+  const [onExit, setOnExit] = useState(false)
   // 모달용 함수 - basic
   const handleCloseBasic = () => setShowBasic(false)
   const setModalBasic = (msg) => {
@@ -38,6 +39,11 @@ export default function ProfileEdit() {
           return !showBasic
       })
       setMessage(msg)
+  }
+  const setOnExitBasic = () => {
+    setOnExit((onExit) => {
+        return !onExit
+    })
   }
 
   const defaultPhone = () => {
@@ -89,15 +95,17 @@ export default function ProfileEdit() {
     user.profileEdit(credentials)
     .then((result) => {
       if (result.data===0) {
-        dispatch(setCurrentUser(''))
+        // dispatch(setCurrentUser(''))
         user.currentUser()
         .then(result => {
           dispatch(setCurrentUser(result.data))
+          msg = '회원정보가 변경되었습니다.'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
+        return
         // msg = '회원정보가 변경되었습니다.'
         // setModalBasic(msg)
-        alert('회원정보가 변경되었습니다.')
-        // navigate(`/mypage/${currentUser.username}`)
         // return
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다. (로그인 되어있지 않음)')
@@ -218,6 +226,7 @@ export default function ProfileEdit() {
           show={showBasic}
           onHide={handleCloseBasic}
           text={message}
+          onExit={onExit ? () => {navigate(`/mypage/${currentUser.username}`)} : null}
         />   
         </div>
       </main>
