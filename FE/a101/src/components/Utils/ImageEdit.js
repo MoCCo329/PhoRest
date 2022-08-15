@@ -10,6 +10,9 @@ import mypage from '../../api/mypage'
 import ModalBasic from '../Utils/ModalBasic'
 import defaultProfile from '../../assets/defaultProfile.png'
 
+// icon
+import back from '../../assets/UI/back.png'
+
 export default function ImageEdit() {
   const navigate = useNavigate()
 
@@ -111,7 +114,7 @@ export default function ImageEdit() {
   }
 
   return (
-    <div>
+    <div className='frame-edit-content'>
        <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
       {(
         <FilerobotImageEditor
@@ -141,17 +144,25 @@ export default function ImageEdit() {
           tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK]} // or {['Adjust', 'Annotate', 'Watermark']}
           defaultTabId={TABS.ANNOTATE} // or 'Annotate'
           defaultToolId={TOOLS.TEXT} // or 'Text'
-        />
-      )}
+          />
+          )}
+          <br></br>
+      <form>
+        <div>
+          <label htmlFor="frame">이미지 업로드</label>
+          <input name="frame" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="frame" />
+        </div>
 
-      <label htmlFor="frame">이미지 업로드 : </label>
-      <input name="frame" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="frame" />
+        <div>
+          <label htmlFor="content">글 내용</label>
+          <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
+        </div>
 
-      <label htmlFor="content">글 내용 : </label>
-      <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
-
-      <button onClick={clickComplete}>게시글 등록</button>
-      <button onClick={() => navigate(-1)}>뒤로가기</button>
+        <button onClick={clickComplete}>게시글 등록</button>
+      </form>
+      <div className='back-motion'>
+        <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+      </div>
       <ModalBasic
           show={showBasic}
           onHide={handleCloseBasic}

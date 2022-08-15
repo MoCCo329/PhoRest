@@ -11,6 +11,9 @@ import community from '../api/community'
 import ModalBasic from '../components/Utils/ModalBasic'
 import { setDetailPost } from '../store/modules/community'
 
+// icon
+import back from '../assets/UI/back.png'
+
 export default function FrameEdit() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -96,27 +99,35 @@ export default function FrameEdit() {
 
     return (
         <Layout>
-            {
-                type ?
-                <div className='frame-edit-content'>
-                    <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
-                    {
-                        frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
-                    }
+            <main>
+                {
+                    type ?
+                    <div className='frame-edit-content'>
+                        <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
+                        {
+                            frameURL ? <img id="frame-edit-img" src={ frameURL } alt="frameImage"></img> : null
+                        }
+                        <form>
+                            <div>
+                                <label htmlFor="content">글 내용</label>
+                                <textarea name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
+                            </div>
 
-                    <label htmlFor="content">글 내용 : </label>
-                    <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
-
-                    <button onClick={editComplete}>완료</button>
-                    <button onClick={() => navigate(-1)}>뒤로가기</button>
-                </div> :
-                <ImageEdit></ImageEdit>
-            }
-            <ModalBasic
-                show={showBasic}
-                onHide={handleCloseBasic}
-                text={message}
-            />  
+                            <button onClick={editComplete}>완료</button>
+                        </form>
+                        <div className='back-motion'>
+                            <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+                        </div>
+                    </div>
+                    :
+                    <ImageEdit></ImageEdit>
+                }
+                <ModalBasic
+                    show={showBasic}
+                    onHide={handleCloseBasic}
+                    text={message}
+                />  
+            </main>
         </Layout>
     )
   }
