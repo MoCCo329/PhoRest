@@ -65,8 +65,30 @@ export default function FrameEdit() {
             if (result.data===0) {
                 navigate(`/community/${btoa(postId * 73 + 37)}`)
             } else {
-                msg = '잘못된 접근입니다'
-                setModalBasic(msg)
+                switch ( result.data ) {
+                    case 1 :     
+                        msg = '로그인 정보가 정확하지 않습니다. 다시 로그인 해주세요.'
+                        setModalBasic(msg)
+                        break    
+                    case 2 :     
+                        msg = '수정하려는 게시물은 존재하지 않는 게시물입니다.'
+                        setModalBasic(msg)
+                        break    
+                    case 3 :     
+                        msg = '로그인한 계정의 마이페이지에 존재하지 않는 게시물입니다.'
+                        setModalBasic(msg)
+                        break     
+                    case 4:
+                        msg = '잘못된 접근입니다.'
+                        setModalBasic(msg)
+                        break
+                    case 6:
+                        msg = '글자수는 최대 255글자를 넘을 수 없습니다.'
+                        setModalBasic(msg)
+                        break
+                    default :    
+                        break
+                }
             }
         })
     }

@@ -44,15 +44,21 @@ export default function Comments(props) {
     }
     
     const changeToDate= (datetime) => {
+        // 오늘 날짜
         let now = moment(new Date())
+        // 오늘과의 시간 차이
         let duration = moment.duration(now.diff(datetime))
-        // const date = moment(datetime).format('YYYY년 MM월 DD일')
+        // 변환
+        let seconds = duration.asSeconds()
         let minute = duration.asMinutes()
         let hours = duration.asHours()
         let days = duration.asDays()
         let weeks = duration.asWeeks()
         let month = duration.asMonths()
-        if (hours < 1) {
+        let year = duration.asYears()
+        if (minute < 1) {
+            return parseInt(seconds) + '초 전'
+        } else if (hours < 1) {
             return parseInt(minute) + '분 전'
         } else if (hours < 24) {
             return parseInt(hours) + '시간 전'
@@ -60,8 +66,10 @@ export default function Comments(props) {
             return parseInt(days) + '일 전'
         } else if (month < 1) {
             return parseInt(weeks) + '주 전'
-        } else {
+        } else if (year < 1) {
             return parseInt(month) + '달 전'
+        } else {
+            return parseInt(year) + '년 전'
         }
     }
     

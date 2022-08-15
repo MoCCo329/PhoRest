@@ -9,6 +9,11 @@ export default function ScrollCalendar() {
   const navigate = useNavigate()
   const monthRef = useRef(null)
 
+  useEffect(() => {
+    if (monthRef.current) {
+      monthRef.current.scrollIntoView({behavior: 'smooth'})
+    }
+  })
   // 먼저 올해의 년도를 구한다.
   // 그리고 12월을 구해서 각각에 대해서 days 를 저장한다.
   // let month = [{month: 0, days: [220101, 220102....]}, {month: 0, days: [220101, 220102....]}, ...]
@@ -87,13 +92,6 @@ export default function ScrollCalendar() {
   }
 
   calIntersection()
-
-  
-  useEffect(() => {
-    if (monthRef.current) {
-      monthRef.current.scrollIntoView({behavior: 'smooth'})
-    }
-  })
   
   return (
     <div className="calendar-container">
