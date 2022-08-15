@@ -1,3 +1,5 @@
+import './MyPage.css'
+
 import Layout from '../components/Layout/Layout'
 import ActivityTabs from "../components/MyPage/ActivityTabs"
 import MypageProfile from "../components/MyPage/MypageProfile"
@@ -33,9 +35,11 @@ export default function MyPage() {
 
   return (
     <Layout mypage={true}>
+      <div className='mypage-content'>
         <MypageProfile></MypageProfile>
         <hr />
         <ActivityTabs></ActivityTabs>
+      </div>
     </Layout>
   )
 }

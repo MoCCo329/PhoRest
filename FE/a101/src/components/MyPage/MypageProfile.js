@@ -29,7 +29,7 @@ export default function MypageProfile(props) {
   // 모달용 변수
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
-  let msg = '로그인이 필요한 기능입니다. \n 로그인하시겠습니까?'
+  let msg = '로그인이 팔로우 가능합니다. 로그인 하시겠습니까?'
   let todo = '로그인'
   // 모달용 함수
   const setModal = () => {

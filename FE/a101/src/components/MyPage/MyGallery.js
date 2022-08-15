@@ -10,6 +10,7 @@ import likeEmpty from '../../assets/UI/heart_empty.png'
 import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
 import lock from '../../assets/UI/lock.png'
+import FloatBtn from "../Utils/FloatingBtn"
 
 
 export default function MyGallery(props) {
@@ -119,6 +120,9 @@ export default function MyGallery(props) {
         null
         )
       }
+      <div id="top" onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }}>
+        <FloatBtn/>
+      </div>
     </div>
   )
 }

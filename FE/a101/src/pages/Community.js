@@ -7,6 +7,7 @@ import Layout from '../components/Layout/Layout'
 import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import SharePost from '../components/Community/SharePost'
+import FloatBtn from '../components/Utils/FloatingBtn'
 
 // functions
 import { setDetailPost, setDetailComment } from '../store/modules/community'
@@ -241,7 +242,10 @@ export default function Community(props) {
                             </div>
                             <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                         </div>
-                </div>
+                    </div>
+                    <div id="top" onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }}>
+                        <FloatBtn/>
+                    </div>
                 </div>
                 <ModalConfirm
                     show={show}
