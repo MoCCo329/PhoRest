@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
+import ImageEdit from '../components/Utils/ImageEdit'
 import Layout from '../components/Layout/Layout'
 
 import community from '../api/community'
-import s3 from '../api/s3'
-import mypage from '../api/mypage'
+import ModalBasic from '../components/Utils/ModalBasic'
 import { setDetailPost } from '../store/modules/community'
 
 export default function FrameEdit() {
@@ -19,6 +19,19 @@ export default function FrameEdit() {
     const [type, setType] = useState(false)
     const [frameURL, setFrameURL] = useState('')
     const [content, setContent] = useState('')
+
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+    setShowBasic((showBasic) => {
+    return !showBasic
+    })
+    setMessage(msg)
+    }
 
     useEffect(() => {  // LTM2이면 new frame
         if (postId!==-1) {  // true 면 수정, false면 생성
@@ -41,76 +54,47 @@ export default function FrameEdit() {
         }
     }, [postId, type])
 
-    const reader = new FileReader()
-    const changeImageURL = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            reader.readAsDataURL(e.target.files[0])
-            reader.addEventListener('load', () => {
-                setFrameURL(reader.result)
-            })
-        }
-    }
 
-    const deleteImage = () => {
-        document.querySelector('#frame').value = ''
-        setFrameURL('')
-    }
-
-    const clickComplete = () => {
-        if (!type && !document.querySelector('#frame').files[0]) {
-            return alert('이미지를 확인해주세요')
-        }
-
+    const editComplete = () => {
         let formdata = new FormData()
         formdata.append('content', content)
+        formdata.append('image', null)
 
-        if (type && !document.querySelector('#frame').files[0]) {
-            formdata.append('image', null)
-        } else {
-            formdata.append('image', document.querySelector('#frame').files[0])
-        }
-
-        if (type) {
-            community.editPost(postId, formdata)
-            .then(result => {
-                if (result.data===0) {
-                    navigate(`/community/${btoa(postId * 73 + 37)}`)
-                } else {
-                    alert('잘못된 접근입니다')
-                }
-            })
-        } else {
-            s3.uploadFrame(formdata)
-            .then(result => {
-                if (result.data) {
-                    mypage.ownPost(result.data)
-                }
-                navigate(`/community/${btoa((result.data) * 73 + 37)}`)
-            })
-        }
+        community.editPost(postId, formdata)
+        .then(result => {
+            if (result.data===0) {
+                navigate(`/community/${btoa(postId * 73 + 37)}`)
+            } else {
+                msg = '잘못된 접근입니다'
+                setModalBasic(msg)
+            }
+        })
     }
 
 
     return (
         <Layout>
-            <div className='frame-edit-content'>
-                <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
-                {
-                    frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
-                }
-                {
-                    frameURL ? <button onClick={() => deleteImage()}>지우기</button> : null
-                }
+            {
+                type ?
+                <div className='frame-edit-content'>
+                    <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
+                    {
+                        frameURL ? <img src={ frameURL } alt="frameImage"></img> : null
+                    }
 
-                <label htmlFor="frame">이미지 업로드 : </label>
-                <input name="frame" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="frame" />
+                    <label htmlFor="content">글 내용 : </label>
+                    <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
 
-                <label htmlFor="content">글 내용 : </label>
-                <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
-
-                <button onClick={() => clickComplete()}>완료</button>
-                <button onClick={() => navigate(-1)}>뒤로가기</button>
-            </div>
+                    <button onClick={editComplete}>완료</button>
+                    <button onClick={() => navigate(-1)}>뒤로가기</button>
+                </div> :
+                <ImageEdit></ImageEdit>
+            }
+            <ModalBasic
+                show={showBasic}
+                onHide={handleCloseBasic}
+                text={message}
+            />  
         </Layout>
     )
   }

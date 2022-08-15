@@ -75,18 +75,20 @@ export default function Main() {
     return (
         <Layout>
             <main>
-                <h5 className='notice'>🌳 로그인 하시면 마이페이지에 사진을 추가할 수 있습니다 ✨</h5>
+                {
+                    !currentUser.username ?
+                    <h5 className='notice'>🌳 로그인 하시면 마이페이지에 사진을 추가할 수 있습니다 ✨</h5> :
+                    null
+                }
                 <div className="download-img">
                     <img src={content.url} alt={content.content} /><br />
                 </div>
                 <div className="download-links">
                     <div className="download-links-item download-picture" onClick={() => imageDownload()}>
-                        {/* <box-icon type='solid' name='camera'></box-icon> */}
                         <p>📷</p>
                         <p>사진 다운로드</p>
                     </div>
                     <div className="download-links-item download-video" onClick={() => videoDownload()}>
-                        {/* <box-icon type='solid' name='camera-movie'></box-icon> */}
                         <p>🎥</p>
                         <p>동영상 다운로드</p>
                     </div>

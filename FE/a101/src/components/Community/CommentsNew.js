@@ -7,27 +7,51 @@ import community from './../../api/community'
 import { setDetailComment } from './../../store/modules/community'
 
 import ModalBasic from '../Utils/ModalBasic'
+import ModalConfirm from '../Utils/ModalConfirm'
+import { useNavigate } from 'react-router-dom'
 
 export default function CommentsNew(props) {
     // 모달용
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const [showBasic, setShowBasic] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    // 모달용 함수
+    const handleCloseBasic = () => setShowBasic(false)
+    const changeShow = (msg) => {
+        setShowBasic((showBasic) => {
+            return !showBasic
+        })
+        setMessage(msg)
+    }
+    // 모달용 변수 - confirm
+    const [show, setShow] = useState(false)
+    let todo = ''
+    const [toDo, setToDo] = useState('')
+    // 모달용 함수 - confirm
+    const handleClose = () => setShow(false)
+    const setModal = (msg, todo) => {
+        setShow((show) => {
+            return !show
+        })
+        setMessage(msg)
+        setToDo(todo)
+    }
 
     let dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [content, setContent] = useState('')
     const currentUser = useSelector(state => state.currentUser)
     const postId = useSelector(state => state.detailPost).id
 
-    const changeShow = () => {
-        setShow((show) => !show)
-    }
-    
     const clickAddComment = () => {
         props.setEditCommentId(0)
 
         if (!currentUser.username) {
-            return alert('로그인 후 이용해주세요')
+            msg = '로그인 후 댓글 작성이 가능합니다. 로그인 하시겠습니까?'
+            todo = '로그인'
+            setModal(msg, todo)
+            return
         }
 
         const comment = {
@@ -40,26 +64,32 @@ export default function CommentsNew(props) {
                 community.getComments(postId)
                 .then(result => {
                     dispatch(setDetailComment(result.data))
+                    props.setIsEditing(false)
                 })
             } else {
-                switch ( result.data )
-                {
-                  case 3 :     
-                    alert('로그인 에러')
-                    break    
-                  case 4 :     
-                    alert('삭제하려는 댓글은 존재하지 않는 댓글입니다')
-                    break     
-                
-                  default :    
-                    // alert('내용을 적어야만 작성가능합니다')
-                    console.log('에러 반환')
-                    changeShow()
-                    console.log('뭐가 나오나', show)
+                switch ( result.data ) {
+                    case 3 :     
+                        msg = '로그인 정보가 정확하지 않습니다. 다시 로그인 해주세요'
+                        changeShow(msg)
+                        break    
+                    case 4 :     
+                        msg = '삭제하려는 댓글은 존재하지 않는 댓글입니다'
+                        changeShow(msg)
+                        break     
+                    case 5:
+                        msg = '작성한 내용이 없습니다'
+                        changeShow(msg)
+                        break
+                    case 6:
+                        msg = '글자수는 최대 255글자를 넘을 수 없습니다.'
+                        changeShow(msg)
+                        break
+                    default :    
+                        break
                 }
             }
         })
-        return props.setIsEditing(false)
+        // return props.setIsEditing(false)
     }
 
     return (
@@ -68,7 +98,16 @@ export default function CommentsNew(props) {
             <button onClick={() => {clickAddComment()}}>작성</button>
             <button onClick={() => {props.setIsEditing(false)}}>취소</button>
             <ModalBasic
+                show={showBasic}
+                onHide={handleCloseBasic}
+                text={message}
+            />
+            <ModalConfirm
                 show={show}
+                onHide={handleClose}
+                text={message}
+                action={() => navigate('/login')}
+                todo={toDo}
             />
         </div>
     )

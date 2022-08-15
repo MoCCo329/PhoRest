@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +32,10 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> photoGroupLikeDownload(@RequestBody OffsetDTO offsetDto,@RequestHeader(value = "Authorization", required = false) String token)
     {
-        if(!tokenProvider.validateToken(token))
-            return null;
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
+        {
+            return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),"");
+        }
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByLikeCount("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
     }
@@ -41,18 +44,28 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> photoGroupRecentDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        if(!tokenProvider.validateToken(token))
-            return null;
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
+        {
+            return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),"");
+        }
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByRecent("photogroup" ,offsetDto.getLimit(), offsetDto.getOffset(), offsetDto.getHumanCount(),username);
+    }
+
+    @GetMapping("frame/{frameId}")
+    @ResponseBody
+    public Long findFramePostId(@PathVariable("frameId") Long frameId){
+        return postService.findPostByFrameId(frameId);
     }
 
     @PostMapping("frame/like")
     @ResponseBody
     public List<PostDTO> frameLikeDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        if(!tokenProvider.validateToken(token))
-            return null;
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
+        {
+            return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,"");
+        }
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByLikeCount("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,username);
     }
@@ -61,8 +74,10 @@ public class CommunityController {
     @ResponseBody
     public List<PostDTO> FrameRecentDownload(@RequestBody OffsetDTO offsetDto, @RequestHeader(value = "Authorization", required = false) String token)
     {
-        if(!tokenProvider.validateToken(token))
-            return null;
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
+        {
+            return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,"");
+        }
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.findByRecent("frame" ,offsetDto.getLimit(), offsetDto.getOffset(), 0L,username);
     }
@@ -93,13 +108,11 @@ public class CommunityController {
         if(postId - decodedNumber != 0)
             return new PostDTO();
         Optional<PostDTO> postDto;
-        if(token == null || token.equals(""))
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
         {
             postDto = postService.findDtoOne(1L, postId, "");
             return postDto.orElseGet(PostDTO::new);
         }
-        if(!tokenProvider.validateToken(token))
-            return new PostDTO();
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         postDto = postService.findDtoOne(1L, postId, username);
         return postDto.orElseGet(PostDTO::new);

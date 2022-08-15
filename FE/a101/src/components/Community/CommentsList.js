@@ -14,13 +14,13 @@ export default function CommentsList(props) {
     const [editCommentId, setEditCommentId] = useState(0)
 
     // 댓글작성자랑 개시글작성자랑 같으면 배경색?
-
+    
     return (
         <div>
             <div className='comments-new'>
                 {
                     isEditing ?
-                    <CommentsNew setIsEditing={setIsEditing} setEditCommentId={setEditCommentId} ></CommentsNew>
+                    <CommentsNew setIsEditing={setIsEditing} setEditCommentId={setEditCommentId}></CommentsNew>
                     : null
                 }
             </div>

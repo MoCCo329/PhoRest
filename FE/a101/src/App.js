@@ -69,7 +69,6 @@ function App() {
             <Route exact path="/kakao" element={<Kakao/>} />  
           </> : null
         }
-        
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>

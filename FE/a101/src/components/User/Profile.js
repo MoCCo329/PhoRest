@@ -14,9 +14,11 @@ export default function Profile(props) {
     const [user, setUser] = useState(props.user)
 
     return (
-        <div className="profile" onClick={() => {dispatch(setViewType(0)); navigate(`/mypage/${user.username}`)}}>
+        // <div className="profile" onClick={() => {dispatch(setViewType(0)); navigate(`/mypage/${user.username}`);}}>
+        <div className="profile" onMouseDown={() => {dispatch(setViewType(0)); navigate(`/mypage/${user.username}`);}}>
            {
-            user.profileURL ? <img className="profile-header" src={user.profileURL} alt="" /> : <img className="profile-header" src={defaultProfile} alt='default profile'/>
+            user.profileURL ? <img className="profile-header" src={user.profileURL} alt="" /> 
+            : <img className="profile-header" src={defaultProfile} alt='default profile'/>
            }
            <div className='profile-nickname'>{user.nickname}</div>
         </div>

@@ -27,17 +27,13 @@ public class MyPageController {
     {
         String loginUsername;
         if(searchUsername.equals("unkn0wnuser")) return null;
-        if(token == null || token.equals(""))
+        if(token == null || token.equals("") || !tokenProvider.validateToken(token))
         {
             loginUsername = "";
         }
-        else if(tokenProvider.validateToken(token))
-        {
-            loginUsername = (String)tokenProvider.getTokenBody(token).get("sub");
-        }
         else
         {
-            return new UserDTO();
+            loginUsername = (String)tokenProvider.getTokenBody(token).get("sub");
         }
         return myPageService.findByUserId(searchUsername, loginUsername);
     }

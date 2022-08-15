@@ -24,10 +24,15 @@ export let currentUser = createSlice({
   reducers: {
     setCurrentUser (state, action) {
       return action.payload
+    },
+    updateCurrentUser(state, action) {
+      let copy = state
+      copy = action.payload
+      return copy
     }
   }
 })
-export let { setCurrentUser } = currentUser.actions
+export let { setCurrentUser, updateCurrentUser } = currentUser.actions
 
 export let authError = createSlice({
   name: 'authError',

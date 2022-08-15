@@ -1,11 +1,18 @@
+import './ProfileEdit.css'
+
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
+import ModalConfirm from '../components/Utils/ModalConfirm'
 
 import user from '../api/user'
 import { setCurrentUser } from '../store/modules/user'
+
+// icon
+import back from '../assets/UI/back.png'
 
 export default function ProfileDelete () {
   let dispatch = useDispatch()
@@ -16,6 +23,39 @@ export default function ProfileDelete () {
   const [passwordMatch, setPasswordMatch] = useState('')
   const [authError, setAuthError] = useState('')
   const currentUser = useSelector(state => state.currentUser)
+
+  // 모달용 변수 - basic
+  const [showBasic, setShowBasic] = useState(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  const [onExit, setOnExit] = useState(false)
+  // 모달용 함수 - basic
+  const handleCloseBasic = () => setShowBasic(false)
+  const setModalBasic = (msg) => {
+      setShowBasic((showBasic) => {
+          return !showBasic
+      })
+      setMessage(msg)
+  }
+  const setOnExitBasic = () => {
+    setOnExit((onExit) => {
+        return !onExit
+    })
+  }
+
+  // 모달용 변수 - confirm
+  const [show, setShow] = useState(false)
+  let todo = ''
+  const [toDo, setToDo] = useState('')
+  // 모달용 함수 - confirm
+  const handleClose = () => setShow(false)
+  const setModal = (msg, todo) => {
+      setShow((show) => {
+          return !show
+      })
+      setMessage(msg)
+      setToDo(todo)
+  }
 
   useEffect(() => {
     if (currentUser.kakao) {
@@ -51,9 +91,23 @@ export default function ProfileDelete () {
     setAuthError('')
 
     if (!isKakao && (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다')) {
-      return alert('비밀번호를 정확히 입력해 주세요')
+      msg = '비밀번호를 정확히 입력해 주세요'
+      setModalBasic(msg)
+      return
     }
 
+    // let credentials = {}
+    // if (!isKakao) {
+    //   credentials = {
+    //     password : document.querySelector('#password').value
+    //   }
+    // }
+    msg = '정말 회원을 탈퇴하시겠습니까?'
+    todo = '탈퇴'
+    setModal(msg, todo)
+  }
+
+  const userDeleteConfirmed = () => {
     let credentials = {}
     if (!isKakao) {
       credentials = {
@@ -61,8 +115,6 @@ export default function ProfileDelete () {
       }
     }
 
-    if (!window.confirm('정말 회원을 탈퇴하시겠습니까?')) {return}
-    
     user.userDelete(credentials)
     .then((result) => {
       if (result.data===0) {
@@ -71,9 +123,11 @@ export default function ProfileDelete () {
         user.currentUser()
         .then(result => {
           dispatch(setCurrentUser(result.data))
+          msg = '탈퇴가 완료되었습니다'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
-        alert('성공적으로 탈퇴되었습니다.')
-        navigate('/')
+        alert('탈퇴가 완료되었습니다')
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다.')
       } else if (result.data===2) {
@@ -93,21 +147,41 @@ export default function ProfileDelete () {
   return (
     <Layout>
       <main>
-        <form name="profileDelete" onSubmit={onSubmit} >
-          {
-            !isKakao &&
-            <div>
-              <label htmlFor="password">Password : </label>
-              <input name="Password" onChange={(e) => {passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="Password" /> {passwordValidity}<br/>
-              <label htmlFor="password2">Password Again : </label>
-              <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="Password Again" /> {passwordMatch}<br/>
-            </div>
-          }
-          <button type="submit">회원 탈퇴</button>
-          { authError ? <p>{ authError }</p> : '' }
-        </form>
+        <div className='profile-delete-content'>
+          <div className="login-header">
+            <h5>회원 탈퇴하기</h5>
+          </div>
+          <form name="profileDelete" onSubmit={onSubmit} >
+            {
+              !isKakao &&
+              <div>
+                <label htmlFor="password">Password</label>
+                <input name="Password" onChange={(e) => {passwordFilter(e); passwordTest()}} type="password" id="password" required placeholder="비밀번호를 입력해주세요" /> {passwordValidity}<br/>
+                <label htmlFor="password2">Password Again</label>
+                <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="비밀번호를 다시 입력해주세요" /> {passwordMatch}<br/>
+              </div>
+            }
+            <button type="submit">회원 탈퇴</button>
+            { authError ? <p>{ authError }</p> : '' }
+          </form>
 
-        <button onClick={() => navigate(-1)}>뒤로가기</button>
+          <div className='back-motion'>
+              <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+            </div>
+        </div>
+        <ModalBasic
+          show={showBasic}
+          onHide={handleCloseBasic}
+          text={message}
+          onExit={onExit ? () => {navigate('/')} : null}
+        /> 
+        <ModalConfirm
+          show={show}
+          onHide={handleClose}
+          text={message}
+          action={userDeleteConfirmed}
+          todo={toDo}
+        />
       </main>
     </Layout>
   )

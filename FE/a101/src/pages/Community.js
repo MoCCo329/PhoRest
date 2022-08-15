@@ -7,19 +7,19 @@ import Layout from '../components/Layout/Layout'
 import Profile from '../components/User/Profile.js'
 import CommentsList from '../components/Community/CommentsList'
 import SharePost from '../components/Community/SharePost'
+import FloatBtn from '../components/Utils/FloatingBtn'
 
 // functions
 import { setDetailPost, setDetailComment } from '../store/modules/community'
 import community from './../api/community'
+import ModalConfirm from '../components/Utils/ModalConfirm'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 // icons
 import likeFilled from '../assets/UI/heart_filled.png'
 import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
-
-import 'boxicons'
-import defaultProfile from '../assets/defaultProfile.png'
 
 
 export default function Community(props) {
@@ -34,6 +34,43 @@ export default function Community(props) {
     const detailPost = useSelector(state => state.detailPost)
     const currentUser = useSelector(state => state.currentUser)
 
+    // 모달용 변수 - confirm
+    const [show, setShow] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    let todo = ''
+    const [toDo, setToDo] = useState('')
+    // 모달용 함수 - confirm
+    const handleClose = () => setShow(false)
+    const setModal = (msg, todo) => {
+        setShow((show) => {
+            return !show
+        })
+        setMessage(msg)
+        setToDo(todo)
+    }
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+        setShowBasic((showBasic) => {
+            return !showBasic
+        })
+        setMessage(msg)
+    }
+    // 모달용 변수 - confirm 로그인
+    const [showLogin, setShowLogin] = useState(false)
+    // 모달용 함수 - confirm 로그인
+    const handleCloseLogin = () => setShowLogin(false)
+    const setModalLogin = (msg) => {
+        setShowLogin((showLogin) => {
+            return !showLogin
+        })
+        setMessage(msg)
+        setToDo(todo)
+    }
+
     useEffect(() => {
         community.detailPost(postId)
         .then(result => {
@@ -44,7 +81,7 @@ export default function Community(props) {
         .then(result => {
             dispatch(setDetailComment(result.data))
         })
-    }, [])
+    }, [postId])
 
     useEffect(() => {
         community.detailPost(postId)
@@ -71,14 +108,15 @@ export default function Community(props) {
         }
     }, [])
 
-    // 프레임이면 글표시랑 프레임 편집 링크
-
     // community-header 상단에 도착하면 고정시키기
     // community-comment를 style="overflow:scroll"
 
     const likePost = (postId) => {
         if (!currentUser.username) {
-          return alert('로그인 후 좋아요가 가능합니다')
+            msg = '로그인 후 좋아요가 가능합니다. 로그인 하시겠습니까?'
+            todo = '로그인'
+            setModalLogin(msg, todo)
+            return
         }
         community.likePost(postId)
         .then(result => {
@@ -88,36 +126,52 @@ export default function Community(props) {
 
       const bookmarkPost = (postId) => {
         if (!currentUser.username) {
-          return alert('로그인 후 좋아요가 가능합니다')
+            msg = '로그인 후 북마크가 가능합니다. 로그인 하시겠습니까?'
+            todo = '로그인'
+            setModalLogin(msg, todo)
+            return
         }
         community.bookmarkPost(postId)
         .then(result => {
             dispatch(setDetailPost(result.data))
         })
       }
-
+    
+    const deleteConfirmed = () => {
+        community.deletePost(postId)
+        .then(result => {
+            if (result.data===0) {
+                community.detailPost(postId)
+                .then(result => {
+                    dispatch(setDetailPost(result.data))
+                    navigate('/')
+                })
+            } else {
+                msg = '잘못된 접근입니다'
+                setModalBasic(msg)
+            }
+        })
+    }
     const deletePost = () => {
-        let confirmResult = false
+        // let confirmResult = false
         if (detailPost.category==='photogroup') {
-            confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
+            msg = '포즈게시글 소유권을 삭제합니다.'
+            todo = '삭제'
+            setModal(msg, todo)
+            // confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
         } else {
-            confirmResult = window.confirm('프레임게시글을 삭제합니다.')
+            msg = '프레임게시글을 삭제합니다.'
+            todo = '삭제'
+            setModal(msg, todo)
+            // confirmResult = window.confirm('프레임게시글을 삭제합니다.')
         }
+    }
 
-        if (confirmResult) {
-            community.deletePost(postId)
-            .then(result => {
-                if (result.data===0) {
-                    community.detailPost(postId)
-                    .then(result => {
-                        dispatch(setDetailPost(result.data))
-                        navigate('/')
-                    })
-                } else {
-                    alert('잘못된 접근입니다.')
-                }
-            })
-        }
+    const clickFrameId = () => {
+        community.framePost(detailPost.frameId)
+        .then(result => {
+            navigate(`/community/${btoa((result.data) * 73 + 37)}`)
+        })
     }
 
     
@@ -128,7 +182,8 @@ export default function Community(props) {
                     <div className="community-header">
                         <h5>{ detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판</h5>
                         { detailPost.category==='photogroup' ? <div className='post-division'>{detailPost.humanCount}명</div> : null }
-                        { detailPost.frameId ? <div className='post-division'>프레임 ID {detailPost.frameId}</div> : null }
+                        { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={clickFrameId} >프레임 ID {detailPost.frameId}</div> : null }
+                        { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
                     <div className="community-body">
                         <div className="community-body-meta">
@@ -183,12 +238,34 @@ export default function Community(props) {
                         <div>
                             <h6>댓글</h6>
                             <div className="community-comment" onClick={() => {setIsEditing(!isEditing)}}>
-                                <box-icon type={isEditing ? 'solid' : 'regular'} name='message-square-dots'></box-icon><span>댓글 추가하기</span>
+                                <span>✍ 댓글 추가하기</span>
                             </div>
                             <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                         </div>
+                    </div>
+                    <div id="top" onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }}>
+                        <FloatBtn/>
+                    </div>
                 </div>
-                </div>
+                <ModalConfirm
+                    show={show}
+                    onHide={handleClose}
+                    text={message}
+                    action={deleteConfirmed}
+                    todo={toDo}
+                />
+                <ModalConfirm
+                    show={showLogin}
+                    onHide={handleCloseLogin}
+                    text={message}
+                    action={() => navigate('/login')}
+                    todo={toDo}
+                />
+                <ModalBasic
+                    show={showBasic}
+                    onHide={handleCloseBasic}
+                    text={message}
+                />
             </main>
         </Layout>
     )

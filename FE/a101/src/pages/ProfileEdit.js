@@ -1,14 +1,19 @@
+import './ProfileEdit.css'
+
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 // functions
 import user from '../api/user'
 import s3 from '../api/s3'
 import { setCurrentUser } from '../store/modules/user'
 
+// icon
+import back from '../assets/UI/back.png'
 
 export default function ProfileEdit() {
   const navigate = useNavigate()
@@ -21,6 +26,25 @@ export default function ProfileEdit() {
   const [beforeProfileURL, setBeforeProfileURL] = useState('')
   const [phoneValidity, setPhoneValidity] = useState('')
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
+
+  // 모달용 변수 - basic
+  const [showBasic, setShowBasic] = useState(false)
+  let msg = ''
+  const [message, setMessage] = useState('')
+  const [onExit, setOnExit] = useState(false)
+  // 모달용 함수 - basic
+  const handleCloseBasic = () => setShowBasic(false)
+  const setModalBasic = (msg) => {
+      setShowBasic((showBasic) => {
+          return !showBasic
+      })
+      setMessage(msg)
+  }
+  const setOnExitBasic = () => {
+    setOnExit((onExit) => {
+        return !onExit
+    })
+  }
 
   const defaultPhone = () => {
     const phone = currentUser.phone
@@ -55,7 +79,9 @@ export default function ProfileEdit() {
     setAuthError('')
 
     if (phoneValidity) {
-      return alert('핸드본번호를 정확히 입력해 주세요')
+      msg = '핸드본번호를 정확히 입력해 주세요'
+      setModalBasic(msg)
+      return 
     }
 
     let form = document.forms.profileEdit.elements
@@ -69,13 +95,18 @@ export default function ProfileEdit() {
     user.profileEdit(credentials)
     .then((result) => {
       if (result.data===0) {
-        dispatch(setCurrentUser(''))
+        // dispatch(setCurrentUser(''))
         user.currentUser()
         .then(result => {
           dispatch(setCurrentUser(result.data))
+          msg = '회원정보가 변경되었습니다.'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
-        alert('회원정보가 변경되었습니다.')
-        navigate(`/mypage/${currentUser.username}`)
+        return
+        // msg = '회원정보가 변경되었습니다.'
+        // setModalBasic(msg)
+        // return
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다. (로그인 되어있지 않음)')
       } else if (result.data===2) {
@@ -138,40 +169,66 @@ export default function ProfileEdit() {
   return (
     <Layout>
       <main>
-        <div className='form'>
-          { profileURL ? <img src={ profileURL } alt="profileImg"></img> : null }
-          {
-            profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
-          }
-          <div>
-            <label htmlFor="profileURL">Profile Image : </label>
-            <input name="profileURL" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="profileURL" />
+        <div className='profile-edit-content'>
+          <div className="login-header">
+            <h5>회원정보 수정하기</h5>
           </div>
-        </div>
-        <br/>
 
-        <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
-          <label htmlFor="Nickname">Nickname : </label>
-          <input name="nickname" type="text" id="Nickname" defaultValue={ currentUser.nickname || '' } required placeholder="Nickname" /><br/>
+          <div className='form'>
+            { profileURL ? <img id='new-profile-img' src={ profileURL } alt="profileImg"></img> : null }
+            {
+              profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
+            }
+            <div>
+              <label htmlFor="profileURL">Profile Image</label>
+              <input name="profileURL" onChange={(e) => changeImageURL(e)} type="file" accept="image/*" id="profileURL" />
+            </div>
+          </div>
+
+          <form name="profileEdit" onSubmit={(e) => {onSubmit(e)}}>
+            <div>
+              <label htmlFor="Nickname">Nickname</label>
+              <input name="nickname" type="text" id="Nickname" defaultValue={ currentUser.nickname || '' } required placeholder="Nickname" />
+            </div>
+
+            <div>
+              <label htmlFor="phone">Phone</label>
+              <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ defaultPhone() || '' } required={ isKakao ? false : true } placeholder="phone" />
+              <div>(01로 시작하는 숫자만 입력해 주세요)</div>
+              <div>{phoneValidity}</div>
+            </div>
             
-          <label htmlFor="phone">Phone : </label>
-          <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ defaultPhone() || '' } required={ isKakao ? false : true } placeholder="phone" />(01로 시작하는 숫자만 입력해 주세요) {phoneValidity}<br/>
+            <div>
+              <label htmlFor="introduce">Introduce</label>
+              <textarea name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="소개글을 적어주세요" />
+            </div>
 
-          <label htmlFor="introduce">Introduce : </label>
-          <input name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="Introduce" /><br/>
-
-          <button type="submit">Edit</button>
-          { authError ? <p>{ authError }</p> : '' }
-        </form>
-
-        {
-          !isKakao ?
-          <button onClick={() => navigate('/mypage/editpw')}>비밀번호 변경하기</button> :
-          null
-        }
-        
-        <button onClick={() => navigate('/mypage/delete')}>회원 탈퇴하기</button>
-        <button onClick={() => navigate(-1)}>뒤로가기</button>
+            <button type="submit">수정하기</button>
+            { authError ? <p>{ authError }</p> : '' }
+          </form>
+          <div className='hr-sect'>
+            또는
+          </div>
+          <div className='profile-edit-btn-group'>
+            {
+              !isKakao ?
+                <button id='change-pw-btn' onClick={() => navigate('/mypage/editpw')}>비밀번호 변경하기</button>
+              :
+              null
+            }
+            
+          </div>
+          <button id='membership-withdrawal' onClick={() => navigate('/mypage/delete')}>탈퇴하기</button>
+          <div className='back-motion'>
+            <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+          </div>
+          <ModalBasic
+          show={showBasic}
+          onHide={handleCloseBasic}
+          text={message}
+          onExit={onExit ? () => {navigate(`/mypage/${currentUser.username}`)} : null}
+        />   
+        </div>
       </main>
     </Layout>
   )

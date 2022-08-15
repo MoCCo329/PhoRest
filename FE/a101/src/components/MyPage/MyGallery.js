@@ -10,6 +10,7 @@ import likeEmpty from '../../assets/UI/heart_empty.png'
 import bookmarkFilled from '../../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../../assets/UI/bookmark_empty.png'
 import lock from '../../assets/UI/lock.png'
+import FloatBtn from "../Utils/FloatingBtn"
 
 
 export default function MyGallery(props) {
@@ -67,7 +68,7 @@ export default function MyGallery(props) {
         </div>
       }
 
-      <div className="view-wrapper">
+      {/* <div className="view-wrapper"> */}
         {
           view ?
           <div className="container-gallery">
@@ -93,11 +94,12 @@ export default function MyGallery(props) {
           </div> :
           <ScrollCalendar />
         }
-      </div>
-
-      <div className="container-gallery">
+      {/* </div> */}
+      {
+        type==='bookmark' && bookmarked.length ?
+        
+        <div className="container-gallery">
         {
-          type==='bookmark' && bookmarked.length ?
           bookmarked.map((post, idx) => (
             <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
               <img className="post-image" src={ post.url } alt='post' />
@@ -108,13 +110,18 @@ export default function MyGallery(props) {
                 null
               }
             </div>
-          )) :
-          (
-          type==='bookmark' ?
-          <p>북마크한 게시물이 없습니다</p> :
-          null
-          )
-        }
+            
+            ))} 
+        </div>
+        :
+        (
+        type==='bookmark' ?
+        <p>북마크한 게시물이 없습니다</p> :
+        null
+        )
+      }
+      <div id="top" onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }}>
+        <FloatBtn/>
       </div>
     </div>
   )

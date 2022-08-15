@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import Layout from '../components/Layout/Layout'
+import ModalBasic from '../components/Utils/ModalBasic'
 
 import user from '../api/user'
 import { setAuthError, setCurrentUser } from '../store/modules/user'
@@ -20,12 +21,35 @@ export default function Main() {
     const [nickname, setNickname] = useState('')
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
+    const [isTesting, setIsTesting] = useState(false)
+    const [phoneTestNumber, setPhoneTestNumber] = useState('')
+    const [tested, setTested] = useState(false)
 
     const [idValidity, setIdValidity] = useState('')
     const [passwordValidity, setPasswordValidity] = useState('')
     const [passwordMatch, setPasswordMatch] = useState('')
     const [phoneValidity, setPhoneValidity] = useState('')
     const authError = useSelector(state => state.authError)
+
+    // 모달용 변수 - basic
+    const [showBasic, setShowBasic] = useState(false)
+    let msg = ''
+    const [message, setMessage] = useState('')
+    const [onExit, setOnExit] = useState(false)
+    // 모달용 함수 - basic
+    const handleCloseBasic = () => setShowBasic(false)
+    const setModalBasic = (msg) => {
+        setShowBasic((showBasic) => {
+            return !showBasic
+        })
+        setMessage(msg)
+    }
+    const setOnExitBasic = () => {
+      setOnExit((onExit) => {
+          return !onExit
+      })
+    }
+
 
     useEffect(() => {
       return () => {dispatch(setAuthError(''))}
@@ -37,6 +61,8 @@ export default function Main() {
       .then(result => {
         dispatch(setCurrentUser(result.data))
       })
+      // setPhoneTestNumber('')
+      // setTested(false)
     }, [])
 
     const onSubmit = (e) => {
@@ -44,13 +70,19 @@ export default function Main() {
         dispatch(setAuthError(''))
 
         if (idValidity) {
-          return alert('아이디를 정확히 입력해 주세요')
+          msg = '아이디를 정확히 입력해 주세요'
+          setModalBasic(msg)
+          return
         }
         if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
-          return alert('비밀번호를 정확히 입력해 주세요')
+          msg = '비밀번호를 정확히 입력해 주세요'
+          setModalBasic(msg)
+          return
         }
         if (phoneValidity) {
-          return alert('핸드본번호를 정확히 입력해 주세요')
+          msg = '핸드폰번호를 정확히 입력해 주세요'
+          setModalBasic(msg)
+          return
         }
 
         const credentials = {
@@ -62,8 +94,9 @@ export default function Main() {
         
         user.signup(credentials)
         .then((result) => {
-          alert('회원가입이 완료되었습니다')
-          navigate("/login", { replace: true })
+          msg = '회원가입이 완료되었습니다'
+          setOnExitBasic()
+          setModalBasic(msg)
         })
         .catch((error) => {
           if (error.response.data.message==='@Valid Error') {
@@ -134,6 +167,34 @@ export default function Main() {
       }
     }
 
+    // const phoneTestFilter = (e) => {
+    //   e.target.value = e.target.value.replace(/[^0-9]/g, '')
+    // }
+
+    // const phoneTestStart = (e) => {
+    //   e.preventDefault()
+    //   setIsTesting(true)
+    //   user.phoneTest()
+    //   .then(result => {
+    //     setPhoneTestNumber(result.data)
+    //     alert('메시지가 전송되었습니다')
+    //   })
+    // }
+
+    // const phoneTestEnd = (e) => {
+    //   e.preventDefault()
+    //   let form = document.forms.signup.elements
+    //   if (!!phoneTestNumber && form.phoneTestNumber.value===phoneTestNumber) {
+    //     setTested(true)
+    //     setIsTesting(false)
+    //     alert('확인되었습니다')
+    //   } else {
+    //     setTested(false)
+    //     alert('잘못된 인증번호입니다')
+    //   }
+    // }
+
+
     return (
       <Layout>
         <main>
@@ -141,10 +202,10 @@ export default function Main() {
             <div className="login-header">
               <h5>PhoRest 회원가입하기</h5>
             </div>
-            <form onSubmit={(e) => {onSubmit(e)}}>
+            <form name="signup" onSubmit={(e) => {onSubmit(e)}}>
               <div>
                 <label htmlFor="username">ID</label>
-                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" /> {idValidity}
+                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
               </div>
 
               <div>
@@ -165,10 +226,15 @@ export default function Main() {
               <div>
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <input onChange={(e)=>{setPhone(e.target.value); phoneFilter(e)}} type="text" id="phoneNumber" required placeholder="핸드폰 번호를 입력해주세요" />
-                <div className='phone-guide'>
-                  <div>01로 시작하는 숫자만 입력해 주세요 </div>
-                  <div>{phoneValidity}</div>
-                </div>
+                {/* <div className='phone-guide'>
+                  {
+                    isTesting ? 
+                    <div><input id="phoneTestNumber" type="text" onChange={(e)=>{phoneTestFilter(e)}} placeholder='Certification Number'/><button onClick={(e) => phoneTestEnd(e)}>확인</button>
+                    <button onClick={(e) => phoneTestStart(e)}>다시 보내기</button></div> : <button onClick={(e) => phoneTestStart(e)}>인증하기</button>
+                  }
+                </div> */}
+                <div>01로 시작하는 숫자만 입력해 주세요 </div>
+                <div>{phoneValidity}</div>
               </div>
 
               <button type="submit">Sign up</button>
@@ -177,6 +243,12 @@ export default function Main() {
             <div className='back-motion'>
               <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
             </div>
+            <ModalBasic
+              show={showBasic}
+              onHide={handleCloseBasic}
+              text={message}
+              onExit={onExit ? () => {navigate("/login", { replace: true })} : null}
+            />  
           </div>
         </main>
       </Layout>
