@@ -53,6 +53,7 @@ public class ImageController {
         } catch (Exception e) {
             return -1L;
         }
+        if(content.length() > 255) return -2L;
         Long frame_id = frameService.join(uploadUrl);
         return(postService.join(frameService.findOne(frame_id).get(), "frame", content));
     }

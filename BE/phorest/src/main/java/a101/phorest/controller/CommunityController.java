@@ -139,6 +139,7 @@ public class CommunityController {
             return 4L;
         if(!tokenProvider.validateToken(token))
             return 1L;
+        if(content.length() > 255) return 6L;
         String username = (String)tokenProvider.getTokenBody(token).get("sub");
         return postService.editPost(postId, username,content,frameId);
     }
