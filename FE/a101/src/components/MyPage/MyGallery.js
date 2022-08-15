@@ -67,7 +67,7 @@ export default function MyGallery(props) {
         </div>
       }
 
-      <div className="view-wrapper">
+      {/* <div className="view-wrapper"> */}
         {
           view ?
           <div className="container-gallery">
@@ -93,7 +93,7 @@ export default function MyGallery(props) {
           </div> :
           <ScrollCalendar />
         }
-      </div>
+      {/* </div> */}
       {
         type==='bookmark' && bookmarked.length ?
         

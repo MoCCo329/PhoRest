@@ -127,7 +127,7 @@ export default function ProfileDelete () {
           setOnExitBasic()
           setModalBasic(msg)
         })
-        // alert('탈퇴가 완료되었습니다')
+        alert('탈퇴가 완료되었습니다')
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다.')
       } else if (result.data===2) {
