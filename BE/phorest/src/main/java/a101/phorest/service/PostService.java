@@ -14,10 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true) // 기본은 false
@@ -42,6 +39,10 @@ public class PostService {
     private final PhotoGroupRepository photoGroupRepository;
 
     private final EntityManager em;
+
+    private final FollowRepository followRepository;
+
+
 
     @Transactional
     public Long join(Images images, String category, String content){
@@ -68,8 +69,20 @@ public class PostService {
         List<UserDTO> userDTOS = new ArrayList<>();
         for (User user : users) {
             UserDTO userDto = UserDTO.from(user);
+            userDto.setFollowerCount(followRepository.countFollowByFollowing(user));
             userDTOS.add(userDto);
         }
+        Comparator<? super UserDTO> UserDtoComparator = new Comparator<UserDTO>() {
+            @Override
+            public int compare(UserDTO o1, UserDTO o2) {
+                if(o1.getFollowerCount() < o2.getFollowerCount())
+                    return 1;
+                else if(o1.getFollowerCount() > o2.getFollowerCount())
+                    return -1;
+                return 0;
+            }
+        };
+        userDTOS.sort(UserDtoComparator);
         PostDTO postDto = new PostDTO(post.get(), userDTOS);
         postDto.setIsLike(likeRepository.findByPostIdAndUsername(postId, username).isPresent());
         postDto.setIsBookmark(bookmarkRepository.findByPostIdAndUsername(postId,username).isPresent());
@@ -250,3 +263,4 @@ public class PostService {
 
 
 }
+
