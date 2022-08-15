@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react'
 
 export default function ScrollCalendar() {
   const navigate = useNavigate()
+  const monthRef = useRef(null)
 
   // 먼저 올해의 년도를 구한다.
   // 그리고 12월을 구해서 각각에 대해서 days 를 저장한다.
@@ -87,16 +88,13 @@ export default function ScrollCalendar() {
 
   calIntersection()
 
-  const monthRef = useRef(null)
+  
   useEffect(() => {
     if (monthRef.current) {
-      monthRef.current.scrollIntoView({behavior: 'auto'})
+      monthRef.current.scrollIntoView({behavior: 'smooth'})
     }
   })
   
-
-
-  let url= "https://phorest-ssafy.s3.ap-northeast-2.amazonaws.com/photogroup/0/FramePlusImg.png"
   return (
     <div className="calendar-container">
       {months.map((m) => (
