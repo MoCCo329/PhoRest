@@ -31,10 +31,7 @@ export default function CommentsList(props) {
                     comments.map((comment, idx) => {
                         if (editCommentId === comment.id) {
                             return (
-                            // <div ref={idx === comments.length - 1 ? commRef : null}>
-                            <div>
-                                <CommentsEdit comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
-                            </div>
+                            <CommentsEdit comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
                             )
                         }
                         return <Comments comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
