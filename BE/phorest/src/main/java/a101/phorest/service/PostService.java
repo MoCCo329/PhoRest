@@ -70,6 +70,7 @@ public class PostService {
         for (User user : users) {
             UserDTO userDto = UserDTO.from(user);
             userDto.setFollowerCount(followRepository.countFollowByFollowing(user));
+            userDto.setPhone(null);
             userDTOS.add(userDto);
         }
         Comparator<? super UserDTO> UserDtoComparator = new Comparator<UserDTO>() {
@@ -140,6 +141,7 @@ public class PostService {
             for(int j = 0; j < users.size(); j++)
             {
                 UserDTO userDto = UserDTO.from(users.get(j));
+                userDto.setPhone(null);
                 userDTOS.add(userDto);
             }
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);
@@ -174,6 +176,7 @@ public class PostService {
             List<UserDTO> userDTOS = new ArrayList<>();
             for (int j = 0; j < users.size(); j++) {
                 UserDTO userDto = UserDTO.from(users.get(j));
+                userDto.setPhone(null);
                 userDTOS.add(userDto);
             }
             PostDTO postDto = new PostDTO(posts.get(i), userDTOS);

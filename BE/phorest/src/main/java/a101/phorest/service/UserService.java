@@ -175,7 +175,6 @@ public class UserService {
         userDto.setUsername(user.getUsername());
         userDto.setNickname(user.getNickname());
         userDto.setPassword(user.getPassword());
-        userDto.setPhone(user.getPhone());
         userDto.setProfileURL(user.getProfileURL());
         userDto.setIntroduce(user.getIntroduce());
         userDto.setKakao(user.isKakao());
