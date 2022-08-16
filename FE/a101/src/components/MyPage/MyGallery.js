@@ -68,7 +68,7 @@ export default function MyGallery(props) {
         </div>
       }
 
-      {/* <div className="view-wrapper"> */}
+      <div className="view-wrapper">
         {
           view ?
           <div className="container-gallery">
@@ -94,7 +94,7 @@ export default function MyGallery(props) {
           </div> :
           <ScrollCalendar />
         }
-      {/* </div> */}
+      </div>
       {
         type==='bookmark' && bookmarked.length ?
         
@@ -109,17 +109,16 @@ export default function MyGallery(props) {
                 <img className='icon-img' src={ post.isBookmark ? bookmarkFilled : bookmarkEmpty } name='bookmark' alt='bookmark' ></img> :
                 null
               }
-            </div>
-            
-            ))} 
-        </div>
-        :
+            </div>))
+        } 
+        </div> :
         (
         type==='bookmark' ?
         <p>북마크한 게시물이 없습니다</p> :
         null
         )
       }
+      
       <div id="top" onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }}>
         <FloatBtn/>
       </div>

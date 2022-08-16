@@ -226,11 +226,13 @@ export default function ProfileEdit() {
               :
               null
             }
-            
+            <button id='membership-withdrawal-btn' onClick={() => navigate('/mypage/delete')}>탈퇴하기</button>
           </div>
-          <button id='membership-withdrawal' onClick={() => navigate('/mypage/delete')}>탈퇴하기</button>
           <div className='back-motion'>
-            <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
+            <div className='back-motion-btn' onClick={() => navigate(-1)}>
+              <img className='icon-img' src={back} alt='back'></img>
+              <div>뒤로가기</div>
+            </div>
           </div>
           <ModalBasic
           show={showBasic}

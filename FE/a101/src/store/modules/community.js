@@ -203,3 +203,14 @@ export let likeRecent = createSlice({
   }
 })
 export let { setLikeRecent } = likeRecent.actions
+
+export let humanCount = createSlice({
+  name: 'humanCount',
+  initialState: 1,
+  reducers: {
+    setHumanCount (state, action) {
+      return action.payload
+    }
+  }
+})
+export let { setHumanCount } = humanCount.actions

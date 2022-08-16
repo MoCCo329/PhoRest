@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, likeRecent, frameCnt, photoCnt } from './modules/community.js'
+import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, likeRecent, frameCnt, photoCnt, humanCount } from './modules/community.js'
 import { token, currentUser, authError } from './modules/user.js'
 import { userDetail, viewType } from './modules/mypage.js'
 
@@ -9,6 +9,8 @@ export default configureStore({
     photoLike: photoLike.reducer,
     photoRecent: photoRecent.reducer,
     photoCnt: photoCnt.reducer,
+    humanCount: humanCount.reducer,
+
     frameLike: frameLike.reducer,
     frameRecent: frameRecent.reducer,
     frameCnt: frameCnt.reducer,

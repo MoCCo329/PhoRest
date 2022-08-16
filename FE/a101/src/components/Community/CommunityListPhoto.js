@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 // functions
-import { setPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt } from '../../store/modules/community'
+import { setPhotoLike, likePhotoLike, bookmarkPhotoLike, setPhotoRecent, likePhotoRecent, bookmarkPhotoRecent, setLikeRecent, setPhotoCnt, setHumanCount } from '../../store/modules/community'
 import community from '../../api/community'
 import Pagination from '../Utils/Pagination'
 import ModalConfirm from '../Utils/ModalConfirm'
@@ -23,7 +23,7 @@ export default function CommunityListPhoto() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [humanCount, setHumanCount] = useState(1)
+  const humanCount = useSelector(state => state.humanCount)
 
   const type = useSelector(state => state.likeRecent)  // true면 like, false면 recent
   const currentUser = useSelector(state => state.currentUser)
@@ -117,7 +117,7 @@ export default function CommunityListPhoto() {
         <div className="community-list-select">
         {[1, 2, 3, 4, 5, 6].map((num, idx) =>
           (
-            <div className="community-list-select-btn" onClick={() => setHumanCount(num)} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
+            <div className="community-list-select-btn" onClick={() => dispatch(setHumanCount(num))} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명</div>
           )
         )}
         </div>        

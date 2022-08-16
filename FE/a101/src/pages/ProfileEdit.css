@@ -18,40 +18,29 @@
 }
 
 .profile-edit-btn-group {
-  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  padding: 16px;
 }
 
-#change-pw-btn {
-  width: 100%;
+#change-pw-btn, #membership-withdrawal-btn {
   font-family: "Pretendard-Regular";
-  display: flex;
-  justify-content: center;
+  width: 100%;
   border: none;
   background-color: #fff7e7;
   border-radius: 10px;
   padding: 10px;
   line-height: 140%;
   transition: 0.25s;
+  margin: 8px
 }
 
 @media only screen and (min-width: 500px) {
   .profile-edit-btn-group {
     width: 30%;
   }
-}
-
-#membership-withdrawal {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  border: none;
-  background-color: transparent;
-  font-size: smaller;
-  margin-top: 2em;
-  margin-bottom: 1em;
-  color: rgba(0, 0, 0, 1);
 }
 
 @media only screen and (min-width: 500px) {

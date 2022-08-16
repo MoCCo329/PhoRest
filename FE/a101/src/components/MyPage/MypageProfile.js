@@ -75,49 +75,6 @@ export default function MypageProfile(props) {
             src={userDetail.profileURL || defaultProfile}
             alt="profileImage"
           />
-          
-          <div className="profile-introduce">{userDetail.introduce}</div>
-
-          {isMyMypage && (
-            <div className="modal-button">
-              <button onClick={() => navigate("/mypage/edit")}>
-                회원정보 수정하기
-              </button>
-            </div>
-          )}
-
-          <div className="modal-button">
-            {currentUser && currentUser.username ? (
-              !isMyMypage ? (userDetail.following ? (
-                <button className="button-unfollow" onClick={follow}>
-                  팔로우 취소하기
-                </button>
-              ) : (
-                <button className="button-follow" onClick={follow}>
-                  팔로우 하기
-                </button>
-              )) : (null)
-            ) : (
-              <button variant="primary" onClick={setModal}>
-              팔로우하기
-            </button>
-            )}
-            <ModalConfirm
-                show={show}
-                onHide={handleClose}
-                text={msg}
-                action={() => navigate("/login")}
-                todo={todo}
-            />
-          </div>
-          <div className="search-button" ref={searchBox}>
-            <button onClick={() => setIsSearching(!isSearching)} >유저 검색</button>
-            {
-              isSearching ?
-              <Search setIsSearching={setIsSearching}></Search> :
-              null
-            }
-          </div>
         </div>
         
         <div className="list-container">
@@ -161,6 +118,49 @@ export default function MypageProfile(props) {
             null
           }
         </div>
+      </div>
+
+      <div className="profile-introduce">{userDetail.introduce}</div>
+
+      {isMyMypage && (
+        <div className="modal-button">
+          <button onClick={() => navigate("/mypage/edit")}>
+            회원정보 수정하기
+          </button>
+        </div>
+      )}
+
+      <div className="modal-button">
+        {currentUser && currentUser.username ? (
+          !isMyMypage ? (userDetail.following ? (
+            <button className="button-unfollow" onClick={follow}>
+              팔로우 취소하기
+            </button>
+          ) : (
+            <button className="button-follow" onClick={follow}>
+              팔로우 하기
+            </button>
+          )) : (null)
+        ) : (
+          <button variant="primary" onClick={setModal}>
+          팔로우하기
+          </button>
+        )}
+        <ModalConfirm
+            show={show}
+            onHide={handleClose}
+            text={msg}
+            action={() => navigate("/login")}
+            todo={todo}
+        />
+      </div>
+      <div className="search-button" ref={searchBox}>
+        <button onClick={() => setIsSearching(!isSearching)} >유저 검색</button>
+        {
+          isSearching ?
+          <Search setIsSearching={setIsSearching}></Search> :
+          null
+        }
       </div>
     </div>
   )
