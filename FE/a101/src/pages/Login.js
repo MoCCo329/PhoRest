@@ -47,7 +47,7 @@ export default function Main() {
         navigate(-1, { replace: true })
       })
       .catch((error) => {
-        dispatch(setAuthError(error.response.data.message))
+        dispatch(setAuthError(error.response.data.fieldErrors[0].defaultMessage))
         console.error(error)
       })
   }
