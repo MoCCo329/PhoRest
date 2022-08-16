@@ -75,7 +75,7 @@ export default function MyGallery(props) {
             { userDetail && !(type==='bookmark') ? 
               (
               userDetail.postDTOS.filter(post => post.category===type).length===0 ?
-              <p>등록된 게시물이 없습니다</p> :
+              <p className='no-content'>등록된 게시물이 없습니다</p> :
               userDetail.postDTOS.filter(post => post.category===type)
               .map((post, idx) => (
                 <div className="img-board" key={ idx } onClick={() => {navigate(`/community/${btoa((post.id) * 73 + 37)}`)}}>
@@ -114,7 +114,7 @@ export default function MyGallery(props) {
         </div> :
         (
         type==='bookmark' ?
-        <p>북마크한 게시물이 없습니다</p> :
+        <p className='no-content-bookmark'>북마크한 게시물이 없습니다</p> :
         null
         )
       }

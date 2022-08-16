@@ -1,6 +1,7 @@
 .each-comment {
   display: flex;
   width: 100%;
+  max-width: 80vw;
   margin-bottom: 2vh;
   align-items: flex-start;
 }
@@ -77,35 +78,36 @@
   margin-bottom: 1em;
 }
 textarea {
-    width: 100%;
-    padding: 10px 10px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 10px;
-    background-color: #f3f3f4;
+  width: 100%;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  background-color: #f3f3f4;
 }
 .community-comment {
-    display: flex;
-    width: 8em;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-    font-family: "Pretendard-Regular";
-    margin-bottom: 5px;
-    cursor: pointer;
+  display: flex;
+  width: 8em;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  font-family: "Pretendard-Regular";
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 .community-comment:hover {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: "Pretendard-Regular";
-    margin-bottom: 5px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
-}
-.normal-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: "Pretendard-Regular";
+  margin-bottom: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
-
+.normal-text, .normal-text p {
+  font-family: "Pretendard-Regular";
+  max-width: 75vw;
+  overflow: auto;
+}
 .photo-info-content-left {
   font-family: "Pretendard-Regular";
   line-height: 100%;
@@ -115,6 +117,7 @@ textarea {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 @font-face {
   font-family: "Pretendard-Regular";
   src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")

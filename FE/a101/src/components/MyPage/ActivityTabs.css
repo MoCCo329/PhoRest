@@ -105,7 +105,7 @@
   justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   /* grid-gap: 5px; */
-  padding: 2vw;
+  padding: 2vw 2vw 0 2vw;
 }
 
 @media only screen and (max-width: 500px) {
@@ -136,3 +136,7 @@
   margin: 5px 0px;
 }
 
+.no-content, .no-content-bookmark {
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+}
