@@ -16,7 +16,8 @@
 ## 기술 스택
 - IoT : QT, OpenCV, RaspberryPI
 - Frontend : React, React-Router-Dom, Redux
-- Backend : Spring, MySQL, Jenkins, Amazon S3, Nginx
+- Backend : Spring, MySQL
+- Infra : Jenkins, Amazon S3, Nginx
 
 ## Wiki
 - [Wiki 바로가기](https://lab.ssafy.com/s07-webmobile3-sub2/S07P12A101/-/wikis/home)
