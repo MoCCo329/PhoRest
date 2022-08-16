@@ -17,7 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +27,6 @@ public class S3Uploader {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    private static int file_num = 0;
 
     public String uploadFiles(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)  // 파일 변환할 수 없으면 에러
@@ -37,10 +35,9 @@ public class S3Uploader {
     }
 
     public String upload(File uploadFile, String filePath) {
-        String fileName = filePath + "/" +  file_num + "/" + uploadFile.getName();   // S3에 저장된 파일 이름
+        String fileName = filePath + "/" + uploadFile.getName();   // S3에 저장된 파일 이름
         String uploadImageUrl = putS3(uploadFile, fileName); // s3로 업로드
         removeNewFile(uploadFile);
-        file_num++;
         return uploadImageUrl;
     }
 
@@ -75,11 +72,9 @@ public class S3Uploader {
 
     // 로컬에 파일 업로드 하기
     private Optional<File> convert(MultipartFile file) throws IOException {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String time = dateFormat.format(cal.getTime());
-        File convertFile = new File(System.getProperty("user.dir") + "/imagefiles/" + time + "_" + file.getOriginalFilename());
-        final String[] PERMISSION_FILE_EXT_ARR = {"GIF", "JPEG", "JPG", "PNG", "BMP", "MP4", "FSET", "ISET", "FSET3"};
+        UUID uuid = UUID.randomUUID();
+        File convertFile = new File(System.getProperty("user.dir") + "/imagefiles/" + uuid + "_" + file.getOriginalFilename());
+        final String[] PERMISSION_FILE_EXT_ARR = {"JFIF", "GIF", "JPEG", "JPG", "PNG", "BMP", "MP4", "FSET", "ISET", "FSET3"};
         boolean flag = false;
         String ext = FilenameUtils.getExtension(convertFile.getName()).toUpperCase();
         for(String allowedExt : PERMISSION_FILE_EXT_ARR){
