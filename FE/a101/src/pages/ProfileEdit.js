@@ -83,13 +83,13 @@ export default function ProfileEdit() {
     event.preventDefault()
     setAuthError('')
 
-    if (!isKakao && phoneValidity) {
+    let form = document.forms.profileEdit.elements
+    if (!isKakao && (phoneValidity || form.phone.value==='')) {
       msg = '핸드본번호를 정확히 입력해 주세요'
       setModalBasic(msg)
-      return 
+      return
     }
 
-    let form = document.forms.profileEdit.elements
     let credentials = {
       nickname : form.nickname.value,
       phone: form.phone.value.replace(/[^0-9a-zA-Z]/g, ''),
@@ -97,8 +97,8 @@ export default function ProfileEdit() {
       profileURL : profileURL
     }
 
-    if (phoneValidity) {
-      credentials.phone = ''
+    if (phoneValidity || form.phone.value==='') {
+      credentials.phone = null
     }
 
     user.profileEdit(credentials)

@@ -6,8 +6,6 @@ import Layout from '../components/Layout/Layout'
 export default function NotFound404() {
     const navigate = useNavigate()
     const location = useLocation()
-    
-    console.log(location.pathname==='/login')
 
     useEffect(() => {
         if (location.pathname==='/login') {
