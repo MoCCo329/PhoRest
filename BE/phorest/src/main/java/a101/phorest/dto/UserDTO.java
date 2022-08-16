@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDTO {
    @NotNull(message = "username은 필수값입니다.")
-   @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z]).{3,50}$",
+   @Pattern(regexp="^[A-Za-z]{1}[A-Za-z0-9]{4,50}$",
            message = "username은 영문자와 숫자 로 이루어진 5자 이상의 username이어야 합니다")
    private String username;
 
@@ -61,7 +61,10 @@ public class UserDTO {
 
    private boolean isFollowing;
 
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    private String refresh_token;
+
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    private String access_token;
 
    private boolean isKakao;
