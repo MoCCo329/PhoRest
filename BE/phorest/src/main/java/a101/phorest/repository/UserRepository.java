@@ -13,7 +13,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //   @EntityGraph(attributePaths = "authorities")
 //   Optional<User> findOneWithAuthoritiesByUsername(String username);
 
-   User findByUsername(String username);
+   @Query(nativeQuery = true, value = "select * from user u where binary (u.username) = :username ")
+   User findByUsername(@Param("username") String username);
 
    User findByPhone(String phone);
 
