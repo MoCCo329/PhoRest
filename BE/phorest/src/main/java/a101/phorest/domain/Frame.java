@@ -17,8 +17,6 @@ public class Frame implements Images{
     @Column(name = "frame_id")
     private Long id;
 
-    private String thumbNailPath;
-
     private String framePath;
 
     @OneToOne(mappedBy = "frame", fetch = FetchType.LAZY)
