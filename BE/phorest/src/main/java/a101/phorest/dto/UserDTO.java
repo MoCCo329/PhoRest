@@ -20,20 +20,20 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-   @NotNull(message = "username은 필수값입니다.")
+   @NotNull(message = "ID는 필수값입니다.")
    @Pattern(regexp="^[A-Za-z]{1}[A-Za-z0-9]{4,50}$",
-           message = "username은 영문자와 숫자 로 이루어진 5자 이상의 username이어야 합니다")
+           message = "영문자로 시작하는 영문자와 숫자 로 이루어진 5자 이상의 ID이어야 합니다")
    private String username;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    //@NotNull(message = "password는 필수값입니다.")
    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d~!@#$%^&*()+|=]{8,50}$",
-           message = "password은 영문자와 숫자와 특수문자(~!@#$%^&*()+|=) 로 이루어진 8자 이상의 password이어야 합니다")
+           message = "영문자와 숫자와 특수문자(~!@#$%^&*()+|=) 로 이루어진 8자 이상의 password이어야 합니다")
    private String password;
 
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    @Pattern(regexp="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d~!@#$%^&*()+|=]{8,50}$",
-           message = "beforePassword은 영문자와 숫자와 특수문자(~!@#$%^&*()+|=) 로 이루어진 8자 이상의 beforePassword이어야 합니다")
+           message = "영문자와 숫자와 특수문자(~!@#$%^&*()+|=) 로 이루어진 8자 이상의 beforePassword이어야 합니다")
    private String beforePassword;
 
    @NotNull(message = "nickname은 필수값입니다.")
