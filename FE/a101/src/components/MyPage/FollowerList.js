@@ -21,7 +21,7 @@ export default function FollowerList() {
         {
           followerList && followerList.length ?
           followerList.map(user => <div key={user.username}><Profile user={user} /></div>) :
-          <p>팔로워가 없습니다</p>
+          <p className='no-content'>팔로워가 없습니다</p>
         }
     </div>
   )

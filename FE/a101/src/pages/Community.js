@@ -229,8 +229,8 @@ export default function Community(props) {
                             <div className="community-date">
                                 {changeToDate(detailPost.time)}
                             </div>
-                            <div>
-                                <img src={detailPost.url} alt={detailPost.content} />
+                            <div className='community-img-container'>
+                                <img className='community-img' src={detailPost.url} alt={detailPost.content} />
                             </div>
                             <div className='photo-info-content-left'>
                                 <div className='like-cont-content'>
@@ -245,11 +245,9 @@ export default function Community(props) {
                             </div>
                         </div>
                         
-                        <div>
+                        <div className='community-comment'>
                             <h6>댓글</h6>
-                            <div className="community-comment" onClick={() => {setIsEditing(!isEditing)}}>
-                                <span>✍ 댓글 추가하기</span>
-                            </div>
+                            <div className="community-comment-add" onClick={() => {setIsEditing(!isEditing)}}>✍ 댓글 추가하기</div>
                             <CommentsList isEditing={isEditing} setIsEditing={setIsEditing} />
                         </div>
                     </div>

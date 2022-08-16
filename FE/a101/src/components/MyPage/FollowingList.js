@@ -18,7 +18,7 @@ export default function FollowingList() {
         {
           followingList && followingList.length ?
           followingList.map(user => <div key={user.username}><Profile user={user} /></div>) :
-          <p>팔로우중인 사람이 없습니다</p>
+          <p className='no-content'>팔로우중인 사람이 없습니다</p>
         }
     </div>
   )

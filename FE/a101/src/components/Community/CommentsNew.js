@@ -77,7 +77,7 @@ export default function CommentsNew(props) {
             } else {
                 switch ( result.data ) {
                     case 3 :     
-                        msg = '로그인 정보가 정확하지 않습니다. 다시 로그인 해주세요'
+                        msg = '로그인 후 이용해주세요'
                         changeShow(msg)
                         break    
                     case 4 :     

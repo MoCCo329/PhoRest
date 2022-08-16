@@ -103,7 +103,7 @@
 }
 .community-content {
   display: flex;
-  width: 50vw;
+  width: 70vw;
   flex-direction: column;
   align-items: center;
   margin: auto;
@@ -113,10 +113,16 @@
     width: 92vw;
   }
 }
-.community-body-content img {
-  /* max-height: 50vh; */
+.community-img {
   max-width: 100%;
+  max-height: 100%;
 }
+.community-img-container {
+  display: flex;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+}
+
 h6 {
   font-family: "LeferiPoint-BlackA";
 }
