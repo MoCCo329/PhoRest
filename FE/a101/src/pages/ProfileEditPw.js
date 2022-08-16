@@ -57,6 +57,7 @@ export default function ProfileEditPw() {
       dispatch(setCurrentUser(result.data)))
   }, [])
 
+  
   const onSubmit = (event) => {
     event.preventDefault()
     setAuthError('')
@@ -76,7 +77,6 @@ export default function ProfileEditPw() {
     user.profileEditPw(credentials)
     .then((result) => {
       if (result.data===0) {
-        // dispatch(setCurrentUser(''))
         user.currentUser()
         .then(result => {
           dispatch(updateCurrentUser(result.data))

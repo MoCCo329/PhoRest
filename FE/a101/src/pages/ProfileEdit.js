@@ -83,7 +83,7 @@ export default function ProfileEdit() {
     event.preventDefault()
     setAuthError('')
 
-    if (phoneValidity) {
+    if (!isKakao && phoneValidity) {
       msg = '핸드본번호를 정확히 입력해 주세요'
       setModalBasic(msg)
       return 
@@ -92,15 +92,18 @@ export default function ProfileEdit() {
     let form = document.forms.profileEdit.elements
     let credentials = {
       nickname : form.nickname.value,
-      phone: form.phone.value.replace(/[^0-9a-zA-Z]/g, '') || '',
-      introduce: form.introduce.value || '',
+      phone: form.phone.value.replace(/[^0-9a-zA-Z]/g, ''),
+      introduce: form.introduce.value,
       profileURL : profileURL
+    }
+
+    if (phoneValidity) {
+      credentials.phone = ''
     }
 
     user.profileEdit(credentials)
     .then((result) => {
       if (result.data===0) {
-        // dispatch(setCurrentUser(''))
         user.currentUser()
         .then(result => {
           dispatch(setCurrentUser(result.data))
@@ -109,9 +112,6 @@ export default function ProfileEdit() {
           setModalBasic(msg)
         })
         return
-        // msg = '회원정보가 변경되었습니다.'
-        // setModalBasic(msg)
-        // return
       } else if (result.data===1) {
         setAuthError('잘못된 접근입니다. (로그인 되어있지 않음)')
       } else if (result.data===2) {
