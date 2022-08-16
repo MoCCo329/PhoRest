@@ -72,10 +72,41 @@ export default function CommentsEdit(props) {
 
         community.editComment(comment.postId, comment.id, newComment)
         .then(result => {
-            community.getComments(comment.postId)
-            .then(result => {
-                dispatch(setDetailComment(result.data))
-            })
+            if (!result.data) {
+                community.getComments(comment.postId)
+                .then(result => {
+                    dispatch(setDetailComment(result.data))
+                })
+            } else {
+                switch ( result.data ) {
+                    case 1 :     
+                        msg = '로그인한 계정과 댓글 작성자가 다릅니다.'
+                        setModalBasic(msg)
+                        break    
+                    case 2 :     
+                        msg = '삭제하려는 댓글은 존재하지 않는 댓글입니다'
+                        setModalBasic(msg)
+                        break    
+                    case 3 :     
+                        msg = '로그인 정보가 정확하지 않습니다. 다시 로그인 해주세요'
+                        setModalBasic(msg)
+                        break    
+                    case 4 :     
+                        msg = '삭제하려는 댓글은 존재하지 않는 댓글입니다'
+                        setModalBasic(msg)
+                        break     
+                    case 5:
+                        msg = '작성한 내용이 없습니다'
+                        setModalBasic(msg)
+                        break
+                    case 6:
+                        msg = '글자수는 최대 255글자를 넘을 수 없습니다.'
+                        setModalBasic(msg)
+                        break
+                    default :    
+                        break
+                }
+            }
         })
 
         return props.setEditCommentId(0)

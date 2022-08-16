@@ -15,6 +15,8 @@ import { setCurrentUser } from '../store/modules/user'
 // icon
 import back from '../assets/UI/back.png'
 
+import Spinner from 'react-bootstrap/Spinner';
+
 export default function ProfileEdit() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -26,6 +28,9 @@ export default function ProfileEdit() {
   const [beforeProfileURL, setBeforeProfileURL] = useState('')
   const [phoneValidity, setPhoneValidity] = useState('')
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
+
+  // 이미지 로딩 스피너 사용하기
+  const [loading, setLoading] = useState(false)
 
   // 모달용 변수 - basic
   const [showBasic, setShowBasic] = useState(false)
@@ -124,6 +129,7 @@ export default function ProfileEdit() {
   }
 
   const changeImageURL = (e) => {
+    setLoading(true)
     let beforeFormdata = new FormData()
     beforeFormdata.append('image', beforeProfileURL)
     if (beforeProfileURL) {
@@ -136,6 +142,7 @@ export default function ProfileEdit() {
     s3.profileURL(formdata)
     .then(result => {
       setProfileURL(result.data)
+      setLoading(false)
     })
   }
 
@@ -176,6 +183,9 @@ export default function ProfileEdit() {
 
           <div className='form'>
             { profileURL ? <img id='new-profile-img' src={ profileURL } alt="profileImg"></img> : null }
+            {
+              loading ? <div id='spinner'><Spinner animation="border" variant="warning"/></div> : null
+            }
             {
               profileURL ? <button onClick={() => deleteImage()}>지우기</button> : null
             }

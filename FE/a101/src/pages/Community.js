@@ -21,6 +21,8 @@ import likeEmpty from '../assets/UI/heart_empty.png'
 import bookmarkFilled from '../assets/UI/bookmark_filled.png'
 import bookmarkEmpty from '../assets/UI/bookmark_empty.png'
 
+//external library
+import moment from 'moment'
 
 export default function Community(props) {
     const postId = (Number(atob(useParams().postId)) - 37) / 73
@@ -108,6 +110,7 @@ export default function Community(props) {
         }
     }, [])
 
+
     // community-header 상단에 도착하면 고정시키기
     // community-comment를 style="overflow:scroll"
 
@@ -174,6 +177,10 @@ export default function Community(props) {
         })
     }
 
+    const changeToDate= (datetime) => {
+        const date = moment(datetime).format('YYYY년 MM월 DD일')
+        return date
+    }
     
     return (
         <Layout>
@@ -219,6 +226,9 @@ export default function Community(props) {
                         </div>
                         
                         <div className="community-body-content">
+                            <div className="community-date">
+                                {changeToDate(detailPost.time)}
+                            </div>
                             <div>
                                 <img src={detailPost.url} alt={detailPost.content} />
                             </div>

@@ -1,6 +1,6 @@
 import './Comments.css'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import community from './../../api/community'
@@ -65,6 +65,7 @@ export default function CommentsNew(props) {
                 .then(result => {
                     dispatch(setDetailComment(result.data))
                     props.setIsEditing(false)
+                    window.scrollTo({top:document.body.scrollHeight, behavior: "smooth"})
                 })
             } else {
                 switch ( result.data ) {

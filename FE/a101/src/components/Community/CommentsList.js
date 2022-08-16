@@ -8,6 +8,7 @@ import CommentsEdit from './CommentsEdit'
 import CommentsNew from './CommentsNew'
 
 export default function CommentsList(props) {
+
     const { isEditing, setIsEditing } = props
     let comments = useSelector(state => state.detailComments)
     
@@ -29,7 +30,12 @@ export default function CommentsList(props) {
                     comments && comments.length ?
                     comments.map((comment, idx) => {
                         if (editCommentId === comment.id) {
-                            return <CommentsEdit comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
+                            return (
+                            // <div ref={idx === comments.length - 1 ? commRef : null}>
+                            <div>
+                                <CommentsEdit comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
+                            </div>
+                            )
                         }
                         return <Comments comment={comment} key={comment.id} setEditCommentId={setEditCommentId}/>
                     })

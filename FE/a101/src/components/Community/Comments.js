@@ -9,6 +9,7 @@ import { setDetailComment } from '../../store/modules/community'
 import Profile from '../User/Profile'
 import ModalConfirm from '../Utils/ModalConfirm'
 
+import moment from 'moment'
 
 export default function Comments(props) {
     const currentUser = useSelector(state => state.currentUser)
@@ -42,13 +43,42 @@ export default function Comments(props) {
         setModal()
     }
     
+    const changeToDate= (datetime) => {
+        // 오늘 날짜
+        let now = moment(new Date())
+        // 오늘과의 시간 차이
+        let duration = moment.duration(now.diff(datetime))
+        // 변환
+        let seconds = duration.asSeconds()
+        let minute = duration.asMinutes()
+        let hours = duration.asHours()
+        let days = duration.asDays()
+        let weeks = duration.asWeeks()
+        let month = duration.asMonths()
+        let year = duration.asYears()
+        if (minute < 1) {
+            return parseInt(seconds) + '초 전'
+        } else if (hours < 1) {
+            return parseInt(minute) + '분 전'
+        } else if (hours < 24) {
+            return parseInt(hours) + '시간 전'
+        } else if (weeks < 1) {
+            return parseInt(days) + '일 전'
+        } else if (month < 1) {
+            return parseInt(weeks) + '주 전'
+        } else if (year < 1) {
+            return parseInt(month) + '달 전'
+        } else {
+            return parseInt(year) + '년 전'
+        }
+    }
     
     return (
         <div className='each-comment'>
             <Profile user={props.comment} /> 
             <div className='each-comment-content'>
                 <div className='each-comment-content-info'>
-                    {props.comment.nickname} | {props.comment.time.slice(0, 10)} {props.comment.time.slice(11, 19)}
+                    {props.comment.nickname} | {changeToDate(props.comment.time)}
                     <span></span>
                     {
                         currentUser.username===props.comment.username ?
