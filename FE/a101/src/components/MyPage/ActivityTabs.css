@@ -8,6 +8,7 @@
 .mypage-icon {
   font-size: 48px;
   max-width: 10vw;
+  cursor: pointer;
 }
 .mypage-icon:hover {
   box-shadow: 0 5px 2px -2px rgba(0, 0, 0, 0.2);
@@ -38,6 +39,7 @@
   line-height: 140%;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   transition: 0.25s;
+  cursor: pointer;
 }
 .gallery-type:hover {
   background-color: #f5737f;
@@ -78,6 +80,7 @@
   text-align: right;
   border-radius: 5px;
   padding: 10px;
+  cursor: pointer;
 }
 @media only screen and (max-width: 500px) {
   .img-board {

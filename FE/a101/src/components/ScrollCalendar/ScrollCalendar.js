@@ -112,7 +112,7 @@ export default function ScrollCalendar() {
               day === " " ?
                 (<div key={idx}></div>) :
                 (day.common ?
-                  (<div key={idx} className="img-common" onClick={() => {navigate(`/community/${btoa(day.id * 73 + 37)}`)}}><img className="img-common-img" src={day.url} alt="이미지"></img></div>) :
+                  (<div key={idx} className="img-common" style={{ cursor: 'pointer' }} onClick={() => {navigate(`/community/${btoa(day.id * 73 + 37)}`)}}><img className="img-common-img" src={day.url} alt="이미지"></img></div>) :
                   (<div key={idx} className="date">{day.date.getDate()}</div>)
                 )
             ))}
