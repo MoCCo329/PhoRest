@@ -34,6 +34,11 @@
 .comment-new {
   font-family: "Pretendard-Regular";
 }
+.comment-info {
+  display: flex;
+  justify-content: space-between;
+}
+
 .comment-new button {
     font-family: "Pretendard-Regular";
     border: none;

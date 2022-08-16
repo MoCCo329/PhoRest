@@ -116,6 +116,12 @@ export default function ImageEdit() {
     }, 1)
   }
 
+  const changeContent = (e) => {
+    const copy = e.target.value.slice(0, 255)
+    e.target.value = copy
+    setContent(copy)
+  }
+
   return (
     <div className='frame-edit-content'>
        <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
@@ -157,8 +163,11 @@ export default function ImageEdit() {
         </div>
 
         <div>
-          <label htmlFor="content">글 내용</label>
-          <input name="content" onChange={(e) => setContent(e.target.value)} type="text" id="content" defaultValue={content} />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }} >
+            <label htmlFor="content">글 내용</label>
+            <div>{`${content.length} / 255`}</div>
+          </div>
+          <input name="content" onChange={(e) => changeContent(e)} type="text" id="content" defaultValue={content} />
         </div>
 
         <button onClick={clickComplete}>게시글 등록</button>

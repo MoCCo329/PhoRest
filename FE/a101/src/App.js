@@ -37,6 +37,16 @@ function App() {
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
+
+    return (() => {
+      dispatch(setCurrentUser({
+        username: '',
+        nickname: '',
+        phone: '',
+        profileUrl: '',
+        introduce: '',
+      }))
+    })
   }, [])
   
   return (

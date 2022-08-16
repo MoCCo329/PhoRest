@@ -9,6 +9,7 @@ import { setDetailComment } from './../../store/modules/community'
 import ModalBasic from '../Utils/ModalBasic'
 import ModalConfirm from '../Utils/ModalConfirm'
 import { useNavigate } from 'react-router-dom'
+import { set } from 'date-fns/esm'
 
 export default function CommentsNew(props) {
     // 모달용
@@ -43,6 +44,12 @@ export default function CommentsNew(props) {
     const [content, setContent] = useState('')
     const currentUser = useSelector(state => state.currentUser)
     const postId = useSelector(state => state.detailPost).id
+
+    const changeContent = (e) => {
+        const copy = e.target.value.slice(0, 255)
+        e.target.value = copy
+        setContent(copy)
+    }
 
     const clickAddComment = () => {
         props.setEditCommentId(0)
@@ -95,9 +102,15 @@ export default function CommentsNew(props) {
 
     return (
         <div className='comment-new'>
-            <textarea type='text' onChange={(e) => {setContent(e.target.value)}}></textarea>
-            <button onClick={() => {clickAddComment()}}>작성</button>
-            <button onClick={() => {props.setIsEditing(false)}}>취소</button>
+            <textarea type='text' onChange={(e) => changeContent(e)}></textarea>
+            <div className='comment-info'>
+                <div>
+                    <button onClick={() => {clickAddComment()}}>작성</button>
+                    <button onClick={() => {props.setIsEditing(false)}}>취소</button>
+                </div>
+                <div>{`${content.length} / 255`}</div>
+            </div>
+
             <ModalBasic
                 show={showBasic}
                 onHide={handleCloseBasic}

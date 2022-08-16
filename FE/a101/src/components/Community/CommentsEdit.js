@@ -35,10 +35,8 @@ export default function CommentsEdit(props) {
     // 모달용 함수 - basic
     const handleCloseBasic = () => setShowBasic(false)
     const setModalBasic = (msg) => {
-        setShowBasic((showBasic) => {
-            return !showBasic
-        })
         setMessage(msg)
+        setShowBasic(!showBasic)
     }
     const deleteConfirmed = () => {
         community.deleteComment(comment.postId, comment.id)
@@ -55,6 +53,12 @@ export default function CommentsEdit(props) {
         })
 
         return props.setEditCommentId(0)
+    }
+
+    const changeContent = (e) => {
+        const copy = e.target.value.slice(0, 255)
+        e.target.value = copy
+        setContent(copy)
     }
 
     const clickEditComment = () => {
@@ -103,7 +107,7 @@ export default function CommentsEdit(props) {
                         msg = '글자수는 최대 255글자를 넘을 수 없습니다.'
                         setModalBasic(msg)
                         break
-                    default :    
+                    default :
                         break
                 }
             }
@@ -115,9 +119,14 @@ export default function CommentsEdit(props) {
     return (
         <div className='comment-edit'>
             댓글 작성자 : {props.comment.nickname} |
-            댓글 내용 : <textarea type='text' onChange={(e) => {setContent(e.target.value)}} value={content}></textarea> 
-            <button onClick={() => clickEditComment()}>수정</button>
-            <button onClick={() => props.setEditCommentId(0)}>취소</button>
+            댓글 내용 : <textarea type='text' onChange={(e) => changeContent(e)} value={content}></textarea>
+            <div className='comment-info'>
+                <div>
+                    <button onClick={() => clickEditComment()}>수정</button>
+                    <button onClick={() => props.setEditCommentId(0)}>취소</button>
+                </div>
+                <div>{`${content.length} / 255`}</div>
+            </div>
             <ModalConfirm
                 show={show}
                 onHide={handleClose}
