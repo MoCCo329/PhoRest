@@ -119,8 +119,9 @@ export default function MypageProfile(props) {
           }
         </div>
       </div>
-
-      <div className="profile-introduce">{userDetail.introduce}</div>
+      <div className='profile-introduce-box'>
+        <div className="profile-introduce">{userDetail.introduce}</div>
+      </div>
 
       {isMyMypage && (
         <div className="modal-button">

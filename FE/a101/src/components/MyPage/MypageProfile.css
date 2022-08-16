@@ -13,15 +13,25 @@
   align-items: center;
   width: 35vw;
 }
-
+.profile-introduce-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .profile-introduce {
+  width: 50vw;
   white-space: pre-line;
   min-height: 4vh;
   margin: 15px 0 15px 0;
   font-family: 'Pretendard-Regular';
   font-size: 14px;
   line-height: 1.4;
-  text-align: center;
+  /* text-align: center; */
+}
+@media only screen and (max-width: 500px) {
+  .profile-introduce {
+    width: 90vw;
+  }
 }
 .info {
   margin: 0 2vw;
