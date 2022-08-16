@@ -55,7 +55,7 @@ export default function ImageEdit() {
     while(n--){
         u8arr[n] = bstr.charCodeAt(n)
     }
-    return new File([u8arr], `${currentUser.username}_${new Date().getMonth() + 1}-${new Date().getDate()}.png`, {type:mime})
+    return new File([u8arr], `${new Date().getTime()}.png`, {type:mime})
   }
 
   const reader = new FileReader()
@@ -122,6 +122,7 @@ export default function ImageEdit() {
     setContent(copy)
   }
 
+  
   return (
     <div className='frame-edit-content'>
        <p className='notice-frame'>✅ 권장되는 프레임의 사이즈는 가로: 1500px 세로: 1000px 입니다</p>
@@ -135,7 +136,7 @@ export default function ImageEdit() {
           }}
           Text={{ text: 'PhoRest' }}
           Rotate={{ angle: 90, componentType: 'slider' }}
-          defaultSavedImageName={`${currentUser.username}_${new Date().getMonth() + 1}-${new Date().getDate()}.png`}
+          defaultSavedImageName={`${new Date().getTime()}.png`}
           Crop={{
             presetsItems: [
               {
