@@ -23,7 +23,6 @@
   text-align: center;
 }
 .info {
-  height: 5vh;
   margin: 0 2vw;
   display: flex;
   flex-direction: column;
@@ -124,6 +123,5 @@
 
 .result-box div {
   display: flex;
-  /* max-width: 37vw; */
   margin: 5px 0px;
 }
