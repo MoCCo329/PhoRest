@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import FilerobotImageEditor, {
   TABS,
   TOOLS,
@@ -19,6 +20,8 @@ export default function ImageEdit() {
   const [frameURL, setFrameURL] = useState('')
   const [content, setContent] = useState('')
   const [clickWell, setClickWell] = useState(false)
+
+  const currentUser = useSelector(state => state.currentUser)
 
   // 모달용 변수 - basic
   const [showBasic, setShowBasic] = useState(false)
@@ -52,7 +55,7 @@ export default function ImageEdit() {
     while(n--){
         u8arr[n] = bstr.charCodeAt(n)
     }
-    return new File([u8arr], `PhoRest_${new Date().getYear()}-${new Date().getMonth()}-${new Date().getDate()}.png`, {type:mime})
+    return new File([u8arr], `${currentUser.username}_${new Date().getMonth() + 1}-${new Date().getDate()}.png`, {type:mime})
   }
 
   const reader = new FileReader()
@@ -126,7 +129,7 @@ export default function ImageEdit() {
           }}
           Text={{ text: 'PhoRest' }}
           Rotate={{ angle: 90, componentType: 'slider' }}
-          defaultSavedImageName={`PhoRest_${new Date().getYear()}-${new Date().getMonth()}-${new Date().getDate()}`}
+          defaultSavedImageName={`${currentUser.username}_${new Date().getMonth() + 1}-${new Date().getDate()}.png`}
           Crop={{
             presetsItems: [
               {
@@ -141,7 +144,7 @@ export default function ImageEdit() {
               },
             ],
           }}
-          tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK]} // or {['Adjust', 'Annotate', 'Watermark']}
+          tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK, TABS.FILTERS, TABS.FINETUNE, TABS.RESIZE]} // or {['Adjust', 'Annotate', 'Watermark']}
           defaultTabId={TABS.ANNOTATE} // or 'Annotate'
           defaultToolId={TOOLS.TEXT} // or 'Text'
           />
