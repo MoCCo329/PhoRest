@@ -10,6 +10,7 @@ import CommunityCarousel from './../components/Community/CommunityCarousel'
 import { setDetailPost } from '../store/modules/community'
 import s3 from './../api/s3'
 import mypage from './../api/mypage'
+import { setPostForKakao } from '../store/modules/mypage'
 
 
 export default function Main() {
@@ -20,12 +21,20 @@ export default function Main() {
     const currentUser = useSelector(state => state.currentUser)
     const [isOwned, setIsOwned] = useState(false)
 
-    if (!content.url) {
-        s3.detailPost(postId)
-        .then(result => {
-            dispatch(setDetailPost(result.data))
-        })
-    }
+
+    useEffect(() => {
+        if (!content.url) {
+            s3.detailPost(postId)
+            .then(result => {
+                dispatch(setDetailPost(result.data))
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        if (content)
+        dispatch(setPostForKakao(content))
+    }, [content])
 
     useEffect(() => {
         if (!isOwned && currentUser.username) {

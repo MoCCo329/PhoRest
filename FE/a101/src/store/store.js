@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { photoLike, photoRecent, frameLike, frameRecent, detailPost, detailComments, likeRecent, frameCnt, photoCnt, humanCount } from './modules/community.js'
 import { token, currentUser, authError } from './modules/user.js'
-import { userDetail, viewType } from './modules/mypage.js'
+import { userDetail, viewType, postForKakao } from './modules/mypage.js'
 
 export default configureStore({
   reducer: {
@@ -28,5 +28,6 @@ export default configureStore({
     // mypage
     userDetail: userDetail.reducer,
     viewType: viewType.reducer,
+    postForKakao: postForKakao.reducer,
   }
 })
