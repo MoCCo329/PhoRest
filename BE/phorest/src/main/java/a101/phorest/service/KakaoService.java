@@ -59,7 +59,7 @@ public class KakaoService {
         }
     }
 
-    public String sendMessage(KakaoDTO kakaoDTO) throws IOException{
+    public String sendMessage(KakaoDTO kakaoDTO, String message) throws IOException{
         String host="https://kapi.kakao.com/v2/api/talk/memo/default/send";
         HttpClient httpClient = HttpClientBuilder.create().build();
         try{
@@ -70,7 +70,7 @@ public class KakaoService {
             String id = kakaoDTO.getEncodedPostId();
 
             StringEntity params = new StringEntity(
-                    "template_object={\"object_type\": \"feed\",\"content\":{\"title\": \"일주일전에 찍은 PhoRest 을 확인해보세요!\",\"image_height\": \"1000\",\"image_width\": \"1500\",\"image_url\": \""+path+"\",\"link\":{ \"mobile_web_url\": \"https://phorest.site/community/"+id+"\" }}}"
+                    "template_object={\"object_type\": \"feed\",\"content\":{\"title\": \""+message+"\",\"image_height\": \"1000\",\"image_width\": \"1500\",\"image_url\": \""+path+"\",\"link\":{ \"mobile_web_url\": \"https://phorest.site/community/"+id+"\" }}}"
             ,"UTF-8");
 
             request.addHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");

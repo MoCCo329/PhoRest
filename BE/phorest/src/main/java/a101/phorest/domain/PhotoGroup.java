@@ -24,6 +24,8 @@ public class PhotoGroup implements Images{
 
     private String videoPath;
 
+    private String arPath;
+
     @OneToOne(mappedBy = "photoGroup", fetch = FetchType.LAZY)
     private Post post;
 
