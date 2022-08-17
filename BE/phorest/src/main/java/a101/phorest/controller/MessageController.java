@@ -5,6 +5,7 @@ import a101.phorest.dto.KakaoDTO;
 import a101.phorest.dto.PostDTO;
 import a101.phorest.dto.UserDTO;
 import a101.phorest.jwt.TokenProvider;
+import a101.phorest.repository.MyPageRepository;
 import a101.phorest.service.*;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
@@ -36,6 +37,7 @@ public class MessageController {
     private final KakaoService kakaoService;
     private final PhotoGroupService photoGroupService;
     private final MyPageService myPageService;
+    private final MyPageRepository myPageRepository;
 
     @PostMapping("download/{postId}/message")
     public Long message(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content){
@@ -70,12 +72,13 @@ public class MessageController {
                     String accessToken = kakaoService.getAccessToken(refresh_token);
 //                    String accessToken = userDTO.getAccess_token();
                     String path = photoGroupService.findOne(postDTO.getPhotogroupId()).getPhotoGroupPath();
+                    String content = myPageService.getMessageByPostIdAndUsername(postId, userDTO.getUsername());
 
                     KakaoDTO kakaoDTO = new KakaoDTO();
                     kakaoDTO.setPath(path);
                     kakaoDTO.setAccessToken(accessToken);
                     kakaoDTO.setEncodedPostId(encodedPostId);
-                    kakaoService.sendMessage(kakaoDTO);
+                    kakaoService.sendMessage(kakaoDTO,content);
 //                    kakaoDTOList.add(kakaoDTO);
                 }
             }
