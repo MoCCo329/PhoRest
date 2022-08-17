@@ -18,6 +18,7 @@ import ProfileEditPw from './pages/ProfileEditPw'
 import ProfileDelete from './pages/ProfileDelete'
 import NotFount404 from './pages/NotFound404'
 import Kakao from './pages/Kakao'
+import Ar from './pages/Ar'
 
 // functions
 import user from './api/user'
@@ -32,7 +33,7 @@ function App() {
 
   const currentUser = useSelector(state => state.currentUser)
   
-  useEffect(() => {  // 미흡
+  useEffect(() => {
     user.currentUser()
     .then(result => {
       dispatch(setCurrentUser(result.data))
@@ -79,6 +80,8 @@ function App() {
             <Route exact path="/kakao" element={<Kakao/>} />  
           </> : null
         }
+
+        <Route exact path="/ar/" element={<Ar/>} />
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>
