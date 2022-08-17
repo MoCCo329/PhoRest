@@ -50,7 +50,6 @@ export default function Main() {
       })
     }
 
-
     useEffect(() => {
       return () => {dispatch(setAuthError(''))}
     }, [])
@@ -113,11 +112,11 @@ export default function Main() {
       const filtered = value.replace(/[^0-9a-zA-Z]/g, '')
       e.target.value = filtered
 
-      const check = /^[A-Za-z][A-Za-z\d]{4,50}$/
+      const check = /^[A-Za-z]+[A-Za-z0-9]{4,}$/
       if (e.target.value.length < 5) {
         setIdValidity('아이디는 5자 이상이여야 합니다')
-      } else if (!check.test(value)) {
-        setIdValidity('아이디는 각각 하나이상의 알파벳과 숫자를 포함해야 합니다')
+      } else if (!check.test(e.target.value)) {
+        setIdValidity('아이디는 알파벳으로 시작해야합니다')
       } else {
         setIdValidity('')
       }
