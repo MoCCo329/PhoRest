@@ -113,11 +113,11 @@ export default function Main() {
       const filtered = value.replace(/[^0-9a-zA-Z]/g, '')
       e.target.value = filtered
 
-      const check = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/
+      const check = /^[A-Za-z]+[A-Za-z0-9]{4,}$/
       if (e.target.value.length < 5) {
         setIdValidity('아이디는 5자 이상이여야 합니다')
-      } else if (!check.test(value)) {
-        setIdValidity('아이디는 각각 하나이상의 알파벳과 숫자를 포함해야 합니다')
+      } else if (!check.test(e.target.value)) {
+        setIdValidity('아이디는 알파벳으로 시작해야합니다')
       } else {
         setIdValidity('')
       }
@@ -205,7 +205,7 @@ export default function Main() {
             <form name="signup" onSubmit={(e) => {onSubmit(e)}}>
               <div>
                 <label htmlFor="username">ID</label>
-                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
+                <input onChange={(e)=>{idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
               </div>
 
               <div>
