@@ -113,7 +113,7 @@ export default function Main() {
       const filtered = value.replace(/[^0-9a-zA-Z]/g, '')
       e.target.value = filtered
 
-      const check = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/
+      const check = /^[A-Za-z][A-Za-z\d]{4,50}$/
       if (e.target.value.length < 5) {
         setIdValidity('아이디는 5자 이상이여야 합니다')
       } else if (!check.test(value)) {
