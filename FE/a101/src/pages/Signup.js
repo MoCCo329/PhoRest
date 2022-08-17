@@ -50,7 +50,6 @@ export default function Main() {
       })
     }
 
-
     useEffect(() => {
       return () => {dispatch(setAuthError(''))}
     }, [])
@@ -205,7 +204,7 @@ export default function Main() {
             <form name="signup" onSubmit={(e) => {onSubmit(e)}}>
               <div>
                 <label htmlFor="username">ID</label>
-                <input onChange={(e)=>{idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
+                <input onChange={(e)=>{setId(e.target.value); idFilter(e)}} type="text" id="username" required placeholder="아이디를 입력해주세요" autoFocus /> {idValidity}
               </div>
 
               <div>

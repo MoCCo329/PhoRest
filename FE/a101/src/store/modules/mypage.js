@@ -32,3 +32,15 @@ export let viewType = createSlice({
     }
 })
 export let { setViewType } = viewType.actions
+
+
+export let postForKakao = createSlice({
+    name: 'postForKakao',
+    initialState: '',
+    reducers: {
+        setPostForKakao (state, action) {
+            return action.payload
+        }
+    }
+})
+export let { setPostForKakao } = postForKakao.actions

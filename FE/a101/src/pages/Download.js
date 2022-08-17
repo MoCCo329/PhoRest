@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Download.css'
@@ -10,22 +10,33 @@ import CommunityCarousel from './../components/Community/CommunityCarousel'
 import { setDetailPost } from '../store/modules/community'
 import s3 from './../api/s3'
 import mypage from './../api/mypage'
+import { setPostForKakao } from '../store/modules/mypage'
 
 
 export default function Main() {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+    
     const postId = (Number(atob(useParams().postId)) + 37) / 73
 
     let content = useSelector(state => state.detailPost)
     const currentUser = useSelector(state => state.currentUser)
     const [isOwned, setIsOwned] = useState(false)
 
-    if (!content.url) {
-        s3.detailPost(postId)
-        .then(result => {
-            dispatch(setDetailPost(result.data))
-        })
-    }
+
+    useEffect(() => {
+        if (!content.url) {
+            s3.detailPost(postId)
+            .then(result => {
+                dispatch(setDetailPost(result.data))
+            })
+        }
+    }, [])
+
+    useEffect(() => {
+        if (content.category==='frame') return navigate(-1)
+        if (content) return dispatch(setPostForKakao(content))
+    }, [content])
 
     useEffect(() => {
         if (!isOwned && currentUser.username) {

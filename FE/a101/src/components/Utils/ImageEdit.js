@@ -73,6 +73,7 @@ export default function ImageEdit() {
       setTimeout(() => {
         const saveBtn = document.getElementsByClassName('sc-lxwit0-2 dfflPR SfxButton-root')[1]
         saveBtn.click()
+        setClickWell(false)
       }, 1)
     } else {
       setTimeout(() => {
@@ -83,26 +84,26 @@ export default function ImageEdit() {
   }
 
   const onSave = (editedImageObject, designState) => {
+    const imgFile = dataURLtoFile(editedImageObject.imageBase64)
+    let formdata = new FormData()
+    formdata.append('content', content)
+    formdata.append('image', imgFile)
+    s3.uploadFrame(formdata)
+    .then(result => {
+      if (result.data) {
+        mypage.ownPost(result.data)
+        navigate(`/community/${btoa((result.data) * 73 + 37)}`)
+      }
+    })
+  }
+
+  const clickComplete = (e) => {
+    e.preventDefault()
     if (!document.querySelector('#frame').files[0]) {
       msg = '이미지를 확인해주세요'
       setModalBasic(msg)
       return
     }
-    const imgFile = dataURLtoFile(editedImageObject.imageBase64)
-    let formdata = new FormData()
-    formdata.append('content', content)
-    formdata.append('image', imgFile)
-
-    s3.uploadFrame(formdata)
-    .then(result => {
-      if (result.data) {
-        mypage.ownPost(result.data)
-      }
-      navigate(`/community/${btoa((result.data) * 73 + 37)}`)
-    })
-  }
-
-  const clickComplete = () => {
     setClickWell(true)
     setTimeout(() => {
       let btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 fFhGIW FIE_topbar-save-button SfxButton-root')[0]  // fFhGIW 로컬 , kjdjJl 배포
@@ -112,7 +113,6 @@ export default function ImageEdit() {
         btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
         btn.click()
       }
-      setClickWell(false)
     }, 1)
   }
 
@@ -144,11 +144,6 @@ export default function ImageEdit() {
                 descriptionKey: '3:2',
                 ratio: 3 / 2,
               },
-              {
-                titleKey: 'cinemascope',
-                descriptionKey: '21:9',
-                ratio: 21 / 9,
-              },
             ],
           }}
           tabsIds={[TABS.ADJUST, TABS.ANNOTATE, TABS.WATERMARK, TABS.FILTERS, TABS.FINETUNE, TABS.RESIZE]} // or {['Adjust', 'Annotate', 'Watermark']}
@@ -171,7 +166,7 @@ export default function ImageEdit() {
           <input name="content" onChange={(e) => changeContent(e)} type="text" id="content" defaultValue={content} />
         </div>
 
-        <button onClick={clickComplete}>게시글 등록</button>
+        <button onClick={e => clickComplete(e)}>게시글 등록</button>
       </form>
       <div className='back-motion'>
         <div className='back-motion-btn' onClick={() => navigate(-1)}><img className='icon-img' src={back} alt='back'></img><div>뒤로가기</div></div>
@@ -180,7 +175,7 @@ export default function ImageEdit() {
           show={showBasic}
           onHide={handleCloseBasic}
           text={message}
-        />  
+        />
     </div>
   )
 }
