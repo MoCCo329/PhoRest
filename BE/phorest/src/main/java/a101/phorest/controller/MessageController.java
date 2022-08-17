@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
@@ -23,6 +24,7 @@ import java.util.*;
 @RestController
 @Component
 @RequiredArgsConstructor
+@RequestMapping("api")
 public class MessageController {
 
     private final DefaultMessageService messageService;
@@ -33,9 +35,29 @@ public class MessageController {
     public final UserService userService;
     private final KakaoService kakaoService;
     private final PhotoGroupService photoGroupService;
+    private final MyPageService myPageService;
 
+    @PostMapping("download/{postId}/message")
+    public Long message(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content){
+        byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
+        String decodedString = new String(decodedBytes);
+        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        Long postId = decodedNumber.longValue();
 
-    @Scheduled(cron = "0 0 9 * * *")
+        String ct = content.get("content");
+        String username = (String)tokenProvider.getTokenBody(token).get("sub");
+
+        if(postId - decodedNumber != 0)
+            return 5L; //존재하지 않는 post id
+        if(!tokenProvider.validateToken(token))
+            return 2L; //
+        if(ct.length() > 100) return 6L; // 너무 길때
+        if(ct.trim().isEmpty()) return 7L; // 아무글자도 없을때
+        return myPageService.setMessageMyself(postId,username,ct);
+    }
+
+    // @Scheduled(cron = "0 0 9 * * *")
+    @PostMapping("sendkakao")
     public void sendMsg() throws Exception {
         List<PostDTO> postDTOS = postService.findMessagePosts();
 
