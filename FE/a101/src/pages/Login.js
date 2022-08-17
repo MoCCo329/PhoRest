@@ -47,8 +47,11 @@ export default function Main() {
         navigate(-1, { replace: true })
       })
       .catch((error) => {
-        dispatch(setAuthError(error.response.data.fieldErrors[0].defaultMessage))
-        console.error(error)
+        if (error.response.data.message==='@Valid Error') {
+          dispatch(setAuthError(error.response.data.fieldErrors[0].defaultMessage))
+        } else {
+          dispatch(setAuthError(error.response.data.message))
+        }
       })
   }
 

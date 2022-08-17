@@ -200,7 +200,12 @@ export default function Community(props) {
                                 detailPost.users.map((user) => 
                                 // <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
                                 <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
-                                ) : <div className='normal-text'>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div>
+                                ) :
+                                (
+                                    detailPost.url ?
+                                    <div className='normal-text'>게시글을 공유한 사람이 없습니다. 첫 공유의 주인공이 되어주세요</div> :
+                                    null
+                                )
                             }
                             </div>
                             <div className='user-post-edit'>
@@ -227,7 +232,11 @@ export default function Community(props) {
                         
                         <div className="community-body-content">
                             <div className="community-date">
-                                {changeToDate(detailPost.time)}
+                                {
+                                    detailPost.url ?
+                                    changeToDate(detailPost.time) :
+                                    "삭제된 프레임입니다"
+                                }
                             </div>
                             <div className='community-img-container'>
                                 <img className='community-img' src={detailPost.url} alt={detailPost.content} />

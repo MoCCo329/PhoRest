@@ -76,7 +76,6 @@ export default function CommentsEdit(props) {
 
         community.editComment(comment.postId, comment.id, newComment)
         .then(result => {
-            console.log(result.data)
             if (!result.data) {
                 community.getComments(comment.postId)
                 .then(result => {
@@ -106,7 +105,6 @@ export default function CommentsEdit(props) {
                         setModalBasic(msg)
                         break
                     case 6:
-                        console.log('실행됨')
                         msg = '글자수는 최대 255글자를 넘을 수 없습니다.'
                         setModalBasic(msg)
                         break
@@ -118,7 +116,8 @@ export default function CommentsEdit(props) {
 
         // return props.setEditCommentId(0)
     }
-    console.log(showBasic)
+
+    
     return (
         <div className='comment-edit'>
             댓글 작성자 : {props.comment.nickname} |

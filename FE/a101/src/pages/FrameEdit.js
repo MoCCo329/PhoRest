@@ -58,7 +58,8 @@ export default function FrameEdit() {
     }, [postId, type])
 
 
-    const editComplete = () => {
+    const editComplete = (event) => {
+        event.preventDefault()
         let formdata = new FormData()
         formdata.append('content', content)
         formdata.append('image', null)

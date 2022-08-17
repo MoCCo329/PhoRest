@@ -17,7 +17,7 @@ export default function CommentsList(props) {
     // 댓글작성자랑 개시글작성자랑 같으면 배경색?
     
     return (
-        <div>
+        <div className='comments-list'>
             <div className='comments-new'>
                 {
                     isEditing ?
