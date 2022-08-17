@@ -72,13 +72,13 @@ public class MessageController {
                     String accessToken = kakaoService.getAccessToken(refresh_token);
 //                    String accessToken = userDTO.getAccess_token();
                     String path = photoGroupService.findOne(postDTO.getPhotogroupId()).getPhotoGroupPath();
-                    String content = myPageService.getMessageByPostIdAndUsername(postId, userDTO.getUsername());
-
+                    String content = myPageService.getMessageByPostIdAndUsername(postDTO.getId(), userDTO.getUsername());
                     KakaoDTO kakaoDTO = new KakaoDTO();
                     kakaoDTO.setPath(path);
                     kakaoDTO.setAccessToken(accessToken);
                     kakaoDTO.setEncodedPostId(encodedPostId);
                     kakaoService.sendMessage(kakaoDTO,content);
+
 //                    kakaoDTOList.add(kakaoDTO);
                 }
             }
