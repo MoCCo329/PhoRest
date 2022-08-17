@@ -52,7 +52,6 @@ export default function Main() {
       })
   }
 
-
   // 카카오 로그인
   const url =
     `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
@@ -60,6 +59,8 @@ export default function Main() {
   function login() {
     window.location.href = url
   }
+
+
   return (
     <Layout>
       <main>

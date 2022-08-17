@@ -21,9 +21,9 @@ export default function Main() {
     const [nickname, setNickname] = useState('')
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
-    const [isTesting, setIsTesting] = useState(false)
-    const [phoneTestNumber, setPhoneTestNumber] = useState('')
-    const [tested, setTested] = useState(false)
+    // const [isTesting, setIsTesting] = useState(false)
+    // const [phoneTestNumber, setPhoneTestNumber] = useState('')
+    // const [tested, setTested] = useState(false)
 
     const [idValidity, setIdValidity] = useState('')
     const [passwordValidity, setPasswordValidity] = useState('')
