@@ -9,7 +9,7 @@ import { setDetailComment } from './../../store/modules/community'
 import ModalBasic from '../Utils/ModalBasic'
 import ModalConfirm from '../Utils/ModalConfirm'
 import { useNavigate } from 'react-router-dom'
-import { set } from 'date-fns/esm'
+
 
 export default function CommentsNew(props) {
     // 모달용
