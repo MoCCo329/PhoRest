@@ -88,6 +88,9 @@ export default function Community(props) {
     useEffect(() => {
         community.detailPost(postId)
         .then(result => {
+            if (!result.data.url) {
+                navigate('/')
+            }
             dispatch(setDetailPost(result.data))
         })
     }, [!!detailPost])
@@ -181,7 +184,6 @@ export default function Community(props) {
         const date = moment(datetime).format('YYYY년 MM월 DD일')
         return date
     }
-    console.log(detailPost.arURL)
 
     return (
         <Layout>

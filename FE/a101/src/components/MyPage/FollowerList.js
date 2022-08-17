@@ -13,7 +13,7 @@ export default function FollowerList() {
     .then(result => {
       setFollowerList(result.data)
     })
-  }, [])
+  }, [userDetail])
 
 
   return (

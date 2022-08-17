@@ -34,8 +34,8 @@ export default function Main() {
     }, [])
 
     useEffect(() => {
-        if (content.category==='frame') return navigate(-1)
-        if (content) return dispatch(setPostForKakao(content))
+        if (content.category==='frame') {navigate(-1)}
+        if (content) {dispatch(setPostForKakao(content))}
     }, [content])
 
     useEffect(() => {

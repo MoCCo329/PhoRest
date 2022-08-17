@@ -38,16 +38,6 @@ function App() {
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
-
-    return (() => {
-      dispatch(setCurrentUser({
-        username: '',
-        nickname: '',
-        phone: '',
-        profileUrl: '',
-        introduce: '',
-      }))
-    })
   }, [])
   
   return (
@@ -81,7 +71,7 @@ function App() {
           </> : null
         }
 
-        <Route exact path="/ar/" element={<Ar/>} />
+        <Route exact path="/ar" element={<Ar/>} />
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>
