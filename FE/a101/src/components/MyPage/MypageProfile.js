@@ -132,21 +132,23 @@ export default function MypageProfile(props) {
       )}
 
       <div className="modal-button">
-        {currentUser && currentUser.username ? (
-          !isMyMypage ? (userDetail.following ? (
-            <button className="button-unfollow" onClick={follow}>
-              팔로우 취소하기
-            </button>
+        <div className='follow=unfolloe-btn-group'>
+          {currentUser && currentUser.username ? (
+            !isMyMypage ? (userDetail.following ? (
+              <button className="button-unfollow" onClick={follow}>
+                팔로우 취소하기
+              </button>
+            ) : (
+              <button className="button-follow" onClick={follow}>
+                팔로우 하기
+              </button>
+            )) : (null)
           ) : (
-            <button className="button-follow" onClick={follow}>
-              팔로우 하기
+            <button variant="primary" onClick={setModal}>
+            팔로우하기
             </button>
-          )) : (null)
-        ) : (
-          <button variant="primary" onClick={setModal}>
-          팔로우하기
-          </button>
-        )}
+          )}
+        </div>
         <ModalConfirm
             show={show}
             onHide={handleClose}

@@ -73,7 +73,7 @@ export default function ScrollCalendar() {
   
   function calIntersection() {
     for (let time in posts) {
-      let date = new Date(userDetail.postDTOS[time].time)
+      let date = new Date(posts[time].time)
       let m = date.getMonth()
       let month = months[m].dates
       for (let d in month) {
