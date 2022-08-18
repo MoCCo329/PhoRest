@@ -1,4 +1,4 @@
-# PhoRest
+# PhoRest - README
 
 ## 1. 프로젝트 소개
 
@@ -26,7 +26,7 @@ IoT를 활용한 사진 부스부터 다양한 활동이 가능한 웹페이지�
 
 - 기술 스택
 
-![KakaoTalk_20220818_202828361](README.assets/KakaoTalk_20220818_202828361.png)
+![KakaoTalk_20220819_012837112](README.assets/KakaoTalk_20220819_012837112.png)
 
 - 아키텍처
 
