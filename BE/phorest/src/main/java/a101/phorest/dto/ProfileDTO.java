@@ -18,5 +18,6 @@ public class ProfileDTO {
 
     private String profileURL;
 
+    @Size(max = 255, message = "소개글의 최대 길이는 255입니다.")
     private String introduce;
 }
