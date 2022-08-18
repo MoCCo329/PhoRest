@@ -140,8 +140,8 @@ public class MyPageService {
     @Transactional
     public Long setMessageMyself(Long postId, String username, String content){
         Optional<Post> post = postRepository.findById(postId);
-        if(post.isEmpty())
-            return 3L; // post 존재않음
+//        if(post.isEmpty())
+//            return 3L; // post 존재않음
         Optional<MyPage> myPage = myPageRepository.findByPostIdAndUsername(postId, username);
         if(myPage.isEmpty())
             return 4L; // mypage 추가 안됨
