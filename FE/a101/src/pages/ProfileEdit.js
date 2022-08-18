@@ -79,6 +79,7 @@ export default function ProfileEdit() {
       dispatch(setCurrentUser(result.data)))
   }, [])
 
+  
   const onSubmit = (event) => {
     event.preventDefault()
     setAuthError('')
@@ -205,7 +206,17 @@ export default function ProfileEdit() {
               <label htmlFor="phone">Phone</label>
               <input name="phone" onChange={(e) => phoneFilter(e)} type="text" id="phone" defaultValue={ defaultPhone() || '' } required={ isKakao ? false : true } placeholder="phone" />
               <div>(01로 시작하는 숫자만 입력해 주세요)</div>
-              <div>{phoneValidity}</div>
+              <div>
+                {
+                  phoneValidity ?
+                  (
+                    isKakao ?
+                    <div>{phoneValidity}<br/>{'핸드폰번호가 바르지 않으면 수정사항에서 제외됩니다'}</div> :
+                    <div>{phoneValidity}</div>
+                  ) :
+                  null
+                }
+              </div>
             </div>
             
             <div>

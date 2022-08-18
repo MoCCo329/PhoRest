@@ -27,6 +27,7 @@ export default function Kakao() {
   const [showBasic, setShowBasic] = useState(false)
   let msg = ''
   const [message, setMessage] = useState('')
+
   // 모달용 함수 - basic
   const handleCloseBasic = () => setShowBasic(false)
   const setModalBasic = (msg) => {
@@ -60,7 +61,6 @@ export default function Kakao() {
   }
 
   useEffect(() => {
-    // if (!code) return;
     getKakaoToken()
   }, [])
 

@@ -88,6 +88,9 @@ export default function Community(props) {
     useEffect(() => {
         community.detailPost(postId)
         .then(result => {
+            if (!result.data.url) {
+                navigate('/')
+            }
             dispatch(setDetailPost(result.data))
         })
     }, [!!detailPost])
@@ -181,7 +184,7 @@ export default function Community(props) {
         const date = moment(datetime).format('YYYY년 MM월 DD일')
         return date
     }
-    
+
     return (
         <Layout>
             <main>
@@ -192,6 +195,9 @@ export default function Community(props) {
                         { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={clickFrameId} >프레임 ID {detailPost.frameId}</div> : null }
                         { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
+
+                    <button onClick={() => navigate('/ar/', { state : {src: detailPost.arURL.slice(1, detailPost.arURL.length - 1) } } )}>Ar 보러가기</button>
+
                     <div className="community-body">
                         <div className="community-body-meta">
                             <div className='community-body-profiles'>
