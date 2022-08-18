@@ -23,9 +23,7 @@ public class MyPageService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final MyPageRepository myPageRepository;
-
     private final BookmarkRepository bookmarkRepository;
-
     private final LikeRepository likeRepository;
     private final FollowRepository followRepository;
     @Transactional
