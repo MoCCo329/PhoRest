@@ -38,7 +38,7 @@ function App() {
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
-  }, [])
+  }, [window.location.pathname])  // 되나
   
   return (
     <BrowserRouter>

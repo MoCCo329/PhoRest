@@ -8,7 +8,9 @@ import CommunityListPhoto from '../components/Community/CommunityListPhoto'
 import CommunityListFrame from '../components/Community/CommunityListFrame'
 import Layout from '../components/Layout/Layout'
 
+import user from '../api/user'
 import { setLikeRecent } from '../store/modules/community'
+import { setCurrentUser } from '../store/modules/user'
 
 
 export default function Main(props) {
@@ -16,7 +18,6 @@ export default function Main(props) {
     const dispatch = useDispatch()
 
     const [typeMain, setTypeMain] = useState(true)  // true면 photo, false면 frame
-
 
     useEffect(() => {
         if (props.category) {

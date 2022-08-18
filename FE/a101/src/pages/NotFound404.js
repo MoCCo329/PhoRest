@@ -18,17 +18,14 @@ export default function NotFound404() {
     useEffect(() => {
         if (postForKakao && currentUser.username && currentUser.kakao) {
             navigate(`/download/${btoa((postForKakao) * 73 - 37)}`)
-            dispatch(setPostForKakao(''))
+            return dispatch(setPostForKakao(''))
         } else  if (location.pathname==='/login') {
             navigate(-1)
         } else if (location.pathname==='/kakao') {
             navigate(-1)
         }
-        if (postForKakao && !currentUser.username) {
-            dispatch(setPostForKakao(''))
-        }
     }, [currentUser, location])
-
+    
 
     return (
         <Layout>
