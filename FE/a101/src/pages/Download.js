@@ -35,7 +35,7 @@ export default function Main() {
 
     useEffect(() => {
         if (content.category==='frame') {navigate(-1)}
-        if (content) {dispatch(setPostForKakao(content))}
+        if (content) {dispatch(setPostForKakao(content.id))}
     }, [content])
 
     useEffect(() => {
@@ -117,7 +117,6 @@ export default function Main() {
                             </div> :
                             null
                         }
-
                         {
                             isEditing ?
                             <MsgEdit setIsEditing={setIsEditing} postId={postId}></MsgEdit> :
