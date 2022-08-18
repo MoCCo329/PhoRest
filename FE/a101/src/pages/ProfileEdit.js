@@ -15,7 +15,7 @@ import { setCurrentUser } from '../store/modules/user'
 // icon
 import back from '../assets/UI/back.png'
 
-import Spinner from 'react-bootstrap/Spinner';
+import Spinner from 'react-bootstrap/Spinner'
 
 export default function ProfileEdit() {
   const navigate = useNavigate()

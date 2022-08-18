@@ -9,8 +9,6 @@ import Layout from "../components/Layout/Layout"
 import { setToken, setAuthError, setCurrentUser } from "../store/modules/user"
 import user from "../api/user"
 
-// 카카오 로그인 이미지
-// import kakaoBtn from "../assets/UI/kakao_login_medium_wide.png"
 import kakaoSymbol from '../assets/UI/kakao_symbol.png'
 import { REST_API_KEY, REDIRECT_URI } from '../components/User/KakaoData'
 

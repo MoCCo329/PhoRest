@@ -13,8 +13,6 @@ export default function CommentsList(props) {
     let comments = useSelector(state => state.detailComments)
     
     const [editCommentId, setEditCommentId] = useState(0)
-
-    // 댓글작성자랑 개시글작성자랑 같으면 배경색?
     
     return (
         <div className='comments-list'>

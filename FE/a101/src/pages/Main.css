@@ -10,8 +10,6 @@
 .gallery-tab-btn {
     font-family: 'Pretendard-Regular';
     display: flex;
-    /* flex-direction: column; */
-    /* align-items: center; */
     justify-content: center;
     border: none;
     background-color: #fff7e7;

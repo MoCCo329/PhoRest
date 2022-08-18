@@ -8,13 +8,10 @@
 @media only screen and (min-width: 500px) {
   .login-content,
   .join-content {
-    /* height: 100vh; */
     width: 100vw;
   }
 }
 .login-header {
-  /* display: flex;
-  justify-content: flex-start; */
   margin: 3em 1em 0 1em;
 }
 

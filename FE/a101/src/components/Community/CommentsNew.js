@@ -97,7 +97,6 @@ export default function CommentsNew(props) {
                 }
             }
         })
-        // return props.setIsEditing(false)
     }
 
     return (

@@ -20,7 +20,7 @@ const FloatingBtn = styled.div`
     bottom: 3em;
     right: 1em
 }
-`;
+`
 
 function FloatBtn() {
     const imgSize = {
@@ -33,7 +33,7 @@ function FloatBtn() {
         <img src={top} alt='top' style={imgSize}></img>
       </FloatingBtn>
     </>
-  );
+  )
 }
 
-export default FloatBtn;
+export default FloatBtn

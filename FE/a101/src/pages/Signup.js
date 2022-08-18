@@ -13,6 +13,7 @@ import { setAuthError, setCurrentUser } from '../store/modules/user'
 // icon
 import back from '../assets/UI/back.png'
 
+
 export default function Main() {
     let dispatch = useDispatch()
     let navigate = useNavigate()
@@ -21,9 +22,6 @@ export default function Main() {
     const [nickname, setNickname] = useState('')
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
-    // const [isTesting, setIsTesting] = useState(false)
-    // const [phoneTestNumber, setPhoneTestNumber] = useState('')
-    // const [tested, setTested] = useState(false)
 
     const [idValidity, setIdValidity] = useState('')
     const [passwordValidity, setPasswordValidity] = useState('')
@@ -60,8 +58,6 @@ export default function Main() {
       .then(result => {
         dispatch(setCurrentUser(result.data))
       })
-      // setPhoneTestNumber('')
-      // setTested(false)
     }, [])
 
     const onSubmit = (e) => {
@@ -165,34 +161,6 @@ export default function Main() {
         setPhoneValidity('핸드폰번호는 10자 혹은 11자이여야 합니다')
       }
     }
-
-    // const phoneTestFilter = (e) => {
-    //   e.target.value = e.target.value.replace(/[^0-9]/g, '')
-    // }
-
-    // const phoneTestStart = (e) => {
-    //   e.preventDefault()
-    //   setIsTesting(true)
-    //   user.phoneTest()
-    //   .then(result => {
-    //     setPhoneTestNumber(result.data)
-    //     alert('메시지가 전송되었습니다')
-    //   })
-    // }
-
-    // const phoneTestEnd = (e) => {
-    //   e.preventDefault()
-    //   let form = document.forms.signup.elements
-    //   if (!!phoneTestNumber && form.phoneTestNumber.value===phoneTestNumber) {
-    //     setTested(true)
-    //     setIsTesting(false)
-    //     alert('확인되었습니다')
-    //   } else {
-    //     setTested(false)
-    //     alert('잘못된 인증번호입니다')
-    //   }
-    // }
-
 
     return (
       <Layout>

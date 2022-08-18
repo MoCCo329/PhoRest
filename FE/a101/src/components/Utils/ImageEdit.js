@@ -21,8 +21,6 @@ export default function ImageEdit() {
   const [content, setContent] = useState('')
   const [clickWell, setClickWell] = useState(false)
 
-  const currentUser = useSelector(state => state.currentUser)
-
   // 모달용 변수 - basic
   const [showBasic, setShowBasic] = useState(false)
   let msg = ''

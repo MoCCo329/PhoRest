@@ -113,10 +113,6 @@ export default function Community(props) {
         }
     }, [])
 
-
-    // community-header 상단에 도착하면 고정시키기
-    // community-comment를 style="overflow:scroll"
-
     const likePost = (postId) => {
         if (!currentUser.username) {
             msg = '로그인 후 좋아요가 가능합니다. 로그인 하시겠습니까?'
@@ -159,17 +155,14 @@ export default function Community(props) {
         })
     }
     const deletePost = () => {
-        // let confirmResult = false
         if (detailPost.category==='photogroup') {
             msg = '포즈게시글 소유권을 삭제합니다.'
             todo = '삭제'
             setModal(msg, todo)
-            // confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
         } else {
             msg = '프레임게시글을 삭제합니다.'
             todo = '삭제'
             setModal(msg, todo)
-            // confirmResult = window.confirm('프레임게시글을 삭제합니다.')
         }
     }
 

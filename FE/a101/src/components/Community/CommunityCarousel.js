@@ -44,8 +44,8 @@ export default function CommunityCarousel(props) {
     community
       .photoLike({ limit: 100, offset: 0, humanCount: humanCount })
       .then((result) => {
-        dispatch(setPhotoLike(result.data));
-      });
+        dispatch(setPhotoLike(result.data))
+      })
   }, [humanCount])
 
   return (
@@ -75,8 +75,6 @@ export default function CommunityCarousel(props) {
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // onSlideChange={() => console.log('slide change')}
         >
           {communityType === "photogroup" && photo.length
             ? photo.map((content) => (

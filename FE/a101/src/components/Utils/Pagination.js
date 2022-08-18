@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 function Pagination({ total, limit, page, setPage }) {
-  const numPages = Math.ceil(total / limit) || 1;
+  const numPages = Math.ceil(total / limit) || 1
 
   return (
     <>
@@ -34,7 +34,7 @@ const Nav = styled.nav`
   align-items: center;
   gap: 4px;
   margin: 16px;
-`;
+`
 
 const Button = styled.button`
   border: none;
@@ -64,7 +64,7 @@ const Button = styled.button`
     cursor: revert;
     transform: revert;
   }
-`;
+`
 
 
 export default Pagination;

@@ -40,6 +40,6 @@ const Button = styled.button`
     background-color: #ffc036;
     cursor: pointer;
   }
-`;
+`
 
 export default ModalBasic

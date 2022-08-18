@@ -32,7 +32,7 @@ function calMonth(month) {
     lastDate.getDate() + (6 - lastDateofWeek)
   )
 
-  let monthlyDays = [];
+  let monthlyDays = []
   let day = firstDateofMonth
   while (day <= lastDateofMonth) {
       monthlyDays.push(day)
