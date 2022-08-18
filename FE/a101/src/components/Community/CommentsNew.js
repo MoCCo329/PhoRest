@@ -77,13 +77,12 @@ export default function CommentsNew(props) {
                 })
             } else {
                 switch ( result.data ) {
-                    case 3 :     
+                    case 3 :
                         msg = '로그인 후 이용해주세요'
                         changeShow(msg)
-                        break    
+                        break
                     case 4 :     
-                        msg = '삭제하려는 댓글은 존재하지 않는 댓글입니다'
-                        changeShow(msg)
+                        alert('존재하지 않는 게시글입니다')
                         break     
                     case 5:
                         msg = '작성한 내용이 없습니다'

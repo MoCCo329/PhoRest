@@ -113,7 +113,7 @@ export default function Main() {
                         {
                             currentUser.username && isOwned ?
                             <div className="download-links-item" onClick={() => setIsEditing(!isEditing)}>
-                                <p>📬</p><p>내게 보내는 메시지 수정</p>
+                                <p>📬</p><p className='download-links-long'>내게 보내는 메시지 수정</p>
                             </div> :
                             null
                         }
