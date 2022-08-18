@@ -26,6 +26,7 @@ export default function ProfileEdit() {
 
   const [profileURL, setProfileURL] = useState('')
   const [beforeProfileURL, setBeforeProfileURL] = useState('')
+  const [introduce, setIntroduce] = useState('')
   const [phoneValidity, setPhoneValidity] = useState('')
   const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
 
@@ -94,7 +95,7 @@ export default function ProfileEdit() {
     let credentials = {
       nickname : form.nickname.value,
       phone: form.phone.value.replace(/[^0-9a-zA-Z]/g, ''),
-      introduce: form.introduce.value,
+      introduce: introduce,
       profileURL : profileURL
     }
 
@@ -173,6 +174,12 @@ export default function ProfileEdit() {
     }
   }
 
+  const changeIntroduce = (e) => {
+    const copy = e.target.value.slice(0, 255)
+    e.target.value = copy
+    setIntroduce(copy)
+  }
+
 
   return (
     <Layout>
@@ -219,9 +226,12 @@ export default function ProfileEdit() {
               </div>
             </div>
             
-            <div>
-              <label htmlFor="introduce">Introduce</label>
-              <textarea name="introduce" type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="소개글을 적어주세요" />
+            <div className='comment-info'>
+              <div>
+                <label htmlFor="introduce">Introduce</label>
+                <textarea name="introduce" onChange={(e) => changeIntroduce(e)} type="text" id="introduce" defaultValue={ currentUser.introduce || '' } placeholder="소개글을 적어주세요" />
+              </div>
+              <div>{`${introduce.length} / 255`}</div>
             </div>
 
             <button type="submit">수정하기</button>
@@ -230,7 +240,7 @@ export default function ProfileEdit() {
           <div className='hr-sect'>
             또는
           </div>
-          <div className='profile-edit-btn-group'>
+          <div className="div. form">
             {
               !isKakao ?
                 <button id='change-pw-btn' onClick={() => navigate('/mypage/editpw')}>비밀번호 변경하기</button>

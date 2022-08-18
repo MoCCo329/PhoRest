@@ -54,6 +54,7 @@
 .download-links-item:hover {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 }
+
 .notice {
   font-family: "LeferiPoint-BlackA";
   font-size: larger;
@@ -71,7 +72,7 @@
 }
 
 .download-msg {
-  width: 50vw;
+  width: 60vw;
 }
 
 .msg-edit textarea {

@@ -45,16 +45,17 @@ export default function MsgEdit (props) {
 
   const clickEditMessage = () => {
     if (!content) {
-      return alert('글을 입력해 주세요')
+      msg = '글을 입력해 주세요'
+      changeShow(msg)
+      return
     }
 
     const data = { content }
     download.msgEdit(props.postId, data)
     .then(result => {
       if (!result.data) {
-        msg = '메시지가 미래로 보내졌습니다'
-        changeShow(msg)
         props.setIsEditing(false)
+        alert('메시지가 미래로 보내졌습니다')
       } else {
         switch ( result.data ) {
           case 1 :

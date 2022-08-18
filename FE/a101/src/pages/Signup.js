@@ -65,46 +65,46 @@ export default function Main() {
     }, [])
 
     const onSubmit = (e) => {
-        e.preventDefault()
-        dispatch(setAuthError(''))
+      e.preventDefault()
+      dispatch(setAuthError(''))
 
-        if (idValidity) {
-          msg = '아이디를 정확히 입력해 주세요'
-          setModalBasic(msg)
-          return
-        }
-        if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
-          msg = '비밀번호를 정확히 입력해 주세요'
-          setModalBasic(msg)
-          return
-        }
-        if (phoneValidity) {
-          msg = '핸드폰번호를 정확히 입력해 주세요'
-          setModalBasic(msg)
-          return
-        }
+      if (idValidity) {
+        msg = '아이디를 정확히 입력해 주세요'
+        setModalBasic(msg)
+        return
+      }
+      if (passwordValidity!=='' || passwordMatch!=='비밀번호가 일치합니다') {
+        msg = '비밀번호를 정확히 입력해 주세요'
+        setModalBasic(msg)
+        return
+      }
+      if (phoneValidity) {
+        msg = '핸드폰번호를 정확히 입력해 주세요'
+        setModalBasic(msg)
+        return
+      }
 
-        const credentials = {
-            username : id,
-            nickname : nickname,
-            password : password,
-            phone : phone.replace(/[^0-9a-zA-Z]/g, '')
+      const credentials = {
+          username : id,
+          nickname : nickname,
+          password : password,
+          phone : phone.replace(/[^0-9a-zA-Z]/g, '')
+      }
+      
+      user.signup(credentials)
+      .then((result) => {
+        msg = '회원가입이 완료되었습니다'
+        setOnExitBasic()
+        setModalBasic(msg)
+      })
+      .catch((error) => {
+        if (error.response.data.message==='@Valid Error') {
+          let errorMessage = `${error.response.data.fieldErrors[0].field} : ${error.response.data.fieldErrors[0].defaultMessage}`
+          dispatch(setAuthError(errorMessage))
+        } else {
+          dispatch(setAuthError(error.response.data.message))
         }
-        
-        user.signup(credentials)
-        .then((result) => {
-          msg = '회원가입이 완료되었습니다'
-          setOnExitBasic()
-          setModalBasic(msg)
-        })
-        .catch((error) => {
-          if (error.response.data.message==='@Valid Error') {
-            let errorMessage = `${error.response.data.fieldErrors[0].field} : ${error.response.data.fieldErrors[0].defaultMessage}`
-            dispatch(setAuthError(errorMessage))
-          } else {
-            dispatch(setAuthError(error.response.data.message))
-          }
-        })
+      })
     }
 
     const idFilter = (e) => {

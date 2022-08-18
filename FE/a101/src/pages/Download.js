@@ -35,7 +35,7 @@ export default function Main() {
 
     useEffect(() => {
         if (content.category==='frame') {navigate(-1)}
-        if (content) {dispatch(setPostForKakao(content))}
+        if (content) {dispatch(setPostForKakao(content.id))}
     }, [content])
 
     useEffect(() => {
@@ -113,11 +113,10 @@ export default function Main() {
                         {
                             currentUser.username && isOwned ?
                             <div className="download-links-item" onClick={() => setIsEditing(!isEditing)}>
-                                <p>📬</p><p>내게 보내는 메시지 수정</p>
+                                <p>📬</p><p className='download-links-long'>내게 보내는 메시지 수정</p>
                             </div> :
                             null
                         }
-
                         {
                             isEditing ?
                             <MsgEdit setIsEditing={setIsEditing} postId={postId}></MsgEdit> :
