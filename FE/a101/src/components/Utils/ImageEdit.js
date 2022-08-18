@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import FilerobotImageEditor, {
   TABS,
   TOOLS,
-} from 'react-filerobot-image-editor';
+} from 'react-filerobot-image-editor'
 
 import s3 from '../../api/s3'
 import mypage from '../../api/mypage'

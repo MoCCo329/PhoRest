@@ -46,6 +46,7 @@
   width: 30vw;
   min-height: 10vh;
   max-height: 25vh;
+  cursor: pointer;
 }
 
 h5 {

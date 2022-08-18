@@ -9,7 +9,10 @@ export default function NotFound404() {
 
     useEffect(() => {
         if (location.pathname==='/login') {
-            return navigate('/')
+            navigate(-1)
+        }
+        if (location.pathname==='/kakao') {
+            navigate(-1)
         }
     }, [location])
 

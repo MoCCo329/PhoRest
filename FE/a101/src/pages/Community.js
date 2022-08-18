@@ -196,15 +196,18 @@ export default function Community(props) {
                         { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
 
-                    <button onClick={() => navigate('/ar/', { state : {src: detailPost.arURL.slice(1, detailPost.arURL.length - 1) } } )}>Ar 보러가기</button>
+                    {
+                        detailPost.category==='photogroup' && isWriter ?
+                        <button className='post-division-click' onClick={() => navigate('/ar/', { state : {src: detailPost.arURL.slice(1, detailPost.arURL.length - 1) } } )}>Ar 보러가기</button> :
+                        null
+                    }
 
                     <div className="community-body">
                         <div className="community-body-meta">
                             <div className='community-body-profiles'>
                             {
                                 detailPost.users ?
-                                detailPost.users.map((user) => 
-                                // <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
+                                detailPost.users.map((user) =>
                                 <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
                                 ) :
                                 (
