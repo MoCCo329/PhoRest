@@ -86,8 +86,6 @@ export default function ScrollCalendar() {
           month[d].common = true
           month[d].url = posts[time].url
           month[d].id = posts[time].id
-          console.log(posts[time])
-          console.log(day)
         }
       } 
     }
