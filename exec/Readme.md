@@ -1,13 +1,13 @@
 # dump_file     
-- 기본_프레임_dump.sql       
+### 기본_프레임_dump.sql       
 	- IoT 기기와 연동된 가장 초기 상태      
 	- 탈퇴한 회원 계정, PhoRest 공식 계정을 생성하고, 공식 계정으로 IoT 기기에 저정된 프레임을 업로드해 놓은 상태.        
-- dummy_data_dum.sql         
+### dummy_data_dum.sql         
 	- 다양한 프레임을 사용할 수 있는 상태       
 	- PhoRest 공식 계정에서 제작한 프레임을 업로드하여 IoT 기기에 한정된 프레임 외에도, 키패드 입력으로 다른 프레임을 이용 할 수 있는 상태    
-- phorest0817backup.sql    
+### phorest0817backup.sql    
 	- 시연 이후 데이터      
 	- 2시간동안의 시연을 마치고 나서 실제 이용자들의 데이터가 포함되어 있는 상태     
-- ../lastDump.sql    
+### ../lastDump.sql    
 	- 최신본     
 	- 시연 이후 추가한 필드와 데이터가 저장되어있는 상태     
