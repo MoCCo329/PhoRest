@@ -49,6 +49,7 @@ public class MyPageController {
     public boolean addPost(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
+        if(!decodedString.matches("[+-]?\\d*(\\.\\d+)?")) return false;
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
         if(postId - decodedNumber != 0)
@@ -66,6 +67,7 @@ public class MyPageController {
     public Long sharePost(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token) {
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
+        if(!decodedString.matches("[+-]?\\d*(\\.\\d+)?")) return 5L;
         Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
         Long postId = decodedNumber.longValue();
         if(postId - decodedNumber != 0)
