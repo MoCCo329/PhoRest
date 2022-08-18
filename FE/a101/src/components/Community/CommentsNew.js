@@ -38,6 +38,7 @@ export default function CommentsNew(props) {
         setToDo(todo)
     }
 
+
     let dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -89,7 +90,7 @@ export default function CommentsNew(props) {
                         changeShow(msg)
                         break
                     case 6:
-                        msg = '글자수는 최대 255글자를 넘을 수 없습니다.'
+                        msg = '글자수는 255글자를 넘을 수 없습니다'
                         changeShow(msg)
                         break
                     default :    
