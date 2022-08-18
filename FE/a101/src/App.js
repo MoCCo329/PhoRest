@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-import './App.css'
 import { React, useEffect } from 'react'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -24,11 +23,12 @@ import Ar from './pages/Ar'
 import user from './api/user'
 import { setCurrentUser } from './store/modules/user'
 
-// bootstrap css
+// css
+import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
-function App() {
+export default function App () {
   const dispatch = useDispatch()
 
   const currentUser = useSelector(state => state.currentUser)
@@ -38,7 +38,7 @@ function App() {
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
-  }, [window.location.pathname])  // 되나
+  }, [window.location.pathname])
   
   return (
     <BrowserRouter>
@@ -77,5 +77,3 @@ function App() {
     </BrowserRouter>
   )
 }
-
-export default App

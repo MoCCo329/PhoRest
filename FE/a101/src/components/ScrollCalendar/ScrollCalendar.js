@@ -39,7 +39,7 @@ export default function ScrollCalendar() {
       lastDate.getFullYear(),
       lastDate.getMonth(),
       lastDate.getDate() + (6 - lastDateofWeek)
-    );
+    )
 
     let monthlyDays = []
     let day = firstDateofMonth

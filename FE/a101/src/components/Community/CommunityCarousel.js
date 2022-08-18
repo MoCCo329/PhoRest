@@ -51,7 +51,7 @@ export default function CommunityCarousel(props) {
   return (
     <div className="community-carousel">
       <div className="community-carousel-header">
-        <h5>{communityType} 게시판 ✨</h5>
+        <h5>{communityType==="photogroup" ? "포즈" : "프레임"} 게시판 ✨</h5>
         {communityType === "photogroup" ? (
           <div className="community-carousel-select">
             {[1, 2, 3, 4, 5, 6].map((num, idx) => (

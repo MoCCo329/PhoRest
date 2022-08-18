@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setPostForKakao } from '../store/modules/mypage'
 
 import Layout from '../components/Layout/Layout'
+import img404 from '../assets/img404.png'
+
+import './NotFound404.css'
 
 
 export default function NotFound404() {
@@ -29,8 +32,9 @@ export default function NotFound404() {
 
     return (
         <Layout>
-            <div>
-                페이지가 없습니다.
+            <div className='not-found-404'>
+                <p>없는 페이지 입니다</p>
+                <img src={img404} alt="introduce" />
             </div>
         </Layout>
     )
