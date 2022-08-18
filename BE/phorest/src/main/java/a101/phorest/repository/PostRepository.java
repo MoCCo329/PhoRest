@@ -73,7 +73,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 //
 //    @Query(nativeQuery = true, value = "select distinct *" +
 //            "from post p " +
-//            "where datediff(:now, p.time) = 7 and p.category = :category ")
+//            "where datediff(:now, p.time) = 2 and p.category = :category ")
     @Query(nativeQuery = true, value = "select distinct * from post p where p.post_id = 23")
     List<Post> findMessagePost(@Param("now")LocalDateTime now, @Param("category") String category);
 

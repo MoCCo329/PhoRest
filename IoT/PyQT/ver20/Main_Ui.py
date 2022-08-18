@@ -668,7 +668,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stack.setCurrentIndex(1)
+        self.stack.setCurrentIndex(4)
         self.TopStack.setCurrentIndex(1)
         self.NextBtn.clicked.connect(MainWindow.NextBottomButton_to_2) # type: ignore
         self.Btn1.clicked.connect(MainWindow.Press_Btn1) # type: ignore
@@ -716,10 +716,10 @@ class Ui_MainWindow(object):
         self.Photo1.setText(_translate("MainWindow", "1"))
         self.Photo2.setText(_translate("MainWindow", "2"))
         self.Photo4.setText(_translate("MainWindow", "4"))
-        self.NextBtn_3.setText(_translate("MainWindow", ">"))
+        self.NextBtn_3.setText(_translate("MainWindow", "다음"))
         self.PhotoPage_Label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">각 사진을 클릭하여 사진을 확대해 보세요!</span></p></body></html>"))
         self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:26pt;\">사용할 프레임을 선택해주세요</span></p></body></html>"))
-        self.PrintBtn.setText(_translate("MainWindow", "다음"))
+        self.PrintBtn.setText(_translate("MainWindow", "프린트"))
         self.ApplyBtn.setText(_translate("MainWindow", "적용"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:22pt;\">더 많은 프레임 적용하기</span></p></body></html>"))
         self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt;\">프레임 번호를 입력 후 적용 클릭</span></p></body></html>"))

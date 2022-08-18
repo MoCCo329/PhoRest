@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.*;
 
@@ -43,7 +44,8 @@ public class MessageController {
     public Long message(@PathVariable("postId") String postIdEncoded, @RequestHeader("Authorization") String token, @Valid @RequestBody Map<String, String> content){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
-        Double decodedNumber = (Double.parseDouble(decodedString) - 37) / 73;
+        if(!decodedString.matches("[+-]?\\d*(\\.\\d+)?")) return 5L;
+        Double decodedNumber = (Double.parseDouble(decodedString) + 37) / 73;
         Long postId = decodedNumber.longValue();
 
         String ct = content.get("content");
@@ -58,7 +60,7 @@ public class MessageController {
         return myPageService.setMessageMyself(postId,username,ct);
     }
 
-    // @Scheduled(cron = "0 0 9 * * *")
+    // @Scheduled(cron = "0 0 14 * * *")
     @PostMapping("sendkakao")
     public void sendMsg() throws Exception {
         List<PostDTO> postDTOS = postService.findMessagePosts();
