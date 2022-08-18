@@ -52,6 +52,8 @@ export default function MsgEdit (props) {
     download.msgEdit(props.postId, data)
     .then(result => {
       if (!result.data) {
+        msg = '메시지가 미래로 보내졌습니다'
+        changeShow(msg)
         props.setIsEditing(false)
       } else {
         switch ( result.data ) {
