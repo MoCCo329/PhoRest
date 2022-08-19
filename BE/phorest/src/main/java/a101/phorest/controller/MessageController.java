@@ -60,9 +60,9 @@ public class MessageController {
         return myPageService.setMessageMyself(postId,username,ct);
     }
 
-    // @Scheduled(cron = "0 0 14 * * *")
-    @PostMapping("sendkakao")
-    public void sendMsg() throws Exception {
+    @Scheduled(cron = "0 0 10 * * *")
+//    @PostMapping("sendkakao")
+    public String sendMsg() throws Exception {
         List<PostDTO> postDTOS = postService.findMessagePosts();
 
         for(PostDTO postDTO : postDTOS){
@@ -86,6 +86,7 @@ public class MessageController {
             }
 
         }
+        return "success";
     }
 
     //@Scheduled(cron = "0 0 9 * * ?")

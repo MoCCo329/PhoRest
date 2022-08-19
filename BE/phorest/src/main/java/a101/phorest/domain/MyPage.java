@@ -28,6 +28,6 @@ public class MyPage {
 
 
     @Column(name = "message", length = 100)
-    private String message ="일주일 전에 찍은 PhoRest를 확인해보세요!";
+    private String message ="두달 전에 찍은 PhoRest를 확인해보세요!";
 
 }

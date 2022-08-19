@@ -71,10 +71,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "where r.username = :username and p.is_shared = true ")
     List<Post> findPostBookmarked(@Param("username") String username);
 //
-//    @Query(nativeQuery = true, value = "select distinct *" +
-//            "from post p " +
-//            "where datediff(:now, p.time) = 2 and p.category = :category ")
-    @Query(nativeQuery = true, value = "select distinct * from post p where p.post_id = 23")
+    @Query(nativeQuery = true, value = "select distinct *" +
+            "from post p " +
+            "where datediff(:now, p.time) = 2 and p.category = :category")
+//    @Query(nativeQuery = true, value = "select distinct * from post p where p.post_id = 23")
     List<Post> findMessagePost(@Param("now")LocalDateTime now, @Param("category") String category);
 
     @Query(nativeQuery = true, value = "select distinct * from post p where p.frame_id = :frameId ")
