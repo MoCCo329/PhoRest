@@ -117,7 +117,7 @@ export default function CommunityListPhoto() {
         <div className="community-list-select">
         {[1, 2, 3, 4, 5, 6].map((num, idx) =>
           (
-            <div className="community-list-select-btn" onClick={() => dispatch(setHumanCount(num))} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}{num === 6 ? '+' : null}명</div>
+            <div className="community-list-select-btn" onClick={() => dispatch(setHumanCount(num))} style={{backgroundColor: num===humanCount ? '#ffc036' : ''}} key={idx}>{num}명{num === 6 ? '+' : null}</div>
           )
         )}
         </div>        
