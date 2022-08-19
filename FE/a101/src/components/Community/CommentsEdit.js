@@ -113,8 +113,6 @@ export default function CommentsEdit(props) {
                 }
             }
         })
-
-        // return props.setEditCommentId(0)
     }
 
     

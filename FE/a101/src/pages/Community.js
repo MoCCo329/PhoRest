@@ -88,6 +88,9 @@ export default function Community(props) {
     useEffect(() => {
         community.detailPost(postId)
         .then(result => {
+            if (!result.data.url) {
+                navigate('/')
+            }
             dispatch(setDetailPost(result.data))
         })
     }, [!!detailPost])
@@ -109,10 +112,6 @@ export default function Community(props) {
             dispatch(setDetailComment([]))
         }
     }, [])
-
-
-    // community-header 상단에 도착하면 고정시키기
-    // community-comment를 style="overflow:scroll"
 
     const likePost = (postId) => {
         if (!currentUser.username) {
@@ -156,17 +155,14 @@ export default function Community(props) {
         })
     }
     const deletePost = () => {
-        // let confirmResult = false
         if (detailPost.category==='photogroup') {
             msg = '포즈게시글 소유권을 삭제합니다.'
             todo = '삭제'
             setModal(msg, todo)
-            // confirmResult = window.confirm('포즈게시글 소유권을 삭제합니다.')
         } else {
             msg = '프레임게시글을 삭제합니다.'
             todo = '삭제'
             setModal(msg, todo)
-            // confirmResult = window.confirm('프레임게시글을 삭제합니다.')
         }
     }
 
@@ -181,7 +177,7 @@ export default function Community(props) {
         const date = moment(datetime).format('YYYY년 MM월 DD일')
         return date
     }
-    
+
     return (
         <Layout>
             <main>
@@ -192,13 +188,19 @@ export default function Community(props) {
                         { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={clickFrameId} >프레임 ID {detailPost.frameId}</div> : null }
                         { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
+
+                    {
+                        detailPost.category==='photogroup' && isWriter ?
+                        <button className='post-division-click' onClick={() => navigate('/ar/', { state : {src: detailPost.arURL.slice(1, detailPost.arURL.length - 1) } } )}>Ar 보러가기</button> :
+                        null
+                    }
+
                     <div className="community-body">
                         <div className="community-body-meta">
                             <div className='community-body-profiles'>
                             {
                                 detailPost.users ?
-                                detailPost.users.map((user) => 
-                                // <img key={user.username} className='community-body-for-test' src={user.profileURL ? user.profileURL : defaultProfile} alt='profile'></img>    
+                                detailPost.users.map((user) =>
                                 <div className='community-body-for-test' key={user.username}><Profile user={user}/></div>
                                 ) :
                                 (

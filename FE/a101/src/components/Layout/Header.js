@@ -15,8 +15,6 @@ import { setDetailPost } from '../../store/modules/community'
 // icon
 import logout from '../../assets/UI/logout.png'
 
-// 로고, 로그인 혹은 로그아웃 등
-// 아래로 스크롤시 위로 사라지도록
 
 export default function Header(props) {
   const navigate = useNavigate()
@@ -70,5 +68,5 @@ export default function Header(props) {
         </div>
       </div>
     </header>
-  );
+  )
 }

@@ -39,7 +39,7 @@ export default function ScrollCalendar() {
       lastDate.getFullYear(),
       lastDate.getMonth(),
       lastDate.getDate() + (6 - lastDateofWeek)
-    );
+    )
 
     let monthlyDays = []
     let day = firstDateofMonth
@@ -73,7 +73,7 @@ export default function ScrollCalendar() {
   
   function calIntersection() {
     for (let time in posts) {
-      let date = new Date(userDetail.postDTOS[time].time)
+      let date = new Date(posts[time].time)
       let m = date.getMonth()
       let month = months[m].dates
       for (let d in month) {

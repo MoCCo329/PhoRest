@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import Modal from 'react-bootstrap/Modal';
-import styled from "styled-components";
+import Modal from 'react-bootstrap/Modal'
+import styled from "styled-components"
 
 
 const ModalBasic = (props) => {
@@ -41,6 +40,6 @@ const Button = styled.button`
     background-color: #ffc036;
     cursor: pointer;
   }
-`;
+`
 
 export default ModalBasic

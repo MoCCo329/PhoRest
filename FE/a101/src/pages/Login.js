@@ -9,18 +9,17 @@ import Layout from "../components/Layout/Layout"
 import { setToken, setAuthError, setCurrentUser } from "../store/modules/user"
 import user from "../api/user"
 
-// 카카오 로그인 이미지
-// import kakaoBtn from "../assets/UI/kakao_login_medium_wide.png"
 import kakaoSymbol from '../assets/UI/kakao_symbol.png'
 import { REST_API_KEY, REDIRECT_URI } from '../components/User/KakaoData'
 
+
 export default function Main() {
-  let dispatch = useDispatch()
   let navigate = useNavigate()
+  let dispatch = useDispatch()
 
   let [id, setId] = useState("")
   let [password, setPassword] = useState("")
-  let authError = useSelector((state) => state.authError)
+  let authError = useSelector(state => state.authError)
 
   useEffect(() => {
     return () => {
@@ -41,7 +40,8 @@ export default function Main() {
         const token = result.data.token
         dispatch(setToken(token))
         localStorage.setItem("token", token)
-        user.currentUser().then((result) => {
+        user.currentUser()
+        .then((result) => {
           dispatch(setCurrentUser(result.data))
         })
         navigate(-1, { replace: true })
@@ -55,14 +55,15 @@ export default function Main() {
       })
   }
 
-
   // 카카오 로그인
   const url =
     `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
 
-  function login() {
-    window.location.href = url
+  function kakaoLogin () {
+    window.location.replace(url)
   }
+
+
   return (
     <Layout>
       <main>
@@ -70,7 +71,7 @@ export default function Main() {
           <div className="login-header">
             <h5>PhoRest 로그인하기</h5>
           </div>
-          <div id='kakao-login-btn' onClick={login}>
+          <div id='kakao-login-btn' onClick={kakaoLogin}>
             <img src={kakaoSymbol} alt="카카로 로그인"/>
             <span>카카오 로그인</span>
           </div>
@@ -106,10 +107,11 @@ export default function Main() {
                 required
                 placeholder="비밀번호를 입력해주세요"
               />
-              {authError ? <p>{authError}</p> : ""}
+              {authError ? <p>{authError}</p> : null}
             </div>
             <button type="submit">login</button>
           </form>
+
           <div className='join-paging'>
             <span>아직 회원이 아니신가요?</span>
             <span className='join-paging-btn' onClick={() => navigate("/signup", { replace: true })} style={{color: '#4646CD'}}>

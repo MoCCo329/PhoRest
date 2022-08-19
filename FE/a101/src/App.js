@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-import './App.css'
 import { React, useEffect } from 'react'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,36 +17,28 @@ import ProfileEditPw from './pages/ProfileEditPw'
 import ProfileDelete from './pages/ProfileDelete'
 import NotFount404 from './pages/NotFound404'
 import Kakao from './pages/Kakao'
+import Ar from './pages/Ar'
 
 // functions
 import user from './api/user'
 import { setCurrentUser } from './store/modules/user'
 
-// bootstrap css
+// css
+import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 
-function App() {
+export default function App () {
   const dispatch = useDispatch()
 
   const currentUser = useSelector(state => state.currentUser)
   
-  useEffect(() => {  // 미흡
+  useEffect(() => {
     user.currentUser()
     .then(result => {
       dispatch(setCurrentUser(result.data))
     })
-
-    return (() => {
-      dispatch(setCurrentUser({
-        username: '',
-        nickname: '',
-        phone: '',
-        profileUrl: '',
-        introduce: '',
-      }))
-    })
-  }, [])
+  }, [window.location.pathname])
   
   return (
     <BrowserRouter>
@@ -79,10 +70,10 @@ function App() {
             <Route exact path="/kakao" element={<Kakao/>} />  
           </> : null
         }
+
+        <Route exact path="/ar" element={<Ar/>} />
         <Route exact path="*" element={<NotFount404/>} />
       </Routes>
     </BrowserRouter>
   )
 }
-
-export default App

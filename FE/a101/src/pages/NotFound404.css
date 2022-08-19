@@ -1,0 +1,35 @@
+.not-found-404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-found-404 p {
+  font-size: xx-large;
+  margin-bottom: 10vh;
+  font-weight: 600;
+}
+
+.not-found-404 img {
+  max-width: 100vw;
+}
+
+.not-found-404 img:hover {
+  animation-name: hoverImg;
+  animation-duration: 2s;
+}
+
+@keyframes hoverImg {
+  0% {
+      transform: translateX(0px);
+  }
+  34% {
+      transform: translateX(-100px);
+  }
+  68% {
+      transform: translateX(100px);
+  }
+  100% {
+      transform: translateX(0px);
+  }
+}

@@ -44,14 +44,14 @@ export default function CommunityCarousel(props) {
     community
       .photoLike({ limit: 100, offset: 0, humanCount: humanCount })
       .then((result) => {
-        dispatch(setPhotoLike(result.data));
-      });
+        dispatch(setPhotoLike(result.data))
+      })
   }, [humanCount])
 
   return (
     <div className="community-carousel">
       <div className="community-carousel-header">
-        <h5>{communityType} 게시판 ✨</h5>
+        <h5>{communityType==="photogroup" ? "포즈" : "프레임"} 게시판 ✨</h5>
         {communityType === "photogroup" ? (
           <div className="community-carousel-select">
             {[1, 2, 3, 4, 5, 6].map((num, idx) => (
@@ -75,8 +75,6 @@ export default function CommunityCarousel(props) {
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          // onSwiper={(swiper) => console.log(swiper)}
-          // onSlideChange={() => console.log('slide change')}
         >
           {communityType === "photogroup" && photo.length
             ? photo.map((content) => (

@@ -7,6 +7,13 @@ const s3 = {
       url: `download/${btoa(postId * 73 - 37)}/`,
     })
   },
+  msgEdit (postId, data) {
+    return api({
+      method: 'post',
+      url: `download/${btoa(postId * 73 - 37)}/message`,
+      data: data
+    })
+  },
   profileURL (data) {
     return api({
       method: 'post',

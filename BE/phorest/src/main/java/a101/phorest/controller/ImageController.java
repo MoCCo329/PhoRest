@@ -125,6 +125,7 @@ public class ImageController {
     public PostDTO sendPost(@PathVariable("postId") String postIdEncoded){
         byte[] decodedBytes = Base64.getDecoder().decode(postIdEncoded);
         String decodedString = new String(decodedBytes);
+        if(!decodedString.matches("[+-]?\\d*(\\.\\d+)?")) return new PostDTO();
         Double decodedNumber = (Double.parseDouble(decodedString) + 37) / 73;
         Long postId = decodedNumber.longValue();
         if(postId - decodedNumber != 0)

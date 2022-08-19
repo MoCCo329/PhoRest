@@ -2,15 +2,13 @@ import './Main.css'
 
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import CommunityListPhoto from '../components/Community/CommunityListPhoto'
 import CommunityListFrame from '../components/Community/CommunityListFrame'
 import Layout from '../components/Layout/Layout'
 
 import { setLikeRecent } from '../store/modules/community'
-import mypage from '../api/mypage'
-import { setPostForKakao } from '../store/modules/mypage'
 
 
 export default function Main(props) {
@@ -18,8 +16,6 @@ export default function Main(props) {
     const dispatch = useDispatch()
 
     const [typeMain, setTypeMain] = useState(true)  // true면 photo, false면 frame
-    const postForKakao = useSelector(state => state.postForKakao)
-    const currentUser = useSelector(state => state.currentUser)
 
     useEffect(() => {
         if (props.category) {
@@ -33,16 +29,6 @@ export default function Main(props) {
             dispatch(setLikeRecent(true))
         }
     }, [props.category])
-
-    useEffect(() => {
-        if (postForKakao && currentUser.username && currentUser.kakao) {
-            mypage.ownPost(postForKakao.postId)
-            .then(result => dispatch(setPostForKakao('')))
-        }
-        if (postForKakao && !currentUser.username) {
-            dispatch(setPostForKakao(''))
-        }
-    }, [currentUser])
 
 
     return (

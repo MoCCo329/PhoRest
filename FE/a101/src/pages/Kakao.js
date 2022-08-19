@@ -1,5 +1,4 @@
 import React from "react"
-// import { useDispatch } from 'react-redux'
 import './Kakao.css'
 
 import { useEffect, useState } from "react"
@@ -18,7 +17,7 @@ import spinner from '../assets/UI/spinner.gif'
 export default function Kakao() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   let params = new URL(window.location.href).searchParams
   let code = params.get("code")
@@ -27,6 +26,7 @@ export default function Kakao() {
   const [showBasic, setShowBasic] = useState(false)
   let msg = ''
   const [message, setMessage] = useState('')
+
   // 모달용 함수 - basic
   const handleCloseBasic = () => setShowBasic(false)
   const setModalBasic = (msg) => {
@@ -45,7 +45,7 @@ export default function Kakao() {
       localStorage.setItem("token", token)
       user.currentUser()
       .then(result => {
-        dispatch(setCurrentUser(result.data));
+        dispatch(setCurrentUser(result.data))
       })
       setLoading(false)
       navigate(-2, { replace: true })
@@ -60,7 +60,6 @@ export default function Kakao() {
   }
 
   useEffect(() => {
-    // if (!code) return;
     getKakaoToken()
   }, [])
 

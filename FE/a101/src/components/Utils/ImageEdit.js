@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import FilerobotImageEditor, {
   TABS,
   TOOLS,
-} from 'react-filerobot-image-editor';
+} from 'react-filerobot-image-editor'
 
 import s3 from '../../api/s3'
 import mypage from '../../api/mypage'
@@ -20,8 +20,6 @@ export default function ImageEdit() {
   const [frameURL, setFrameURL] = useState('')
   const [content, setContent] = useState('')
   const [clickWell, setClickWell] = useState(false)
-
-  const currentUser = useSelector(state => state.currentUser)
 
   // 모달용 변수 - basic
   const [showBasic, setShowBasic] = useState(false)
@@ -74,12 +72,12 @@ export default function ImageEdit() {
         const saveBtn = document.getElementsByClassName('sc-lxwit0-2 dfflPR SfxButton-root')[1]
         saveBtn.click()
         setClickWell(false)
-      }, 1)
+      }, 3)
     } else {
       setTimeout(() => {
         const cancelBtn = document.getElementsByClassName('sc-lxwit0-2 hdUQyw SfxButton-root')[6]
         cancelBtn.click()
-      }, 1)
+      }, 3)
     }
   }
 
@@ -113,7 +111,7 @@ export default function ImageEdit() {
         btn = document.getElementsByClassName('sc-lxwit0-2 dfflPR sc-m9ezm7-1 kjdjJl FIE_topbar-save-button SfxButton-root')[0]
         btn.click()
       }
-    }, 1)
+    }, 3)
   }
 
   const changeContent = (e) => {

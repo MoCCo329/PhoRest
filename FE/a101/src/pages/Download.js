@@ -3,8 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import './Download.css'
-import Layout from '../components/Layout/Layout'
+import Layout from './../components/Layout/Layout'
 import CommunityCarousel from './../components/Community/CommunityCarousel'
+import MsgEdit from './../components/Utils/MsgEdit'
 
 // functions
 import { setDetailPost } from '../store/modules/community'
@@ -22,23 +23,25 @@ export default function Main() {
     let content = useSelector(state => state.detailPost)
     const currentUser = useSelector(state => state.currentUser)
     const [isOwned, setIsOwned] = useState(false)
+    const [isEditing, setIsEditing] = useState(false)
 
 
     useEffect(() => {
-        if (!content.url) {
-            s3.detailPost(postId)
-            .then(result => {
-                dispatch(setDetailPost(result.data))
-            })
-        }
-    }, [])
+        s3.detailPost(postId)
+        .then(result => {
+            dispatch(setDetailPost(result.data))
+        })
+    }, [currentUser])
 
     useEffect(() => {
-        if (content.category==='frame') return navigate(-1)
-        if (content) return dispatch(setPostForKakao(content))
+        if (content.category==='frame') {navigate(-1)}
+        if (content) {dispatch(setPostForKakao(content.id))}
     }, [content])
 
     useEffect(() => {
+        if (!currentUser.username || !currentUser.kakao || !isOwned) {
+            setIsEditing(false)
+        }
         if (!isOwned && currentUser.username) {
             mypage.ownPost(postId)
             .then(result => {
@@ -91,20 +94,38 @@ export default function Main() {
                     <h5 className='notice'>🌳 로그인 하시면 마이페이지에 사진을 추가할 수 있습니다 ✨</h5> :
                     null
                 }
-                <div className="download-img">
-                    <img src={content.url} alt={content.content} /><br />
+                <div className="download-img" onClick={() => navigate(`/community/${btoa((postId) * 73 + 37)}`)}>
+                    <img src={content.url} alt={content.content} />
                 </div>
-                <div className="download-links">
-                    <div className="download-links-item download-picture" onClick={() => imageDownload()}>
-                        <p>📷</p>
-                        <p>사진 다운로드</p>
+                <br />
+                <div className='download-utils'>
+                    <div className="download-links">
+                        <div className="download-links-item download-picture" onClick={() => imageDownload()}>
+                            <p>📷</p>
+                            <p>사진 다운로드</p>
+                        </div>
+                        <div className="download-links-item download-video" onClick={() => videoDownload()}>
+                            <p>🎥</p>
+                            <p>동영상 다운로드</p>
+                        </div>
                     </div>
-                    <div className="download-links-item download-video" onClick={() => videoDownload()}>
-                        <p>🎥</p>
-                        <p>동영상 다운로드</p>
+                    <div className='download-msg'>
+                        {
+                            currentUser.username && isOwned ?
+                            <div className="download-links-item" onClick={() => setIsEditing(!isEditing)}>
+                                <p>📬</p><p className='download-links-long'>내게 보내는 메시지 수정</p>
+                            </div> :
+                            null
+                        }
+                        {
+                            isEditing ?
+                            <MsgEdit setIsEditing={setIsEditing} postId={postId}></MsgEdit> :
+                            null
+                        }
                     </div>
                 </div>
-                <br></br>
+                <br />
+
                 <div className="download-community">
                     <div>
                         <CommunityCarousel communityType="photogroup" />

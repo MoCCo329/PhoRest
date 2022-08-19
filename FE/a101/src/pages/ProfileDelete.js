@@ -96,12 +96,6 @@ export default function ProfileDelete () {
       return
     }
 
-    // let credentials = {}
-    // if (!isKakao) {
-    //   credentials = {
-    //     password : document.querySelector('#password').value
-    //   }
-    // }
     msg = '정말 회원을 탈퇴하시겠습니까?'
     todo = '탈퇴'
     setModal(msg, todo)
