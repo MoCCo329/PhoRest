@@ -17,6 +17,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         QMainWindow.__init__(self)
         self.setupUi(self)
 
+        self.ChoosePersonNumBtns = [self.Btn1, self.Btn2, self.Btn3, self.Btn4, self.Btn5, self.Btn6]
         self.initImgs()
 
         # self.offset (몇번째 포즈를 받아올 것인지)
@@ -72,8 +73,6 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Warning_label.hide()
 
         self.PrintBtn.hide()
-
-        self.ChoosePersonNumBtns = [self.Btn1, self.Btn2, self.Btn3, self.Btn4, self.Btn5, self.Btn6]
 
         self.show()
 
