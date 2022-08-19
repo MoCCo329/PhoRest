@@ -104,6 +104,15 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Label_Camera.clear()
         self.PhotoPlusFrame.clear()
 
+        for Btn in self.ChoosePersonNumBtns:
+            Btn.setStyleSheet("QPushButton{"
+                            "color: #000000;"
+                            "background-color: #F8F8F8;"
+                            "padding: 12px;"
+                            "border-bottom: 4px solid #c8c8c8;"
+                            "border-radius: 50%;"
+                            "}")
+
     # 첫번째 화면에서는 어느 화면이던 클릭하면 두번째 화면으로 넘어간다
     def mousePressEvent(self, e):
         # 터치 효과음 추가
@@ -415,7 +424,7 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
         self.Label_Camera.resize(900, 600)
         while True:
             stop_event.wait()
-            self.cap = cv2.VideoCapture(1)
+            self.cap = cv2.VideoCapture(-1)
 
             fps = self.cap.get(cv2.CAP_PROP_FPS)
 
@@ -546,6 +555,8 @@ class MainWindow(QMainWindow, Main_Ui.Ui_MainWindow):
     def NextBottomButton_to_4(self):
         # 터치 효과음 추가
         #os.system('aplay ./touch_sound.wav')
+
+        self.PrintBtn.hide()
 
         self.Warning_label.hide()
         self.stack.setCurrentIndex(4)
