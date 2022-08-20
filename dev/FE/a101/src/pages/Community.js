@@ -190,8 +190,8 @@ export default function Community(props) {
                     </div>
 
                     {
-                        detailPost.category==='photogroup' && isWriter ?
-                        <button className='post-division-click' onClick={() => navigate('/ar/', { state : {src: detailPost.arURL.slice(1, detailPost.arURL.length - 1) } } )}>Ar 보러가기</button> :
+                        detailPost.category==='photogroup' && detailPost.arURL && isWriter ?
+                        <button className='post-division-click' onClick={() => navigate('/ar/', { state : {src: detailPost.arURL} } )}>Ar 보러가기</button> :
                         null
                     }
 
