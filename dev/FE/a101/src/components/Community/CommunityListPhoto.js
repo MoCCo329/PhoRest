@@ -30,7 +30,7 @@ export default function CommunityListPhoto() {
   const photoLike = useSelector(state => state.photoLike)
   const photoRecent = useSelector(state => state.photoRecent)
   const photoCnt = useSelector(state => state.photoCnt)
-
+  
   const limit = 12
   const [page, setPage] = useState(0)
 
@@ -49,14 +49,15 @@ export default function CommunityListPhoto() {
     setMessage(msg)
     setToDo(todo)
   }
-
+  
   useEffect(() => {
     community.photoCount(humanCount)
     .then(result => {
       dispatch(setPhotoCnt(result.data))
     })
   }, [])
-
+  
+  
   useEffect(() => {
     community.photoLike({limit: limit, offset: page * limit, humanCount: humanCount})
     .then(result => {
@@ -66,8 +67,12 @@ export default function CommunityListPhoto() {
     .then(result => {
       dispatch(setPhotoRecent(result.data))
     })
+    community.photoCount(humanCount)
+    .then(result => {
+      dispatch(setPhotoCnt(result.data))
+    })
   }, [type, humanCount, page])
-
+  
   const likePost = (postId) => {
     if (!currentUser.username) {
       msg = '로그인 후 좋아요가 가능합니다. 로그인 하시겠습니까?'
@@ -84,7 +89,7 @@ export default function CommunityListPhoto() {
       }
     })
   }
-
+  
   const bookmarkPost = (postId) => {
     if (!currentUser.username) {
       msg = '로그인 후 북마크가 가능합니다. 로그인 하시겠습니까?'
@@ -101,12 +106,11 @@ export default function CommunityListPhoto() {
       }
     })
   }
-
+  
   const move = (postId) => {
     navigate(`/community/${btoa((postId) * 73 + 37)}`)
   }
-
-
+  
   return (
     <div className="community-list">
       <div className="community-list-header">
