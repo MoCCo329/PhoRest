@@ -54,8 +54,11 @@ export default function MsgEdit (props) {
     download.msgEdit(props.postId, data)
     .then(result => {
       if (!result.data) {
-        props.setIsEditing(false)
-        alert('메시지가 미래로 보내졌습니다')
+        msg = '메시지가 미래로 보내졌습니다'
+        todo = '확인'
+        setModal(msg, todo)
+        // alert('메시지가 미래로 보내졌습니다')
+        // props.setIsEditing(false)
       } else {
         switch ( result.data ) {
           case 1 :
@@ -100,7 +103,6 @@ export default function MsgEdit (props) {
         </div>
         <div>{`${content.length} / 100`}</div>
       </div>
-
       <ModalBasic
         show={showBasic}
         onHide={handleCloseBasic}
@@ -110,7 +112,7 @@ export default function MsgEdit (props) {
         show={show}
         onHide={handleClose}
         text={message}
-        action={() => navigate('/login')}
+        action={() => props.setIsEditing(false)}
         todo={toDo}
       />
     </div>
