@@ -205,7 +205,7 @@ export default function Community(props) {
                                 ) :
                                 (
                                     detailPost.url ?
-                                    <div className='normal-text'>비공유 게시글입니다. 공유해서 사진을 뽐내보세요!</div> :
+                                    <div className='normal-text'>비공개 게시글입니다</div> :
                                     null
                                 )
                             }

@@ -149,8 +149,8 @@ export default function ProfileEditPw() {
               <label htmlFor="password2">New Password Again</label>
               <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="비밀번호를 다시 입력해주세요" />
               {passwordMatch}
-            </div>     
-            
+            </div>
+
 
             <button type="submit">Edit</button>
             { authError ? <p>{ authError }</p> : '' }
