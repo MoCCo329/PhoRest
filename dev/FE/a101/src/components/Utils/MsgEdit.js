@@ -26,12 +26,11 @@ export default function MsgEdit (props) {
   const [toDo, setToDo] = useState('')
   // 모달용 함수 - confirm
   const handleClose = () => setShow(false)
-  const setModal = (msg, todo) => {
+  const setModal = (msg) => {
     setShow((show) => {
         return !show
     })
     setMessage(msg)
-    setToDo(todo)
   }
 
   const navigate = useNavigate()
@@ -46,7 +45,7 @@ export default function MsgEdit (props) {
   const clickEditMessage = () => {
     if (!content) {
       msg = '글을 입력해 주세요'
-      changeShow(msg)
+      setModal(msg)
       return
     }
 
@@ -55,8 +54,7 @@ export default function MsgEdit (props) {
     .then(result => {
       if (!result.data) {
         msg = '메시지가 미래로 보내졌습니다'
-        todo = '확인'
-        setModal(msg, todo)
+        changeShow(msg)
         // alert('메시지가 미래로 보내졌습니다')
         // props.setIsEditing(false)
       } else {
@@ -108,12 +106,11 @@ export default function MsgEdit (props) {
         onHide={handleCloseBasic}
         text={message}
       />
-      <ModalConfirm
+      <ModalBasic
         show={show}
-        onHide={handleClose}
+        onHide={handleCloseBasic}
         text={message}
-        action={() => props.setIsEditing(false)}
-        todo={toDo}
+        onExit={() => props.setIsEditing(false)}
       />
     </div>
   )
