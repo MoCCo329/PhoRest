@@ -83,7 +83,7 @@ export default function Comments(props) {
                     {
                         currentUser.username===props.comment.username ?
                         (<>
-                        <button onClick={() => {props.setEditCommentId(props.comment.id)}}>편집</button>
+                        <button onClick={() => {props.setEditCommentId(props.comment.id)}}>| 편집</button>
                         |
                         <button onClick={() => clickDelete()}>삭제</button>
                         </>)
