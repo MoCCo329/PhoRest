@@ -184,7 +184,7 @@ export default function Community(props) {
                 <div className='community-content'>
                     <div className="community-header">
                         <h5>{ detailPost.category==='frame' ? '프레임' : null }{ detailPost.category === 'photogroup' ? '포즈' : null } 게시판</h5>
-                        { detailPost.category==='photogroup' ? <div className='post-division'>{detailPost.humanCount}명</div> : null }
+                        { detailPost.category==='photogroup' ? <div className='post-division'>{detailPost.humanCount}명{detailPost.humanCount===6 ? '+' : null}</div> : null }
                         { detailPost.category==='photogroup' ? <div className='post-division-click' onClick={clickFrameId} >프레임 ID {detailPost.frameId}</div> : null }
                         { detailPost.category==='frame' ? <div className='post-division' >프레임 ID {detailPost.frameId}</div> : null }
                     </div>
