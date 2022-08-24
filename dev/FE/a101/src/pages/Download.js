@@ -31,14 +31,7 @@ export default function Main() {
         .then(result => {
             dispatch(setDetailPost(result.data))
         })
-    }, [currentUser])
 
-    useEffect(() => {
-        if (content.category==='frame') {navigate(-1)}
-        if (content) {dispatch(setPostForKakao(content.id))}
-    }, [content])
-
-    useEffect(() => {
         if (!currentUser.username || !currentUser.kakao || !isOwned) {
             setIsEditing(false)
         }
@@ -54,6 +47,11 @@ export default function Main() {
         }
     }, [currentUser])
 
+    useEffect(() => {
+        if (content.category==='frame') {navigate(-1)}
+        if (content) {dispatch(setPostForKakao(content.id))}
+    }, [content])
+
     const imageDownload = () => {
         fetch(content.url + '?timestamp=2')
         .then((image) => {
@@ -63,7 +61,7 @@ export default function Main() {
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement("a")
             a.href = url
-            a.download = `PhoRest_${content.time.slice(0, 10)}.png`
+            a.download = `PhoRest_${new Date().getTime()}.png`
             a.click()
             a.remove()
             window.URL.revokeObjectURL(url)
@@ -79,7 +77,7 @@ export default function Main() {
             const url = window.URL.createObjectURL(blob)
             const a = document.createElement("a")
             a.href = url
-            a.download = `PhoRest_${content.time.slice(0, 10)}.mp4`
+            a.download = `PhoRest_${new Date().getTime()}.mp4`
             a.click()
             a.remove()
             window.URL.revokeObjectURL(url)
