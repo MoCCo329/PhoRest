@@ -23,7 +23,7 @@ export default function ProfileEditPw() {
   const [newPassword, setNewPassword] = useState('')
   const [passwordValidity, setPasswordValidity] = useState('')
   const [passwordMatch, setPasswordMatch] = useState('')
-  const [authError, setAuthError] = useState('')  // 회원정보 수정은 회원가입, 로그인 authError처럼 redux이용 X
+  const [authError, setAuthError] = useState('')
 
   // 모달용 변수 - basic
   const [showBasic, setShowBasic] = useState(false)
@@ -149,8 +149,8 @@ export default function ProfileEditPw() {
               <label htmlFor="password2">New Password Again</label>
               <input name="password2" onChange={() => {passwordTest()}} type="password" id="password2" required placeholder="비밀번호를 다시 입력해주세요" />
               {passwordMatch}
-            </div>     
-            
+            </div>
+
 
             <button type="submit">Edit</button>
             { authError ? <p>{ authError }</p> : '' }

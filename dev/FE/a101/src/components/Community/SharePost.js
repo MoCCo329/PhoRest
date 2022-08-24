@@ -55,8 +55,8 @@ export default function Comments(props) {
 
   return (
       <div className='share-post-edit'>
-        <div style={{backgroundColor: isSharing ? '#ffc036' : ''}} onClick={() => clickSharing(1)}>공유</div>
-        <div style={{backgroundColor: !isSharing ? '#ffc036' : ''}} onClick={() => clickSharing(2)}>비공유</div>
+        <div style={{backgroundColor: isSharing ? '#ffc036' : ''}} onClick={() => clickSharing(1)}>공개</div>
+        <div style={{backgroundColor: !isSharing ? '#ffc036' : ''}} onClick={() => clickSharing(2)}>비공개</div>
         <ModalBasic
           show={showBasic}
           onHide={handleCloseBasic}
