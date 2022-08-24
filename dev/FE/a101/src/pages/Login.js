@@ -63,7 +63,6 @@ export default function Main() {
     window.location.replace(url)
   }
 
-
   return (
     <Layout>
       <main>
