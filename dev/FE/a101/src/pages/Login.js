@@ -44,7 +44,7 @@ export default function Main() {
         .then((result) => {
           dispatch(setCurrentUser(result.data))
         })
-        navigate(-1, { replace: true })
+        navigate(-2, { replace: true })
       })
       .catch((error) => {
         if (error.response.data.message==='@Valid Error') {
@@ -60,7 +60,7 @@ export default function Main() {
     `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
 
   function kakaoLogin () {
-    window.location.replace(url)
+    window.location.href = url
   }
 
   return (

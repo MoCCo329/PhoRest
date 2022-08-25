@@ -24,7 +24,7 @@ export default function NotFound404() {
             return dispatch(setPostForKakao(''))
         }
         else  if (location.pathname==='/login') {
-            navigate('/')
+            navigate(-1)
         }
     }, [currentUser, location])
     
