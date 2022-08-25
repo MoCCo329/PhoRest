@@ -10,7 +10,6 @@ import { setToken, setAuthError, setCurrentUser } from "../store/modules/user"
 import user from "../api/user"
 
 import kakaoSymbol from '../assets/UI/kakao_symbol.png'
-import { REST_API_KEY, REDIRECT_URI } from '../components/User/KakaoData'
 
 
 export default function Main() {
@@ -56,11 +55,10 @@ export default function Main() {
   }
 
   // 카카오 로그인
-  const url =
-    `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
-
   function kakaoLogin () {
-    window.location.href = url
+    const REST_API_KEY = '4656da19556d6f608f3a297dd7c7b994'
+    const REDIRECT_URI = 'https://phorest.site/kakao'
+    window.location.replace(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`)
   }
 
   return (

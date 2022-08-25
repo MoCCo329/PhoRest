@@ -48,7 +48,7 @@ export default function Kakao() {
         dispatch(setCurrentUser(result.data))
       })
       setLoading(false)
-      navigate(-2, { replace: true })
+      navigate(-1, { replace: true })
     })
     .catch((error) => {
       dispatch(setAuthError(error.response.data.message))
@@ -63,7 +63,7 @@ export default function Kakao() {
     getKakaoToken()
   }, [])
 
-  
+
   return (
   <div id="kakao-login">
     {loading ? <img src={spinner} alt='spinner'></img> : null}

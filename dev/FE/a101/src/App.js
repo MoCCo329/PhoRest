@@ -67,7 +67,7 @@ export default function App () {
           <>
             <Route exact path="/signup" element={<Signup/>} />
             <Route exact path="/login" element={<Login/>} />
-            <Route exact path="/kakao" element={<Kakao/>} />  
+            <Route exact path="/kakao" element={<Kakao/>} />
           </> : null
         }
 
