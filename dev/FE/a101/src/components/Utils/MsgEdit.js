@@ -55,7 +55,6 @@ export default function MsgEdit (props) {
       if (!result.data) {
         msg = '메시지가 미래로 보내졌습니다'
         changeShow(msg)
-        props.setIsEditing(false)
       } else {
         switch ( result.data ) {
           case 1 :
@@ -104,6 +103,7 @@ export default function MsgEdit (props) {
         show={showBasic}
         onHide={handleCloseBasic}
         text={message}
+        onExit={() => props.setIsEditing(false)}
       />
       <ModalBasic
         show={show}
