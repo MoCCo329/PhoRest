@@ -44,7 +44,7 @@ export default function Main() {
         .then((result) => {
           dispatch(setCurrentUser(result.data))
         })
-        navigate(-2, { replace: true })
+        navigate(-1, { replace: true })
       })
       .catch((error) => {
         if (error.response.data.message==='@Valid Error') {
