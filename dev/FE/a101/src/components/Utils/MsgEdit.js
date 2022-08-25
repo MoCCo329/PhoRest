@@ -103,12 +103,12 @@ export default function MsgEdit (props) {
         show={showBasic}
         onHide={handleCloseBasic}
         text={message}
+        onExit={() => props.setIsEditing(false)}
       />
       <ModalBasic
         show={show}
         onHide={handleCloseBasic}
         text={message}
-        onExit={() => props.setIsEditing(false)}
       />
     </div>
   )
