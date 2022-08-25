@@ -27,7 +27,7 @@ export default function NotFound404() {
             navigate('/')
         }
         else if (location.pathname==='/login') {
-            navigate('-1')
+            navigate(-1)
         }
     }, [currentUser, location])
     
