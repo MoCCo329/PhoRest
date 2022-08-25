@@ -48,8 +48,8 @@ export default function Kakao() {
         dispatch(setCurrentUser(result.data))
       })
       setLoading(false)
-      // navigate(-1, { replace: true })
-      navigate('/',  { replace: true })
+      navigate(-1, { replace: true })
+      // navigate('/',  { replace: true })
     })
     .catch((error) => {
       dispatch(setAuthError(error.response.data.message))
