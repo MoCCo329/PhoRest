@@ -23,7 +23,8 @@ export default function NotFound404() {
             navigate(`/download/${btoa((postForKakao) * 73 - 37)}`)
             return dispatch(setPostForKakao(''))
         }
-        else if (location.pathname==='/login') {
+        else if (location.pathname==='/login' || location.pathname==='/kakao') {
+            alert(`${location.pathname}`)
             navigate(-1, { replace: true })
         }
     }, [currentUser, location])
