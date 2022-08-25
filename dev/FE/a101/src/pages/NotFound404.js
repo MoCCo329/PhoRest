@@ -25,7 +25,7 @@ export default function NotFound404() {
         } else if (location.pathname==='/login') {
             navigate(-1, { replace: true })
         } else if (location.pathname==='/kakao') {
-            navigate(-2, { replace: true })
+            navigate(-3, { replace: true })
         }
     }, [currentUser, location])
 

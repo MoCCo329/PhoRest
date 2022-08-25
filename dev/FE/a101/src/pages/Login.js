@@ -58,7 +58,7 @@ export default function Main() {
   function kakaoLogin () {
     const REST_API_KEY = '4656da19556d6f608f3a297dd7c7b994'
     const REDIRECT_URI = 'https://phorest.site/kakao'
-    window.location.replace(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`)
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
   }
 
   return (
