@@ -80,15 +80,15 @@
 
 - API
 
-![image-20220819100723956](C:\Users\SSAFY\AppData\Roaming\Typora\typora-user-images\image-20220819100723956.png)
+![image-20220819023713164](WIKI.assets/image-20220819023713164.png)
 
-![image-20220819100748910](C:\Users\SSAFY\AppData\Roaming\Typora\typora-user-images\image-20220819100748910.png)
+![image-20220819023727488](WIKI.assets/image-20220819023727488.png)
 
-![image-20220819100819490](C:\Users\SSAFY\AppData\Roaming\Typora\typora-user-images\image-20220819100819490.png)
+![image-20220819023746424](WIKI.assets/image-20220819023746424.png)
 
-![image-20220819100841482](C:\Users\SSAFY\AppData\Roaming\Typora\typora-user-images\image-20220819100841482.png)
+![image-20220819023800792](WIKI.assets/image-20220819023800792.png)
 
-![image-20220819100858356](C:\Users\SSAFY\AppData\Roaming\Typora\typora-user-images\image-20220819100858356.png)
+![image-20220819023818312](WIKI.assets/image-20220819023818312.png)
 
 - 아키텍처
 
