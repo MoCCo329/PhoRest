@@ -4,6 +4,7 @@
 - 추억으로 이루어진 우리들의 사진 숲    
 - 사진부스와 연동된 사진 공유 커뮤니티 서비스
 - [웹 서비스 바로가기 (phorest.site)](https://phorest.site/)
+- [UCC 바로가기](https://www.youtube.com/watch?v=T5nlquI3nuw&list=LL&index=9&t=1s)
 
 ## 팀원 소개 및 담당 역할
 - 최희선 (팀장) : Backend 개발, 프로젝트 관리
@@ -19,7 +20,7 @@
 - Backend : Spring, MySQL
 - Infra : Jenkins, Amazon S3, Nginx
 
-## Detail
+## DETAIL
 ### 0. Conventions
 
 - **git commit message**
