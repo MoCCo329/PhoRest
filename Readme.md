@@ -26,27 +26,23 @@
 
 ### 1. 사진 촬영 후 QR로 웹 이동, 본인 사진 편입
 
-![qr](Readme.assets/qr.gif){: width="50"}
+<img src="Readme.assets/qr.gif" width="50%" >
 
 ### 2. 미래의 나에게 메시지남기기(남에게 보내기는 사업자 등록이 필요)
 
-![미래로의_메시지](Readme.assets/미래로의_메시지.gif){: width="50"}
+<img src="Readme.assets/미래로의_메시지.gif" width="50%" >
 
 ### 3. 사진 공개 비공개
 
-![공개_비공개](Readme.assets/공개_비공개.gif){: width="50"}
-
-
+<img src="Readme.assets/공개_비공개.gif" width="50%" >
 
 ### 4. 프레임 생성
 
-![프레임생성](Readme.assets/프레임생성.gif){: width="50"}
-
-
+<img src="Readme.assets/프레임생성.gif" width="50%" >
 
 ### 5. AR기능
 
-![ar](Readme.assets/ar.gif){: width="50"}
+<img src="Readme.assets/ar.gif" width="50%" >
 
 
 
