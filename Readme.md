@@ -3,24 +3,57 @@
 > Photo + Forest
 - 추억으로 이루어진 우리들의 사진 숲    
 - 사진부스와 연동된 사진 공유 커뮤니티 서비스
-- [웹 서비스 바로가기 (phorest.site)](https://phorest.site/)
+- [~~웹 서비스 바로가기 (phorest.site)~~](https://phorest.site/) <- AWS 비용 문제로 중단
 - [UCC 바로가기](https://www.youtube.com/watch?v=T5nlquI3nuw&list=LL&index=9&t=1s)
 
 ## 팀원 소개 및 담당 역할
 - 최희선 (팀장) : Backend 개발, 프로젝트 관리
 - 김준수 (팀원) : Backend 개발
 - 김도현 (팀원) : Frontend 개발
-- 김보경 (팀원) : Frontend 개발, 스토리보드 작성, 발표자료 작성 및 발표
+- 김보경 (팀원) : Frontend 개발, 발표자료 작성 및 발표
 - 유현우 (팀원) : IoT 개발(키오스크 화면 개발 및 request 개발)
 - 윤희욱 (팀원) : IoT 개발, UCC 영상편집
 
 ## 기술 스택
 - IoT : QT, OpenCV, RaspberryPI
-- Frontend : React, React-Router-Dom, Redux
+- Frontend : React, Redux
 - Backend : Spring, MySQL
 - Infra : Jenkins, Amazon S3, Nginx
 
+<br>
+
+## 서비스
+
+### 1. 사진 촬영 후 QR로 웹 이동, 본인 사진 편입
+
+![qr](Readme.assets/qr.gif){: width="50"}
+
+### 2. 미래의 나에게 메시지남기기(남에게 보내기는 사업자 등록이 필요)
+
+![미래로의_메시지](Readme.assets/미래로의_메시지.gif){: width="50"}
+
+### 3. 사진 공개 비공개
+
+![공개_비공개](Readme.assets/공개_비공개.gif){: width="50"}
+
+
+
+### 4. 프레임 생성
+
+![프레임생성](Readme.assets/프레임생성.gif){: width="50"}
+
+
+
+### 5. AR기능
+
+![ar](Readme.assets/ar.gif){: width="50"}
+
+
+
+<br>
+
 ## DETAIL
+
 ### 0. Conventions
 
 - **git commit message**
@@ -119,15 +152,129 @@
 
 ### 2. Development & Test
 
-- Directory
+- FE Directory: pages에서 component 들을 활용하여 페이지 구성, store에서 redux 관리, api에서 request functions 관리
 
-![null](Readme.assets/null.png)
+```
+├─public
+│      favicon.ico
+│      index.html
+│      manifest.json
+│      robots.txt
+│
+└─src
+    │  App.css
+    │  App.js
+    │  App.test.js
+    │  index.css
+    │  index.js
+    │  reportWebVitals.js
+    │  setupTests.js
+    │
+    ├─api
+    │      api.js
+    │      community.js
+    │      mypage.js
+    │      s3.js
+    │      user.js
+    │
+    ├─assets
+    │  │  defaultProfile.png
+    │  │  img404.png
+    │  │  logo.png
+    │  │
+    │  └─UI
+    │          add.png
+    │          back.png
+    │          ...
+    │
+    ├─components
+    │  ├─Community
+    │  │      Comments.css
+    │  │      Comments.js
+    │  │      CommentsEdit.js
+    │  │      CommentsList.js
+    │  │      CommentsNew.js
+    │  │      CommunityCarousel.css
+    │  │      CommunityCarousel.js
+    │  │      CommunityListFrame.css
+    │  │      CommunityListFrame.js
+    │  │      CommunityListPhoto.css
+    │  │      CommunityListPhoto.js
+    │  │      SharePost.css
+    │  │      SharePost.js
+    │  │
+    │  ├─Layout
+    │  │      Footer.css
+    │  │      Footer.js
+    │  │      Header.css
+    │  │      Header.js
+    │  │      Layout.css
+    │  │      Layout.js
+    │  │
+    │  ├─MyPage
+    │  │      ActivityTabs.css
+    │  │      ActivityTabs.js
+    │  │      FollowerList.js
+    │  │      FollowingList.js
+    │  │      MyGallery.js
+    │  │      MypageProfile.css
+    │  │      MypageProfile.js
+    │  │      Search.js
+    │  │
+    │  ├─ScrollCalendar
+    │  │      Calendar.css
+    │  │      Calender.js
+    │  │      ScrollCalendar.css
+    │  │      ScrollCalendar.js
+    │  │
+    │  ├─User
+    │  │      Profile.css
+    │  │      Profile.js
+    │  │
+    │  └─Utils
+    │          FloatingBtn.js
+    │          ImageEdit.js
+    │          ModalBasic.js
+    │          ModalConfirm.js
+    │          MsgEdit.js
+    │          Pagination.js
+    │
+    ├─pages
+    │      Ar.js
+    │      Community.css
+    │      Community.js
+    │      Download.css
+    │      Download.js
+    │      FrameEdit.css
+    │      FrameEdit.js
+    │      Kakao.css
+    │      Kakao.js
+    │      Login.css
+    │      Login.js
+    │      Main.css
+    │      Main.js
+    │      MyPage.css
+    │      Mypage.js
+    │      NotFound404.css
+    │      NotFound404.js
+    │      ProfileDelete.js
+    │      ProfileEdit.css
+    │      ProfileEdit.js
+    │      ProfileEditPw.js
+    │      Signup.js
+    │
+    └─store
+        │  store.js
+        │
+        └─modules
+                community.js
+                mypage.js
+                user.js
+```
 
-- Jenkins
+- Jenkins: gitlab dev branch에 merge(or push)시 자동 재빌드
 
-![image-20220819022003378](Readme.assets/image-20220819022003378.png)
-
-- Jira
+- Jira: 주단위로 월요일날 회의를 통해 이슈를 만들고 그 주 금요일 혹은 일요일까지 대부분 완료
 
 ![image-20220819022626832](Readme.assets/image-20220819022626832.png)
 
@@ -135,10 +282,15 @@
 
 ### 3. Opperation
 
+- 약 이틀간 사진부스 사용자를 받고 웹 이용자를 hotjar, google analytics를 통해 확인.
+- 다행히? 접수받은 불편사항이 없었다.
+
 ![KakaoTalk_20220818_202924101](Readme.assets/KakaoTalk_20220818_202924101.png)
 
 <br>
 
 ### 4. ETC
+
+[개발일지](./공통프로젝트_개발일지.md)
 
 ![KakaoTalk_20220905_184150345](Readme.assets/KakaoTalk_20220905_184150345.jpg)
