@@ -1,4 +1,4 @@
-# PhoRest
+# PhoRest(22/07/11 ~ 22/08/19)
 ## 서비스 소개
 > Photo + Forest
 - 추억으로 이루어진 우리들의 사진 숲    
@@ -36,7 +36,7 @@
 
 <img src="Readme.assets/공개_비공개.gif" width="50%" >
 
-### 4. 프레임 생성
+### 4. 프레임 생성 => 사진 촬영시 프레임ID로 쉽게 적용 가능
 
 <img src="Readme.assets/프레임생성.gif" width="50%" >
 
@@ -124,7 +124,7 @@
 
 ![image-20220819010451916](Readme.assets/image-20220819010451916.png)
 
-- ERD
+- DB Schema - ERD
 
 ![PhoRest](Readme.assets/PhoRest.png)
 
@@ -279,14 +279,11 @@
 ### 3. Opperation
 
 - 약 이틀간 사진부스 사용자를 받고 웹 이용자를 hotjar, google analytics를 통해 확인.
-- 다행히? 접수받은 불편사항이 없었다.
 
 ![KakaoTalk_20220818_202924101](Readme.assets/KakaoTalk_20220818_202924101.png)
 
 <br>
 
 ### 4. ETC
-
-[개발일지](./study/김도현/공통프로젝트_개발일지.md)
 
 ![KakaoTalk_20220905_184150345](Readme.assets/KakaoTalk_20220905_184150345.jpg)
