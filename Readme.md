@@ -1,10 +1,15 @@
-# PhoRest(22/07/11 ~ 22/08/19)
+# PhoRest(22/07/05 ~ 22/08/19)
+
+<br>
+
 ## 서비스 소개
 > Photo + Forest
 - 추억으로 이루어진 우리들의 사진 숲    
 - 사진부스와 연동된 사진 공유 커뮤니티 서비스
 - [~~웹 서비스 바로가기 (phorest.site)~~](https://phorest.site/) <- AWS 비용 문제로 중단
 - [UCC 바로가기](https://www.youtube.com/watch?v=T5nlquI3nuw&list=LL&index=9&t=1s)
+
+<br>
 
 ## 팀원 소개 및 담당 역할
 - 최희선 (팀장) : Backend 개발, 프로젝트 관리
@@ -14,11 +19,13 @@
 - 유현우 (팀원) : IoT 개발(키오스크 화면 개발 및 request 개발)
 - 윤희욱 (팀원) : IoT 개발, UCC 영상편집
 
+<br>
+
 ## 기술 스택
 - IoT : QT, OpenCV, RaspberryPI
 - Frontend : React, Redux
 - Backend : Spring, MySQL
-- Infra : Jenkins, Amazon S3, Nginx
+- Infra : Jenkins, AWS EC2, S3, Nginx
 
 <br>
 
@@ -26,21 +33,36 @@
 
 ### 1. 사진 촬영 후 QR로 웹 이동, 본인 사진 편입
 
+- 사진의 QR 촬영시 해당 사진 다운로드 페이지로 입장 가능하며, 로그인이 되어있다면 자동으로 본인 사진에 편입된다.
+- URL 일부를 함수로 암호화하여 다른사람이 URL로 접근하는 것을 최대한 막았다.
+
 <img src="Readme.assets/qr.gif" width="50%" >
 
-### 2. 미래의 나에게 메시지남기기(남에게 보내기는 사업자 등록이 필요)
+### 2. 미래의 나에게 메시지남기기
+
+- 추억 회상 및 재방문 유도를 위해 미래의 나에게 간단한 편지를 남길 수 있다.
+- 같이찍은 친구들에게 보내는 카카오톡은 사업자 등록이 필요하여 하지 못했다.
 
 <img src="Readme.assets/미래로의_메시지.gif" width="50%" >
 
 ### 3. 사진 공개 비공개
 
+- 다같이 찍은 한 사진에는 여러명의 소유자가 존재한다. 사진에 본인태그를 공개 할지 비공개 할지 정할 수 있다.
+- 모두 비공개시 소유자 외엔 사진을 볼 수 없게된다.
+
 <img src="Readme.assets/공개_비공개.gif" width="50%" >
 
 ### 4. 프레임 생성 => 사진 촬영시 프레임ID로 쉽게 적용 가능
 
+- 기존 사진부스 서비스들은 프레임(사진 배경)이 한정되어 아쉬움이 있었다.
+- 직접 프레임을 만들고 사진부스에서 번호만 입력하여 원하는 프레임을 적용시킬 수 있다.
+
 <img src="Readme.assets/프레임생성.gif" width="50%" >
 
 ### 5. AR기능
+
+- 아날로그 사진과 웹을 활용한 AR컨텐츠를 기획하여 사용자의 즐길거리를 추가했다.
+- 직접 구현하진 못하고 외부 서비스를 이용하였다.
 
 <img src="Readme.assets/ar.gif" width="50%" >
 
